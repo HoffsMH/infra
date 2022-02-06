@@ -1,0 +1,9 @@
+---
+- hosts:  all
+  vars:
+    ansible_user: "pi"
+    ansible_password: "raspberry"
+  tasks:
+    - name: "test"
+      command:
+        cmd: "echo HIIII"

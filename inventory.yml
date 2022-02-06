@@ -1,0 +1,9 @@
+---
+all:
+  children:
+    lan:
+      children:
+        pis:
+          hosts:
+            rpi1:
+              ansible_host: 192.168.68.111
