@@ -1,0 +1,25 @@
+---
+- name: Install mergerfs
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "mergerfs"
+    creates: "/usr/bin/mergerfs"
+- name: "as super user"
+  block:
+    - name: Add storage to fstab
+      lineinfile:
+          dest: /etc/fstab
+          regexp: "^/mnt/disk*"
+          line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
+          state: present
+      notify: reboot
+
+    - name: add mount point for hd1
+      file:
+        state: directory
+        path: "/mnt/storage"
+        mode: '0777'
+  become: true
