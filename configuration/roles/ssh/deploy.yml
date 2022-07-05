@@ -1,9 +1,0 @@
----
-- hosts: all
-  tasks:
-  - name: Tasks
-    include: tasks.yml
-
-  handlers:
-    - name: Restart ssh
-      service: name=ssh state=restarted
