@@ -1,9 +1,38 @@
 ---
-- hosts:  all
-  vars:
-    ansible_user: "pi"
-    ansible_password: "raspberry"
-  tasks:
-    - name: "test"
-      command:
-        cmd: "echo HIIII"
+  - name: Add deploy user
+    user: name=deploy
+
+  - name: Add authorized keys for deploy user
+    authorized_key: user=deploy
+                    key="{{ lookup('env', 'SSH_PUB') }}"
+
+  - name: Add authorized keys for root user
+    authorized_key: user=root
+                    key="{{ lookup('env', 'SSH_PUB') }}"
+
+  - name: Add deploy user to sudoers
+    lineinfile: dest=/etc/sudoers
+                regexp="deploy ALL"
+                line="deploy ALL=(ALL) ALL"
+                state=present
+
+  - name: Disallow password authentication
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^PasswordAuthentication"
+                line="PasswordAuthentication no"
+                state=present
+    notify: Restart ssh
+
+  - name: Allow PAM
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^UsePAM"
+                line="UsePAM yes"
+                state=present
+    notify: Restart ssh
+
+  - name: Disallow Challenge Response
+    lineinfile: dest=/etc/ssh/sshd_config
+                regexp="^ChallengeResponseAuthentication"
+                line="ChallengeResponseAuthentication no"
+                state=present
+    notify: Restart ssh

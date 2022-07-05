@@ -1,5 +1,8 @@
 ---
 - hosts: rpi1
+  vars:
+    ansible_user: "{{ lookup('env', 'ANSIBLE_ROOT_USER') }}"
+    ansible_password: "{{ lookup('env', 'ANSIBLE_ROOT_PASSWORD') }}"
   roles:
     - ../roles/yubi-ssh-key
     - ../roles/manjaro/base-devel
