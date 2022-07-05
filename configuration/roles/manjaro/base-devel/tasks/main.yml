@@ -1,0 +1,15 @@
+---
+- name: "as super user"
+  block:
+    - name: Run the equivalent of "pacman -Syu" as a separate step
+      pacman:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install package base-devel from repo
+      pacman:
+        name:
+          - base-devel
+          - neovim
+        state: present
+  become: true
