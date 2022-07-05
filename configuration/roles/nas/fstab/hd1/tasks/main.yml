@@ -1,0 +1,17 @@
+---
+- name: "as super user"
+  block:
+    - name: Add hd1 to fstab
+      lineinfile:
+        dest: /etc/fstab
+        regexp: "^/dev/disk/by-id/{{ hd1Id }}"
+        line: "/dev/disk/by-id/{{ hd1Id }} /mnt/{{ hd1MountPoint }}   ext4 defaults 0 0"
+        state: present
+      notify: reboot
+
+    - name: add mount point for hd1
+      file:
+        state: directory
+        path: "/mnt/{{ hd1MountPoint }}"
+        mode: '0777'
+  become: true
