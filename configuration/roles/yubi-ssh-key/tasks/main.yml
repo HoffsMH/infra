@@ -31,6 +31,12 @@
                   line="UsePAM yes"
                   state=present
 
+    - name: Allow Pubkey
+      lineinfile: dest=/etc/ssh/sshd_config
+                  regexp="^PubkeyAuthentication yes"
+                  line="PubkeyAuthentication yes"
+                  state=present
+
     - name: Disallow Challenge Response
       lineinfile: dest=/etc/ssh/sshd_config
                   regexp="^ChallengeResponseAuthentication"
