@@ -1,0 +1,13 @@
+---
+- hosts: rpi1
+  vars:
+    ansible_user: "{{ lookup('env', 'INITIAL_MANJARO_PI_ANSIBLE_USER') }}"
+    ansible_password: "{{ lookup('env', 'INITIAL_MANJARO_PI_ANSIBLE_PASSWORD') }}"
+    ansible_become_password: "{{ lookup('env', 'INITIAL_MANJARO_PI_ANSIBLE_PASSWORD') }}"
+    ansible_host_key_checking: false
+  roles:
+    - ../../roles/yubi-ssh-key
+  handlers:
+    - name: reboot
+      ansible.builtin.reboot:
+        reboot_timeout: 3600
