@@ -9,6 +9,7 @@
     - ../../roles/nas/fstab/hd1
     - ../../roles/nas/mergerfs-storage
     - ../../roles/nas/samba-storage-server
+    - ../../roles/nas/syncthing
   handlers:
     - name: reboot
       ansible.builtin.reboot:
