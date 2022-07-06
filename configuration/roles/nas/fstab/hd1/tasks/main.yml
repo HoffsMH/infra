@@ -5,7 +5,7 @@
       lineinfile:
         dest: /etc/fstab
         regexp: "^/dev/disk/by-id/{{ hd1Id }}"
-        line: "/dev/disk/by-id/{{ hd1Id }} /mnt/{{ hd1MountPoint }}   ext4 defaults 0 0"
+        line: "/dev/disk/by-id/{{ hd1Id }} /mnt/{{ hd1MountPoint }}   ext4 defaults,umask=0000 0 0"
         state: present
       notify: reboot
 
