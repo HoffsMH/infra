@@ -13,7 +13,7 @@
       lineinfile:
           dest: /etc/fstab
           regexp: "^/mnt/disk*"
-          line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs,umask=0000 0 0"
+          line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
           state: present
       notify: reboot
 
