@@ -10,6 +10,7 @@
     - ../../roles/nas/mergerfs-storage
     - ../../roles/nas/samba-storage-server
     - ../../roles/nas/syncthing
+    - ../../roles/nas/snapraid
   handlers:
     - name: reboot
       ansible.builtin.reboot:

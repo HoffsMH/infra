@@ -1,0 +1,25 @@
+---
+- name: Install snapraid
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "snapraid"
+    creates: "/usr/bin/snapraid"
+- name: "as super user"
+  block:
+    - name: copy samba config over
+      copy:
+        src: ./smb.conf
+        dest: /etc/samba/smb.conf
+        owner: root
+        group: root
+        mode: '0700'
+
+    - name: Start and enable service snapraid
+      service:
+        name: smb
+        state: started
+        enabled: true
+  become: true

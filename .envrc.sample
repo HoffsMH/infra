@@ -1,3 +1,6 @@
 export SSH_PUB=$(ssh-add -L)
-export ANSIBLE_USER=root
-export ANSIBLE_PASSWORD=""
+
+export INITIAL_ANSIBLE_USER="hoffs"
+export INITIAL_ANSIBLE_PASSWORD="changeme"
+
+export ANSIBLE_USER=deploy

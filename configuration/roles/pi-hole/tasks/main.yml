@@ -1,0 +1,34 @@
+---
+- name: "as super user"
+  block:
+    - name: stop and disable service resolved
+      service:
+        name: systemd-resolved
+        state: stopped
+        enabled: false
+
+    - name: start and enable service pihole-FTL
+      service:
+        name: pihole-FTL
+        state: started
+        enabled: true
+  become: true
+
+- name: "update pihole"
+  command:
+    argv:
+      - pihole
+      - "-g"
+
+- name: "update pihole"
+  command:
+    argv:
+      - pihole
+      - "-w"
+      - "api.rescuetime.com"
+
+- name: "restart pihole"
+  command:
+    argv:
+      - pihole
+      - "restartdns"

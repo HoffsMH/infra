@@ -1,0 +1,20 @@
+---
+- name: Install pi-hole deps
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "pi-hole-server"
+      - "pi-hole-ftl"
+      - "php-sqlite"
+      - "php-intl"
+      - "lighttpd"
+      - "php-cgi"
+    creates:
+      - "/usr/bin/pihole"
+      - "/usr/bin/pihole-FTL"
+      - "/usr/bin/sqlite3"
+      - "/usr/bin/lighttpd"
+      - "/usr/bin/php-cgi"
+      - "/usr/bin/php"

@@ -1,0 +1,15 @@
+---
+- hosts: rpi2
+  vars:
+    ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
+    ansible_host_key_checking: false
+  roles:
+    - ../../roles/manjaro/base-devel
+    - ../../roles/manjaro/yay
+    - ../../roles/manjaro/pi-hole
+    - ../../roles/pi-hole
+  handlers:
+    - name: reboot
+      ansible.builtin.reboot:
+        reboot_timeout: 3600
+      become: true
