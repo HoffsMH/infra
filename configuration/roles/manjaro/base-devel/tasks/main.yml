@@ -11,5 +11,6 @@
         name:
           - base-devel
           - neovim
+          - cronie
         state: present
   become: true
