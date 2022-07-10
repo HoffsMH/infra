@@ -9,3 +9,6 @@ all:
               ansible_host: 192.168.68.103
             rpi2:
               ansible_host: 192.168.68.109
+        workstations:
+          hosts:
+            self: localhost
