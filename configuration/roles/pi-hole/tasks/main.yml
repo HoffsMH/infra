@@ -1,6 +1,39 @@
 ---
 - name: "as super user"
   block:
+
+    #configure php.ini to allow web interface to work
+    - name: enable pdo_sqlite
+      lineinfile:
+        dest: /etc/php/php.ini
+        regexp: "^;extension=pdo_sqlite"
+        line: "extension=pdo_sqlite"
+        state: present
+
+    - name: enable sockets
+      lineinfile:
+        dest: /etc/php/php.ini
+        regexp: "^;extension=sockets"
+        line: "extension=sockets"
+        state: present
+
+    - name: enable sqlite3
+      lineinfile:
+        dest: /etc/php/php.ini
+        regexp: "^;extension=sqlite3"
+        line: "extension=sqlite3"
+        state: present
+
+    #configure lighthttpd service
+    - name: copy lighttpd config
+      copy:
+        src: /usr/share/pihole/configs/lighttpd.example.conf
+        dest: /etc/lighttpd/lighttpd.conf
+        owner: root
+        group: root
+        mode: '0644'
+        remote_src: true
+
     - name: stop and disable service resolved
       service:
         name: systemd-resolved
@@ -12,23 +45,72 @@
         name: pihole-FTL
         state: started
         enabled: true
+
+    # install updater script
+    - name: Download pihole-updatelists installer
+      get_url: 
+        url: https://raw.githubusercontent.com/jacklul/pihole-updatelists/master/install.sh
+        dest: /tmp/pihole-updatelists-installer.sh
+        mode: 0777
+
+    - name: Execute the installer
+      shell: /tmp/pihole-updatelists-installer.sh
+      ignore_errors: yes
+
+    - name: Remove the installer
+      file: 
+        path: /tmp/pihole-updatelists-installer.sh
+        state: absent
+
+    # configure updater script with all the lists
+    - name: copy updater config
+      copy:
+        src: ./pihole-updatelists.conf
+        dest: /etc/pihole-updatelists.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create symbolic link 
+      file:
+        src: "/usr/bin/pihole"
+        dest: "/usr/local/bin/pihole"
+        state: link
+
+    - name: "run update list"
+      command:
+        argv:
+          - pihole-updatelists
+
+    - name: "whitelist rescuetime"
+      command:
+        argv:
+          - pihole
+          - "-w"
+          - "api.rescuetime.com"
+
+    - name: "update pihole"
+      command:
+        argv:
+          - pihole
+          - "-g"
+
+    - name: "restart pihole"
+      command:
+        argv:
+          - pihole
+          - "restartdns"
+
+    - name: start and enable service resolved
+      service:
+        name: lighttpd
+        state: started
+        enabled: true
+
+    # configure updater script to run on schedule
+    - name: Enable a timer unit for list updater
+      systemd:
+        name: pihole-updatelists.timer
+        state: started
+        enabled: yes
   become: true
-
-- name: "update pihole"
-  command:
-    argv:
-      - pihole
-      - "-g"
-
-- name: "update pihole"
-  command:
-    argv:
-      - pihole
-      - "-w"
-      - "api.rescuetime.com"
-
-- name: "restart pihole"
-  command:
-    argv:
-      - pihole
-      - "restartdns"

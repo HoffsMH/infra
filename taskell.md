@@ -4,6 +4,7 @@
 - steamlink
 - searx
 - gitea
+- self ansible fstab entry for samba
 
 ## Doing
 
