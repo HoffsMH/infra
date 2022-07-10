@@ -1,7 +1,42 @@
 ---
+- name: Install pi-hole deps
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "pi-hole-server"
+      - "pi-hole-ftl"
+    creates:
+      - "/usr/bin/pihole"
+      - "/usr/bin/pihole-FTL"
+
+- name: Install pi-hole deps
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "lighttpd"
+    creates:
+      - "/usr/bin/lighttpd"
+
+- name: Install pi-hole deps
+  command:
+    argv:
+      - yay
+      - "-S"
+      - "--noconfirm"
+      - "php-sqlite"
+      - "php-intl"
+      - "php-cgi"
+    creates:
+      - "/usr/bin/sqlite3"
+      - "/usr/bin/php-cgi"
+      - "/usr/bin/php"
+
 - name: "as super user"
   block:
-
     #configure php.ini to allow web interface to work
     - name: enable pdo_sqlite
       lineinfile:
@@ -81,6 +116,14 @@
       copy:
         src: ./pihole-updatelists.conf
         dest: /etc/pihole-updatelists.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: copy updater config
+      copy:
+        src: ./additional-regex.txt
+        dest: /etc/additional-regex.txt
         owner: root
         group: root
         mode: '0644'
