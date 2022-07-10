@@ -12,5 +12,6 @@
           - base-devel
           - neovim
           - cronie
+          - wget
         state: present
   become: true

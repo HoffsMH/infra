@@ -11,4 +11,5 @@ all:
               ansible_host: 192.168.68.109
         workstations:
           hosts:
-            self: localhost
+            self:
+              ansible_host: localhost
