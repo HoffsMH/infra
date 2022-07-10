@@ -6,4 +6,4 @@
     ansible_become_password: "{{ lookup('env', 'INITIAL_ANSIBLE_PASSWORD') }}"
     ansible_host_key_checking: false
   roles:
-    - ../../roles/yubi-ssh-key
+    - ../../roles/yubi-ssh-secured

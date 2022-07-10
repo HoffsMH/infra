@@ -7,6 +7,7 @@
       - "--noconfirm"
       - "mergerfs"
     creates: "/usr/bin/mergerfs"
+
 - name: "as super user"
   block:
     - name: Add storage to fstab

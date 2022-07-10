@@ -7,19 +7,61 @@
       - "--noconfirm"
       - "snapraid"
     creates: "/usr/bin/snapraid"
+
 - name: "as super user"
   block:
-    - name: copy samba config over
+    - name: copy snapraid config over
       copy:
-        src: ./smb.conf
-        dest: /etc/samba/smb.conf
+        src: ./snapraid.conf
+        dest: /etc/snapraid.conf
         owner: root
         group: root
-        mode: '0700'
+        mode: '0644'
 
-    - name: Start and enable service snapraid
-      service:
-        name: smb
-        state: started
-        enabled: true
+    - name: Add parity 1 to snapraid conf
+      lineinfile:
+        dest: /etc/snapraid.conf
+        regexp: "^1-parity /mnt/parity1/snapraid.parity"
+        line: "1-parity /mnt/parity1/snapraid.parity"
+        state: present
+
+    - name: Add parity 2 to snapraid conf
+      lineinfile:
+        dest: /etc/snapraid.conf
+        regexp: "^2-parity /mnt/parity2/snapraid.parity"
+        line: "2-parity /mnt/parity2/snapraid.parity"
+        state: present
+
+    - name: Add content 1 to snapraid conf
+      lineinfile:
+        dest: /etc/snapraid.conf
+        regexp: "^content /mnt/disk1/.snapraid.content"
+        line: "content /mnt/disk1/.snapraid.content"
+        state: present
+
+    - name: Add data 1 to snapraid conf
+      lineinfile:
+        dest: /etc/snapraid.conf
+        regexp: "^data d1 /mnt/disk1"
+        line: "data d1 /mnt/disk1"
+        state: present
+
+    - name: snapraid sync
+      command:
+        argv:
+          - snapraid
+          - sync
+
+    - name: snapraid scrub
+      command:
+        argv:
+          - snapraid
+          - scrub
+
+    - name: "snapraid sync and scrub every 3 hours"
+      ansible.builtin.cron:
+        name: "snapraid-sync"
+        minute: "0"
+        hour: "*/3"
+        job: "snapraid sync; snapraid scrub"
   become: true

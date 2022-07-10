@@ -1,7 +1,7 @@
 ---
 - name: "as super user"
   block:
-    - name: Add hd1 to fstab
+    - name: Add parity 1 to fstab
       lineinfile:
         dest: /etc/fstab
         regexp: "^/dev/disk/by-id/{{ hdId }}"
