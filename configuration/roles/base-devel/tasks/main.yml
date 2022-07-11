@@ -14,4 +14,10 @@
           - cronie
           - wget
         state: present
+
+    - name: Start and enable service cron
+      service:
+        name: cronie
+        state: started
+        enabled: true
   become: true
