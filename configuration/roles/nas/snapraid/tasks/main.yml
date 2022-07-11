@@ -39,6 +39,13 @@
         line: "content /mnt/disk1/.snapraid.content"
         state: present
 
+    - name: Add content 2 to snapraid conf
+      lineinfile:
+        dest: /etc/snapraid.conf
+        regexp: "^content /mnt/parity1/.snapraid.content"
+        line: "content /mnt/parity1/.snapraid.content"
+        state: present
+
     - name: Add data 1 to snapraid conf
       lineinfile:
         dest: /etc/snapraid.conf
@@ -57,11 +64,12 @@
         argv:
           - snapraid
           - scrub
+      ignore_errors: yes
 
     - name: "snapraid sync and scrub every 3 hours"
-      ansible.builtin.cron:
+      cron:
         name: "snapraid-sync"
         minute: "0"
         hour: "*/3"
-        job: "snapraid sync; snapraid scrub"
+        job: "sudo snapraid sync; sudo snapraid scrub"
   become: true
