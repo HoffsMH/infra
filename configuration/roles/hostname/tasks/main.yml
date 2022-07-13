@@ -1,0 +1,7 @@
+---
+- name: "as super user"
+  block:
+    - name: Set hostname
+      hostname:
+        name: "{{ hostname }}"
+  become: true
