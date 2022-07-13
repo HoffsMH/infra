@@ -13,6 +13,7 @@
           - neovim
           - cronie
           - wget
+          - htop
         state: present
 
     - name: Start and enable service cron
