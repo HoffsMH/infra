@@ -1,16 +1,11 @@
 ---
-- hosts: rpi3a-pihole
+- hosts: rpi3-a
   vars:
     ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
     ansible_host_key_checking: false
-    device_code: rpi3
+    hostname: "{{device_name}}.pihole"
   roles:
     - ../../roles/hostname
     - ../../roles/base-devel
     - ../../roles/yay
     - ../../roles/pi-hole
-  handlers:
-    - name: reboot
-      ansible.builtin.reboot:
-        reboot_timeout: 3600
-      become: true
