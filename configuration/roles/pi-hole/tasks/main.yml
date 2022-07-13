@@ -165,13 +165,6 @@
         state: started
         enabled: true
 
-    # configure updater script to run on schedule
-    - name: Enable a timer unit for list updater
-      systemd:
-        name: pihole-updatelists.timer
-        state: started
-        enabled: yes
-
     - name: reboot
       reboot:
         reboot_timeout: 3600
