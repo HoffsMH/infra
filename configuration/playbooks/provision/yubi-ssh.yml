@@ -1,0 +1,9 @@
+---
+- hosts: all
+  vars:
+    ansible_user: "{{ lookup('env', 'INITIAL_ANSIBLE_USER') }}"
+    ansible_password: "{{ lookup('env', 'INITIAL_ANSIBLE_PASSWORD') }}"
+    ansible_become_password: "{{ lookup('env', 'INITIAL_ANSIBLE_PASSWORD') }}"
+    ansible_host_key_checking: false
+  roles:
+    - ../../roles/yubi-ssh-secured
