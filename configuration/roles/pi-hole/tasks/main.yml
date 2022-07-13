@@ -37,7 +37,7 @@
 
 - name: "as super user"
   block:
-    #configure php.ini to allow web interface to work
+    # configure php.ini to allow web interface to work
     - name: enable pdo_sqlite
       lineinfile:
         dest: /etc/php/php.ini
@@ -96,20 +96,21 @@
         enabled: true
 
     # install updater script
-    - name: Download pihole-updatelists installer
-      get_url: 
-        url: https://raw.githubusercontent.com/jacklul/pihole-updatelists/master/install.sh
-        dest: /tmp/pihole-updatelists-installer.sh
-        mode: 0777
+    - name: copy updater
+      copy:
+        src: ./pihole-updatelists.php
+        dest: /usr/local/sbin/pihole-updatelists
+        owner: root
+        group: root
+        mode: '0700'
 
-    - name: Execute the installer
-      shell: /tmp/pihole-updatelists-installer.sh
-      ignore_errors: yes
-
-    - name: Remove the installer
-      file: 
-        path: /tmp/pihole-updatelists-installer.sh
-        state: absent
+    - name: copy updater cron job
+      copy:
+        src: ./pihole-updatelists.cron
+        dest: /etc/cron.d/pihole-updatelists
+        owner: root
+        group: root
+        mode: '0600'
 
     # configure updater script with all the lists
     - name: copy updater config
@@ -120,7 +121,7 @@
         group: root
         mode: '0644'
 
-    - name: copy updater config
+    - name: copy additional-regex that updater will use
       copy:
         src: ./additional-regex.txt
         dest: /etc/additional-regex.txt
@@ -128,7 +129,7 @@
         group: root
         mode: '0644'
 
-    - name: Create symbolic link 
+    - name: Create symbolic link (this is where updater will look for it)
       file:
         src: "/usr/bin/pihole"
         dest: "/usr/local/bin/pihole"
@@ -158,7 +159,7 @@
           - pihole
           - "restartdns"
 
-    - name: start and enable service resolved
+    - name: start and enable web server
       service:
         name: lighttpd
         state: started
@@ -170,4 +171,8 @@
         name: pihole-updatelists.timer
         state: started
         enabled: yes
+
+    - name: reboot
+      reboot:
+        reboot_timeout: 3600
   become: true

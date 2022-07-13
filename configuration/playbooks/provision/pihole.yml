@@ -1,9 +1,11 @@
 ---
-- hosts: rpi2
+- hosts: rpi3a-pihole
   vars:
     ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
     ansible_host_key_checking: false
+    device_code: rpi3
   roles:
+    - ../../roles/hostname
     - ../../roles/base-devel
     - ../../roles/yay
     - ../../roles/pi-hole

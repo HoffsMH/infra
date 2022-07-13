@@ -5,10 +5,18 @@ all:
       children:
         pis:
           hosts:
-            rpi1:
+            lan.rpi4a:
               ansible_host: 192.168.68.103
-            rpi2:
+            lan.rpi4b:
               ansible_host: 192.168.68.109
+            lan.rpi3-a.pihole:
+              ansible_host: 192.168.68.100
+              hostname: lan.rpi3-a.pihole
+          servers:
+            hosts:
+              server1_nas:
+                ansible_host: 192.168.68.145
+
         workstations:
           hosts:
             self:
