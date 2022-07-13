@@ -9,13 +9,13 @@ all:
               ansible_host: 192.168.68.103
             lan.rpi4b:
               ansible_host: 192.168.68.109
-            lan.rpi3-a.pihole:
+            rpi3-a:
               ansible_host: 192.168.68.100
-              hostname: lan.rpi3-a.pihole
-          servers:
-            hosts:
-              server1_nas:
-                ansible_host: 192.168.68.145
+              device_name: lan.rpi3-a
+        servers:
+          hosts:
+            server1_nas:
+              ansible_host: 192.168.68.145
 
         workstations:
           hosts:
