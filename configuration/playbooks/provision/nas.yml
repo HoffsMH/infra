@@ -17,6 +17,6 @@
     # - ../../roles/nas/restic
   handlers:
     - name: reboot
-      ansible.builtin.reboot:
+      reboot:
         reboot_timeout: 3600
       become: true
