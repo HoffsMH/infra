@@ -1,0 +1,30 @@
+---
+- hosts: all
+  vars:
+    packages:
+      - certbot
+      - python-certbot-nginx
+  tasks:
+    - name: install packages
+      apt:
+        pkg: "{{ packages }}"
+        state: latest
+        update_cache: true
+
+    - name: get certs
+      command:
+        cmd: "certbot --agree-tos -m 'matthecker@pm.me' --nginx -d mhkr.io,www.mhkr.io -n"
+        creates: /etc/letsencrypt/live/mhkr.io/fullchain.pem
+
+    - name: restart nginx
+      service:
+          name: nginx
+          state: restarted
+
+    - name: renew certbot
+      cron:
+        name: "renew certs"
+        minute: "1"
+        hour: "1"
+        day: "1"
+        job: "certbot renew"

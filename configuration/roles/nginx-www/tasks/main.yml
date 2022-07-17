@@ -1,7 +1,17 @@
+---
 - name: nginx install
   import_playbook: ../nginx/deploy.yml
-  tags:
-    - provision
+
+    - name: install packages
+      apt:
+        pkg: "{{ packages }}"
+        state: latest
+        update_cache: true
+
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
 
 - hosts: all
   vars:
@@ -13,8 +23,6 @@
         pkg: "{{ packages }}"
         state: latest
         update_cache: true
-      tags:
-        - provision
 
     - name: copy nginx.conf over
       copy:
@@ -24,15 +32,9 @@
         group: root
         mode: '0700'
         force: no
-      tags:
-        - provision
 
 - name: certbot
   import_playbook: ../certbot-nginx/deploy.yml
-  tags:
-    - provision
 
 - name: git setup
   import_playbook: ../git-server/deploy.yml
-  tags:
-    - provision
