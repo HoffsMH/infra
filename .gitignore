@@ -9,6 +9,7 @@
 /bower_components
 
 # misc
+.vault-pass
 secret.yml
 testlog**
 test.log
