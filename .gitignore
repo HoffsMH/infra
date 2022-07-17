@@ -10,6 +10,7 @@
 
 # misc
 .vault-pass
+.connection-pass
 secret.yml
 testlog**
 test.log
