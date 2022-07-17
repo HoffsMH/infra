@@ -1,4 +1,4 @@
-## 
+## Principles
 - Future proof through
   - Simplicity
     - older technology where possible, with less code
