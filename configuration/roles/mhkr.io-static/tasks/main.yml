@@ -1,0 +1,25 @@
+---
+- git:
+    repo: 'https://github.com/HoffsMH/mhkr.io.git'
+    dest: /srv/git/mhkr.io
+    force: yes
+    version: master
+
+- name: remove previous www
+  file:
+    path: /srv/www
+    state: absent
+
+- name: copy public over
+  copy:
+    remote_src: yes
+    src: /srv/git/mhkr.io/public/
+    dest: /srv/www
+    owner: root
+    mode: '0755'
+    force: yes
+
+- name: restart nginx
+  service:
+      name: nginx
+      state: restarted

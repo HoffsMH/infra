@@ -9,15 +9,14 @@
                       key="{{ lookup('env', 'SSH_PUB') }}"
 
     - name: Add authorized keys for main user
-      authorized_key: user=hoffs
+      authorized_key: user=root
                       key="{{ lookup('env', 'SSH_PUB') }}"
 
-    - name: Add deploy user to sudoers
-      lineinfile:
-          dest: /etc/sudoers
-          regexp: "deploy ALL"
-          line: "deploy ALL=(ALL) NOPASSWD: ALL"
-          state: present
+    - name: Allow Root
+      lineinfile: dest=/etc/ssh/sshd_config
+                  regexp="^PasswordAuthentication"
+                  line="PasswordAuthentication no"
+                  state=present
 
     - name: Disallow password authentication
       lineinfile: dest=/etc/ssh/sshd_config

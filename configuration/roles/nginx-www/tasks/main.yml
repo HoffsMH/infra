@@ -1,0 +1,38 @@
+- name: nginx install
+  import_playbook: ../nginx/deploy.yml
+  tags:
+    - provision
+
+- hosts: all
+  vars:
+    packages:
+      - git
+  tasks:
+    - name: install packages
+      apt:
+        pkg: "{{ packages }}"
+        state: latest
+        update_cache: true
+      tags:
+        - provision
+
+    - name: copy nginx.conf over
+      copy:
+        src: ./nginx.conf
+        dest: /etc/nginx/sites-enabled/mhkr.io.conf
+        owner: root
+        group: root
+        mode: '0700'
+        force: no
+      tags:
+        - provision
+
+- name: certbot
+  import_playbook: ../certbot-nginx/deploy.yml
+  tags:
+    - provision
+
+- name: git setup
+  import_playbook: ../git-server/deploy.yml
+  tags:
+    - provision

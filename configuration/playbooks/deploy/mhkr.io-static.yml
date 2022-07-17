@@ -1,0 +1,6 @@
+---
+- hosts: mhkr.io
+  vars:
+    ansible_host_key_checking: false
+  roles:
+    - ../../roles/mhkr.io-static
