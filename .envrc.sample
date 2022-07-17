@@ -1,6 +1,6 @@
 export SSH_PUB=$(ssh-add -L)
 
-export INITIAL_ANSIBLE_USER="hoffs"
-export INITIAL_ANSIBLE_PASSWORD="changeme"
+export INITIAL_ANSIBLE_USER="root"
+export INITIAL_ANSIBLE_PASSWORD=$(gopass show some_secret)
 
 export ANSIBLE_USER=deploy

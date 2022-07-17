@@ -1,1 +1,1 @@
-ansible-playbook -i inventory.yml $@
+ansible-playbook --vault-pass-file=.vault-pass -i inventory.vault.yml $@
