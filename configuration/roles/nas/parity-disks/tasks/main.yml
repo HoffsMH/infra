@@ -1,0 +1,11 @@
+---
+- name: "setup parity"
+  include_tasks: setup-disk.yml
+  loop: "{{ parity_disks }}"
+
+- name: mount everything
+  command:
+    cmd: "mount -a"
+  notify:
+    - "snapraid sync"
+    - "snapraid scrub"

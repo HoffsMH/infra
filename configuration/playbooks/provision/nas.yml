@@ -1,22 +1,33 @@
 ---
-- hosts: rpi1
+- hosts: thinkcentre-a
   vars:
-    ansible_user: "{{ lookup('env', 'ANSIBLE_USER') }}"
+    hostname: "{{device_name}}.nas"
     ansible_host_key_checking: false
   roles:
-    - ../../roles/base-devel
-    - ../../roles/yay
-    - ../../roles/nas/fstab/parity1
-    - ../../roles/nas/fstab/parity2
-    - ../../roles/nas/fstab/hd1
+    - ../../roles/hostname
+    - ../../roles/base-apt
     - ../../roles/nas/mergerfs-storage
-    - ../../roles/nas/samba-storage-server
-    - ../../roles/nas/syncthing
     - ../../roles/nas/snapraid
-
+    - ../../roles/nas/data-disks
+    - ../../roles/nas/parity-disks
+    - ../../roles/nas/samba-server
+    # - ../../roles/nas/syncthing
     # - ../../roles/nas/restic
+
   handlers:
+    - name: snapraid sync
+      command:
+        argv:
+          - snapraid
+          - sync
+
+    - name: snapraid scrub
+      command:
+        argv:
+          - snapraid
+          - scrub
+      ignore_errors: yes
+
     - name: reboot
       reboot:
-        reboot_timeout: 3600
-      become: true
+        reboot_timeout: 36000

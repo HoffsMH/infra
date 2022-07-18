@@ -1,0 +1,29 @@
+---
+- name: "Add disk {{ item.number }} to fstab"
+  lineinfile:
+    dest: /etc/fstab
+    regexp: "^/dev/disk/by-id/{{ item.id }}"
+    line: "/dev/disk/by-id/{{ item.id }} /mnt/disk{{ item.number }}   ext4 defaults 0 0"
+    state: present
+
+- name: "add mount point for {{ item.number }}"
+  file:
+    state: directory
+    path: "/mnt/disk{{ item.number }}"
+    mode: '0777'
+
+- name: Add content file  to snapraid conf
+  lineinfile:
+    dest: /etc/snapraid.conf
+    regexp: "^content /mnt/disk{{ item.number }}/.snapraid.content"
+    line: "content /mnt/disk{{ item.number }}/.snapraid.content"
+    state: present
+
+- name: Add data to snapraid conf
+  lineinfile:
+    dest: /etc/snapraid.conf
+    regexp: "^data d{{ item.number }} /mnt/disk{{ item.number }}"
+    line: "data d{{ item.number }} /mnt/disk{{ item.number }}"
+    state: present
+
+

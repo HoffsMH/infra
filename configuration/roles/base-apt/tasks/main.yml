@@ -1,0 +1,32 @@
+---
+- name: Remove paid update list
+  lineinfile:
+    dest: /etc/apt/sources.list.d/pve-enterprise.list
+    regexp: "deb https://enterprise.proxmox.com/debian/pve bullseye pve-enterprise"
+    line: "#deb https://enterprise.proxmox.com/debian/pve bullseye pve-enterprise"
+    state: present
+
+# https://pve.proxmox.com/wiki/Package_Repositories#sysadmin_no_subscription_repo
+- name: copy custom list from wiki
+  copy:
+    src: ./sources.list
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Update all packages to their latest version
+  apt:
+    name: "*"
+    state: latest
+    update_cache: yes
+
+- name: Install package base-apts from repo
+  apt:
+    pkg:
+      - neovim
+      - htop
+      - tmux
+    state: latest
+    update_cache: yes
+

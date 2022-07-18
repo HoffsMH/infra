@@ -1,0 +1,8 @@
+---
+- hosts: self
+  connection: local
+  vars:
+    ansible_host_key_checking: false
+    samba_server: "{{ hostvars['thinkcentre-a']['ansible_host'] }}"
+  roles:
+    - ../../roles/workstation/samba-client

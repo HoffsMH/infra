@@ -1,0 +1,19 @@
+---
+- name: Install samba
+  apt:
+    pkg:
+      - "samba"
+
+- name: copy samba config over
+  copy:
+    src: ./smb.conf
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: Start and enable service samba
+  service:
+    name: smbd
+    state: started
+    enabled: true

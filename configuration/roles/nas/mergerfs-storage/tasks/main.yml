@@ -1,26 +1,33 @@
 ---
 - name: Install mergerfs
-  command:
-    argv:
-      - yay
-      - "-S"
-      - "--noconfirm"
+  apt:
+    pkg:
       - "mergerfs"
-    creates: "/usr/bin/mergerfs"
 
-- name: "as super user"
-  block:
-    - name: Add storage to fstab
-      lineinfile:
-          dest: /etc/fstab
-          regexp: "^/mnt/disk*"
-          line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
-          state: present
-      notify: reboot
+- name: Add storage to fstab
+  lineinfile:
+      dest: /etc/fstab
+      regexp: "^/mnt/disk*"
+      line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
+      state: present
 
-    - name: add mount point for storage
-      file:
-        state: directory
-        path: "/mnt/storage"
-        mode: '0777'
-  become: true
+- name: copy mergerfs.balance over
+  copy:
+    src: ./mergerfs.balance
+    dest: /usr/bin/mergerfs.balance
+    owner: root
+    group: root
+    mode: '0655'
+
+- name: "mergerfs balance every 12 hours"
+  cron:
+    name: "mergerfs.balance"
+    minute: "0"
+    hour: "*/12"
+    job: "mergerfs.balance /mnt/storage"
+
+- name: add mount point for storage
+  file:
+    state: directory
+    path: "/mnt/storage"
+    mode: '0777'

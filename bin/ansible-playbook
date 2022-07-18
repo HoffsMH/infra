@@ -1,1 +1,6 @@
-ansible-playbook --vault-pass-file=.vault-pass -i inventory.vault.yml $@
+#!/bin/bash
+
+ansible-playbook --vault-pass-file=.vault-pass \
+  --connection-password-file=.connection-pass \
+ -i inventory.vault.yml \
+ $@

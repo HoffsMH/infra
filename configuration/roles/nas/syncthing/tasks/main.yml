@@ -2,8 +2,8 @@
 - name: "as super user"
   block:
     - name: Install package syncthing from repo
-      pacman:
-        name:
+      apt:
+        pkg:
           - syncthing
         state: present
 

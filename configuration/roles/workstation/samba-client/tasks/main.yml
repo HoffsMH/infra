@@ -1,0 +1,20 @@
+---
+- name: "as super user"
+  block:
+  - name: "Add samba share"
+    lineinfile:
+      dest: /etc/fstab
+      regexp: "/mnt/storage"
+      line: "//{{ samba_server }}/storage /mnt/storage cifs _netdev,username=nobody,password=nothing,defaults,uid=1000,gid=1000 0 0"
+      state: present
+
+  - name: "add mount point for samba share"
+    file:
+      state: directory
+      path: "/mnt/storage"
+      mode: '0777'
+
+  - name: mount everything
+    command:
+      cmd: "mount -a"
+  become: yes

@@ -16,6 +16,7 @@
 - openwrt on linksys 3200
 - final bit of pcloud data on to drives
 - final snapraid sync before migrating to thinkcentre for nas
+- nobeep into workstation
 
 ## Doing
 
