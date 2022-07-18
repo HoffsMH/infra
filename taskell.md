@@ -1,11 +1,12 @@
 ## To Do
 
 - umasking when from scratch so that syncthing can create everything
+- syncthing
+- restic
 - steamlink
 - searx
 - gitea
 - settime on everything
-- pihole start cronie
 - pihole invidiual settins setup
 - pikvm
 - nobeep into workstation
@@ -24,3 +25,4 @@
 - migrate iac roles over
 - final bit of pcloud data on to drives
 - final snapraid sync before migrating to thinkcentre for nas
+- pihole start cronie
