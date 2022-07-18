@@ -10,6 +10,7 @@
 - pihole invidiual settins setup
 - pikvm
 - nobeep into workstation
+- attempt to place PW hash in syncthing config file
 
 ## Doing
 
