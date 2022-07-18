@@ -11,6 +11,8 @@
 - pikvm
 - nobeep into workstation
 - attempt to place PW hash in syncthing config file
+- dashboard/portal to selfhosted services?
+- get rid of proxmox nag
 
 ## Doing
 
