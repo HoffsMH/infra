@@ -1,7 +1,7 @@
 ---
 - hosts: thinkcentre-a
   vars:
-    hostname: "{{device_name}}.nas"
+    hostname: "{{device_name}}.proxmox-nas"
     ansible_host_key_checking: false
   roles:
     - ../../roles/hostname
@@ -11,12 +11,9 @@
     - ../../roles/nas/data-disks
     - ../../roles/nas/parity-disks
     - ../../roles/nas/samba-server
+    - ../../roles/nas/nag
     # - ../../roles/nas/syncthing
     # - ../../roles/nas/restic
-
-    # Remove nag
-    # echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script
-    # apt --reinstall install proxmox-widget-toolkit
 
   handlers:
     - name: snapraid sync
