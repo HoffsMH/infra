@@ -1,0 +1,30 @@
+---
+- name: "workstation-backup daily"
+  cron:
+    name: "workstation backup"
+    special_time: "daily"
+    job: "sudo backup-workstation hoffs code daily 5"
+
+- name: "workstation-backup weekly"
+  cron:
+    name: "workstation backup"
+    special_time: "weekly"
+    job: "sudo backup-workstation hoffs code weekly 4"
+
+- name: "workstation-backup monthly"
+  cron:
+    name: "workstation backup"
+    special_time: "monthly"
+    job: "sudo backup-workstation hoffs code monthly 6"
+
+- name: "workstation-backup yearly"
+  cron:
+    name: "workstation backup"
+    special_time: "yearly"
+    job: "sudo backup-workstation hoffs code yearly 10"
+
+- name: "workstation-backup weekly"
+  cron:
+    name: "workstation backup"
+    special_time: "weekly"
+    job: "sudo backup-workstation hoffs personal weekly 4"

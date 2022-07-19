@@ -6,3 +6,4 @@
     samba_server: "{{ hostvars['thinkcentre-a']['ansible_host'] }}"
   roles:
     - ../../roles/workstation/samba-client
+    - ../../roles/workstation/backup
