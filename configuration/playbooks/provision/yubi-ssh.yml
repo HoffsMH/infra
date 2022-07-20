@@ -3,4 +3,4 @@
   vars:
     ansible_host_key_checking: false
   roles:
-    - ../../roles/yubi-ssh-secured
+    - ../../roles/common/yubi-ssh-secured

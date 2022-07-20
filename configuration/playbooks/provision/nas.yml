@@ -4,9 +4,9 @@
     hostname: "{{device_name}}.proxmox-nas"
     ansible_host_key_checking: false
   roles:
-    - ../../roles/hostname
+    - ../../roles/common/hostname
     - ../../roles/nas/proxmox-config
-    - ../../roles/base-apt
+    - ../../roles/debian/base-apt
     - ../../roles/nas/mergerfs-storage
     - ../../roles/nas/snapraid
     - ../../roles/nas/data-disks
