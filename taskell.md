@@ -18,6 +18,8 @@
 - feeds taking up instant 90g on any workstation needs fixing so hurry up and get syncthing going
 - restic
 - jellyfin
+- base vm cfg file for storage/dir passthrough
+- cron on  base vm that always docker compose up on boot
 
 ## Doing
 
