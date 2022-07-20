@@ -1,11 +1,17 @@
 ---
+- name: "clear old backup crons to make this idempotent"
+  shell: "crontab -l | sed /backup-workstation/d | crontab -"
+  args:
+    executable: /bin/bash
+    
 - name: "daily code backup"
   vars:
     job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code daily 5"
     suffix: "code-daily-5"
     cadence: "@daily"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: "../../roles/has-cron-job"
 
 - name: "weekly code backup"
   vars:
@@ -13,7 +19,8 @@
     suffix: "code-weekly-5"
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: ../../roles/has-cron-job
 
 - name: "monthly code backup"
   vars:
@@ -21,7 +28,8 @@
     suffix: "code-monthly-5"
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: ../../roles/has-cron-job
 
 - name: "yearly code backup"
   vars:
@@ -29,7 +37,8 @@
     suffix: "code-yearly-5"
     cadence: "@yearly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: ../../roles/has-cron-job
 
 - name: "weekly personal backup"
   vars:
@@ -37,7 +46,8 @@
     suffix: "personal-weekly-5"
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: ../../roles/has-cron-job
 
 - name: "monthly personal backup"
   vars:
@@ -45,7 +55,17 @@
     suffix: "personal-monthly-5"
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
-  include_tasks: setup-cron-job.yml
+  include_role:
+    name: ../../roles/has-cron-job
+
+- name: "as superuser"
+  block:
+  - name: Start and enable service cron
+    service:
+      name: cronie
+      state: started
+      enabled: true
+  become: true
 
 # for an automated way to remove these
 # sudo crontab -u hoffs -l | grep -v 'backup-workstation'  | sudo crontab -u hoffs -

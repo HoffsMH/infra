@@ -3,7 +3,7 @@
   block:
   - name: "place cron file"
     template:
-      src: "{{ role_path }}/templates/cron.j2"
+      src: "cron.j2"
       dest: "{{ dest }}"
       mode: 0644
   become: true
