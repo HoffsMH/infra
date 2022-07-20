@@ -1,0 +1,15 @@
+---
+- name: Install restic
+  apt:
+    pkg:
+      - "restic"
+
+# cron this
+# restic backup --verbose $BACKUP_EXCLUDES $BACKUP_PATHS
+
+- name: "mergerfs balance every 12 hours"
+  cron:
+    name: "restic backup"
+    minute: "0"
+    hour: "*/12"
+    job: "restic backup --verbose $BACKUP_EXCLUDES $BACKUP_PATHS"
