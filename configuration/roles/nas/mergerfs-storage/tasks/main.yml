@@ -13,11 +13,11 @@
 
 - name: copy mergerfs.balance over
   copy:
-    src: ./mergerfs.balance
-    dest: /usr/bin/mergerfs.balance
+    src: ./mergerfs-tools
+    dest: /usr/bin/mergerfs-tools
     owner: root
     group: root
-    mode: '0655'
+    mode: '0755'
 
 - name: "mergerfs balance every 12 hours"
   cron:
