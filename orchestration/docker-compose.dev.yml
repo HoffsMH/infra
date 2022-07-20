@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    image: syncthing/syncthing
+    # build:
+      # context: .
+      # dockerfile: ../syncthing.Dockerfile
+    container_name: syncthing
+    # command: bundle exec bin/rails s --binding 0.0.0.0
+    # env_file:
+    #   - ./.some_env/.env
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./mnt/storage:/mnt/storage
+    networks:
+      - default
+    tty: true
+    stdin_open: true
+
+  # other:
+  #   image: postgis/postgis:11-2.5
+  #   container_name: postgres
+  #   environment:
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #   networks:
+  #     - default
+
+networks:
+  default:

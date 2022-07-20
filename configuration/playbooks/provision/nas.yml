@@ -5,13 +5,13 @@
     ansible_host_key_checking: false
   roles:
     - ../../roles/hostname
+    - ../../roles/nas/proxmox-config
     - ../../roles/base-apt
     - ../../roles/nas/mergerfs-storage
     - ../../roles/nas/snapraid
     - ../../roles/nas/data-disks
     - ../../roles/nas/parity-disks
     - ../../roles/nas/samba-server
-    - ../../roles/nas/nag
     # - ../../roles/nas/syncthing
     # - ../../roles/nas/restic
 

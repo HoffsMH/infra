@@ -17,6 +17,7 @@
 - should just everything be on this? monorepo for dotfiles
 - feeds taking up instant 90g on any workstation needs fixing so hurry up and get syncthing going
 - restic
+- jellyfin
 
 ## Doing
 
