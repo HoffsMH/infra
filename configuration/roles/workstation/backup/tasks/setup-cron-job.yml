@@ -1,0 +1,15 @@
+---
+- name: "as super user"
+  block:
+  - name: "place cron file"
+    template:
+      src: "{{ role_path }}/templates/cron.j2"
+      dest: "{{ dest }}"
+      mode: 0644
+  become: true
+
+- name: commit crontab
+  shell: "{ crontab -l; cat {{ dest }}; } | crontab -"
+  args:
+    executable: /bin/bash
+

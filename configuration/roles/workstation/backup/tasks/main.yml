@@ -1,30 +1,59 @@
 ---
-- name: "workstation-backup daily"
-  cron:
-    name: "workstation backup"
-    special_time: "daily"
-    job: "sudo backup-workstation hoffs code daily 5"
+- name: "daily code backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code daily 5"
+    suffix: "code-daily-5"
+    cadence: "@daily"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
 
-- name: "workstation-backup weekly"
-  cron:
-    name: "workstation backup"
-    special_time: "weekly"
-    job: "sudo backup-workstation hoffs code weekly 4"
+- name: "weekly code backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code weekly 5"
+    suffix: "code-weekly-5"
+    cadence: "@weekly"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
 
-- name: "workstation-backup monthly"
-  cron:
-    name: "workstation backup"
-    special_time: "monthly"
-    job: "sudo backup-workstation hoffs code monthly 6"
+- name: "monthly code backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code monthly 5"
+    suffix: "code-monthly-5"
+    cadence: "@monthly"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
 
-- name: "workstation-backup yearly"
-  cron:
-    name: "workstation backup"
-    special_time: "yearly"
-    job: "sudo backup-workstation hoffs code yearly 10"
+- name: "yearly code backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code yearly 5"
+    suffix: "code-yearly-5"
+    cadence: "@yearly"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
 
-- name: "workstation-backup weekly"
-  cron:
-    name: "workstation backup"
-    special_time: "weekly"
-    job: "sudo backup-workstation hoffs personal weekly 4"
+- name: "weekly personal backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal weekly 5"
+    suffix: "personal-weekly-5"
+    cadence: "@weekly"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
+
+- name: "monthly personal backup"
+  vars:
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal monthly 5"
+    suffix: "personal-monthly-5"
+    cadence: "@monthly"
+    dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
+  include_tasks: setup-cron-job.yml
+
+# for an automated way to remove these
+# sudo crontab -u hoffs -l | grep -v 'backup-workstation'  | sudo crontab -u hoffs -
+
+# for adding
+# { crontab -u user -l; echo "$this"; echo "$this_too"; } | crontab -u user -
+
+# for deleting targeted lines
+# crontab -u user -l | sed "$my_wonderful_sed_script" | crontab -u user -
+
+# and them also clear out hoffs* from /etc/cron.d/
