@@ -13,8 +13,9 @@
     mode: '0644'
 
 - name: "snapraid sync and scrub every 3 hours"
-  cron:
-    name: "snapraid-sync"
-    minute: "0"
-    hour: "*/3"
+  vars:
     job: "snapraid sync; snapraid scrub"
+    cadence: "0 */3 * * *"
+    dest: "/etc/cron.d/snapraid-sync-scrub"
+  include_role:
+    name: "../../roles/has-cron-job"
