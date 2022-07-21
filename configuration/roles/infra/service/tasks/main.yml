@@ -13,6 +13,15 @@
     mode: 0644
     force: true
 
+
+- name: reload systemctl after putting in new service file
+  command:
+    cmd: "systemctl daemon-reload"
+
+- name: reset failed
+  command:
+    cmd: "systemctl reset-failed"
+
 - name: Start and enable service
   service:
     name: docker-{{ service_name }}
