@@ -2,4 +2,3 @@
 - name: Set hostname
   hostname:
     name: "{{ hostname }}"
-  notify: reboot
