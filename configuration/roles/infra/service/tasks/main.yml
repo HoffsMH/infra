@@ -11,6 +11,7 @@
     src: "/infra/deployables/{{ service_name }}/service"
     dest: "/etc/systemd/system/docker-{{ service_name }}.service"
     mode: 0644
+    force: true
 
 - name: Start and enable service
   service:
