@@ -1,0 +1,19 @@
+---
+- git:
+    repo: 'https://github.com/HoffsMH/infra.git'
+    dest: "/infra"
+    force: yes
+    version: master
+
+- name: "place service file"
+  template:
+    remote_src: true
+    src: "/infra/deployables/{{ service_name }}/service"
+    dest: "/etc/systemd/system/docker-{{ service_name }}.service"
+    mode: 0644
+
+- name: Start and enable service
+  service:
+    name: docker-{{ service_name }}
+    state: started
+    enabled: true
