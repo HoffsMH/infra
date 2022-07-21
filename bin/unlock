@@ -1,1 +1,2 @@
 ansible-vault decrypt ./inventory.vault.yml --vault-password-file .vault-pass
+ansible-vault decrypt ./taskell.vault.md --vault-password-file .vault-pass
