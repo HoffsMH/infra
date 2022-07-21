@@ -5,5 +5,5 @@
     ansible_host_key_checking: false
     samba_server: "{{ hostvars['thinkcentre-a']['ansible_host'] }}"
   roles:
-    - ../../roles/workstation/samba-client
+    - ../../roles/common/samba-client
     - ../../roles/workstation/backup

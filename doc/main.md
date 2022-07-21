@@ -11,3 +11,12 @@
 - recoverable
   - document everything, with a clueless future self in mind
 
+### Proxmox
+
+#### Vm config
+  - Debian 11
+    - sshd enabled
+    - docker installed
+    - docker-compose
+    - thats it!
+
