@@ -19,4 +19,7 @@
     - docker installed
     - docker-compose
     - thats it!
+  - when restoring from template
+    - make sure that unique is checked so that a new mac address is formed
+    - use full clone for now
 

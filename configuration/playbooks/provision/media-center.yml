@@ -3,10 +3,9 @@
   vars:
     hostname: "{{device_name}}.media-center"
     ansible_host_key_checking: false
-    service
   roles:
     - ../../roles/common/hostname
-    - ../../roles/common/base-apt
+    - ../../roles/debian/base-apt
     - ../../roles/common/samba-client
     - role: ../../roles/infra/service
       service_name: syncthing

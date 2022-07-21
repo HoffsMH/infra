@@ -4,7 +4,7 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-WorkingDirectory="/infra/deployables/syncthing"
+WorkingDirectory=/infra/deployables/syncthing
 ExecStart=/usr/local/bin/docker-compose up
 ExecStop=/usr/local/bin/docker-compose down
 TimeoutStartSec=0

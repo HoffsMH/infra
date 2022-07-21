@@ -6,7 +6,7 @@
     version: master
 
 - name: "place service file"
-  template:
+  copy:
     remote_src: true
     src: "/infra/deployables/{{ service_name }}/service"
     dest: "/etc/systemd/system/docker-{{ service_name }}.service"
