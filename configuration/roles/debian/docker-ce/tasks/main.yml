@@ -1,0 +1,12 @@
+---
+- name: Install package base-apts from repo
+  apt:
+    pkg:
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+      - docker.io
+      - docker-compose
+    state: latest
+    update_cache: yes

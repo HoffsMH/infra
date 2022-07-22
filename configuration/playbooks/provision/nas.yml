@@ -12,7 +12,6 @@
     - ../../roles/nas/data-disks
     - ../../roles/nas/parity-disks
     - ../../roles/nas/samba-server
-    # - ../../roles/nas/syncthing
     # - ../../roles/nas/restic
 
   handlers:

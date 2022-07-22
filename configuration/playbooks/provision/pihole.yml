@@ -5,6 +5,8 @@
     hostname: "{{device_name}}.pihole"
   roles:
     - ../../roles/common/hostname
-    - ../../roles/manjaro/base-devel
-    - ../../roles/manjaro/yay
-    - ../../roles/pi-hole
+    - ../../roles/debian/base-apt
+    - ../../roles/debian/docker-ce
+    - role: ../../roles/infra/service
+      service_name: pi-hole
+    # - ../../roles/pi-hole
