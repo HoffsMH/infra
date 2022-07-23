@@ -11,13 +11,9 @@
       line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
       state: present
 
-- name: copy mergerfs.balance over
-  copy:
-    src: ./mergerfs-tools
-    dest: /usr/bin/mergerfs-tools
-    owner: root
-    group: root
-    mode: '0755'
+- synchronize:
+    src: ./mergerfs-tools/
+    dest: /usr/bin/
 
 - name: "mergerfs balance every 12 hours"
   vars:
@@ -25,7 +21,7 @@
     cadence: "0 */12 * * *"
     dest: "/etc/cron.d/mergerfs-balance"
   include_role:
-    name: "../../roles/has-cron-job"
+    name: "../../roles/common/has-cron-job"
 
 - name: add mount point for storage
   file:

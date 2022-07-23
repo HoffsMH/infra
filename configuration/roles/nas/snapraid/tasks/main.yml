@@ -18,4 +18,4 @@
     cadence: "0 */3 * * *"
     dest: "/etc/cron.d/snapraid-sync-scrub"
   include_role:
-    name: "../../roles/has-cron-job"
+    name: "../../roles/common/has-cron-job"

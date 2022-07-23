@@ -16,15 +16,17 @@
     mode: '0644'
 
 - name: "no-nag-script"
-  cmd: echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script
+  command:
+    cmd: echo "DPkg::Post-Invoke { \"dpkg -V proxmox-widget-toolkit | grep -q '/proxmoxlib\.js$'; if [ \$? -eq 1 ]; then { echo 'Removing subscription nag from UI...'; sed -i '/data.status/{s/\!//;s/Active/NoMoreNagging/}' /usr/share/javascript/proxmox-widget-toolkit/proxmoxlib.js; }; fi\"; };" > /etc/apt/apt.conf.d/no-nag-script
 
 - name: "reinstall widget"
-  cmd: apt --reinstall install proxmox-widget-toolkit
+  command:
+    cmd: apt --reinstall install proxmox-widget-toolkit
 
-- name: copy storage.cfg over
-  copy:
-    src: ./storage.cfg
-    dest: /etc/pve/storage.cfg
-    owner: root
-    group: root
-    mode: '0650'
+# - name: copy storage.cfg over
+#   copy:
+#     src: ./storage.cfg
+#     dest: /etc/pve/storage.cfg
+#     owner: root
+#     group: root
+#     mode: '0644'
