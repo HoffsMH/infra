@@ -1,5 +1,5 @@
 ---
-- name: Install package base-apts from repo
+- name: Install docker
   apt:
     pkg:
       - ca-certificates
