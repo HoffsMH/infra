@@ -1,8 +1,7 @@
 ---
 - name: Update all packages to their latest version
   apt:
-    name: "*"
-    state: latest
+    upgrade: full
     update_cache: yes
 
 - name: Install package base-apts from repo
