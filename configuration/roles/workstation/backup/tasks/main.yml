@@ -11,7 +11,7 @@
     cadence: "@daily"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: "../../roles/has-cron-job"
+    name: "../../roles/common/has-cron-job"
 
 - name: "weekly code backup"
   vars:
@@ -20,7 +20,7 @@
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: ../../roles/has-cron-job
+    name: ../../roles/common/has-cron-job
 
 - name: "monthly code backup"
   vars:
@@ -29,7 +29,7 @@
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: ../../roles/has-cron-job
+    name: ../../roles/common/has-cron-job
 
 - name: "yearly code backup"
   vars:
@@ -38,7 +38,7 @@
     cadence: "@yearly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: ../../roles/has-cron-job
+    name: ../../roles/common/has-cron-job
 
 - name: "weekly personal backup"
   vars:
@@ -47,7 +47,7 @@
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: ../../roles/has-cron-job
+    name: ../../roles/common/has-cron-job
 
 - name: "monthly personal backup"
   vars:
@@ -56,7 +56,7 @@
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
   include_role:
-    name: ../../roles/has-cron-job
+    name: ../../roles/common/has-cron-job
 
 - name: "as superuser"
   block:
