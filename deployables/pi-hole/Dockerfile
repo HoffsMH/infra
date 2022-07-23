@@ -1,5 +1,4 @@
 FROM pihole/pihole:latest
-RUN echo "hi"
 
 COPY pihole-updatelists.php /usr/local/sbin/pihole-updatelists
 COPY pihole-updatelists.conf /etc/pihole-updatelists.conf
@@ -12,3 +11,8 @@ RUN chmod 600 /etc/cron.d/pihole-updatelists
 
 RUN /usr/local/sbin/pihole-updatelists
 RUN pihole -w "api.rescuetime.com"
+
+
+RUN apt-get update && apt-get install -y \
+  php-curl \
+  && rm -rf /var/lib/apt/lists/*

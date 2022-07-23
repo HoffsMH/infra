@@ -1,10 +1,9 @@
-version: "3"
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+version: "3"
 services:
-  pihole:
+  pi-hole:
     container_name: pihole
     image: pi-hole:latest
-    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
     ports:
       - "53:53"
       - "80:80/tcp"
@@ -12,7 +11,11 @@ services:
       TZ: 'America/Chicago'
       WEBPASSWORD: 'changeme'
     volumes:
-      - '/mnt/storage/infra/container/pi-hole/etc/pihole:/etc/pihole'
-      - '/mnt/storage/infra/container/pi-hole/etc/dnsmasq.d:/etc/dnsmasq.d'
-    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+      # - '/mnt/storage/infra/container/pi-hole/etc/pihole:/etc/pihole'
+      # - '/mnt/storage/infra/container/pi-hole/etc/dnsmasq.d:/etc/dnsmasq.d'
+
+      # creates sqlite db problems and dont have the patience to implement a timeout
+      # https://www.reddit.com/r/pihole/comments/ih2bxq/pihole_database_locked_error/
+       - '/etc/pihole:/etc/pihole'
+       - '/etc/dnsmasq.d:/etc/dnsmasq.d'
     restart: unless-stopped
