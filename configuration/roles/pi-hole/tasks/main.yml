@@ -5,8 +5,8 @@
     state: stopped
     enabled: false
 
-  - name: Create symbolic link (this is where updater will look for it)
-      file:
-        src: "/usr/bin/pihole"
-        dest: "/usr/local/bin/pihole"
-        state: link
+# - name: Create symbolic link (this is where updater will look for it)
+#     file:
+#       src: "/usr/bin/pihole"
+#       dest: "/usr/local/bin/pihole"
+#       state: link

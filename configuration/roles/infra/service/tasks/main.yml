@@ -13,8 +13,8 @@
 
 - name: build docker
   command:
-    cmd: "docker build . -t {{ service_name }}"
-  when: dockerfile_present == true
+    cmd: "docker build /infra/deployables/{{ service_name }} -t {{ service_name }}"
+  when: dockerfile_present.stat.exists
 
 - name: "place service file"
   copy:
