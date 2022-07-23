@@ -2,3 +2,15 @@
 - name: Set hostname
   hostname:
     name: "{{ hostname }}"
+
+- name: Test for host in /etc/hosts
+  shell: grep -c "^{{ ansible_host }}" /etc/hosts || true
+  register: host_line_present
+
+- name: edit hosts file only if there is already a line for the ip
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^{{ ansible_host }}"
+    line: "{{ ansible_host }} {{ hostname }} {{ hostname }}"
+    state: present
+  when: host_line_present.stdout == "1"
