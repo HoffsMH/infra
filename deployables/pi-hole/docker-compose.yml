@@ -2,14 +2,14 @@
 version: "3"
 services:
   pi-hole:
-    container_name: pihole
+    hostname: "${HOSTNAME}"
+    container_name: pi-hole
     image: pi-hole:latest
     ports:
       - "53:53/udp"
       - "80:80/tcp"
-    environment:
-      TZ: 'America/Chicago'
-      WEBPASSWORD: 'changeme'
+    env_file:
+      - .env
     volumes:
       # creates sqlite db problems and dont have the patience to implement a timeout
       # https://www.reddit.com/r/pihole/comments/ih2bxq/pihole_database_locked_error/
