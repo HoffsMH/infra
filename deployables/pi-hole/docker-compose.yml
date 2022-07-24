@@ -5,17 +5,17 @@ services:
     container_name: pihole
     image: pi-hole:latest
     ports:
-      - "53:53"
+      - "53:53/udp"
       - "80:80/tcp"
     environment:
       TZ: 'America/Chicago'
       WEBPASSWORD: 'changeme'
     volumes:
+      # creates sqlite db problems and dont have the patience to implement a timeout
+      # https://www.reddit.com/r/pihole/comments/ih2bxq/pihole_database_locked_error/
       # - '/mnt/storage/infra/container/pi-hole/etc/pihole:/etc/pihole'
       # - '/mnt/storage/infra/container/pi-hole/etc/dnsmasq.d:/etc/dnsmasq.d'
 
-      # creates sqlite db problems and dont have the patience to implement a timeout
-      # https://www.reddit.com/r/pihole/comments/ih2bxq/pihole_database_locked_error/
        - '/etc/pihole:/etc/pihole'
        - '/etc/dnsmasq.d:/etc/dnsmasq.d'
     restart: unless-stopped
