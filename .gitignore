@@ -11,6 +11,7 @@
 # misc
 .vault-pass
 .connection-pass
+.gui-admin-pass
 secret.yml
 testlog**
 test.log
