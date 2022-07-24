@@ -15,6 +15,14 @@
   command:
     cmd: "docker build /infra/deployables/{{ service_name }} -t {{ service_name }}"
   when: dockerfile_present.stat.exists
+  retries: 5
+  delay: 5
+
+- name: "convert .env template"
+  template:
+    src: "../../deployables/{{ service_name }}/.env.j2"
+    dest: "/infra/deployables/{{ service_name }}/.env"
+    mode: 0644
 
 - name: "place service file"
   copy:
