@@ -7,7 +7,6 @@
     - ../../roles/common/hostname
     - ../../roles/debian/base-apt
     - ../../roles/debian/docker-ce
-    - ../../roles/common/samba-client
+    - ../../roles/pi-hole
     - role: ../../roles/infra/service
       service_name: pi-hole
-    - ../../roles/pi-hole

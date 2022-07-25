@@ -20,7 +20,7 @@
 
 - name: "convert .env template"
   template:
-    src: "../../deployables/{{ service_name }}/.env.j2"
+    src: "../../../deployables/{{ service_name }}/.env.j2"
     dest: "/infra/deployables/{{ service_name }}/.env"
     mode: 0644
 
@@ -45,3 +45,13 @@
     name: docker-{{ service_name }}
     state: started
     enabled: true
+
+- name: check if afterbuild file exists
+  stat:
+    path: /infra/deployables/{{ service_name }}/afterbuild
+  register: afterbuild_present
+
+- name: execute afterbuild
+  command:
+    cmd: "/infra/deployables/{{ service_name }}/afterbuild"
+  when: afterbuild_present.stat.exists
