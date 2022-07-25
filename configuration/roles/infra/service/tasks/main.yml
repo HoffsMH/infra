@@ -51,6 +51,11 @@
     path: /infra/deployables/{{ service_name }}/afterbuild
   register: afterbuild_present
 
+- name: Sleep for 300 seconds and continue with play
+  ansible.builtin.wait_for:
+    timeout: 100
+  delegate_to: localhost
+
 - name: execute afterbuild
   command:
     cmd: "/infra/deployables/{{ service_name }}/afterbuild"
