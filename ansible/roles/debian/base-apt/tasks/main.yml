@@ -10,6 +10,7 @@
       - neovim
       - htop
       - tmux
+      - jq
     state: latest
     update_cache: yes
 

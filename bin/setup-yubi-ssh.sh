@@ -1,7 +1,3 @@
 #!/bin/zsh
 
-ansible-playbook -i=$1, \
-  configuration/playbooks/provision/yubi-ssh.yml  \
-  --connection-password-file=.connection-pass \
-  -u root
-
+./bin/play-on-target $1 ansible/play/yubi-ssh.yml

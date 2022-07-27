@@ -1,0 +1,36 @@
+---
+- hosts: thinkcentre-a
+  vars:
+    ansible_host_key_checking: false
+  tasks:
+    - name: get qmid
+      command:
+        cmd: "get-avail-qm-id"
+      register: qmid
+
+    - name: get qmid
+      command:
+        cmd: "get-avail-qm-id"
+      register: qmid
+
+    - name: clone
+      command:
+        cmd: "qm clone 100 {{ qmid.stdout }}"
+
+    - name: start
+      command:
+        cmd: "qm start {{ qmid.stdout }}"
+
+    - name: "get ip of newly started vm"
+      command:
+        cmd: "get-ip-address {{ qmid.stdout }}"
+      register: qmip
+      until: "qmip is not failed"
+      retries: 10
+      delay: 10
+
+    - name:
+      debug:
+        msg: "{{ qmip }}"
+
+

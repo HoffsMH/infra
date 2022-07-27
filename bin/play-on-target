@@ -3,8 +3,7 @@
 echo $1
 
 ansible-playbook --vault-pass-file=.vault-pass \
-  -i inventory.vault.yml \
   --connection-password-file=.connection-pass \
-  --extra-vars "ansible_user=root" \
+  -i inventory.vault.yml \
   --extra-vars "ansible_host=$1" \
   $2

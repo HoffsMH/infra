@@ -23,6 +23,10 @@
   command:
     cmd: apt --reinstall install proxmox-widget-toolkit
 
+- synchronize:
+    src: ./scripts/
+    dest: /usr/bin/
+
 # - name: copy storage.cfg over
 #   copy:
 #     src: ./storage.cfg
