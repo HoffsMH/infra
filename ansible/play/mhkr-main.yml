@@ -1,9 +1,0 @@
----
-- hosts: mhkr.io
-  vars:
-    ansible_host_key_checking: false
-  roles:
-    - role: ../../roles/static-site
-      repo_url: https://github.com/HoffsMH/mhkr.io
-      static_site_name: mhkr.io
-      static_files_dir: public
