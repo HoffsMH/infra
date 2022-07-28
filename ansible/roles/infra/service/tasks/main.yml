@@ -6,7 +6,7 @@
     force: yes
     version: master
 
-- name: check if rules file exists
+- name: check if docker file exists
   stat:
     path: /infra/deployables/{{ service_name }}/Dockerfile
   register: dockerfile_present

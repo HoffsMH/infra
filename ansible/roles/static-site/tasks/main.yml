@@ -1,0 +1,54 @@
+---
+- name:
+  git:
+    repo: "{{ repo_url }}"
+    dest: /srv/{{ static_site_name }}
+    force: yes
+    version: master
+
+- name:
+  git:
+    repo: "https://github.com/HoffsMH/infra"
+    dest: /infra
+    force: yes
+    version: master
+
+# TODO delete this once its in the image
+- name: "move static files"
+  copy:
+    remote_src: true
+    src: "/srv/{{ static_site_name }}/{{ static_files_dir }}/"
+    dest: "/infra/deployables/static-site/www"
+    mode: 0644
+    force: true
+
+- name: cleanup dir
+  ansible.builtin.file:
+    path: /srv/{{ static_site_name }}
+    state: absent
+
+- name: build docker
+  command:
+    cmd: "docker build /infra/deployables/static-site -t static-site"
+
+- name: "place service file"
+  copy:
+    remote_src: true
+    src: "/infra/deployables/static-site/service"
+    dest: "/etc/systemd/system/docker-static-site.service"
+    mode: 0644
+    force: true
+
+- name: reload systemctl after putting in new service file
+  command:
+    cmd: "systemctl daemon-reload"
+
+- name: reset failed
+  command:
+    cmd: "systemctl reset-failed"
+
+- name: Start and enable service
+  service:
+    name: docker-static-site
+    state: restarted
+    enabled: true
