@@ -1,5 +1,5 @@
 FROM nginx:latest
 
-COPY www /srv/www
+COPY www /usr/share/nginx/html
 
 ENTRYPOINT ["/bin/bash"]

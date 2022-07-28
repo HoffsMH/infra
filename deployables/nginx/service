@@ -1,0 +1,16 @@
+[Unit]
+Description=Docker Compose Nginx Service
+Requires=docker.service
+After=network.target docker.service mnt-storage.mount
+
+[Service]
+WorkingDirectory=/infra/deployables/nginx
+ExecStart=/usr/bin/docker-compose up
+ExecStop=/usr/bin/docker-compose down
+TimeoutStartSec=0
+Restart=on-failure
+StartLimitIntervalSec=60
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target
