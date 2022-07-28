@@ -15,7 +15,7 @@
 
     - name: clone
       command:
-        cmd: "qm clone 100 {{ qmid.stdout }}"
+        cmd: "qm clone 100 {{ qmid.stdout }} --description=test-deb --name=test-deb-{{ qmid.stdout }}"
 
     - name: start
       command:
@@ -25,7 +25,7 @@
       command:
         cmd: "get-ip-address {{ qmid.stdout }}"
       register: qmip
-      until: "qmip is not failed"
+      until: qmip.stdout != ""
       retries: 10
       delay: 10
 
