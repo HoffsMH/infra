@@ -1,3 +1,3 @@
-#!/bin/zsh
+#!/bin/bash
 
-./bin/play-on-target $1 ansible/play/yubi-ssh.yml
+./bin/play-on-target $1 ansible/play/ad-hoc/yubi-ssh.yml
