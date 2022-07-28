@@ -2,7 +2,7 @@
 - name:
   git:
     repo: "{{ repo_url }}"
-    dest: /srv/{{ static_site_name }}
+    dest: /srv/www
     force: yes
     version: master
 
@@ -17,19 +17,24 @@
 - name: "move static files"
   copy:
     remote_src: true
-    src: "/srv/{{ static_site_name }}/{{ static_files_dir }}/"
+    src: "/srv/www/{{ static_files_dir }}/"
     dest: "/infra/deployables/static-site/www"
     mode: 0644
     force: true
 
 - name: cleanup dir
   ansible.builtin.file:
-    path: /srv/{{ static_site_name }}
+    path: /srv/www
     state: absent
 
 - name: build docker
   command:
     cmd: "docker build /infra/deployables/static-site -t static-site"
+
+- name: cleanup dir
+  ansible.builtin.file:
+    path: /infra/deployables/static-site/www
+    state: absent
 
 - name: "place service file"
   copy:
