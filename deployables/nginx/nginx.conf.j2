@@ -1,0 +1,17 @@
+server {
+	listen 80 ;
+	listen [::]:80 ;
+
+  disable_symlinks off;
+
+	root /srv/www;
+
+	server_name {{ ansible_host }};
+
+	index index.html index.htm index.nginx-debian.html;
+	location / {
+		try_files $uri $uri/ =404;
+    default_type text/plain;
+	}
+
+}

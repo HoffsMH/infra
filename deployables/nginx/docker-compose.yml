@@ -1,0 +1,13 @@
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+version: "3"
+services:
+  pi-hole:
+    hostname: "${HOSTNAME}"
+    container_name: nginx
+    image: nginx/nginx:latest
+    ports:
+      - "80:80/tcp"
+    volumes:
+       - '/etc/nginx:/etc/nginx'
+       - '/etc/dnsmasq.d:/etc/dnsmasq.d'
+    restart: unless-stopped
