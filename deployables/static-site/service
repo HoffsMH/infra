@@ -1,10 +1,10 @@
 [Unit]
-Description=Docker Compose Nginx Service
+Description=Docker Compose static-site Service
 Requires=docker.service
 After=network.target docker.service mnt-storage.mount
 
 [Service]
-WorkingDirectory=/infra/deployables/nginx
+WorkingDirectory=/infra/deployables/static-site
 ExecStart=/usr/bin/docker-compose up
 ExecStop=/usr/bin/docker-compose down
 TimeoutStartSec=0

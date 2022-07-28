@@ -1,8 +1,8 @@
 version: "3"
 services:
-  nginx:
-    hostname: nginx
-    container_name: nginx-static
+  static-site:
+    hostname: nginx-static-site
+    container_name: static-site
     image: static-site:latest
     ports:
       - "80:80/tcp"
