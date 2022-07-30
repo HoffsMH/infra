@@ -31,6 +31,12 @@
   template:
     src: "../../../deployables/static-site/init-certbot.j2"
     dest: "/infra/deployables/static-site/init-certbot"
+    mode: 0744
+
+- name: "place nginx conf"
+  template:
+    src: "../../../deployables/static-site/nginx.conf.j2"
+    dest: "/infra/deployables/static-site/nginx.conf"
     mode: 0644
 
 - name: build docker
