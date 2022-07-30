@@ -1,7 +1,25 @@
 #!/bin/bash
 
-ansible-playbook --vault-pass-file=.vault-pass \
-  --connection-password-file=.connection-pass \
-  -i inventory.vault.yml \
-  --extra-vars "ansible_host=$1" \
-  $2
+# play-on-target host password play
+#
+# play-on-target host play
+
+if [[ $# -eq 2 ]]; then
+    ansible-playbook --vault-pass-file=.vault-pass \
+      --connection-password-file=.connection-pass \
+      -i inventory.vault.yml \
+      --extra-vars "ansible_host=$1" \
+      $2
+
+    exit 0
+  elif [[ $# -eq 3 ]]; then
+    ansible-playbook --vault-pass-file=.vault-pass \
+      --connection-password-file=.connection-pass \
+      -i inventory.vault.yml \
+      --extra-vars "ansible_host=$1" \
+      --extra-vars "ansible_password=$2" \
+      $3
+
+    exit 0
+fi
+
