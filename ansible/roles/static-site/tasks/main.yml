@@ -23,16 +23,22 @@
     force: true
 
 - name: cleanup dir
-  ansible.builtin.file:
+  file:
     path: /srv/www
     state: absent
+
+- name: "place initial certbot script"
+  template:
+    src: "../../../deployables/static-site/init-certbot.j2"
+    dest: "/infra/deployables/static-site/init-certbot"
+    mode: 0644
 
 - name: build docker
   command:
     cmd: "docker build /infra/deployables/static-site -t static-site"
 
 - name: cleanup dir
-  ansible.builtin.file:
+  file:
     path: /infra/deployables/static-site/www
     state: absent
 
