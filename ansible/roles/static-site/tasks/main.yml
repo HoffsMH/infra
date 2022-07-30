@@ -69,3 +69,9 @@
     name: docker-static-site
     state: restarted
     enabled: true
+
+# actually doing this as part of the play has a danger of causing
+# us to get rate limited while testing
+- name: remind to run initial cert
+  debug:
+    msg: "exec into container and run init-certbot"

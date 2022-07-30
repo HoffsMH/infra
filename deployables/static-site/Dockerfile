@@ -10,7 +10,6 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY init-certbot /usr/sbin/init-certbot
 RUN chmod 0744 /usr/sbin/init-certbot
-RUN init-certbot
 
 COPY renew-certbot /etc/cron.d/renew-certbot
 RUN chmod 0744 /etc/cron.d/renew-certbot
