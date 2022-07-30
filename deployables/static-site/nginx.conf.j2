@@ -14,3 +14,20 @@ server {
 		default_type text/plain;
 	}
 }
+server {
+    if ($host = {{ www_domain }}) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    if ($host = {{ domain }}) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+        listen 80 ;
+        listen [::]:80 ;
+
+        server_name {{ domain }} {{ www_domain }};
+    return 404; # managed by Certbot
+}

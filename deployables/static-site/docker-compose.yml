@@ -6,4 +6,8 @@ services:
     image: static-site:latest
     ports:
       - "80:80/tcp"
+      - "443:443/tcp"
+    volumes:
+      - "/etc/letsencrypt/"
     restart: unless-stopped
+
