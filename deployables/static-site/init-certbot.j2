@@ -1,0 +1,3 @@
+#!/bin/bash
+
+certbot --agree-tos -m '{{ cert_email }}' --nginx -d {{ ansible_host }},www.{{ ansible_host }} -n
