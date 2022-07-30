@@ -33,4 +33,25 @@
       debug:
         msg: "{{ qmip }}"
 
+    # - name: "example test play"
+    #   vars:
+    #     ansible_host: "{{ qmip.stdout }}"
+    #     repo_url: https://github.com/HoffsMH/mhkr.io
+    #     cert_email: "example@example.com"
+    #     cert_domain: "example.com,www.example.com"
+    #     static_files_dir: public
+    #   include_role:
+    #     name: "../../roles/static-site"
+
+    - name: "stop vm"
+      command:
+        cmd: "qm stop {{ qmid.stdout }}"
+      retries: 10
+      delay: 10
+
+    - name: "destroy vm"
+      command:
+        cmd: "qm destroy {{ qmid.stdout }}"
+      retries: 10
+      delay: 10
 
