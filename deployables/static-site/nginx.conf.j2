@@ -6,28 +6,11 @@ server {
 
 	root /usr/share/nginx/html;
 
-	server_name {{ domain }} {{ www_domain }};
+	server_name {{ ansible_host }} www.{{ ansible_host }};
 
 	index index.html index.htm index.nginx-debian.html;
 	location / {
 		try_files $uri $uri/ =404;
 		default_type text/plain;
 	}
-}
-server {
-    if ($host = {{ www_domain }}) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-    if ($host = {{ domain }}) {
-        return 301 https://$host$request_uri;
-    } # managed by Certbot
-
-
-        listen 80 ;
-        listen [::]:80 ;
-
-        server_name {{ domain }} {{ www_domain }};
-    return 404; # managed by Certbot
 }

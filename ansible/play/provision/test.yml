@@ -38,8 +38,6 @@
     #     ansible_host: "{{ qmip.stdout }}"
     #     repo_url: https://github.com/HoffsMH/mhkr.io
     #     cert_email: "example@example.com"
-    #     domain: "example.com"
-    #     www_domain: "www.example.com"
     #     static_files_dir: public
     #   include_role:
     #     name: "../../roles/static-site"
