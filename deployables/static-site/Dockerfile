@@ -6,11 +6,15 @@ RUN apt-get update && apt-get install -y \
 	cron \
   && rm -rf /var/lib/apt/lists/*
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY www/ /usr/share/nginx/html
+
+# certbot initial
 COPY init-certbot /usr/sbin/init-certbot
 RUN chmod 0744 /usr/sbin/init-certbot
 
+# certbot renewal
 COPY renew-certbot /etc/cron.d/renew-certbot
 RUN chmod 0744 /etc/cron.d/renew-certbot
 RUN crontab /etc/cron.d/renew-certbot
