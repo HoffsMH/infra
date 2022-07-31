@@ -5,6 +5,16 @@
       - "nginx"
       - "python3-certbot"
       - "cron"
+      - "git"
+
+- name: Allow connections on multiple ports
+  iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_ports:
+      - "80"
+      - "443"
+    jump: ACCEPT
 
 
 - name: "place nginx conf"

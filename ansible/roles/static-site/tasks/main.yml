@@ -6,13 +6,6 @@
     force: yes
     version: master
 
-- name:
-  git:
-    repo: "https://github.com/HoffsMH/infra"
-    dest: /infra
-    force: yes
-    version: master
-
 - name: "move static files"
   copy:
     remote_src: true
@@ -26,26 +19,9 @@
     path: /srv/www
     state: absent
 
-- name: "place initial certbot script"
-  template:
-    src: "../../../deployables/nginx/init-certbot.j2"
-    dest: "/usr/sbin/init-certbot"
-    mode: 0744
-
-- name: "place nginx conf"
-  template:
-    src: "../../../deployables/nginx/nginx.conf.j2"
-    dest: "/etc/nginx/sites-enabled/default"
-    mode: 0644
-
 - name: Start and enable service
   service:
     name: nginx
     state: restarted
     enabled: true
 
-# actually doing this as part of the play has a danger of causing
-# us to get rate limited while testing
-- name: remind to run initial cert
-  debug:
-    msg: "ssh into vm and run init-certbot on first run"

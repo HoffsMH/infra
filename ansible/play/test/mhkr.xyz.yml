@@ -37,6 +37,7 @@
       vars:
         ansible_host: "{{ qmip.stdout }}"
         ansible_user: root
+        cert_email: "matthecker@pm.me"
       include_role:
         name: "../../roles/vm-nginx"
 
@@ -44,7 +45,6 @@
       vars:
         ansible_host: "{{ qmip.stdout }}"
         ansible_user: root
-        cert_email: "matthecker@pm.me"
         repo_url: https://github.com/HoffsMH/mhkr.io
         static_files_dir: public
       include_role:
