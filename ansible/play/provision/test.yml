@@ -33,14 +33,17 @@
       debug:
         msg: "{{ qmip }}"
 
-    # - name: "example test play"
-    #   vars:
-    #     ansible_host: "{{ qmip.stdout }}"
-    #     repo_url: https://github.com/HoffsMH/mhkr.io
-    #     cert_email: "example@example.com"
-    #     static_files_dir: public
-    #   include_role:
-    #     name: "../../roles/static-site"
+    - name: "example test play"
+      vars:
+        ansible_host: "{{ qmip.stdout }}"
+      include_role:
+        name: "../../roles/vm-nginx"
+
+    - name: "example test play"
+      vars:
+        ansible_host: "{{ qmip.stdout }}"
+      include_role:
+        name: "../../roles/static-site"
 
     # - name: "stop vm"
     #   command:
