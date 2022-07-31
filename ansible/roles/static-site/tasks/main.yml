@@ -13,60 +13,34 @@
     force: yes
     version: master
 
-# TODO delete this once its in the image
 - name: "move static files"
   copy:
     remote_src: true
     src: "/srv/www/{{ static_files_dir }}/"
-    dest: "/infra/deployables/static-site/www"
-    mode: 0644
+    dest: "/var/www/html"
+    mode: 0755
     force: true
 
-- name: cleanup dir
+- name: "cleanup dir"
   file:
     path: /srv/www
     state: absent
 
 - name: "place initial certbot script"
   template:
-    src: "../../../deployables/static-site/init-certbot.j2"
-    dest: "/infra/deployables/static-site/init-certbot"
+    src: "../../../deployables/nginx/init-certbot.j2"
+    dest: "/usr/sbin/init-certbot"
     mode: 0744
 
 - name: "place nginx conf"
   template:
-    src: "../../../deployables/static-site/nginx.conf.j2"
-    dest: "/infra/deployables/static-site/nginx.conf"
+    src: "../../../deployables/nginx/nginx.conf.j2"
+    dest: "/etc/nginx/sites-enabled/default"
     mode: 0644
-
-- name: build docker
-  command:
-    cmd: "docker build /infra/deployables/static-site -t static-site"
-
-- name: cleanup dir
-  file:
-    path: /infra/deployables/static-site/www
-    state: absent
-
-- name: "place service file"
-  copy:
-    remote_src: true
-    src: "/infra/deployables/static-site/service"
-    dest: "/etc/systemd/system/docker-static-site.service"
-    mode: 0644
-    force: true
-
-- name: reload systemctl after putting in new service file
-  command:
-    cmd: "systemctl daemon-reload"
-
-- name: reset failed
-  command:
-    cmd: "systemctl reset-failed"
 
 - name: Start and enable service
   service:
-    name: docker-static-site
+    name: nginx
     state: restarted
     enabled: true
 
@@ -74,4 +48,4 @@
 # us to get rate limited while testing
 - name: remind to run initial cert
   debug:
-    msg: "exec into container and run init-certbot"
+    msg: "ssh into vm and run init-certbot on first run"

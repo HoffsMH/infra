@@ -36,15 +36,22 @@
     - name: "example test play"
       vars:
         ansible_host: "{{ qmip.stdout }}"
+        ansible_user: root
       include_role:
         name: "../../roles/vm-nginx"
 
     - name: "example test play"
       vars:
         ansible_host: "{{ qmip.stdout }}"
+        ansible_user: root
+        cert_email: "matthecker@pm.me"
+        repo_url: https://github.com/HoffsMH/mhkr.io
+        static_files_dir: public
       include_role:
         name: "../../roles/static-site"
 
+    # cleanup the vm
+    #
     # - name: "stop vm"
     #   command:
     #     cmd: "qm stop {{ qmid.stdout }}"
