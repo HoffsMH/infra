@@ -3,8 +3,8 @@ version: "3"
 services:
   pi-hole:
     hostname: "${HOSTNAME}"
-    container_name: pi-hole
-    image: pi-hole:latest
+    container_name: pi-hole-1
+    image: my-pi-hole:latest
     ports:
       - "53:53/udp"
       - "80:80/tcp"

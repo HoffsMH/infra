@@ -43,7 +43,7 @@
 - name: Start and enable service
   service:
     name: docker-{{ service_name }}
-    state: started
+    state: restarted
     enabled: true
 
 - name: check if afterbuild file exists

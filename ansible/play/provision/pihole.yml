@@ -9,4 +9,4 @@
     - ../../roles/debian/docker-ce
     - ../../roles/pi-hole
     - role: ../../roles/infra/service
-      service_name: pi-hole
+      service_name: pi-hole-1
