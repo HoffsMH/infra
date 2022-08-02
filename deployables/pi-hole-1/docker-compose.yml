@@ -4,7 +4,7 @@ services:
   pi-hole:
     hostname: "${HOSTNAME}"
     container_name: pi-hole-1
-    image: my-pi-hole:latest
+    image: pi-hole-1:latest
     ports:
       - "53:53/udp"
       - "80:80/tcp"
