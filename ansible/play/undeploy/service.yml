@@ -1,0 +1,8 @@
+---
+- hosts: empty
+  vars:
+    ansible_host_key_checking: false
+    ansible_user: root
+  roles:
+    - role: ../../roles/infra/destroy-service
+      service_name: "{{ service_name }}"

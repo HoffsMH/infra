@@ -1,0 +1,32 @@
+---
+- name: Stop and disable service
+  service:
+    name: docker-{{ service_name }}
+    state: stopped
+    enabled: false
+  ignore_errors: yes
+
+- name: "destroy service file"
+  file:
+    dest: "/etc/systemd/system/docker-{{ service_name }}.service"
+    state: absent
+
+- name: "clean docker images"
+  shell: "docker rmi -f $(docker images -q -a)"
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: "clean docker images"
+  shell: "aliased to docker rm $(docker ps -aq)"
+  args:
+    executable: /bin/bash
+  ignore_errors: yes
+
+- name: "reload systemctl"
+  command:
+    cmd: "systemctl daemon-reload"
+
+- name: "reset failed"
+  command:
+    cmd: "systemctl reset-failed"

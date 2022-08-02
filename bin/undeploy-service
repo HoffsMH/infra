@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# deploy-service service_name host
+# where service_name has to match a folder in deployables
+
+ansible-playbook --vault-pass-file=.vault-pass \
+  -vvv \
+  --connection-password-file=.connection-pass \
+  -i inventory.vault.yml \
+  --extra-vars "ansible_host=$2" \
+  --extra-vars "service_name=$1" \
+  ansible/play/undeploy/service.yml
+
