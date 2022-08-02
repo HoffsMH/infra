@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for i in $@; do
+  qm stop $i
+  qm kill $i
+done
