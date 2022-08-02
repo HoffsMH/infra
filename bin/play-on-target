@@ -6,6 +6,7 @@
 
 if [[ $# -eq 2 ]]; then
     ansible-playbook --vault-pass-file=.vault-pass \
+      -vvv \
       --connection-password-file=.connection-pass \
       -i inventory.vault.yml \
       --extra-vars "ansible_host=$1" \
@@ -14,6 +15,7 @@ if [[ $# -eq 2 ]]; then
     exit 0
   elif [[ $# -eq 3 ]]; then
     ansible-playbook --vault-pass-file=.vault-pass \
+      -vvv \
       --connection-password-file=.connection-pass \
       -i inventory.vault.yml \
       --extra-vars "ansible_host=$1" \
