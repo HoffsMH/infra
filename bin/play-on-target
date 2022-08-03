@@ -5,18 +5,18 @@
 # play-on-target host play
 
 if [[ $# -eq 2 ]]; then
-    ansible-playbook --vault-pass-file=.vault-pass \
+    ansible-playbook --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
       -vvv \
-      --connection-password-file=.connection-pass \
+      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
       -i inventory.vault.yml \
       --extra-vars "ansible_host=$1" \
       $2
 
     exit 0
   elif [[ $# -eq 3 ]]; then
-    ansible-playbook --vault-pass-file=.vault-pass \
+    ansible-playbook --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
       -vvv \
-      --connection-password-file=.connection-pass \
+      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
       -i inventory.vault.yml \
       --extra-vars "ansible_host=$1" \
       --extra-vars "ansible_password=$2" \
