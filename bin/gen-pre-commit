@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cp ./pre-commit.sample .git/hooks/pre-commit
