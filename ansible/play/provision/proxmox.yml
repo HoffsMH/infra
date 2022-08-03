@@ -1,0 +1,14 @@
+---
+- hosts: thinkcentre-a
+  vars:
+    hostname: "{{device_name}}-proxmox-nas"
+    ansible_host_key_checking: false
+  roles:
+    - ../../roles/common/hostname
+    - ../../roles/proxmox
+    - ../../roles/debian/base-apt
+
+  handlers:
+    - name: reboot
+      reboot:
+        reboot_timeout: 36000
