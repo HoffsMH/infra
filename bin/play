@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# run ansible/play/deploy/service.yml -- specified by hosts in inventory
+# run ansible/play/deploy/service.yml 10.33.0.102 -- vars still specified
+# run ansible/play/deploy/service.yml 10.33.0.102 service_name --service_name can be overridden
+
+verbosity="-vv"
+
+if [[ $# -eq 3 ]]; then
+    ansible-playbook $verbosity \
+      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
+      -i inventory.vault.yml \
+      --extra-vars "@vars.vault.yml" \
+      --extra-vars "ansible_host=$2" \
+      --extra-vars "service_name=$3" \
+      $1
+
+    exit 0
+  elif [[ $# -eq 2 ]]; then
+    ansible-playbook $verbosity \
+      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
+      -i inventory.vault.yml \
+      --extra-vars "@vars.vault.yml" \
+      --extra-vars "ansible_host=$2" \
+      $1
+    exit 0
+  elif [[ $# -eq 1 ]]; then
+    ansible-playbook $verbosity \
+      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
+      -i inventory.vault.yml \
+      --extra-vars "@vars.vault.yml" \
+      $1
+    exit 0
+fi
+

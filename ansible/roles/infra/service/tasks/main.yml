@@ -1,8 +1,4 @@
 ---
-- name: debug
-  debug:
-    msg: "{{ hostvars['protectli-a']['address'] }};1.1.1.1"
-
 - name: pull down latest infra
   git:
     repo: 'https://github.com/HoffsMH/infra.git'
@@ -12,26 +8,26 @@
 
 - name: check if docker file exists
   stat:
-    path: /infra/deployables/{{ service_name }}/Dockerfile
+    path: /infra/assets/container/{{ service_name }}/Dockerfile
   register: dockerfile_present
 
 - name: build docker
   command:
-    cmd: "docker build /infra/deployables/{{ service_name }} -t {{ service_name }}"
+    cmd: "docker build /infra/assets/container/{{ service_name }} -t {{ service_name }}"
   when: dockerfile_present.stat.exists
   retries: 5
   delay: 5
 
 - name: "convert .env template"
   template:
-    src: "../../../deployables/{{ service_name }}/.env.j2"
-    dest: "/infra/deployables/{{ service_name }}/.env"
+    src: "../../../assets/container/{{ service_name }}/.env.j2"
+    dest: "/infra/assets/container/{{ service_name }}/.env"
     mode: 0644
 
 - name: "place service file"
   copy:
     remote_src: true
-    src: "/infra/deployables/{{ service_name }}/service"
+    src: "/infra/assets/container/{{ service_name }}/service"
     dest: "/etc/systemd/system/docker-{{ service_name }}.service"
     mode: 0644
     force: true
@@ -52,7 +48,7 @@
 
 - name: check if afterbuild file exists
   stat:
-    path: /infra/deployables/{{ service_name }}/afterbuild
+    path: /infra/assets/container/{{ service_name }}/afterbuild
   register: afterbuild_present
 
 - name: Sleep for 300 seconds and continue with play
@@ -61,5 +57,5 @@
 
 - name: execute afterbuild
   command:
-    cmd: "/infra/deployables/{{ service_name }}/afterbuild"
+    cmd: "/infra/assets/container/{{ service_name }}/afterbuild"
   when: afterbuild_present.stat.exists
