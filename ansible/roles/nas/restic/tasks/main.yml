@@ -16,10 +16,16 @@
   args:
     executable: /bin/bash
 
+- name: "var log restic"
+  file:
+    state: directory
+    path: "/var/log/restic"
+    mode: '0700'
+
 - name: "restic daily backeup"
   vars:
     job: >
-      /mnt/storage/infra/nas/restic/restic_backup
+      /infra/assets/restic/backup
     cadence: "@daily"
     dest: "/etc/cron.d/restic-backup-daily"
   include_role:

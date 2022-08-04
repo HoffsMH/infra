@@ -12,6 +12,11 @@
     group: root
     mode: '0644'
 
+- name: "clear old backup crons to make this idempotent"
+  shell: "crontab -l | sed /snapraid/d | crontab -"
+  args:
+    executable: /bin/bash
+
 - name: "snapraid sync and scrub every 3 hours"
   vars:
     job: "snapraid sync; snapraid scrub"

@@ -11,6 +11,11 @@
       line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
       state: present
 
+- name: "clear old backup crons to make this idempotent"
+  shell: "crontab -l | sed /mergerfs.balance/d | crontab -"
+  args:
+    executable: /bin/bash
+
 - name: "mergerfs balance every 12 hours"
   vars:
     job: "/infra/assets/mergerfs/tools/mergerfs.balance /mnt/storage"

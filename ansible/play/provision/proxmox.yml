@@ -7,6 +7,7 @@
     - ../../roles/common/hostname
     - ../../roles/proxmox
     - ../../roles/debian/base-apt
+    - ../../roles/infra/repo
 
   handlers:
     - name: reboot
