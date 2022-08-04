@@ -1,0 +1,12 @@
+---
+- name: ensure git
+  apt:
+    pkg:
+      - "git"
+
+- name: pull down latest infra
+  git:
+    repo: 'https://github.com/HoffsMH/infra.git'
+    dest: "/infra"
+    force: yes
+    version: master

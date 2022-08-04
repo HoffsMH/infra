@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ansible-playbook --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+  -vvv \
+  --connection-password-file=~/.config/ansible/.ssh-connection-pass \
+ -i inventory.vault.yml \
+  --extra-vars "@vars.vault.yml" \
+ $@
+

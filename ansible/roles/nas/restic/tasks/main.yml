@@ -4,38 +4,19 @@
     pkg:
       - "restic"
 
-# cron this
-# restic backup --verbose $BACKUP_EXCLUDES $BACKUP_PATHS
-#
-#
-export BACKUP_PATHS="$HOME/personal $HOME/code"
-export BACKUP_EXCLUDES="--exclude-file=$HOME/.restic_excludes"
+- name: "copy over backup script"
+  template:
+    src: "../../../assets/restic/backup.j2"
+    dest: "/infra/assets/restic/backup"
+    mode: 0700
+    force: true
 
-- name: "restic backup daily"
-  cron:
-    name: "restic backup"
-    minute: "0"
-    hour: "*/12"
-    job: "restic backup --verbose $BACKUP_EXCLUDES $BACKUP_PATHS"
-
-
-- name: Install snapraid
-  apt:
-    pkg:
-      - "snapraid"
-
-- name: copy snapraid config over
-  copy:
-    src: ./snapraid.conf
-    dest: /etc/snapraid.conf
-    owner: root
-    group: root
-    mode: '0644'
-
-- name: "snapraid sync and scrub every 3 hours"
+- name: "restic daily backeup"
   vars:
-    job: "snapraid sync; snapraid scrub"
-    cadence: "0 */3 * * *"
-    dest: "/etc/cron.d/snapraid-sync-scrub"
+    job: >
+      /mnt/storage/infra/nas/restic/restic_backup
+    cadence: "@daily"
+    dest: "/etc/cron.d/restic-backup-daily"
   include_role:
     name: "../../roles/common/has-cron-job"
+

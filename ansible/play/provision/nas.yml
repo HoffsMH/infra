@@ -4,12 +4,12 @@
     hostname: "{{device_name}}-proxmox-nas"
     ansible_host_key_checking: false
   roles:
-    - ../../roles/nas/mergerfs-storage
-    - ../../roles/nas/snapraid
-    - ../../roles/nas/data-disks
-    - ../../roles/nas/parity-disks
-    - ../../roles/nas/samba-server
-    # - ../../roles/nas/restic
+    # - ../../roles/nas/mergerfs-storage
+    # - ../../roles/nas/snapraid
+    # - ../../roles/nas/data-disks
+    # - ../../roles/nas/parity-disks
+    # - ../../roles/nas/samba-server
+    - ../../roles/nas/restic
 
   handlers:
     - name: snapraid sync

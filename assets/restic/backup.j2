@@ -1,0 +1,11 @@
+#!/bin/bash
+
+B2_ACCOUNT_ID={{ lookup('env', 'B2_ACCOUNT_ID') }} 
+B2_ACCOUNT_KEY={{ lookup('env', 'B2_ACCOUNT_KEY') }} 
+RESTIC_REPOSITORY={{ lookup('env', 'RESTIC_REPOSITORY') }} 
+RESTIC_PASSWORD={{ lookup('env', 'RESTIC_PASSWORD') }} 
+
+restic backup --verbose \
+  -r {{ lookup('env', 'RESTIC_REPOSITORY') }} \
+--exclude-file=/infra/assets/restic/restic/excludes \
+/mnt/storage/data > /mnt/storage/infra/nas/restic/log
