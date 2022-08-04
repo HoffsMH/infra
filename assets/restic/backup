@@ -4,5 +4,5 @@ source /infra/assets/restic/.env
 
 restic backup --verbose \
   -r $RESTIC_REPOSITORY \
---exclude-file=/infra/assets/restic/restic/excludes \
-/mnt/storage/data > /mnt/storage/infra/nas/restic/log
+--exclude-file=/infra/assets/restic/excludes \
+/mnt/storage/data | tee -a /var/log/restic/log
