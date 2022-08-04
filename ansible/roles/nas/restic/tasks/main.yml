@@ -4,10 +4,10 @@
     pkg:
       - "restic"
 
-- name: "copy over backup script"
+- name: "copy over env script"
   template:
-    src: "../../../assets/restic/backup.j2"
-    dest: "/infra/assets/restic/backup"
+    src: "../../../assets/restic/.env.j2"
+    dest: "/infra/assets/restic/.env"
     mode: 0700
     force: true
 

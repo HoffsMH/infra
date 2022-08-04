@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source /infra/assets/restic/.env
+
+restic backup --verbose \
+  -r $RESTIC_REPOSITORY \
+--exclude-file=/infra/assets/restic/restic/excludes \
+/mnt/storage/data > /mnt/storage/infra/nas/restic/log
