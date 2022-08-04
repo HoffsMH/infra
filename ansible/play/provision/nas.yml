@@ -4,27 +4,12 @@
     hostname: "{{device_name}}-proxmox-nas"
     ansible_host_key_checking: false
   roles:
-    # - ../../roles/nas/mergerfs-storage
-    # - ../../roles/nas/snapraid
-    # - ../../roles/nas/data-disks
-    # - ../../roles/nas/parity-disks
-    # - ../../roles/nas/samba-server
+    - ../../roles/common/hostname
+    - ../../roles/debian/base-apt
+    - ../../roles/infra/repo
+    - ../../roles/nas/mergerfs-storage
+    - ../../roles/nas/snapraid
+    - ../../roles/nas/data-disks
+    - ../../roles/nas/parity-disks
+    - ../../roles/nas/samba-server
     - ../../roles/nas/restic
-
-  handlers:
-    - name: snapraid sync
-      command:
-        argv:
-          - snapraid
-          - sync
-
-    - name: snapraid scrub
-      command:
-        argv:
-          - snapraid
-          - scrub
-      ignore_errors: yes
-
-    - name: reboot
-      reboot:
-        reboot_timeout: 36000

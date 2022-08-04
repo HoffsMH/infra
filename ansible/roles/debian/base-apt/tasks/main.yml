@@ -11,6 +11,7 @@
       - htop
       - tmux
       - jq
+      - git
     state: latest
     update_cache: yes
 

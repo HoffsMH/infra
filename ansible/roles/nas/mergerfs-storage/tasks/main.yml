@@ -11,13 +11,9 @@
       line: "/mnt/disk* /mnt/storage fuse.mergerfs defaults,nonempty,allow_other,use_ino,cache.files=off,moveonenospc=true,dropcacheonclose=true,minfreespace=200G,fsname=mergerfs 0 0"
       state: present
 
-- synchronize:
-    src: ./mergerfs-tools/
-    dest: /usr/bin/
-
 - name: "mergerfs balance every 12 hours"
   vars:
-    job: "mergerfs.balance /mnt/storage"
+    job: "/infra/assets/mergerfs/tools/mergerfs.balance /mnt/storage"
     cadence: "0 */12 * * *"
     dest: "/etc/cron.d/mergerfs-balance"
   include_role:
