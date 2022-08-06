@@ -12,7 +12,7 @@ RUN chmod 600 /etc/cron.d/pihole-updatelists
 RUN /usr/local/sbin/pihole-updatelists
 RUN pihole -w "api.rescuetime.com"
 
-HEALTHCHECK CMD curl --fail http://localhost:3000 || exit 1
+HEALTHCHECK CMD curl --fail http://localhost || exit 1
 
 
 RUN apt-get update && apt-get install -y \
