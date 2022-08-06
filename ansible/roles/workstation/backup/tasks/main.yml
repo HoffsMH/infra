@@ -6,7 +6,7 @@
     
 - name: "daily code backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code daily 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code daily 3"
     suffix: "code-daily-5"
     cadence: "@daily"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
@@ -15,7 +15,7 @@
 
 - name: "weekly code backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code weekly 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code weekly 3"
     suffix: "code-weekly-5"
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
@@ -24,7 +24,7 @@
 
 - name: "monthly code backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code monthly 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code monthly 3"
     suffix: "code-monthly-5"
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
@@ -33,7 +33,7 @@
 
 - name: "yearly code backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code yearly 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} code yearly 3"
     suffix: "code-yearly-5"
     cadence: "@yearly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
@@ -42,7 +42,7 @@
 
 - name: "weekly personal backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal weekly 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal weekly 2"
     suffix: "personal-weekly-5"
     cadence: "@weekly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
@@ -51,7 +51,7 @@
 
 - name: "monthly personal backup"
   vars:
-    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal monthly 5"
+    job: "sudo /home/{{ user }}/bin/backup-workstation {{ user }} personal monthly 4"
     suffix: "personal-monthly-5"
     cadence: "@monthly"
     dest: "/etc/cron.d/{{ user }}-workstation-backup-{{ suffix }}"
