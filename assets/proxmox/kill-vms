@@ -2,5 +2,5 @@
 
 for i in $@; do
   qm stop $i
-  qm kill $i
+  qm destroy $i
 done
