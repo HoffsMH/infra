@@ -5,11 +5,6 @@
   tasks:
     - name: get qmid
       command:
-        cmd: "get-avail-qm-id"
-      register: qmid
-
-    - name: get qmid
-      command:
         cmd: "/infra/assets/proxmox/get-avail-qm-id"
       register: qmid
 

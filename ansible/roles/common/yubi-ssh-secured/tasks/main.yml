@@ -1,13 +1,6 @@
 ---
 - name: "as super user"
   block:
-    - name: Add deploy user
-      user: name=deploy
-
-    - name: Add authorized keys for deploy user
-      authorized_key: user=deploy
-                      key="{{ lookup('env', 'SSH_PUB') }}"
-
     - name: Add authorized keys for main user
       authorized_key: user=root
                       key="{{ lookup('env', 'SSH_PUB') }}"
