@@ -5,9 +5,9 @@
       - "nginx"
       - "python3-certbot"
       - "cron"
-      - "git"
+      - "python3-certbot-nginx"
 
-- name: Allow connections on multiple ports
+- name: Allow connections on http and https
   iptables:
     chain: INPUT
     protocol: tcp
@@ -16,18 +16,17 @@
       - "443"
     jump: ACCEPT
 
-
 - name: "place nginx conf"
   template:
-    src: "../../../deployables/nginx/nginx.conf.j2"
+    src: "../../../assets/nginx/nginx.conf.j2"
     dest: "/etc/nginx/sites-enabled/default"
     mode: 0644
 
-- name: "place initial certbot script"
+- name: "place .env conf"
   template:
-    src: "../../../deployables/nginx/init-certbot.j2"
-    dest: "/usr/sbin/init-certbot"
-    mode: 0744
+    src: "../../../assets/nginx/.env.j2"
+    dest: "/infra/assets/nginx/.env"
+    mode: 0644
 
 - name: Start and enable service
   service:
