@@ -3,9 +3,9 @@
 
 qmid=$(get-avail-qm-id)
 
-if [[ $1 -eq "deb" ]]; then
+if [[ "$1" = "deb" ]]; then
   qm clone 100 $qmid --name "deb-clone-$qmid"
-  elif [[ $1 -eq "manj" ]]; then
+  elif [[ "$1" = "manj" ]]; then
   qm clone 101 $qmid --name "deb-clone-$qmid"
 else
   echo "not valid"
