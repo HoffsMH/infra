@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ $# -gt 0 ] then;
+  ln -sf /infra/assets/$1/* /usr/bin
+fi
