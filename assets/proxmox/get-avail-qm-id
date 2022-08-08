@@ -2,4 +2,4 @@
 
 lastid=$(qm list --full | awk '{ print $1 }' | tail -n1)
 
-echo $(( lastid + 1 ))
+echo $(( lastid + 1000 ))
