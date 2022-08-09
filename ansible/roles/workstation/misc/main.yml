@@ -1,0 +1,5 @@
+---
+- name: "run scaffolding script"
+  shell: "$HOME/infra/assets/workstation/dotfiles/bin/misc.run"
+  args:
+    executable: /bin/bash
