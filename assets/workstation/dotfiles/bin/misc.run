@@ -1,0 +1,15 @@
+#!/usr/bin/bash
+
+set -e
+
+echo "###############################################"
+echo "MISC ADMIN"
+echo "###############################################"
+
+# make thunar our default gui file manager
+xdg-mime  default  thunar.desktop inode/directory
+
+"$HOME/infra/assets/workstation/dotfiles/bin/set.time"
+"$HOME/infra/assets/workstation/dotfiles/bin/set.gpg-keys"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.password-store"
+
