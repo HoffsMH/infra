@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-qmid=$(get-avail-qm-id)
+qmid=$(qm.get-avail-id)
 
 if [[ "$1" = "deb" ]]; then
   qm clone 100 $qmid --name "deb-clone-$qmid"
