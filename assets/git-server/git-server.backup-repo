@@ -1,0 +1,8 @@
+#!/bin/bash
+
+reponame=$(pwd)
+
+datestr=$(date +%Y-%m-%d)
+
+tar -czvf "$backupstaging/$datestr-$hostname-git-$reponame-backup.tar.gz" --exclude-from=$excludesfile $capturedir
+
