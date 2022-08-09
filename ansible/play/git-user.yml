@@ -1,0 +1,10 @@
+---
+- hosts: empty
+  vars:
+    ansible_host_key_checking: false
+    ansible_user: root
+  roles:
+    # git ssh keys
+    # git init bare on every repo I might care about
+    - ../../roles/debian/base-apt
+    - ../../roles/common/git-user
