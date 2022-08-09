@@ -1,0 +1,40 @@
+{
+	"ignored_packages":
+	[
+		"Six",
+		"Vintage",
+		"Vintageous",
+	],
+	"neovintageous_build_version": 11100,
+	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Medium).sublime-color-scheme",
+	"highlight_modified_tabs": true,
+	"theme": "gruvbox.sublime-theme",
+	"added_words":
+	[
+		"if",
+		"# ",
+	],
+	"folder_exclude_patterns":
+	[
+		"benchmark_results/**",
+		"benchmark_results",
+		"dist",
+		"dist/",
+		"tmp/**",
+		"tmp/",
+		"tmp",
+		"node_modules",
+		"node_modules/**",
+		"bower_components/**",
+		"coverage/**",
+		"dist/**",
+		"elm-stuff/**",
+		"_build",
+		".git",
+		"deps",
+		".anvyl/**",
+		".anvyl/",
+		".anvyl"
+	],
+	"font_size": 10,
+}

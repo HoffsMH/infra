@@ -1,0 +1,3 @@
+#!/bin/bash
+
+git remote add infra git@example.org:my-repo.git

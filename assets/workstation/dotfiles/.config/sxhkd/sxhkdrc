@@ -1,0 +1,56 @@
+@XF86MonBrightnessDown
+  light -U 5
+
+@XF86MonBrightnessUp
+  light -A 5
+
+hyper + g
+  xclip -selection clipboard -o | xargs xdg-open
+
+hyper + shift + c
+  ecap -d 0
+
+@XF86AudioLowerVolume
+  pulsemixer --change-volume -3
+
+@XF86AudioRaiseVolume
+  pulsemixer --change-volume +3
+
+@XF86AudioMute
+  pulsemixer --toggle-mute
+
+@XF86KbdBrightnessUp
+  light -As "sysfs/leds/smc::kbd_backlight" 3
+
+@XF86KbdBrightnessDown
+  light -Us "sysfs/leds/smc::kbd_backlight" 3
+
+control + shift + 4
+  flameshot gui
+
+alt + space
+  ~/bin/switch
+
+ctrl + space
+  ~/bin/drun
+
+@hyper + @shift + d ; a
+  ~/bin/yta
+
+@hyper + @shift + d ; v
+  ~/bin/ytv
+
+@hyper + @shift + d ; w
+  notify-send "starting download of $(xclip -o)" && axel -c $(xclip -o) -o ~/personal/media/image/library/wall/wall-cp/. && notify-send "wall paper download of $(xclip -o)"
+
+@hyper + @shift + d ; m
+  notify-send "starting meme download of $(xclip -o)" && axel -c $(xclip -o) -o ~/personal/media/image/library/meme/. && notify-send "meme download of $(xclip -o)"
+
+@hyper + @shift + d ; i
+  xclip -o && notify-send "starting image download of $(xclip -o)" && axel -c $(xclip -o) -o ~/personal/media/image/capture/. && notify-send "image download of $(xclip -o)"
+
+@hyper + @shift + p ; p
+  play $(xpaste)
+
+@hyper + @shift + p ; q
+  enq $(xpaste)

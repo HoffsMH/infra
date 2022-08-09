@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source $HOME/.envrc
+
+restic backup --verbose $BACKUP_EXCLUDES $BACKUP_PATHS

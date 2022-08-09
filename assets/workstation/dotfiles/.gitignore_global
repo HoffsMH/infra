@@ -1,0 +1,29 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/tmp
+
+# dependencies
+/node_modules
+/bower_components
+
+# misc
+secret.yml
+testlog**
+test.log
+db_dump.bak
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/**/.DS_Store
+.DS_Store
+.envrc
+/test_reports
+yarn-error.log
+.__babel_tmp
+.ruby-version
+.tool-versions

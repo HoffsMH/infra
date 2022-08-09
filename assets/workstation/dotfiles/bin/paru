@@ -1,0 +1,16 @@
+#!/bin/bash
+
+
+
+_report() {
+  if [ "$1" = '-S' ];
+    then
+      echo "$2" >> $HOME/.installed
+      $(sort -u $HOME/.installed -o $HOME/.installed)
+  elif [ "$1" = '-R' ];
+    then
+      sed -i /$2/d $HOME/.installed
+  fi
+}
+
+/usr/bin/paru "$@" && _report "$@"

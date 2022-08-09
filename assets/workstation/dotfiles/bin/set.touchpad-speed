@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# https://wiki.archlinux.org/title/Xinput
+# https://www.reddit.com/r/xfce/comments/ugm576/how_to_adjust_the_mouse_sensitivity_in_xfce_via/
+
+id="12"; speed=5.00; xinput set-prop $id "Coordinate Transformation Matrix" $speed, 0, 0, 0, $speed, 0, 0, 0, 1

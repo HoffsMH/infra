@@ -1,0 +1,6 @@
+#!/bin/zsh
+
+local zshhist=$(cat ~/.zsh_history)
+
+# linux needs -r
+print  $(echo $zshhist | fzf +s --no-preview --tac | sed -r 's/( *: *[0-9]*:0;\*? *)|( *[0-9]*\*? *)//' | sed -r 's/\\/\\\\/g')

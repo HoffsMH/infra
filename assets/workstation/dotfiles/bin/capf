@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+  then
+    clipboard=$(xclip -o -selection clipboard || echo "")
+    selection=$(echo "$clipboard" || dmenu)
+  else
+    selection=$@
+fi
+
+capfile=$(timecat cap ~/personal/00-capture/time "$selection")
+
+echo $capfile
+
+kitty --class cap nvim "$capfile"

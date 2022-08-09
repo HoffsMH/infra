@@ -1,0 +1,35 @@
+#!/bin/zsh
+
+installs=(
+    "timecat"
+    "binlist"
+    "bulksearch"
+    "caseshift"
+)
+
+for i in $installs
+do
+  echo "###############################################"
+  echo "INSTALLING $i"
+  echo "###############################################"
+
+  mkdir -p "$HOME/code/util"
+  pushd "$HOME/code/util"
+  echo $i
+
+  rm -fr $i
+  git clone "https://github.com/HoffsMH/$i"
+  
+  pushd "$HOME/code/util/$i"
+    if ./bin/install ; then
+      echo "###############################################"
+      echo "SUCCEEDED $i"
+      echo "###############################################"
+    else
+      echo "###############################################"
+      echo "FAILED $i"
+      echo "###############################################"
+      echo "- $i\n" >> "$HOME/failures.md"
+    fi
+  popd
+done

@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# https://unix.stackexchange.com/questions/9496/looping-through-files-with-spaces-in-the-names
+IFS=$'\n'
+
+porcelaindir=${1:-$HOME/infra/assets/workstation/samples}
+files=$(find $porcelaindir -name '*')
+h="$HOME"
+
+for i in $files
+do
+  if [ -f "$i" ]
+  then
+    dirn=$(dirname $i)
+    basen=$(basename $i)
+
+    newdirn=${dirn/$porcelaindir}
+    newfile="$h$newdirn/$basen"
+
+    # if the file doesn't already exist
+    # clear the way
+    if [ ! -d "$h$newdirn" ]
+    then
+      echo "making dir: $h$newdirn"
+      mkdir -p "$h$newdirn"
+    fi
+
+    # if force is true
+    # or if the file doesn't already exist
+    if [[ $2 = "-f" ]] || [ ! -f "$newfile" ]
+    then
+      echo "copying: $newfile"
+
+      echo "$h$newdirn/$basen"
+      cp "$i" "$newfile"
+
+      # subtract read and write from
+      # group and others
+      chmod go-rwx "$h$newdirn/$basen"
+
+      # add read and write to
+      # owner
+      chmod u+rw "$h$newdirn/$basen"
+    fi
+  fi
+done
+

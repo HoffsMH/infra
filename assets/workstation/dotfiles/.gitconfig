@@ -1,0 +1,19 @@
+[user]
+  name = HoffsMH
+  email = matthecker@pm.me
+[core]
+  editor = "$EDITOR"
+  excludesfile = ~/.gitignore_global
+[pager]
+    diff = delta --syntax-theme=gruvbox-dark
+    log = delta --syntax-theme=gruvbox-dark
+    reflog = delta --syntax-theme=gruvbox-dark
+    show = delta --syntax-theme=gruvbox-dark
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f

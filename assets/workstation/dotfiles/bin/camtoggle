@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# pass dev/videoX to this
+ mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --geometry=-0-0 --autofit=30% --profile=low-latency --untimed $@

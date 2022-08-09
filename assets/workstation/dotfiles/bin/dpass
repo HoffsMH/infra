@@ -1,0 +1,12 @@
+#!/bin/sh
+
+password=$(find ~/.password-store/ -type f -name '*.gpg' |
+	sed 's/.*\/.password-store\(.*\)\.gpg$/\1/' | dmenu -i -p "Pass:")
+
+[ -n "$password" ] && gopass show -C "$password"
+
+email=$(gopass show "$password" email)
+username=$(gopass show "$password" username)
+
+notify-send "email: $email
+ username: $username"

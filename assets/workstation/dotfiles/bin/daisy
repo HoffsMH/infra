@@ -1,0 +1,3 @@
+#!/bin/sh
+
+du -hs $@ | sort -hr

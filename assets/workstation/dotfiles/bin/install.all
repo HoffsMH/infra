@@ -1,0 +1,242 @@
+#! /bin/zsh
+
+set -e
+
+#speed up aur makepkg
+sudo sed -i '/MAKEFLAGS=/c\MAKEFLAGS="-j$(nproc)"' /etc/makepkg.conf
+sudo sed 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -T 0 -c -z -)/' /etc/makepkg.conf
+
+echo "###############################################"
+echo "YAY BASIC RECIPE"
+echo "###############################################"
+
+installs=(
+    "acpi" # battery monitor
+    "acpid"
+    "age" # simple encryption
+    "ansible" # cfm
+    "anydesk" # remote desk 
+    "arandr" # arranging screens and saving screen configs
+    "arc-icon-theme" # needed for battery widget in awesome wm
+    "awesome-git" # wm
+    "axel" # downloader
+    "bat" # rust cat
+    "bitwarden-bin" # legacy -- will one day get rid of this
+    "blueman-git" # bluetooth gui
+    "bluez"
+    "bluez-utils" # connect to bluetooth devices
+    "bookworm" # e-reader
+    "brave-bin" # browser
+    "brlaser" # vs "brother-hll2300d" try both if needed
+    "calibre" # e-book reading
+    "chafa"
+    "cht.sh-git" # fast help
+    "clamav" # anti-virus
+    "code"
+    "colorgrab" # grab color hex from anywhere on screen
+    "cpupower"
+    "cronie" # cront implementation that includes anacron
+    "cups" # : (, stands for "Cant Usually Print Stuff"
+    "cups" # printing
+    "cups-pdf" #
+    "cups-pdf" # printings
+    "dbeaver"
+    "dbeaver" # sql exploration
+    "debtap"
+    "direnv" # env var management
+    "discord"
+    "dnsutils" # dig
+    "dunst" # notifications
+    "elixir"
+    "entr" # useful little thing
+    "erlang"
+    "etcher" # burning pis and boot discs
+    "evtest"
+    "exa" # alternative to ls
+    "fd-git" # alternative to find
+    "ffmpegthumbnailer"
+    "flameshot" # take a screenshot of a specific area on screen
+    "font-manager" # manage fonts
+    "fzf" # cli fuzzy finder
+    "gfold-git" # see git repo status across many repos
+    "gimp"
+    "gimp"
+    "git-delta-git" # diff viewer
+    "git-lfs"
+    "gnome-calculator" # calculator
+    "gnutls"
+    "google-chrome" # for front-end testing fidelity
+    "gopass" # password manager
+    "gruvbox-dark-gtk" # my gtk theme
+    "gruvbox-material-gtk-theme-git" # just for the icons
+    "htop" # system process monitor
+    "iftop"
+    "imagemagick"
+    "inotify-tools"
+    "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
+    "iso-image"
+    "jdk-openjdk"
+    "jq" # command line json parser
+    "kitty"
+    "lazygit-git" # git gui
+    "ledger-live" # crypto : (
+    "lf-git" # vim like file manager
+    "libinput"
+    "libratbag"
+    "libreoffice"
+    "light" # backlight and keyboard like control for laptops
+    "lxappearance" # managing gtk themes
+    "manjaro-arm-installer" # also bin
+    "manjaro-arm-tools"
+    "manjaro-settings-samba"
+    "mediainfo"
+    "mednafen" # snes
+    "monero-gui"
+    "mpv" # audio and video player
+    "mullvad-vpn" # vpn
+    "ncurses5-compat-libs"
+    "neovim"
+    "neovim-remote"
+    "net-tools" # for netstat
+    "network-manager-applet"
+    "nmap" # gimme da open ports
+    "noto-fonts"
+    "noto-fonts-emoji"
+    "ntfs-3g" # for viewing and manipulating windows filesystems
+    "ntp"
+    "openssh"
+    "openssh"
+    "p7zip" # 7z
+    "parallel" # for performing tasks in parallel
+    "pcloud-drive" # cloud storage provider
+    "peek" # Screen cast gifs
+    "pfetch" # simple screen fetch
+    "pinentry-dispatch"
+    "pinentry-git"
+    "piper" # adjusting mouse settings
+    "pistol-git"
+    "polkit"
+    "poppler"
+    "poppler" # pdf library
+    "postgresql"
+    "postgresql"
+    "protonvpn-cli-ng" # vpn provider
+    "pulseaudio-alsa"
+    "pulseaudio-bluetooth"
+    "pulsemixer" # mixer and volume control
+    "python-crcmod" # used to download stuff fast
+    "qimgv"
+    "redshift" # blue light reducer
+    "rescuetime2"
+    "resolvconf"
+    "restic" # remote backup
+    "ripgrep"
+    "ristretto" # no keybind memory needed image browser
+    "samba"
+    "scrot" # total screenshot taker
+    "seahorse"
+    "slack-desktop"
+    "slock"
+    "soulseekqt" # shhe
+    "sox"
+    "squashfs-tools"
+    "sshpass"
+    "stalonetray"
+    "starship" # fast terminal prompt
+    "sublime-text-4"
+    "sxhkd"
+    "sxiv"
+    "syncthing"
+    "sysstat" # pidstat cifsiostat iostat
+    "taskell"
+    "thunar"
+    "tmux" # lovehate this
+    "tokei" # count lines of code
+    "udisks2" # personal drive mounting system that doesn't require sudo
+    "ueberzug" # kitty image and video preview
+    "unrar-libre" # winrar
+    "unzip"
+    "usbutils" # lsusb bus and device id
+    "via-bin" # keyboard conifuration
+    "webkit2gtk" # undocumented dependency of font-manager :(
+    "wg-quick"
+    "wkhtmltopdf"
+    "wmctrl"
+    "xcape"
+    "xclip" # clipboard command interface
+    "xcursor-breeze"
+    "xdotool"
+    "xorg-font-util"
+    "xorg-fonts-encodings"
+    "xorg-server"
+    "xorg-xclipboard"
+    "xorg-xev" # x event
+    "xorg-xinit"
+    "xorg-xinput" # adjusting touchpad settings
+    "xorg-xsetroot"
+    "xwallpaper" # set the wall paper
+    "ytfzf" # youtube fzf
+    "yubikey-manager"
+    "yubikey-manager-qt"
+    "yubioath-desktop"
+    "zathura" # pdf viewer
+    "zathura-pdf-poppler"
+    "zip"
+    "zoom" # in a post covid world
+    "zoxide-git" # fuzzy finder cd
+    "zstd" # facebooks compression
+)
+
+sudo pacman -Syu
+yay -Syu
+
+echo $installs
+for i in $installs
+do
+  echo "###############################################"
+  echo "INSTALLING $i"
+  echo "###############################################"
+  if yay -S --noconfirm $i ; then
+    echo "###############################################"
+    echo "SUCCEEDED $i"
+    echo "###############################################"
+  else
+    echo "###############################################"
+    echo "FAILED $i"
+    echo "###############################################"
+    echo "- $i\n" >> "$HOME/failures.md"
+  fi
+done
+
+echo "###############################################"
+echo "enable services"
+echo "###############################################"
+
+sudo systemctl enable "syncthing@$USER.service"
+sudo systemctl start "syncthing@$USER.service"
+
+sudo systemctl enable "cpupower"
+sudo systemctl start "cpupower"
+
+# use dunst for notifications
+systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled"
+systemctl stop --user xfce4-notifyd.service || echo "stock notifications already stopped"
+systemctl enable --user dunst.service || echo "dunst service not found"
+systemctl start --user dunst.service || echo "starting dunst failed"
+
+sudo systemctl enable bluetooth.service || echo "dunst service not found"
+sudo systemctl start bluetooth.service || echo "starting dunst failed"
+
+sudo systemctl enable "pcscd.service"
+sudo systemctl start "pcscd.service"
+
+"$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.go-utils"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
+
+"$HOME/personal/dotfiles/bootstrap/install/tl.sh"
+"$HOME/personal/dotfiles/bootstrap/install/paru.sh"

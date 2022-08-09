@@ -1,0 +1,66 @@
+#!/bin/bash
+
+set -e
+
+echo "###############################################"
+echo "CREATE DIRS"
+echo "###############################################"
+
+mkdir -p "$HOME/code/paid/"
+mkdir -p "$HOME/code/fun/"
+mkdir -p "$HOME/personal/00-capture/"
+mkdir -p "$HOME/personal/media/audio/capture/"
+mkdir -p "$HOME/personal/media/video/capture/"
+mkdir -p "$HOME/personal/media/image/capture"
+mkdir -p "$HOME/personal/media/text/capture"
+mkdir -p "$HOME/personal/media/software/capture"
+mkdir -p "$HOME/personal/jrnl"
+
+
+echo "###############################################"
+echo "clear default files"
+echo "###############################################"
+
+sudo rm -fr ~/Documents
+sudo rm -fr ~/Downloads
+sudo rm -fr ~/Desktop
+sudo rm -fr ~/Library
+sudo rm -fr ~/Personal
+
+echo "###############################################"
+echo "COPY sample files if they dont already exist"
+echo "###############################################"
+
+"$HOME/infra/assets/workstation/dotfiles/bin/set.samples"
+
+chmod +x "$HOME/bin/ytgo"
+sudo chmod 600 "$HOME/.envrc"
+
+echo "###############################################"
+echo "fonts"
+echo "###############################################"
+
+sudo mkdir -p /usr/share/fonts/OTF
+sudo cp -avr $HOME/infra/assets/workstation/fonts/OTF/* /usr/share/fonts/OTF
+
+
+echo "###############################################"
+echo "dotfiles links"
+echo "###############################################"
+
+"$HOME/infra/assets/workstation/dotfiles/bin/set.links" "$HOME/infra/assets/workstation/dotfiles" "-f"
+
+echo "###############################################"
+echo "storage links"
+echo "###############################################"
+
+# media libraries
+ln -sf "/mnt/storage/data/personal/media/image/library" "$HOME/personal/media/image/"
+ln -sf "/mnt/storage/data/personal/media/audio/library" "$HOME/personal/media/audio/"
+ln -sf "/mnt/storage/data/personal/media/video/library" "$HOME/personal/media/video/"
+ln -sf "/mnt/storage/data/personal/media/text/library" "$HOME/personal/media/text/"
+ln -sf "/mnt/storage/data/personal/media/software/library" "$HOME/personal/media/software/"
+
+# asdf home
+ln -sf "$HOME/code/util/asdf" "$HOME/.asdf"
+

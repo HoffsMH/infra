@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export ytgo_template_location="$HOME/personal/dotfiles/samples/bin/ytgo"
+export ytgo_location="$HOME/bin/ytgo"
+
+tl rm $ytgo_location
+cp -f $ytgo_template_location $ytgo_location

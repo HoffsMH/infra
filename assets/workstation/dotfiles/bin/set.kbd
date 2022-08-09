@@ -1,0 +1,9 @@
+#!/bin/bash
+
+xmodmap ~/.Xmodmap && echo 'xmodmap'
+xset r rate 200 30 && echo 'xset rate'
+
+pkill xcape
+xcape -t 200 -e Control_L=Escape && echo 'xcape control'
+xcape -t 200 -e Shift_L=parenleft && echo 'xcape shift left'
+xcape -t 200 -e Shift_R=parenright && echo 'xcape shift right'

@@ -1,0 +1,98 @@
+{
+    // A port of https://github.com/machakann/vim-highlightedyank.
+    // See http://vimcasts.org/episodes/neovim-eyecandy/#shownotes.
+    "highlightedyank": true,
+
+    // Assign number of time in milliseconds.
+    "highlightedyank_duration": 1000,
+
+    // Valid values are: fill, outline, underline, squiggly_underline,
+    // stippled_underline.
+    "highlightedyank_style": "fill",
+
+    // Current search style.
+    // Valid values are: fill, outline, underline, squiggly_underline,
+    // stippled_underline.
+    "neovintageous_search_cur_style": "fill",
+    "neovintageous_smartcase": true,
+
+    // Incremental search style.
+    // Valid values are: fill, outline, underline, squiggly_underline,
+    // stippled_underline.
+    "neovintageous_search_inc_style": "fill",
+
+    // Search occurences style.
+    // Valid values are: fill, outline, underline, squiggly_underline,
+    // stippled_underline.
+    "neovintageous_search_occ_style": "fill",
+
+    // Visual bell style.
+    // Valid values are: blink, view, or views.
+    "vintageous_bell": "blink",
+
+    // Visual bell color-scheme.
+    // Valid values are: "dark", "light".
+    // Or a color scheme resource path: Packages/Name/name.hidden-color-scheme
+    "vintageous_bell_color_scheme": "dark",
+
+    // If you do not type anything on a new line e.g. pressing <Esc> after "o"
+    // or "O", the indent is deleted again. To preserve the leading whitespace
+    // on after pressing <esc> set this setting to false.
+    "vintageous_clear_auto_indent_on_esc": true,
+
+    // Default mode to use when activating or switching views.
+    // Valid values are: "insert"
+    //
+    // mode   | description
+    // ------ | -----------
+    // insert | Enter insert mode when opening or switching views or when
+    //          the window receives focus and is not in visual mode i.e. visual
+    //          mode selections are retained when the window loses focus.
+    "vintageous_default_mode": "",
+
+    // Plugin: A port of https://github.com/tpope/vim-abolish.
+    "vintageous_enable_abolish": true,
+
+    // Plugin: A port of https://github.com/tpope/vim-commentary.
+    "vintageous_enable_commentary": true,
+
+    // Plugin: A port of https://github.com/terryma/vim-multiple-cursors.
+    "vintageous_enable_multiple_cursors": true,
+
+    // Plugin: A port of https://github.com/justinmk/vim-sneak.
+    "vintageous_enable_sneak": false,
+
+    // Plugin: Sublime Text tweaks.
+    "vintageous_enable_sublime": true,
+
+    // Plugin: A port of https://github.com/tpope/vim-surround.
+    "vintageous_enable_surround": true,
+
+    // Plugin: A port of https://github.com/tpope/vim-unimpaired.
+    "vintageous_enable_unimpaired": true,
+
+    // If set to false then pressing the quit key (<Esc> or J) in multiple
+    // cursor mode will not quit and delete all existing cursors. Useful if you
+    // want to go back to Norman mode and still operate on all the cursors.
+    "vintageous_multi_cursor_exit_from_visual_mode": false,
+
+    // Reset to normal mode when a tab is activated.
+    "vintageous_reset_mode_when_switching_tabs": true,
+
+    // Show output panel from shell commands.
+    "vintageous_shell_silent": false,
+
+    // Name of program to use when starting a ":shell".
+    // Example: gnome-terminal
+    "vintageous_terminal": "st",
+
+    // Enable key bindings prefaced by the control-key.
+    "vintageous_use_ctrl_keys": true,
+
+    // Enable key bindings prefaced by the super-key, otherwise known as the
+    // command-key in OSX, and as the windows-key in Windows.
+    "vintageous_use_super_keys": false,
+
+    // Propagate copy actions to the system clipboard.
+    "vintageous_use_sys_clipboard": true
+}

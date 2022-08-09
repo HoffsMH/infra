@@ -1,0 +1,13 @@
+#!/bin/bash
+
+ding=~/.config/ding2.mp3
+count=${1:-1}
+
+notify-send "playing $(basename "$ding")"
+echo "$ding"
+
+for i in $(seq $count);
+do
+  mpv --player-operation-mode=pseudo-gui "$ding" --volume=130
+done
+

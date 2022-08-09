@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# example:
+# backup-workstation hoffs code daily 7
+
+if [[ $# -lt 4 ]] ; then
+    echo 'need 4 args see example'
+    exit 0
+fi
+
+user=$1 # since this might be run as root to ensure safely picking up all files
+subdir=$2 # relative to users home
+category=$3 # the category eg. daily
+retainCount=$4 # how many you wish to retain for that category in storage
+
+datestr=$(date +%Y-%m-%d)
+hostname=$(cat /etc/hostname)
+userhome="/home/$user"
+
+capturedir="$userhome/$subdir"
+
+backupstaging="$userhome/.backup/staging/$category/$subdir"
+dataDir="/mnt/storage/data"
+
+backupDir="$dataDir/backups/workstation/$category/$subdir"
+
+excludesfile="$userhome/.backup/excludes"
+
+mkdir -p $backupstaging
+
+if [[ -f $excludesfile ]]
+then
+  tar -czvf "$backupstaging/$datestr-$hostname-$user-$subdir-backup.tar.gz" --exclude-from=$excludesfile $capturedir
+else
+  tar -czvf "$backupstaging/$datestr-$hostname-$user-$subdir-backup.tar.gz" $capturedir
+fi
+
+  echo "looking for dataDir"
+if [[ -d "$dataDir" ]]
+then
+  echo "found dataDir"
+  mkdir -p $backupDir
+
+  rsync -zvhr --remove-source-files "$backupstaging/" $backupDir
+
+  # assumes sorted alphabetically so all files must begin with $datestr
+  deletes=$(/usr/bin/ls -r "$backupDir" | tail -n +$(($retainCount + 1))  )
+  pushd "$backupDir"
+
+  for i in $deletes
+  do
+    echo "Deleting $i"
+    rm $i
+  done
+  popd
+fi
+

@@ -1,0 +1,5 @@
+git:
+  autoFetch: false
+os:
+  editCommand: 'e' # see 'Configuring File Editing' section
+  editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
