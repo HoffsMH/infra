@@ -1,5 +1,5 @@
 ---
-- name: "run scaffolding script"
+- name: "run install script"
   shell: "$HOME/infra/assets/workstation/dotfiles/bin/install.all"
   args:
     executable: /bin/bash
