@@ -1,3 +1,10 @@
 #!/bin/bash
+if [[ $(whomai) != "git" ]];
+then
+  echo "not git user"
+  exit 1
+fi
 
-git init --bare "$1.git"
+pushd /var/git
+  git init --bare "$1.git"
+popd

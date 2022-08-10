@@ -36,11 +36,7 @@ naughty.connect_signal("request::display_error", function(message, startup)
 end)
 -- }}}
 
--- {{{ Variable definitions
--- @DOC_LOAD_THEME@
--- Themes define colours, icons, font and wallpapers.
 beautiful.init("~/.config/awesome/theme.lua")
-
 
 -- local bling = require("bling")
 
@@ -216,18 +212,24 @@ awful.keyboard.append_global_keybindings({
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "Tab",
-        function ()
-            awful.client.focus.history.previous()
-            if client.focus then
-                client.focus:raise()
-            end
-        end,
-        {description = "go back", group = "client"}),
-    awful.key({ modkey,           }, "e", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
 
-    awful.key({ modkey,           }, "space", function ()
+    awful.key({ modkey,           }, "space",  function ()
+            local screen = awful.screen.focused()
+            local scratchtag = screen.tags[7]
+            local scratch = scratchtag:clients()[1]
+
+            if scratch then
+                awful.tag.viewtoggle(scratchtag)
+                scratch:activate()
+            else
+                awful.spawn(scratchterminal)
+            end
+        end,
+        {description = "open scratch"}),
+
+    awful.key({ modkey,           }, "BackSpace",  function ()
             local screen = awful.screen.focused()
             local scratchtag = screen.tags[7]
             local scratch = scratchtag:clients()[1]
@@ -325,7 +327,52 @@ awful.keyboard.append_global_keybindings({
             beautiful.useless_gap = t.gap
         end,
               {description = "decrement gaps on current tag", group = "layout"}),
+
+    awful.key({ modkey,  }, "q",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[1]
+            if tag then
+              tag:view_only()
+            end
+        end,
+        {description = "view first tag"}),
+
+    awful.key({ modkey,  }, "w",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[2]
+            if tag then
+              tag:view_only()
+            end
+        end,
+        {description = "view second tag"}),
+
+    awful.key({ modkey,  }, "e",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[3]
+            if tag then
+              tag:view_only()
+            end
+        end,
+        {description = "view second tag"}),
+
+    awful.key({ modkey,  }, "r",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[4]
+            if tag then
+              tag:view_only()
+            end
+        end,
+        {description = "view second tag"}),
 })
+
 
 -- @DOC_NUMBER_KEYBINDINGS@
 
