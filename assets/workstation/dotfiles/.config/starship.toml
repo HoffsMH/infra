@@ -38,7 +38,6 @@ $vagrant\
 $zig\
 $nix_shell\
 $conda\
-$memory_usage\
 $aws\
 $openstack\
 $env_var\
@@ -52,6 +51,9 @@ $battery\
 $time\
 $status\
 $character"""
+
+scan_timeout = 10
+command_timeout = 10
 
 [directory]
 style =	"bold blue"
