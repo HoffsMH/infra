@@ -138,7 +138,6 @@ installs=(
     "slack-desktop"
     "slock"
     "soulseekqt" # shhe
-    "sox"
     "squashfs-tools"
     "sshpass"
     "stalonetray"
@@ -237,6 +236,5 @@ sudo systemctl start "pcscd.service"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.paru"
 
-"$HOME/personal/dotfiles/bootstrap/install/tl.sh"
-"$HOME/personal/dotfiles/bootstrap/install/paru.sh"
