@@ -1,4 +1,5 @@
 #!/bin/bash
+# asdf.exec nodejs 18.4.0 vscode-eslint-language-server --stdio
 
 . $HOME/.asdf/asdf.sh
 

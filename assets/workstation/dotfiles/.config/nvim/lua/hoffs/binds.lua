@@ -54,6 +54,8 @@ require'lspconfig'.solargraph.setup{}
 -- require'lspconfig'.gopls.setup{}
 
 -- require'lspconfig'.tsserver.setup{}
--- require'lspconfig'.eslint.setup{}
+require'lspconfig'.eslint.setup{
+  cmd = { "asdf.exec", "nodejs", "18.4.0", "vscode-eslint-language-server", "--stdio" },
+}
 --
 require"gitlinker".setup()

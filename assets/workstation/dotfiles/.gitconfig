@@ -2,7 +2,7 @@
   name = HoffsMH
   email = matthecker@pm.me
 [core]
-  editor = "$EDITOR"
+  editor = "nvim"
   excludesfile = ~/.gitignore_global
 [pager]
     diff = delta --syntax-theme=gruvbox-dark
