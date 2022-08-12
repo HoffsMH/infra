@@ -361,6 +361,18 @@ awful.keyboard.append_global_keybindings({
         end,
         {description = "view second tag"}),
 
+
+    awful.key({ modkey, "Shift"  }, "w",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[2]
+            if tag then
+              client.focus:move_to_tag(tag)
+            end
+        end,
+        {description = "move to tag 2"}),
+
     awful.key({ modkey,  }, "e",
         function ()
             awful.screen.focus(screen.primary)
@@ -370,7 +382,18 @@ awful.keyboard.append_global_keybindings({
               tag:view_only()
             end
         end,
-        {description = "view second tag"}),
+        {description = "move to tag 2"}),
+
+    awful.key({ modkey, "Shift"  }, "e",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[3]
+            if tag then
+              client.focus:move_to_tag(tag)
+            end
+        end,
+        {description = "move to tag 3"}),
 
     awful.key({ modkey,  }, "r",
         function ()
@@ -382,6 +405,17 @@ awful.keyboard.append_global_keybindings({
             end
         end,
         {description = "view second tag"}),
+
+    awful.key({ modkey, "Shift"  }, "r",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[4]
+            if tag then
+              client.focus:move_to_tag(tag)
+            end
+        end,
+        {description = "move to tag 4"}),
 })
 
 
