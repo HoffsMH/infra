@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# example:
+#       machine-type
+# backup git-server hoffs /var/log daily 7
+# need user because we may be using it as root
+
+if [[ $# -lt 5 ]] ; then
+    echo 'need 5 args see example'
+    exit 0
+fi
+
+machine_type=$1
+user=$2 # since this might be run as root to ensure safely picking up all files
+capture_dir="$3"
+cadence=$4 # the cadence cadence eg. daily
+retain_count=$5 # how many you wish to retain for that cadence in storage
+
+datestr=$(date +%Y-%m-%d)
+hostname=$(cat /etc/hostname)
+userhome="/home/$user"
+subdir=$(basename $capture_dir)
+
+excludesfile="$userhome/.backup/excludes"
+backup_staging="$userhome/.backup/staging"
+backup_staging_subdir="$backup_staging/$machine_type/$cadence/"
+
+backup_dir="/mnt/storage/data/backups/"
+
+backup_file_name="$datestr-$hostname-$user-$subdir-backup.tar.gz"
+
+mkdir -p $backup_staging_subdir
+
+if [[ -f $excludesfile ]]
+then
+  tar -czvf "$backup_staging_subdir/$backup_file_name" --exclude-from=$excludesfile $capture_dir
+else
+  tar -czvf "$backup_staging_subdir/$backup_file_name" $capture_dir
+fi
+
+echo "looking for backup dir"
+
+# its possible that samba has not mounted this
+if [[ -d "$backup_dir" ]]
+then
+  echo "found backup_dir"
+  mkdir -p "$backup_dir/$machine_type/$cadence/"
+
+  rsync -zvhr --remove-source-files "$backup_staging/" "$backup_dir"
+
+  # assumes sorted alphabetically so all files must begin with $datestr
+  deletes=$(/usr/bin/ls -r "$backup_dir/$machine_type/$cadence/" | tail -n +$(($retain_count + 1))  )
+  pushd "$backup_dir/$machine_type/$cadence/"
+
+  for i in $deletes
+  do
+    echo "Deleting $i"
+    rm $i
+  done
+  popd
+fi
+
