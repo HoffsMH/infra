@@ -1,4 +1,0 @@
----
-- name: Add git user
-  user:
-    name: git

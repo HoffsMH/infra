@@ -1,0 +1,9 @@
+---
+- name: Add git user
+  user:
+    name: git
+
+- name: Add authorized keys for git user
+  authorized_key:
+    user: git
+    key: "{{ lookup('env', 'SSH_PUB') }}"
