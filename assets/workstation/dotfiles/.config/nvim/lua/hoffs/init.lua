@@ -14,6 +14,10 @@ vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.js silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.yml silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.scss silent write]])
 
+-- when entering a md wordwrap as long as the line ends in whitespace
+vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
+
+
 
 require('nvim_comment').setup({
 	-- Linters prefer comment and line to have a space in between markers
@@ -79,6 +83,4 @@ require('telescope').setup{
     },
   },
 }
-
-
 
