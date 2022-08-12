@@ -3,10 +3,14 @@
   apt:
     pkg:
       - "git"
+- name: "cleanup dir"
+  file:
+    path: /infra
+    state: absent
 
 - name: pull down latest infra
   git:
-    repo: 'https://github.com/HoffsMH/infra.git'
+    repo: 'https://github.com/HoffsMH/infra'
     dest: "/infra"
     force: yes
     version: master
