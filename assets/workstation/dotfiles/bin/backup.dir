@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # example:
-#       machine-type
+#       machine-type user dir cadence retain count
 # backup git-server hoffs /var/log daily 7
 # need user because we may be using it as root
 
