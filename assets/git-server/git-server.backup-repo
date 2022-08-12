@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# backup git-server hoffs /var/log daily 7
-/infra/assets/workstation/dotfiles/bin/backup.dir git-server git /home/git/weekly 3
+# backup git-server hoffs /var/log daily 8
+/infra/assets/workstation/dotfiles/bin/backup.dir git-server git /home/git weekly 3
 
 
