@@ -25,6 +25,8 @@ extras=(
   # "zenm"
   # "pcsx2"
   # "mednafen"
+  # "qmk" # for flashing stuff
+  # "chrysalis-bin" # for flashing atreus kb specifically
 )
 
 echo $extras
