@@ -339,6 +339,17 @@ awful.keyboard.append_global_keybindings({
         end,
         {description = "view first tag"}),
 
+    awful.key({ modkey, "Shift" }, "q",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[1]
+            if tag then
+              client.focus:move_to_tag(tag)
+            end
+        end,
+        {description = "move to tag 1"}),
+
     awful.key({ modkey,  }, "w",
         function ()
             awful.screen.focus(screen.primary)
