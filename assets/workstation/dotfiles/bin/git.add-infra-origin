@@ -1,3 +1,5 @@
 #!/bin/bash
 
-git remote add infra git@example.org:my-repo.git
+name=$(basename $(pwd))
+
+git remote add infra "git@git.local.mhkr.xyz:$name.git"
