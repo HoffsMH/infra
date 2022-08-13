@@ -10,7 +10,8 @@ nnoremap("<leader>n", "<cmd>e #<cr>")
 nnoremap("<C-w>L", "<cmd>vs #<cr>")
 nnoremap('<leader>hb', function() require("gitsigns").blame_line{full=true} end)
 nnoremap('<leader>tb', require("gitsigns").toggle_current_line_blame)
--- nnoremap('<leader>gy', require("gitlinker").toggle_current_line_blame)
+
+nnoremap('<leader>gy', function () require("gitlinker") end)
 
 
 -- harpoon
