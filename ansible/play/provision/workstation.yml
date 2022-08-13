@@ -3,10 +3,10 @@
   connection: local
   vars:
     ansible_host_key_checking: false
-    # samba_server: "{{ hostvars['thinkcentre-a']['ansible_host'] }}"
+    samba_server: "{{ hostvars['thinkcentre-a']['ansible_host'] }}"
   roles:
-    - ../../roles/workstation/scaffolding
-    - ../../roles/workstation/install
-    - ../../roles/workstation/misc
-    # - ../../roles/common/samba-client
-    # - ../../roles/workstation/backup
+    # - ../../roles/workstation/scaffolding
+    # - ../../roles/workstation/install
+    # - ../../roles/workstation/misc
+    - ../../roles/common/samba-client
+    - ../../roles/workstation/backup
