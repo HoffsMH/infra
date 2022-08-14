@@ -22,12 +22,12 @@
     path: "/var/log/restic"
     mode: '0700'
 
-- name: "restic daily backeup"
-  vars:
-    job: >
-      /infra/assets/restic/backup
-    cadence: "@daily"
-    dest: "/etc/cron.d/restic-backup-daily"
-  include_role:
-    name: "../../roles/common/has-cron-job"
+# - name: "restic daily backeup"
+#   vars:
+#     job: >
+#       /infra/assets/restic/backup
+#     cadence: "@daily"
+#     dest: "/etc/cron.d/restic-backup-daily"
+#   include_role:
+#     name: "../../roles/common/has-cron-job"
 
