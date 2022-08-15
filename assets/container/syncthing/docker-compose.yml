@@ -2,7 +2,7 @@ version: '3'
 services:
   syncthing:
     container_name: mhkr-syncthing
-    hostname: 'mhkr-syncthing'
+    hostname: 'mhkr-infra'
     image: syncthing/syncthing
     environment:
       - PUID=1000
