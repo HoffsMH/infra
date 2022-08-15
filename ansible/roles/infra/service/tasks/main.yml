@@ -67,6 +67,14 @@
   wait_for:
     timeout: 300
 
+- name: "ensure minutely retry"
+  vars:
+    job: "systemctl start docker-{{ service_name }}"
+    cadence: "* * * * *"
+    dest: "/etc/cron.d/service-start"
+  include_role:
+    name: ../../roles/common/has-cron-job
+
 - name: execute afterbuild
   command:
     cmd: "/infra/assets/container/{{ service_name }}/afterbuild"
