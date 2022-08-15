@@ -23,11 +23,18 @@
   retries: 5
   delay: 5
 
+- name: check if env file  exists
+  stat:
+    # a little weird that we are checking for it on the remote host but it works
+    path: /infra/assets/container/{{ service_name }}/env.j2
+  register: env_file
+
 - name: "convert .env template"
   template:
     src: "../../../assets/container/{{ service_name }}/.env.j2"
     dest: "/infra/assets/container/{{ service_name }}/.env"
     mode: 0644
+  when: env_file.stat.exists
 
 - name: "place service file"
   copy:
