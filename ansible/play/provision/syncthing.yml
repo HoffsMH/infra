@@ -1,0 +1,10 @@
+---
+- hosts: empty
+  vars:
+    ansible_host_key_checking: false
+    ansible_user: root
+  roles:
+    - ../../roles/debian/base-apt
+    - ../../roles/debian/docker-ce
+    - role: ../../roles/infra/service
+      service_name: syncthing
