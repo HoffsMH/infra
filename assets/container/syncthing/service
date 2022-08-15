@@ -1,7 +1,7 @@
 [Unit]
 Description=Docker Compose Syncthing Service
 Requires=docker.service
-After=docker.service
+After=docker.service mnt-storage.mount
 
 [Service]
 WorkingDirectory=/infra/assets/container/syncthing
