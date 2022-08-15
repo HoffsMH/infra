@@ -14,6 +14,14 @@
       path: "/mnt/storage"
       mode: '0777'
 
+  - name: "ensure minutely mounted"
+    vars:
+      job: "mount -a"
+      cadence: "* * * * *"
+      dest: "/etc/cron.d/samba-mount"
+    include_role:
+      name: ../../roles/common/has-cron-job
+
   - name: mount everything
     command:
       cmd: "mount -a"
