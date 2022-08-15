@@ -4,15 +4,6 @@
   args:
     executable: /bin/bash
     
-- name: "monthly code backup"
-  vars:
-    job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/code monthly 3"
-    suffix: "code-monthly-5"
-    cadence: "@monthly"
-    dest: "/etc/cron.d/hoffs-workstation-backup"
-  include_role:
-    name: ../../roles/common/has-cron-job
-
 - name: "weekly personal backup"
   vars:
     job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal weekly 2"
