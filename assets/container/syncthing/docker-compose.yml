@@ -1,8 +1,8 @@
 version: '3'
 services:
   syncthing:
-    container_name: syncthing
-    hostname: 'deb-1-syncthing'
+    container_name: mhkr-syncthing
+    hostname: 'mhkr-syncthing'
     image: syncthing/syncthing
     environment:
       - PUID=1000
