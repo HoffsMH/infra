@@ -33,3 +33,7 @@ do
     fi
   popd
 done
+
+# pushd "$HOME/code/util/"
+#   git clone https://github.com/gopasspw/gopass
+# popd
