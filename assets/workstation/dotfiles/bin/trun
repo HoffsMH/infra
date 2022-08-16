@@ -1,3 +1,9 @@
 #!/bin/zsh
 
-tmux new-window -n "$@"  "run-wa '$@'"
+if [[ $# -gt 0 ]];
+then
+  tmux new-window -n "$@"  "run-wa '$@'"
+else
+  cmd=$(fho)
+  tmux new-window -n "$cmd"  "run-wa '$cmd'"
+fi

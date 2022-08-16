@@ -7,4 +7,4 @@ timecat split $capfile $capdir
 
 timecat cat $capdir $@ > $capfile
 
-kitty --class cap nvim $capfile
+trun "nvim $capfile"

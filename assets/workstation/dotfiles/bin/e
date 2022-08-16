@@ -20,5 +20,6 @@ if [ -S "$socketfile" ]; then
     nvr --remote --servername "$socketfile" $@
   fi
 else
-  kitty /usr/bin/nvim --listen /tmp/nvimsocket-"$directoryctx"  $@ &
+  trun "/usr/bin/nvim --listen /tmp/nvimsocket-$directoryctx  $@"
+  # kitty /usr/bin/nvim --listen /tmp/nvimsocket-"$directoryctx"  $@ &
 fi

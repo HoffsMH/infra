@@ -1,1 +1,0 @@
-$EDITOR ~/.tmux.conf

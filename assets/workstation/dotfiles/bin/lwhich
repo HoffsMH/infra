@@ -1,0 +1,4 @@
+#!/bin/bash
+
+exa -laFGgh --icons -T -L 1 $(which $1)
+
