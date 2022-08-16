@@ -1,4 +1,4 @@
 #!/bin/bash
 
-$EDITOR ~/bin/ytgo
+e ~/bin/ytgo
 
