@@ -1,24 +1,17 @@
 ## Cold
 
-- https://gist.github.com/TiZ-EX1/b92275f08a9570c773ba
 - put all the system specific things into environment  via envrc  (dont forget to fill out the samplefile too) and then pull from that in poly bar and whatever else is capable of pulling from environment... unfortch that sublimetext might need to be a sample :(
 - separate system for go binarys
     * [ ] gopass
-    * [ ] rck
-    * [ ] dck
     * [ ] restic?
     * [ ] lf
-- thunar default save location
 - time for a way to "minimize" windows through keypress
 - go jrnl
+- keybind to just move ALL clients from one to another screen
 
 ## Warm
 
-- get all aliases out of zsh it can only slow down startup and couples the shell to the useful commands
-    > my thoughts on this has changed, if I want autocomplete then I want an alias but if my arguments are usually files or there are no arguments then its a bash script
-- awesome keybind for temp hiding window?
-- keybind to just move ALL clients from one to another screen
-- just get a simple mp3 into dotfiles and make it link to something for `timer` command to play
+- thunar default save location
 
 ## Waiting on Something
 
@@ -89,3 +82,4 @@
 - time for an actual deck layout within awesomewm tag 1 is getting crowded
 - bookmarking into capture also bulk bookmarking
 - keybind to focus master no matter where in stack you are
+- just get a simple mp3 into dotfiles and make it link to something for `timer` command to play
