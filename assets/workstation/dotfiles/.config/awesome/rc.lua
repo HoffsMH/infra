@@ -44,7 +44,6 @@ terminal = "kitty"
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
 scratchterminal = "kitty --class scratch scratch"
-capterminal = "ecap"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -59,7 +58,6 @@ modkey = "Mod3"
 -- Create a launcher widget and a main menu
 myawesomemenu = {
    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-   { "manual", terminal .. " -e man awesome" },
    { "restart", awesome.restart },
    { "quit", function() awesome.quit() end },
 }
@@ -213,7 +211,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
 
-    awful.key({ modkey,           }, "space",  function ()
+  awful.key({ "Control",           }, "Return",  function ()
             local screen = awful.screen.focused()
             local scratchtag = screen.tags[7]
             local scratch = scratchtag:clients()[1]
@@ -226,34 +224,6 @@ awful.keyboard.append_global_keybindings({
             end
         end,
         {description = "open scratch"}),
-
-    awful.key({ modkey,           }, "BackSpace",  function ()
-            local screen = awful.screen.focused()
-            local scratchtag = screen.tags[7]
-            local scratch = scratchtag:clients()[1]
-
-            if scratch then
-                awful.tag.viewtoggle(scratchtag)
-                scratch:activate()
-            else
-                awful.spawn(scratchterminal)
-            end
-        end,
-        {description = "open scratch"}),
-
-    awful.key({ modkey,           }, "c", function ()
-            local screen = awful.screen.focused()
-            local captag = screen.tags[9]
-            local cap = captag:clients()[1]
-
-            if cap then
-                awful.tag.viewtoggle(captag)
-                cap:activate()
-            else
-                awful.spawn(capterminal)
-            end
-        end,
-        {description = "open cap"}),
 
     awful.key({ modkey,           }, "m", function ()
             local screen = awful.screen.focused()
