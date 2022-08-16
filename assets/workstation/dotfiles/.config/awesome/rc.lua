@@ -629,18 +629,7 @@ ruled.client.connect_signal("request::rules", function()
 
     ruled.client.append_rule {
         rule       = { class = "scratch"     },
-        properties = { floating = false, focus = false, tag = "scratch" }
-    }
-
-    ruled.client.append_rule {
-        rule       = { class = "cap"     },
-        properties = {
-            titlebars_enabled = false,
-            floating = true,
-            focus = false,
-            tag = "cap",
-            placement = awful.placement.centered,
-        }
+        properties = { fullscreen = true, floating = false, focus = false, tag = "scratch" }
     }
 
     ruled.client.append_rule {

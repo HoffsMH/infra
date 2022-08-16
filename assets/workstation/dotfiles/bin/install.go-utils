@@ -34,6 +34,11 @@ do
   popd
 done
 
-# pushd "$HOME/code/util/"
-#   git clone https://github.com/gopasspw/gopass
-# popd
+echo "###############################################"
+echo "INSTALLING gopass"
+echo "###############################################"
+
+pushd "$HOME/code/util/"
+  git clone https://github.com/gopasspw/gopass
+  sudo make clean install
+popd
