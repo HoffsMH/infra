@@ -21,28 +21,22 @@ installs=(
     "awesome-git" # wm
     "axel" # downloader
     "bat" # rust cat
-    "bitwarden-bin" # legacy -- will one day get rid of this
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
     "bookworm" # e-reader
     "brave-bin" # browser
     "brlaser" # vs "brother-hll2300d" try both if needed
-    "calibre" # e-book reading
-    "chafa"
     "cht.sh-git" # fast help
     "clamav" # anti-virus
-    "code"
     "colorgrab" # grab color hex from anywhere on screen
     "cpupower"
     "cronie" # cront implementation that includes anacron
     "cups" # : (, stands for "Cant Usually Print Stuff"
     "cups" # printing
-    "cups-pdf" #
     "cups-pdf" # printings
-    "dbeaver"
     "dbeaver" # sql exploration
-    "debtap"
+    "debtap" # tap into deb packages
     "direnv" # env var management
     "discord"
     "dnsutils" # dig
@@ -50,16 +44,14 @@ installs=(
     "elixir"
     "entr" # useful little thing
     "erlang"
-    "etcher" # burning pis and boot discs
     "evtest"
     "exa" # alternative to ls
     "fd-git" # alternative to find
-    "ffmpegthumbnailer"
+    "ffmpegthumbnailer" # ytdl dependency
     "flameshot" # take a screenshot of a specific area on screen
     "font-manager" # manage fonts
     "fzf" # cli fuzzy finder
     "gfold-git" # see git repo status across many repos
-    "gimp"
     "gimp"
     "git-delta-git" # diff viewer
     "git-lfs"

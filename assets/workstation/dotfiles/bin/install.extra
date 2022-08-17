@@ -6,6 +6,8 @@ echo "EXTRA INSTALLS"
 echo "###############################################"
 
 extras=(
+  # "calibre" # e-book reading
+  # "chafa" # jpg to ascii neeto
   # "bfg"
   # "zoom"
   # "figlet"
