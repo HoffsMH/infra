@@ -74,7 +74,6 @@ export SSH_AUTH_SOCK
 
 "$HOME/bin/kbdsetup"
 
-pueued &
 tl startx &
 
 $HOME/.screenlayout/main.sh &
