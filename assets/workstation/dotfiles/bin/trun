@@ -5,5 +5,6 @@ then
   tmux new-window -n "$@"  "run-wa '$@'"
 else
   cmd=$(fho)
-  tmux new-window -n "$cmd"  "run-wa '$cmd'"
+
+  tmux new-window -n "${cmd/trun/}"  "run-wa '${cmd/trun/}'"
 fi
