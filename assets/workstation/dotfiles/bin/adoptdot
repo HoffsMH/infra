@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ $# -lt 1 ]];
+then
+  echo "not enough args"
+  exit 1
+fi
+
 full_path=$(readlink -f "$1")
 full_dir=$(dirname "$full_path")
 base=$(basename $1)
