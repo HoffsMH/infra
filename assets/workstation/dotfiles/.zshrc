@@ -17,7 +17,6 @@ source ~/.zsh/fzf_settings.sh
 
 # all my stuff
 source "$HOME/.zsh/ytdl.sh"
-source "$HOME/.zsh/zsh-vi-mode.plugin.zsh"
 source "$HOME/.zsh/functions_and_aliases.sh"
 
 # path and shims
