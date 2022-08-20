@@ -1,2 +1,6 @@
 
+# do this to fill in index
+# fd . ~/personal/media/audio/library --type file > ~/personal/media/audio/library/file-list
+
+
 cat ~/personal/media/audio/library/file-list| fzf --no-preview | play
