@@ -1,0 +1,2 @@
+
+cat ~/personal/media/audio/library/file-list| fzf --no-preview | play
