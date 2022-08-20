@@ -15,6 +15,7 @@ export PATH=$HOME/.pyenv/bin:$PATH
 export PATH=$ASDF_DATA_DIR/shims:$PATH
 
 export PATH=/usr/local/go/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 # leaving these incase I one day need them again but for now
 # asdf + go modules
 
