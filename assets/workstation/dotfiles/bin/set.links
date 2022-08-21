@@ -15,14 +15,14 @@ do
     basen=$(basename $i)
     newdirn=${dirn/$porcelaindir}
 
-    newlink="$h$newdirn/$basen"
+    newlink="$h/$newdirn/$basen"
 
     # if the file doesn't already exist
     # clear the way
-    if [ ! -d "$h$newdirn" ]
+    if [ ! -d "$h/$newdirn" ]
     then
-      echo "making dir: $h$newdirn"
-      mkdir -p "$h$newdirn"
+      echo "making dir: $h/$newdirn"
+      mkdir -p "$h/$newdirn"
     fi
 
     # if force is true

@@ -4,10 +4,10 @@ remotes=$(git remote)
 
 for i in $remotes; do
   if [[ "$i" = "origin" ]]; then
-    git push $i $(gbn) $@
+    git push $i $(git.bn) $@
   elif [[ "$i" = "infra" ]]; then
     # test just pushing everything for infra
-    git push $i $(gbn) $@
+    git push $i $(git.bn) $@
   else
     echo "skipping $i"
   fi
