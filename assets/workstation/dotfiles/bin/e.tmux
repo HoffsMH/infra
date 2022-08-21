@@ -1,1 +1,1 @@
-$EDITOR ~/.tmux.conf
+nvim ~/.tmux.conf

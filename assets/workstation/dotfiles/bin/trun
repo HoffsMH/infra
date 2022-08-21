@@ -2,9 +2,15 @@
 
 if [[ $# -gt 0 ]];
 then
+  echo "trying to run"
+  echo "'$@'"
   tmux new-window -n "$@"  "run-wa '$@'"
 else
   cmd=$(fho)
 
-  tmux new-window -n "${cmd/trun/}"  "run-wa '${cmd/trun/}'"
+  input=${cmd/trun /}
+  input=${input/\"/}
+  input=${input/\"/}
+
+  trun "$input"
 fi

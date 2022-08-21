@@ -1,1 +1,3 @@
-$EDITOR ~/.config/nvim
+#!/bin/bash
+
+nvim ~/.config/nvim

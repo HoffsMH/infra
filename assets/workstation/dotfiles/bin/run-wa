@@ -5,6 +5,7 @@ setopt aliases
 source ~/.zsh/ytdl.sh
 source ~/.zsh/functions_and_aliases.sh
 source ~/.zsh/path_and_shims.sh
+source ~/.zsh/fzf_settings.sh
 source ~/.zsh/hooks.sh
 source ~/.zsh/util.sh
 
