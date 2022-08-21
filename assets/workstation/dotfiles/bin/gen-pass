@@ -1,6 +1,0 @@
-#/bin/bash
-
-pass=$(diceware -separator " " -words 6)
-
-~/bin/cptext $pass
-echo "done"
