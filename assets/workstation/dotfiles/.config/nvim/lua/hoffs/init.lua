@@ -84,3 +84,6 @@ require('telescope').setup{
   },
 }
 
+require"gitlinker".setup()
+require('nvim-autopairs').setup()
+
