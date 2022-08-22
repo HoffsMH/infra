@@ -4,7 +4,7 @@ if [[ $# -gt 0 ]];
 then
   echo "trying to run"
   echo "'$@'"
-  tmux new-window -n "$@"  "run-wa '$@'"
+  tmux new-window -n "$(basename $(pwd)) $@"  "run-wa '$@'"
 else
   cmd=$(fho)
 
