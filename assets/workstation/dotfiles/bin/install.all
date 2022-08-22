@@ -117,6 +117,7 @@ installs=(
     "pulsemixer" # mixer and volume control
     "python-crcmod" # used to download stuff fast
     "qimgv"
+    "qmk" # for all qmk boards
     "redshift" # blue light reducer
     "rescuetime2"
     "resolvconf"
@@ -139,6 +140,7 @@ installs=(
     "syncthing"
     "sysstat" # pidstat cifsiostat iostat
     "taskell"
+    "teensy-loader-cli" # for kinesis
     "thunar"
     "tmux" # lovehate this
     "tokei" # count lines of code
