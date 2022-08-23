@@ -12,4 +12,4 @@ capfile=$(timecat cap ~/personal/00-capture/time "$selection")
 
 echo $capfile
 
-kitty --class cap nvim "$capfile"
+nvim "$capfile"
