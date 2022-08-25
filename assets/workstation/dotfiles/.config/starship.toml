@@ -52,8 +52,8 @@ $time\
 $status\
 $character"""
 
-scan_timeout = 100
-command_timeout = 100
+scan_timeout = 200
+command_timeout = 200
 
 [directory]
 style =	"bold blue"
