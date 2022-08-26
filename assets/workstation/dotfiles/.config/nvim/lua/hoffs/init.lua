@@ -68,21 +68,6 @@ require('nvim-treesitter.configs').setup {
 
 
 
-require('telescope').setup{
-  defaults = {
-    vimgrep_arguments = {
-      'rg',
-      '--color=never',
-      '--no-heading',
-      '--with-filename',
-      '--line-number',
-      '--column',
-      '--smart-case',
-      '--hidden',
-      '--ignore-vcs'
-    },
-  },
-}
 
 require"gitlinker".setup()
 require('nvim-autopairs').setup()
