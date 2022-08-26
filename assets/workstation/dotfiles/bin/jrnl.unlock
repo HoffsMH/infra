@@ -1,0 +1,17 @@
+#!/bin/bash
+
+
+gpgs=$(fd -g '*.gpg' | tfilter | sort -r)
+for i in $gpgs
+do
+  echo "looking at gpgfile: $i"
+  gpg --decrypt --use-embedded-filename "$i" && shred -u "$i"
+  tar -xkvf "${i/.gpg}" --force-local
+  shred -u "${i/.gpg}"
+done
+
+fd -g '*.md' | hcat > tmp
+shred -u ./*.md
+mv tmp jrnl.md
+
+nvim jrnl.md

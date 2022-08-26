@@ -1,0 +1,12 @@
+#!/bin/bash
+
+capdir=$HOME/personal/00-capture/time.bak
+capfile=$HOME/personal/00-capture/cap.md
+
+cat $capfile | hsplit $capdir
+
+fd . $capdir | tfilter $@ | hcat > $capfile
+
+echo -e "## cap.md\n" >> $capfile
+
+nvim $capfile
