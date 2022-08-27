@@ -277,8 +277,6 @@ sethdmiscale() {
   setdmonpicale "HDMI-0" $1
 }
 
-alias kbdxcape="xcape -t 200 -e Control_L=Escape"
-
 ######################################################
 # WM and session
 ######################################################
