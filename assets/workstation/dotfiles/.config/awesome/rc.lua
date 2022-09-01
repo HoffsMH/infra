@@ -211,6 +211,9 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
 
+    awful.key({ modkey,  "Shift"        }, "z", function () client.focus:move_to_screen() end,
+              {description = "move to next screen", group = "client"}),
+
   awful.key({ "Control",           }, "Return",  function ()
             local screen = awful.screen.focused()
             local scratchtag = screen.tags[7]
@@ -470,7 +473,7 @@ client.connect_signal("request::default_keybindings", function()
         awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
                 {description = "toggle floating", group = "client"}),
 
-        awful.key({ modkey }, "Return",
+        awful.key({ modkey }, "'",
             function (c)
                 local master = awful.client.getmaster()
 
