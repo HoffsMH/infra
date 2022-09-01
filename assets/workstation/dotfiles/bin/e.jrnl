@@ -1,0 +1,7 @@
+#!/bin/bash
+jrnlfile="$HOME/personal/jrnl/jrnl.md"
+
+if [[ -f $jrnlfile ]]
+then
+  nvim $jrnlfile
+fi
