@@ -2,3 +2,7 @@ pg_data
 util/asdf
 node_modules
 personal/feeds
+software/capture
+audio/capture
+video/capture
+image/capture
