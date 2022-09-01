@@ -1,67 +1,20 @@
 #!/bin/bash
 
-jrnldir=~/personal/jrnl.bak2/
-jrnlfile=~/personal/jrnl.bak2/jrnl.md
+jrnldir=~/personal/jrnl/
+jrnlfile=~/personal/jrnl/jrnl.md
 
 ################################################################
 # lock turns any jrnl.md into sub md files and tar and gpgs them
 ################################################################
 
-pushd $jrnldir
-  shred -u ./*.tar
-  if [[ -f $jrnlfile ]]
-  then
-    # split the jrnlfile and delete it
-    cat $jrnlfile | hsplit $jrnldir && shred -u $jrnlfile
-  fi
-
-  # https://unix.stackexchange.com/questions/100871/in-a-bash-if-condition-how-to-check-whether-any-files-matching-a-simple-wildcar
-  for file in $(fd -g '*.md'); do
-    if [[ -f "$file" ]]; then
-      echo "looking at md file $file"
-      # get sum of all md files in dir
-      x=$(cat "$file" | sha256sum)
-      sum=${x::10}
-      dateprefix=$(parsedate $file)
-
-      # form tarname
-      tarname="$dateprefix-$sum.tar"
-      echo "form tarname: $tarname"
-      tar -cf $tarname "$file" --force-local
-
-      # shred and delete after in tar
-      shred -u "$file"
-    fi
-  done
-
-  for tarfile in $(fd -g '*.tar'); do
-    if [[ -f "$tarfile" ]]; then
-
-      echo "looking at tarfile: $tarfile"
-      gpg --encrypt --recipient "matthecker@pm.me" "$tarfile"
-      shred -u "$tarfile"
-    fi
-  done
+$HOME/bin/jrnl.lock
 
 ################################################################
 # unlock
 ################################################################
 
-  # gpgs=$(fd -g '*.gpg' | sort -r)
+$HOME/bin/jrnl.unlock
 
-  gpgs=$(fd -g '*.gpg'| tfilter -w 2 | sort -r)
-  for i in $gpgs
-  do
-    echo "looking at gpgfile: $i"
-    gpg --decrypt --use-embedded-filename "$i" && shred -u "$i"
-    tar -xkvf "${i/.gpg}" --force-local
-    shred -u "${i/.gpg}"
-  done
-
-  ~/bin/t.md cap
-  fd -g '*.md' | hcat > tmp
-  shred -u ./*.md
-  mv tmp jrnl.md
-
-  nvim jrnl.md
+pushd $jrnldir
+  nvim $jrnlfile
 popd

@@ -1,17 +1,35 @@
 #!/bin/bash
 
+jrnldir=~/personal/jrnl/
+jrnlfile=~/personal/jrnl/jrnl.md
 
-gpgs=$(fd -g '*.gpg' | tfilter | sort -r)
-for i in $gpgs
-do
-  echo "looking at gpgfile: $i"
-  gpg --decrypt --use-embedded-filename "$i" && shred -u "$i"
-  tar -xkvf "${i/.gpg}" --force-local
-  shred -u "${i/.gpg}"
-done
+pushd $jrnldir
+  # gpgs=$(fd -g '*.gpg' | sort -r)
 
-fd -g '*.md' | hcat > tmp
-shred -u ./*.md
-mv tmp jrnl.md
+  gpgs=$(fd -g '*.gpg' | tfilter | sort -r)
 
-nvim jrnl.md
+  for i in $gpgs
+  do
+    echo "looking at gpgfile: $i"
+    gpg --decrypt --use-embedded-filename "$i" && shred -u "$i"
+    tar -xkvf "${i/.gpg}" --force-local
+    shred -u "${i/.gpg}"
+  done
+
+  # if we find a jrnl file and only a jrnl file then open it
+
+  if [[ -f $jrnlfile ]]
+  then
+    echo "$jrnlfile already found"
+    exit
+  else
+    ~/bin/t.md cap
+
+    # put into tfilter which will filter out undated files?
+    # 
+    fd -g '*.md' | hcat > tmp
+    # since this is unlock we should only delete non-jrnl.md files
+    shred -u ./*.md
+    mv tmp $jrnlfile
+  fi
+popd
