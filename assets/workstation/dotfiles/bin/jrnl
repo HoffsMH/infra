@@ -49,7 +49,7 @@ pushd $jrnldir
 
   # gpgs=$(fd -g '*.gpg' | sort -r)
 
-  gpgs=$(fd -g '*.gpg' | tfilter -w 2| sort -r)
+  gpgs=$(fd -g '*.gpg'| tfilter -w 2 | sort -r)
   for i in $gpgs
   do
     echo "looking at gpgfile: $i"
@@ -58,6 +58,7 @@ pushd $jrnldir
     shred -u "${i/.gpg}"
   done
 
+  ~/bin/t.md cap
   fd -g '*.md' | hcat > tmp
   shred -u ./*.md
   mv tmp jrnl.md
