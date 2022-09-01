@@ -1,23 +1,21 @@
 ## Cold
 
-- put all the system specific things into environment  via envrc  (dont forget to fill out the samplefile too) and then pull from that in poly bar and whatever else is capable of pulling from environment... unfortch that sublimetext might need to be a sample :(
-- separate system for go binarys
+- separate system for external go binaries
     * [ ] gopass
-    * [ ] restic?
     * [ ] lf
-- time for a way to "minimize" windows through keypress
-- go jrnl
-- keybind to just move ALL clients from one to another screen
+- keybind to just move ALL clients from one to another screen, awesomewm
 
 ## Warm
 
 - thunar default save location
+- go rm
 
 ## Waiting on Something
 
 
 ## Doing
 
+- go jrnl
 
 ## Done
 
@@ -83,3 +81,4 @@
 - bookmarking into capture also bulk bookmarking
 - keybind to focus master no matter where in stack you are
 - just get a simple mp3 into dotfiles and make it link to something for `timer` command to play
+- time for a way to "minimize" windows through keypress
