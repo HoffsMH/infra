@@ -1,0 +1,12 @@
+#!/bin/bash
+
+capdir=$HOME/personal/00-capture/time
+capfile=$HOME/personal/00-capture/cap.md
+
+cat $capfile | hsplit $capdir
+
+rg ^https:// --files-without-match $capdir | tfilter $@ | hcat > $capfile
+
+echo -e "## cap.md\n" >> $capfile
+
+nvim $capfile
