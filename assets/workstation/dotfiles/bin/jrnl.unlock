@@ -6,7 +6,7 @@ jrnlfile=~/personal/jrnl/jrnl.md
 pushd $jrnldir
   # gpgs=$(fd -g '*.gpg' | sort -r)
 
-  gpgs=$(fd -g '*.gpg' | tfilter | sort -r)
+  gpgs=$(fd -g '*.gpg' | tfilter -w 2 | sort -r)
 
   for i in $gpgs
   do
