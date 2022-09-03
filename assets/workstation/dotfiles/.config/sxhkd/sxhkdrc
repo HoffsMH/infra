@@ -4,6 +4,12 @@
 @XF86MonBrightnessUp
   light -A 5
 
+@button8
+  echo "button8"
+
+button8
+  echo "button8"
+
 hyper + g
   xclip -selection clipboard -o | xargs xdg-open
 
