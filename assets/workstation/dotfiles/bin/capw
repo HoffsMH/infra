@@ -1,4 +1,3 @@
 #!/bin/bash
 
-nvim $(cap)
-
+nvim $(wcap)

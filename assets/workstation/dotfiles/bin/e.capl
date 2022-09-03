@@ -5,8 +5,6 @@ capfile=$HOME/personal/00-capture/cap.md
 
 cat $capfile | hsplit $capdir
 
-rg ^https:// -l $capdir | tfilter $@ | hcat > $capfile
+rg ^http -l $capdir | tfilter $@ | sort -h | hcat > $capfile
 
-echo -e "## cap.md\n" >> $capfile
-
-nvim $capfile
+e.c $capfile link

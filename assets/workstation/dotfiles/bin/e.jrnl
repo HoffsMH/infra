@@ -3,5 +3,5 @@ jrnlfile="$HOME/personal/jrnl/jrnl.md"
 
 if [[ -f $jrnlfile ]]
 then
-  nvim $jrnlfile
+  e.c $jrnlfile
 fi

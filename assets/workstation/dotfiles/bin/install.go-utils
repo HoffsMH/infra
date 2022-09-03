@@ -1,7 +1,6 @@
 #!/bin/zsh
 
 installs=(
-    "timecat"
     "binlist"
     "bulksearch"
     "caseshift"

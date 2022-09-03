@@ -5,7 +5,7 @@ capfile=$HOME/personal/00-capture/cap.md
 
 cat $capfile | hsplit $capdir
 
-fd . $capdir | tfilter $@ | sort -h | hcat > $capfile
+fd work $capdir | tfilter $@ | sort -h | hcat > $capfile
 
+e.c $capfile work
 
-e.c $capfile

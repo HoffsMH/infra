@@ -16,5 +16,5 @@ $HOME/bin/jrnl.lock
 $HOME/bin/jrnl.unlock
 
 pushd $jrnldir
-  nvim $jrnlfile
+  e.c $jrnlfile
 popd
