@@ -3,7 +3,7 @@
 capfile=$(t $(echo "$HOME/personal/00-capture/time/cap.md" | prefix name))
 selection=$(select-input $@)
 
-echo  $selection >> $capfile
+echo "$selection" | append_title >> $capfile
 
 notify-send "cap: ${selection}"
 
