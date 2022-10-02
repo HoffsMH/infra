@@ -65,6 +65,8 @@ cmp.setup.filetype('markdown', {
 })
 
 lspconfig.eslint.setup(config({
+  -- to get this:
+  -- npm i -g vscode-langservers-extracted
   -- project could be behind and this lsp needs higher version
   cmd = { "asdf.exec", "nodejs", "18.4.0", "vscode-eslint-language-server", "--stdio" },
 }))

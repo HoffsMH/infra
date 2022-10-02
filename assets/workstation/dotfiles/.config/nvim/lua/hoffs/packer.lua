@@ -52,6 +52,7 @@ require('packer').startup(function(use)
           })
       end
   })
+  use("ThePrimeagen/harpoon")
 
   -- lsp
   use 'neovim/nvim-lspconfig'

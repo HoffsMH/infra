@@ -7,12 +7,19 @@ vim.api.nvim_command([[colorscheme gruvbox]])
 
 -- one day I will figure out how to just make this work on all files everywhere
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI <buffer> silent write]])
+vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.* silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.rb silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.hbs silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.lua silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.js silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.yml silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.scss silent write]])
+
+vim.api.nvim_command([[autocmd BufWritePre *.js :%s/\s\+$//e]])
+vim.api.nvim_command([[autocmd BufWritePre *.rb :%s/\s\+$//e]])
+
+vim.api.nvim_command([[highlight RedundantSpaces ctermbg=red guibg=red]])
+vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
 
 -- when entering a md wordwrap as long as the line ends in whitespace
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
