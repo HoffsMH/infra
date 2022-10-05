@@ -49,7 +49,7 @@ then
   rsync -zvhr --remove-source-files "$backup_staging/" "$backup_dir"
 
   # assumes sorted alphabetically so all files must begin with $datestr
-  deletes=$(/usr/bin/ls -r "$backup_dir/$machine_type/$cadence/" | tail -n +$(($retain_count + 1))  )
+  deletes=$(/usr/bin/ls -r "$backup_dir/$machine_type/$cadence/*$subdir*" | tail -n +$(($retain_count + 1))  )
   pushd "$backup_dir/$machine_type/$cadence/"
 
   for i in $deletes

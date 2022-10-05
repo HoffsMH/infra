@@ -7,7 +7,6 @@
 - name: "weekly personal backup"
   vars:
     job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal weekly 2"
-    suffix: "personal-weekly-5"
     cadence: "@weekly"
     dest: "/etc/cron.d/hoffs-workstation-backup"
   include_role:
@@ -15,8 +14,15 @@
 
 - name: "daily jrnl backup"
   vars:
-    job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal/jrnl daily 4"
-    suffix: "personal-weekly-5"
+    job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal/jrnl daily 5"
+    cadence: "@daily"
+    dest: "/etc/cron.d/hoffs-workstation-backup"
+  include_role:
+    name: ../../roles/common/has-cron-job
+
+- name: "daily cap backup"
+  vars:
+    job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal/00-capture/time daily 5"
     cadence: "@daily"
     dest: "/etc/cron.d/hoffs-workstation-backup"
   include_role:
@@ -25,7 +31,6 @@
 - name: "monthly personal backup"
   vars:
     job: "sudo /home/hoffs/bin/backup.dir workstation hoffs /home/hoffs/personal monthly 4"
-    suffix: "personal-monthly-5"
     cadence: "@monthly"
     dest: "/etc/cron.d/hoffs-workstation-backup"
   include_role:
