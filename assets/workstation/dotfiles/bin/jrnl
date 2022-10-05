@@ -1,20 +1,14 @@
 #!/bin/bash
 
 jrnldir=~/personal/jrnl/
-jrnlfile=~/personal/jrnl/jrnl.md
+jrnlfile=~/personal/jrnl.md
 
-################################################################
-# lock turns any jrnl.md into sub md files and tar and gpgs them
-################################################################
+jrnl.unlock $jrnldir
 
-$HOME/bin/jrnl.lock
+fd . $jrnldir | tfilter -w 1 | hcat > $jrnlfile
 
-################################################################
-# unlock
-################################################################
+nvim $jrnlfile;
 
-$HOME/bin/jrnl.unlock
+cat $jrnlfile | hsplit $jrnldir
 
-pushd $jrnldir
-  e.c $jrnlfile
-popd
+jrnl.lock $jrnldir
