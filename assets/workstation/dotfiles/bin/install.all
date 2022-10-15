@@ -15,7 +15,7 @@ installs=(
     "acpid"
     "age" # simple encryption
     "ansible" # cfm
-    "anydesk" # remote desk 
+    "anydesk" # remote desk
     "arandr" # arranging screens and saving screen configs
     "arc-icon-theme" # needed for battery widget in awesome wm
     "awesome-git" # wm
