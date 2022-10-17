@@ -286,7 +286,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,  }, ",",
         function ()
             local t = awful.screen.focused().selected_tag
-            t.gap = t.gap -  10
+            t.gap = t.gap -  5
             beautiful.useless_gap = t.gap
         end,
               {description = "decrement gaps on current tag", group = "layout"}),
@@ -294,7 +294,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({ modkey,  }, ".",
         function ()
             local t = awful.screen.focused().selected_tag
-            t.gap = t.gap + 10
+            t.gap = t.gap + 5
             beautiful.useless_gap = t.gap
         end,
               {description = "decrement gaps on current tag", group = "layout"}),
@@ -632,7 +632,7 @@ ruled.client.connect_signal("request::rules", function()
 
     ruled.client.append_rule {
         rule       = { class = "scratch"     },
-        properties = { fullscreen = true, floating = false, focus = false, tag = "scratch" }
+        properties = {  floating = false, focus = false, tag = "scratch" }
     }
 
     ruled.client.append_rule {

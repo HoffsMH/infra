@@ -43,7 +43,6 @@ installs=(
     "dunst" # notifications
     "elixir"
     "entr" # useful little thing
-    "erlang"
     "evtest"
     "exa" # alternative to ls
     "fd-git" # alternative to find
