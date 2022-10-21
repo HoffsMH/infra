@@ -4,18 +4,19 @@
     * [ ] gopass
     * [ ] lf
 - keybind to just move ALL clients from one to another screen, awesomewm
+- multiple scratches show up sometimes, can I write something in rc file to get rid of that behavior
+- sometimes spawning another window from a scratch causes it to be associated witht the scratch tag
+- go rm
+- thunar default save location
 
 ## Warm
 
-- thunar default save location
-- go rm
 
 ## Waiting on Something
 
 
 ## Doing
 
-- go jrnl
 
 ## Done
 
@@ -82,3 +83,4 @@
 - keybind to focus master no matter where in stack you are
 - just get a simple mp3 into dotfiles and make it link to something for `timer` command to play
 - time for a way to "minimize" windows through keypress
+- go jrnl
