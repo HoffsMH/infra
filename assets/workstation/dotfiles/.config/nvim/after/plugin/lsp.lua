@@ -71,6 +71,8 @@ lspconfig.eslint.setup(config({
   cmd = { "asdf.exec", "nodejs", "18.4.0", "vscode-eslint-language-server", "--stdio" },
 }))
 
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- npm install -g @lifeart/ember-language-server
 require'lspconfig'.ember.setup(config())
 require'lspconfig'.solargraph.setup(config())
 require'lspconfig'.gopls.setup(config())
