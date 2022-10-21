@@ -2,12 +2,6 @@ export ZSH="$HOME/.zsh"
 setopt INC_APPEND_HISTORY
 
 export PISTOL_CHROMA_STYLE=arduino
-export HISTFILE="$HOME/.zsh_history"
-export HISTSIZE=1000
-export SAVEHIST=1000
-setopt -o appendhistory
-setopt appendhistory
-setopt -o sharehistory
 
 unalias -a
 bindkey -e

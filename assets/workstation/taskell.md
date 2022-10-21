@@ -1,16 +1,16 @@
 ## Cold
 
-- separate system for external go binaries
-    * [ ] gopass
-    * [ ] lf
 - keybind to just move ALL clients from one to another screen, awesomewm
 - multiple scratches show up sometimes, can I write something in rc file to get rid of that behavior
 - sometimes spawning another window from a scratch causes it to be associated witht the scratch tag
 - go rm
 - thunar default save location
+- another dmenu where I can put in arb command I get a history and it opens it in new tmux window
+- more tmux history
 
 ## Warm
 
+- more zsh history
 
 ## Waiting on Something
 
@@ -84,3 +84,6 @@
 - just get a simple mp3 into dotfiles and make it link to something for `timer` command to play
 - time for a way to "minimize" windows through keypress
 - go jrnl
+- separate system for external go binaries
+    * [ ] gopass
+    * [ ] lf

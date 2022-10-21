@@ -15,8 +15,15 @@ export GTK_THEME="gruvbox-dark-gtk"
 
 export SESSION=awesome
 
+export HISTSIZE=40000
 export SAVEHIST=40000
 export SHARE_HISTORY=true
+
+export HISTFILE="$HOME/.zsh_history"
+
+setopt -o appendhistory
+setopt appendhistory
+setopt -o sharehistory
 
 # path and shims
 source "$HOME/.zsh/path_and_shims.sh"
