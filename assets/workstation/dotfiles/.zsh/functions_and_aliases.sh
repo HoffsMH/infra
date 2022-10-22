@@ -89,10 +89,9 @@ alias g="git"
 alias gb="git branch"
 alias gco="git checkout"
 
-# get branch name
-alias gbn="git rev-parse --abbrev-ref HEAD"
-
-alias gcf="git clean -f -d"
+gdn() {
+ git diff "HEAD~$1"
+}
 
 # finds text across all commits, be careful when searching to not use common terms
 # useful for searching for code that you knew existed at one point
@@ -100,29 +99,18 @@ gsearch() { git log -S$1 -p }
 
 gpoc() { git pull origin $(gbn) --rebase }
 
-alias gcopybranchname="gbn | tr -d '\r\n' |tee /dev/stderr | xclip"
-# if working in a repository where the convention is to name prs after branches
-alias gcopyprname="gbn | sed -e 's/-/ /g' | tr -d '\r\n' |tee /dev/stderr | xclip"
-
-alias gpu="git push origin"
 alias gd="git diff"
 
 # see diff from n commits ago
-gdn() {
- git diff "HEAD~$1"
-}
 
 alias ga="git add"
 alias gs="git status"
 alias gr="git reset"
-alias gf="git fetch"
 alias gcm="git commit -m "
-alias gc="git commit"
 alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbs='git rebase --skip'
-alias gm='git merge'
 
 # I don't trust git stash so sometimes store incomplete work on top of the branch
 # in a commit that is always called 'reset me'
@@ -159,7 +147,6 @@ alias dockernuke='dockerstopc || dockercleanc || dockercleani || dockercleanv'
 ######################################################
 # language specific
 ######################################################
-alias pyenvinstall="CPPFLAGS='-I/usr/local/opt/zlib/include' pyenv install -v"
 
 # JS/Ember
 alias ya='yarn'
@@ -182,8 +169,6 @@ alias got="go test -v"
 export ytgo_template_location="$HOME/personal/dotfiles/samples/bin/ytgo"
 export ytgo_location="$HOME/bin/ytgo"
 
-alias ytreport='cat $ytgo_location'
-alias eyt='$EDITOR ~/bin/ytgo'
 alias pacman-refresh='sudo pacman-mirrors -f && sudo pacman -Syyu'
 
 ######################################################
@@ -206,15 +191,6 @@ fz() {
 }
 
 ######################################################
-# which
-######################################################
-
-fb() {
-    print -z $(fbo)
-}
-
-
-######################################################
 # disks
 ######################################################
 
@@ -233,9 +209,6 @@ alias jfs='jf ~/personal/media/software'
 alias jft='jf ~/personal/media/text'
 alias jfv='jf ~/personal/media/video'
 
-# open this file
-alias oalias="$EDITOR ~/.zsh/functions_and_aliases.sh"
-
 ######################################################
 # docker
 ######################################################
@@ -245,13 +218,6 @@ alias dockerstartdaemon='sudo systemctl stop docker.service'
 # docker
 # stop the docker daemon
 alias dockerstopdaemon='sudo systemctl start docker.service'
-
-alias task='taskell "$HOME/personal/00-capture/board/taskell.md"'
-
-######################################################
-# Text Editing
-######################################################
-alias subl='\rm -rf ~/.config/sublime-text/Local/Auto\ Save\ Session.sublime_session && /usr/bin/subl'
 
 ######################################################
 # getting random text for passwords and secrets
@@ -286,12 +252,8 @@ alias dwmsesh="export SESSION=dwm && startx"
 alias awesomesesh="export SESSION=awesome && startx"
 
 ######################################################
-# bw
+# gpg
 ######################################################
-
-bwunlock() {
-  export BW_SESSION=$(bw unlock --raw)
-}
 
 gpgstart() {
   gpgconf --launch gpg-agent
@@ -306,14 +268,12 @@ alias addoath="ykman oath add -t $1 $(xclip -o)"
 # network sleuthing
 ######################################################
 
+# nmapo 192.168.0.1/24
 alias nmapo="sudo nmap -O -v"
 
 ######################################################
 # Restic and backup stuff
 ######################################################
-
-# specify your repo with env variable or -r
-alias resticbrowse="restic mount /media/restic"
 
 alias udmount="udisksctl mount -b"
 alias udunmount="udisksctl unmount -b"
