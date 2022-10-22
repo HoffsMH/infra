@@ -97,7 +97,7 @@ gdn() {
 # useful for searching for code that you knew existed at one point
 gsearch() { git log -S$1 -p }
 
-gpoc() { git pull origin $(gbn) --rebase }
+gpoc() { git pull origin $(git.branch-name) --rebase }
 
 alias gd="git diff"
 
@@ -126,7 +126,7 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset
 # $ gdo | difi
 gdo() {
     local branchname
-    branchname=$(gbn)
+    branchname=$(git.branch-name)
     git diff "$branchname" "origin/$branchname" $1
 }
 
