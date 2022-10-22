@@ -9,8 +9,8 @@ nnoremap("<leader>u", ":UndotreeShow<CR>")
 
 nnoremap("<leader>n", "<cmd>e #<cr>")
 nnoremap("<C-w>L", "<cmd>vs #<cr>")
+nnoremap("<C-w>J", "<cmd>hs #<cr>")
 nnoremap('<leader>hb', function() require("gitsigns").blame_line{full=true} end)
-nnoremap('<leader>tb', require("gitsigns").toggle_current_line_blame)
 
 nnoremap('<leader>gy', function () require("gitlinker") end)
 
@@ -26,6 +26,7 @@ nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
 nnoremap("<leader>fg", "<cmd>Telescope live_grep<cr>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
+nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
 
 -- config
 nnoremap("<leader>.", "<cmd>e ~/.config/nvim<cr>")
