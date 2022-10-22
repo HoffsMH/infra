@@ -1,7 +1,0 @@
-#!/bin/bash
-jrnlfile="$HOME/personal/jrnl/jrnl.md"
-
-if [[ -f $jrnlfile ]]
-then
-  e.c $jrnlfile
-fi

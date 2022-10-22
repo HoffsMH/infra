@@ -1,25 +1,36 @@
 #!/bin/bash
 
-if [ -z ${DIR_CONTEXT+x} ];
-then
-  echo "larger dir context not found! using pwd"
-  directoryctx=$(basename $(pwd))
-else
-  echo "larger dir context found!"
-  directoryctx=$(basename $DIR_CONTEXT)
-fi
+# if [ -z ${DIR_CONTEXT+x} ];
+# then
+#   echo "larger dir context not found! using pwd"
+#   directoryctx=$(basename $(pwd))
+# else
+#   echo "larger dir context found!"
+#   directoryctx=$(basename $DIR_CONTEXT)
+# fi
+#
+# socketfile=$(echo "/tmp/nvimsocket-$directoryctx")
+#
+# echo "looking for socketfile $socketfile"
+# if [ -S "$socketfile" ]; then
+#   echo "found socket file"
+#   if [ $1 = "."  ]; then
+#     echo "already open"
+#   else
+#     nvr --remote --servername "$socketfile" $@
+#   fi
+# else
+#   /usr/bin/nvim --listen /tmp/nvimsocket-$directoryctx  $@
+#   # kitty /usr/bin/nvim --listen /tmp/nvimsocket-"$directoryctx"  $@ &
+# fi
 
-socketfile=$(echo "/tmp/nvimsocket-$directoryctx")
-
-echo "looking for socketfile $socketfile"
-if [ -S "$socketfile" ]; then
-  echo "found socket file"
-  if [ $1 = "."  ]; then
-    echo "already open"
-  else
-    nvr --remote --servername "$socketfile" $@
-  fi
-else
-  trun "/usr/bin/nvim --listen /tmp/nvimsocket-$directoryctx  $@"
-  # kitty /usr/bin/nvim --listen /tmp/nvimsocket-"$directoryctx"  $@ &
-fi
+      socketfile=$(echo "/tmp/nvimsocket")
+      # do we have a socketfile?
+      if [ -S "$socketfile" ]; then
+        echo "already socket"
+        ~/.asdf/shims/nvr --remote --servername "$socketfile" $@
+        tmux select-window -t "main-nvim"
+      else
+        echo "open"
+        tmux new-window -n "main-nvim" "/usr/bin/nvim --listen $socketfile $@"
+      fi

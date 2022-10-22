@@ -1,16 +1,3 @@
-#!/bin/zsh
+#!/bin/bash
 
-if [[ $# -gt 0 ]];
-then
-  echo "trying to run"
-  echo "'$@'"
-  tmux new-window -n "$(basename $(pwd)) $@"  "run-wa '$@'"
-else
-  cmd=$(fho)
-
-  input=${cmd/trun /}
-  input=${input/\"/}
-  input=${input/\"/}
-
-  trun "$input"
-fi
+tmux new-window 'run $(~/bin/fho)'
