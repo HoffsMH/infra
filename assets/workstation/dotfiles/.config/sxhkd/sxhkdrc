@@ -41,10 +41,10 @@ ctrl + space
   ~/bin/drun
 
 @hyper + @shift + d ; a
-  ~/bin/yta
+  ~/bin/yt.a
 
 @hyper + @shift + d ; v
-  ~/bin/ytv
+  ~/bin/yt.v
 
 @hyper + @shift + d ; w
   notify-send "starting download of $(xclip -o)" && axel -c $(xclip -o) -o ~/personal/media/image/library/wall/wall-cp/. && notify-send "wall paper download of $(xclip -o)"
