@@ -43,7 +43,6 @@ beautiful.init("~/.config/awesome/theme.lua")
 terminal = "kitty"
 -- @DOC_DEFAULT_APPLICATIONS@
 -- This is used later as the default terminal and editor to run.
-scratchterminal = "kitty --class scratch scratch"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -63,7 +62,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", scratchterminal }
+                                    { "open terminal", terminal }
                                   }
                         })
 
@@ -183,123 +182,109 @@ awful.keyboard.append_global_keybindings({
 -- Focus related keybindings
 awful.keyboard.append_global_keybindings({
 
-    awful.key({ modkey,           }, "a",
-        function ()
-            current = client.focus
-            master = awful.client.getmaster()
+  awful.key({ modkey,           }, "a",
+    function ()
+      current = client.focus
+      master = awful.client.getmaster()
 
-            if current == master then
-                awful.client.focus.history.previous ()
-            else
-                client.focus = awful.client.getmaster()
-            end
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "j",
-        function ()
-            awful.client.focus.byidx( 1)
-        end,
-        {description = "focus next by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "k",
-        function ()
-            awful.client.focus.byidx(-1)
-        end,
-        {description = "focus previous by index", group = "client"}
-    ),
-    awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
-              {description = "focus the next screen", group = "screen"}),
+      if current == master then
+        awful.client.focus.history.previous ()
+      else
+        client.focus = awful.client.getmaster()
+      end
+    end,
+    {description = "focus next by index", group = "client"}
+  ),
+  awful.key({ modkey,           }, "j",
+    function ()
+      awful.client.focus.byidx( 1)
+    end,
+    {description = "focus next by index", group = "client"}
+  ),
+  awful.key({ modkey,           }, "k",
+    function ()
+      awful.client.focus.byidx(-1)
+    end,
+    {description = "focus previous by index", group = "client"}
+  ),
+  awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
+    {description = "focus the next screen", group = "screen"}),
 
-    awful.key({ modkey,  "Shift"        }, "z", function () client.focus:move_to_screen() end,
-              {description = "move to next screen", group = "client"}),
+  awful.key({ modkey,  "Shift"        }, "z", function () client.focus:move_to_screen() end,
+    {description = "move to next screen", group = "client"}),
 
-  awful.key({ "Control",           }, "Return",  function ()
-            local screen = awful.screen.focused()
-            local scratchtag = screen.tags[7]
-            local scratch = scratchtag:clients()[1]
+  awful.key({ modkey,           }, "m", function ()
+    local screen = awful.screen.focused()
+    local mpvtag = screen.tags[8]
+    local mpv = mpvtag:clients()[1]
 
-            if scratch then
-                awful.tag.viewtoggle(scratchtag)
-                scratch:activate()
-            else
-                awful.spawn(scratchterminal)
-            end
-        end,
-        {description = "open scratch"}),
+    if mpv then
+      awful.tag.viewtoggle(mpvtag)
+    end
+  end,
+    {description = "open mpv"}),
 
-    awful.key({ modkey,           }, "m", function ()
-            local screen = awful.screen.focused()
-            local mpvtag = screen.tags[8]
-            local mpv = mpvtag:clients()[1]
-
-            if mpv then
-                awful.tag.viewtoggle(mpvtag)
-            end
-        end,
-        {description = "open mpv"}),
-
-    awful.key({ modkey, "Control" }, "n",
-              function ()
-                  local c = awful.client.restore()
-                  -- Focus restored client
-                  if c then
-                    c:activate { raise = true, context = "key.unminimize" }
-                  end
-              end,
-              {description = "restore minimized", group = "client"}),
+  awful.key({ modkey, "Control" }, "n",
+    function ()
+      local c = awful.client.restore()
+      -- Focus restored client
+      if c then
+        c:activate { raise = true, context = "key.unminimize" }
+      end
+    end,
+    {description = "restore minimized", group = "client"}),
 })
 
 -- Layout related keybindings
 awful.keyboard.append_global_keybindings({
-    awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
-              {description = "swap with next client by index", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
-              {description = "swap with previous client by index", group = "client"}),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
-              {description = "jump to urgent client", group = "client"}),
-    awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
-              {description = "increase master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
-              {description = "decrease master width factor", group = "layout"}),
-    awful.key({ modkey,           }, "i",     function () awful.tag.incnmaster( 1, nil, true) end,
-              {description = "increase the number of master clients", group = "layout"}),
-    awful.key({ modkey,           }, "d",     function () awful.tag.incnmaster(-1, nil, true) end,
-              {description = "decrease the number of master clients", group = "layout"}),
+  awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
+    {description = "swap with next client by index", group = "client"}),
+  awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end,
+    {description = "swap with previous client by index", group = "client"}),
+  awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    {description = "jump to urgent client", group = "client"}),
+  awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
+    {description = "increase master width factor", group = "layout"}),
+  awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)          end,
+    {description = "decrease master width factor", group = "layout"}),
+  awful.key({ modkey,           }, "i",     function () awful.tag.incnmaster( 1, nil, true) end,
+    {description = "increase the number of master clients", group = "layout"}),
+  awful.key({ modkey,           }, "d",     function () awful.tag.incnmaster(-1, nil, true) end,
+    {description = "decrease the number of master clients", group = "layout"}),
 
-    awful.key({ modkey,  }, "p",
-        function ()
-            awful.layout.set(tile_deck)
-            local t = awful.screen.focused().selected_tag
-            t.master_count = 0
-        end,
-              {description = "set monocle", group = "layout"}),
+  awful.key({ modkey,  }, "p",
+    function ()
+      awful.layout.set(tile_deck)
+      local t = awful.screen.focused().selected_tag
+      t.master_count = 0
+    end,
+    {description = "set monocle", group = "layout"}),
 
-    awful.key({ modkey,  }, "t",
-        function ()
-            awful.layout.set(tile_deck)
-            local t = awful.screen.focused().selected_tag
-            t.master_count = 1
-        end,
-              {description = "set tile", group = "layout"}),
+  awful.key({ modkey,  }, "t",
+    function ()
+      awful.layout.set(tile_deck)
+      local t = awful.screen.focused().selected_tag
+      t.master_count = 1
+    end,
+    {description = "set tile", group = "layout"}),
 
-    awful.key({ modkey,  }, ",",
-        function ()
-            local t = awful.screen.focused().selected_tag
-            t.gap = t.gap -  5
-            beautiful.useless_gap = t.gap
-        end,
-              {description = "decrement gaps on current tag", group = "layout"}),
+  awful.key({ modkey,  }, ",",
+    function ()
+      local t = awful.screen.focused().selected_tag
+      t.gap = t.gap -  5
+      beautiful.useless_gap = t.gap
+    end,
+    {description = "decrement gaps on current tag", group = "layout"}),
 
-    awful.key({ modkey,  }, ".",
-        function ()
-            local t = awful.screen.focused().selected_tag
-            t.gap = t.gap + 5
-            beautiful.useless_gap = t.gap
-        end,
-              {description = "decrement gaps on current tag", group = "layout"}),
+  awful.key({ modkey,  }, ".",
+    function ()
+      local t = awful.screen.focused().selected_tag
+      t.gap = t.gap + 5
+      beautiful.useless_gap = t.gap
+    end,
+    {description = "decrement gaps on current tag", group = "layout"}),
 
-    awful.key({ modkey,  }, "q",
+  awful.key({ modkey,  }, "q",
         function ()
             awful.screen.focus(screen.primary)
             local screen = awful.screen.focused()
@@ -320,6 +305,18 @@ awful.keyboard.append_global_keybindings({
             end
         end,
         {description = "move to tag 1"}),
+
+    awful.key({ modkey, "Control" }, "q",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[1]
+            if tag then
+              awful.tag.viewtoggle(tag)
+            end
+        end,
+        {description = "view toggle tag 1"}),
+
 
     awful.key({ modkey,  }, "w",
         function ()
@@ -344,6 +341,17 @@ awful.keyboard.append_global_keybindings({
         end,
         {description = "move to tag 2"}),
 
+    awful.key({ modkey, "Control"  }, "w",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[2]
+            if tag then
+              awful.tag.viewtoggle(tag)
+            end
+        end,
+        {description = "view toggle tag 2"}),
+
     awful.key({ modkey,  }, "e",
         function ()
             awful.screen.focus(screen.primary)
@@ -366,6 +374,17 @@ awful.keyboard.append_global_keybindings({
         end,
         {description = "move to tag 3"}),
 
+    awful.key({ modkey, "Control"  }, "e",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[3]
+            if tag then
+                awful.tag.viewtoggle(tag)
+            end
+        end,
+        {description = "view toggle tag 3"}),
+
     awful.key({ modkey,  }, "r",
         function ()
             awful.screen.focus(screen.primary)
@@ -387,6 +406,17 @@ awful.keyboard.append_global_keybindings({
             end
         end,
         {description = "move to tag 4"}),
+
+    awful.key({ modkey, "Control"  }, "r",
+        function ()
+            awful.screen.focus(screen.primary)
+            local screen = awful.screen.focused()
+            local tag = screen.tags[4]
+            if tag then
+                awful.tag.viewtoggle(tag)
+            end
+        end,
+        {description = "view toggle tag 4"}),
 })
 
 
@@ -618,7 +648,6 @@ ruled.client.connect_signal("request::rules", function()
         properties = { screen = awful.screen.preferred, tag = "" }
     }
 
--- awful.tag({ "", "", "", "", "", "", "scratch" }, s, awful.layout.layouts[1])
     ruled.client.append_rule {
         rule       = { class = "Brave-browser"     },
         properties = { screen = awful.screen.preferred, tag = "" }
@@ -628,11 +657,6 @@ ruled.client.connect_signal("request::rules", function()
     ruled.client.append_rule {
         rule       = { class = "Slack"     },
         properties = { screen = screen.count()>1 and 2 or 1, tag = screen.count()>1 and "" or "" }
-    }
-
-    ruled.client.append_rule {
-        rule       = { class = "scratch"     },
-        properties = {  floating = false, focus = false, tag = "scratch" }
     }
 
     ruled.client.append_rule {
