@@ -10,7 +10,7 @@ nnoremap("<leader>u", ":UndotreeShow<CR>")
 nnoremap("<leader>n", "<cmd>e #<cr>")
 nnoremap("<C-w>L", "<cmd>vs #<cr>")
 nnoremap("<C-w>J", "<cmd>hs #<cr>")
-nnoremap('<leader>hb', function() require("gitsigns").blame_line{full=true} end)
+nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)
 
 nnoremap('<leader>gy', function () require("gitlinker") end)
 
