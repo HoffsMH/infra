@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export ytgo_template_location="$HOME/personal/dotfiles/samples/bin/ytgo"
+export ytgo_template_location="$HOME/infra/assets/workstation/samples/bin/ytgo"
 export ytgo_location="$HOME/bin/ytgo"
 
 tl rm $ytgo_location

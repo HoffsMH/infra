@@ -25,5 +25,7 @@ setopt -o appendhistory
 setopt appendhistory
 setopt -o sharehistory
 
+
 # path and shims
 source "$HOME/.zsh/path_and_shims.sh"
+

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clip=$(/usr/bin/xclip -o || echo "")
+clip=$(xpaste || echo "")
 url=${1:-$clip}
 
 echo "ytdlv \"$url\"" >> ~/bin/ytgo

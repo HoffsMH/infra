@@ -32,6 +32,11 @@ precmd_functions+=(set_win_title)
 
 pfetch
 
+
+if ! {[ -n "$TMUX" ]; } then
+  tmux new-session -A main
+fi
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/hoffs/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hoffs/.config/google-cloud-sdk/path.zsh.inc'; fi
 
