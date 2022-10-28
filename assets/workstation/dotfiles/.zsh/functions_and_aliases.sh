@@ -182,9 +182,6 @@ alias xclip="/usr/bin/xclip -selection clipboard"
 # history
 ######################################################
 
-fh() {
-    print -z $(fho)
-}
 
 fz() {
   # print -z "pushd $(fzo)"
@@ -285,3 +282,6 @@ alias udunmount="udisksctl unmount -b"
 
 alias passedit='pass edit -e "$WAIT_EDITOR"'
 
+fh() {
+  print -z "$(fho)"
+}

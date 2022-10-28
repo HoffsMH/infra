@@ -28,7 +28,11 @@
       # do we have a socketfile?
       if [ -S "$socketfile" ]; then
         echo "already socket"
-        ~/.asdf/shims/nvr --remote --servername "$socketfile" $@
+        if [ -d $1 ]; then
+          echo "thats a dir"
+        else
+          ~/.asdf/shims/nvr --remote --servername "$socketfile" $@
+        fi
         tmux select-window -t "main-nvim"
       else
         echo "open"
