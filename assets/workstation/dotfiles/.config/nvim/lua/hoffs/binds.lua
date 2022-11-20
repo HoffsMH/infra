@@ -22,8 +22,9 @@ nnoremap("<leader>jf", "<cmd>Lf<cr>")
 -- nnoremap("<leader>m", function() require('neogit').open({ }) end, silent)
 
 
-nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
-nnoremap("<leader>fg", "<cmd>Telescope live_grep<cr>")
+-- nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
+nnoremap("<C-p>", "<cmd>Telescope git_files hidden=true<cr>")
+nnoremap("<leader>fd", "<cmd>Telescope grep_string<cr>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
