@@ -24,17 +24,19 @@
 #   # kitty /usr/bin/nvim --listen /tmp/nvimsocket-"$directoryctx"  $@ &
 # fi
 
-      socketfile=$(echo "/tmp/nvimsocket")
-      # do we have a socketfile?
-      if [ -S "$socketfile" ]; then
-        echo "already socket"
-        if [ -d $1 ]; then
-          echo "thats a dir"
-        else
-          ~/.asdf/shims/nvr --remote --servername "$socketfile" $@
-        fi
-        tmux select-window -t "main-nvim"
-      else
-        echo "open"
-        tmux new-window -n "main-nvim" "/usr/bin/nvim --listen $socketfile $@"
-      fi
+tmux new-window "/usr/bin/nvim --listen $socketfile $@"
+
+      # socketfile=$(echo "/tmp/nvimsocket")
+      # # do we have a socketfile?
+      # if [ -S "$socketfile" ]; then
+      #   echo "already socket"
+      #   if [ -d $1 ]; then
+      #     echo "thats a dir"
+      #   else
+      #     ~/.asdf/shims/nvr --remote --servername "$socketfile" $@
+      #   fi
+      #   tmux select-window -t "main-nvim"
+      # else
+      #   echo "open"
+      #   tmux new-window -n "main-nvim" "/usr/bin/nvim --listen $socketfile $@"
+      # fi
