@@ -54,8 +54,12 @@ require('nvim-treesitter.configs').setup {
       "glimmer",
       "javascript",
       "go",
-      "ruby"
+      "ruby",
+      "heex",
+      "eex",
+      "elixir"
     },
+    -- auto_install = true,
 
     indent = {
       enable = true
