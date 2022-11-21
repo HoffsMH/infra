@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [[ $# -gt 0 ]]
-then
-  tmux new-window run "$1"
-else
-  tmux new-window 'run $(~/bin/fho)'
-fi
