@@ -1,8 +1,6 @@
 export ZSH="$HOME/.zsh"
 setopt INC_APPEND_HISTORY
 
-export PISTOL_CHROMA_STYLE=arduino
-
 unalias -a
 bindkey -e
 
@@ -23,19 +21,16 @@ source ~/.zsh/util.sh
 # export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/yubikey-agent/yubikey-agent.sock"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-set_win_title(){
-    mydir=$(pwd)
-    base=$(basename $mydir)
-    echo -ne "\033]0; $base \007"
-}
-precmd_functions+=(set_win_title)
-
 pfetch
 
+if {[ -n "$SINGLE_COMMAND_MODE" ]; } then
+  source ~/.zsh/single_command_mode.zsh
+fi
 
 if ! {[ -n "$TMUX" ]; } then
   tmux new-session -A main
 fi
+
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/hoffs/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hoffs/.config/google-cloud-sdk/path.zsh.inc'; fi
