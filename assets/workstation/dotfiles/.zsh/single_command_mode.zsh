@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-source ~/.zshrc
-
 export CMDS_RUN=0
 export single_cmd_shell_ignores=("\sls" "\scd" "\sfz" "\sfh")
 function single_cmd_shell() {
