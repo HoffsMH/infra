@@ -75,6 +75,7 @@ lspconfig.eslint.setup(config({
 require'lspconfig'.ember.setup(config())
 require'lspconfig'.solargraph.setup(config())
 require'lspconfig'.gopls.setup(config())
+require'lspconfig'.sumneko_lua.setup(config())
 
 
 function go_org_imports(wait_ms)

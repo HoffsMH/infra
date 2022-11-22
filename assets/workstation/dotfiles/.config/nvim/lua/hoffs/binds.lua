@@ -24,6 +24,7 @@ nnoremap("<leader>jf", "<cmd>Lf<cr>")
 
 -- nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
 nnoremap("<C-p>", "<cmd>Telescope git_files hidden=true<cr>")
+nnoremap("<C-Up>", ":lua require('telescope.builtin').resume()<CR>")
 nnoremap("<leader>fd", "<cmd>Telescope grep_string<cr>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")

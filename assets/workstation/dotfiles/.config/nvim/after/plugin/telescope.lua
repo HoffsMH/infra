@@ -1,3 +1,8 @@
+require("telescope").load_extension('zoxide')
+require("telescope").load_extension("live_grep_args")
+
+local actions = require('telescope.actions')
+
 require('telescope').setup{
   defaults = {
     file_ignore_patterns = { ".git", "deps", "_build" },
@@ -14,26 +19,30 @@ require('telescope').setup{
       '--ignore-file',
       '.gitignore',
     },
+    mappings = {
+      i ={
+        ["<C-w>"] = actions.send_selected_to_qflist,
+      }
+    },
   },
   pickers = {
       find_files = {
         mappings = {
-          n = {
-            ["cdo"] = function(prompt_bufnr)
-              require("telescope.actions").close(prompt_bufnr)
-              vim.cmd(string.format("silent lcd %s", ".."))
-            end,
-
-            ["cdn"] = function(prompt_bufnr)
-                local selection = require("telescope.actions.state").get_selected_entry()
-                local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+            n = {
+              ["cdo"] = function(prompt_bufnr)
                 require("telescope.actions").close(prompt_bufnr)
-                vim.cmd(string.format("silent lcd %s", dir))
-            end
+                vim.cmd(string.format("silent lcd %s", ".."))
+              end,
+
+              ["cdn"] = function(prompt_bufnr)
+                  local selection = require("telescope.actions.state").get_selected_entry()
+                  local dir = vim.fn.fnamemodify(selection.path, ":p:h")
+                  require("telescope.actions").close(prompt_bufnr)
+                  vim.cmd(string.format("silent lcd %s", dir))
+              end
+            },
           },
-        },
       },
-    },
+  },
 }
 
-require("telescope").load_extension('zoxide')
