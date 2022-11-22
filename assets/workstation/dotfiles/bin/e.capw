@@ -7,5 +7,4 @@ cat $capfile | hsplit $capdir
 
 fd work $capdir | tfilter $@ | sort -h | hcat > $capfile
 
-e.c $capfile work
-
+nvim -c $ $capfile

@@ -7,4 +7,4 @@ cat $capfile | hsplit $capdir
 
 rg ^http --files-without-match $capdir | tfilter $@ | sort -h | hcat > $capfile
 
-e.c $capfile
+nvim -c $ $capfile
