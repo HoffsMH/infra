@@ -1,5 +1,4 @@
 #!/bin/bash
 
-socketfile=$(echo "/tmp/nvimsocket")
-tmux new-window "/usr/bin/nvim --listen $socketfile $@"
+tmux new-window -S -n nvim "/usr/bin/nvim $@"
 
