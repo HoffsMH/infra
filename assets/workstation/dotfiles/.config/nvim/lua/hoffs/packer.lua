@@ -17,14 +17,8 @@ require('packer').startup(function(use)
   use 'andymass/vim-matchup'
   use 'windwp/nvim-autopairs'
 
-  use { 'nvim-telescope/telescope.nvim',
-    requires = {
-      { "nvim-telescope/telescope-live-grep-args.nvim" },
-    },
-    config = function()
-      require("telescope").load_extension("live_grep_args")
-    end
-  }
+  use 'nvim-telescope/telescope-live-grep-args.nvim'
+  use { 'nvim-telescope/telescope.nvim' }
   use 'kyazdani42/nvim-web-devicons'
   use 'terrortylor/nvim-comment'
   use 'mbbill/undotree'
