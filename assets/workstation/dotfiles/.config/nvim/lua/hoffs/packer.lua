@@ -38,15 +38,16 @@ require('packer').startup(function(use)
       requires = 'nvim-lua/plenary.nvim',
   }
 
-  --  Old text                    Command         New text
-  -- --------------------------------------------------------------------------------
-  --     surr*ound_words             ysiw)           (surround_words)
-  --     *make strings               ys$"            "make strings"
-  --     [delete ar*ound me!]        ds]             delete around me!
-  --     remove <b>HTML t*ags</b>    dst             remove HTML tags
-  --     'change quot*es'            cs'"            "change quotes"
-  --     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
-  --     delete(functi*on calls)     dsf             function calls
+  -- :h nvim-surround.usage.
+  -- Furthermore, there are insert-mode *<C-g>s* and visual-mode *S* mappings, that
+  -- add the delimiter pair around the cursor and visual selection, respectively.
+  -- In all of the following examples, we will use `|` to demarcate the start and
+  -- end of a visual selection:
+  --
+  --     local str = |some text|     S'              local str = 'some text'
+  --     |div id="test"|</div>       S>              <div id="test"></div>
+  --     local x = ({ *32 })         ds)             local x = { 32 }
+  --     '*some string'              cs'"            "some string"
   use({
     "kylechui/nvim-surround",
     config = function()
@@ -71,19 +72,8 @@ require('packer').startup(function(use)
 
   -- use("nanotee/zoxide.vim")
 end)
+-- hiThere
+-- oKay
 
 require("nvim-surround").setup({
-  -- Configuration here, or leave empty to use defaults
-    indent_lines = function(start, stop)
-        local b = vim.boskdjf
-        -- Only re-indent the selection if a formatter is set up already
-        if start <= stop
-            and (b.equalprg ~= ""
-            or b.indentexpr ~= ""
-            or b.cindent
-            or b.smartindent
-            or b.lisp) then
-            vim.cmd(string.format("silent normal! %dG=%dG", start, stop))
-        end
-    end,
 })
