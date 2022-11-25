@@ -72,10 +72,13 @@ lspconfig.eslint.setup(config({
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- npm install -g @lifeart/ember-language-server
-require'lspconfig'.ember.setup(config())
-require'lspconfig'.solargraph.setup(config())
-require'lspconfig'.gopls.setup(config())
-require'lspconfig'.sumneko_lua.setup(config())
+lspconfig.ember.setup(config())
+lspconfig.solargraph.setup(config())
+lspconfig.gopls.setup(config())
+lspconfig.sumneko_lua.setup(config())
+lspconfig.elixirls.setup{
+    cmd = { "/home/hoffs/code/util/elixir-ls/language_server.sh" };
+}
 
 
 function go_org_imports(wait_ms)
