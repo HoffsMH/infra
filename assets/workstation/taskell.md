@@ -6,11 +6,13 @@
 - go rm
 - thunar default save location
 - another dmenu where I can put in arb command I get a history and it opens it in new tmux window
-- more tmux history
+- kitty wordwise navigation back
 
 ## Warm
 
 - more zsh history
+- more tmux history
+- tmux automated killing a certain session somehow, automatically reconnecting or never disconnecting in the first place
 
 ## Waiting on Something
 
