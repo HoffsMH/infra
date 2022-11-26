@@ -214,8 +214,8 @@ systemctl stop --user xfce4-notifyd.service || echo "stock notifications already
 systemctl enable --user dunst.service || echo "dunst service not found"
 systemctl start --user dunst.service || echo "starting dunst failed"
 
-sudo systemctl enable bluetooth.service || echo "dunst service not found"
-sudo systemctl start bluetooth.service || echo "starting dunst failed"
+sudo systemctl enable bluetooth.service || echo "bluetooth service not found"
+sudo systemctl start bluetooth.service || echo "starting bluetooth failed"
 
 sudo systemctl enable "pcscd.service"
 sudo systemctl start "pcscd.service"

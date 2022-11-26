@@ -1,1 +1,12 @@
-/home/hoffs/infra/assets/workstation/dotfiles/infra/assets/workstation/dotfiles/bin/trun
+#!/bin/bash
+
+selected_name=$(echo $@ | awk '{print $1;}' | tr '.' -)
+
+if ! tmux has-session -t=$selected_name 2> /dev/null; then
+  echo "selected name is"
+  echo "$selected_name"
+    tmux new-session -ds $selected_name "$@" && echo "successfully made a new session"
+fi
+
+tmux switch-client -t $selected_name
+
