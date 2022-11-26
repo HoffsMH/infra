@@ -18,7 +18,8 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
 
   use 'nvim-telescope/telescope-live-grep-args.nvim'
-  use { 'nvim-telescope/telescope.nvim' }
+  use 'nvim-telescope/telescope.nvim'
+
   use 'kyazdani42/nvim-web-devicons'
   use 'terrortylor/nvim-comment'
   use 'mbbill/undotree'
@@ -72,8 +73,4 @@ require('packer').startup(function(use)
 
   -- use("nanotee/zoxide.vim")
 end)
--- hiThere
--- oKay
 
-require("nvim-surround").setup({
-})

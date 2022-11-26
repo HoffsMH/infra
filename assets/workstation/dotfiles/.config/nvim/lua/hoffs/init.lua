@@ -98,9 +98,6 @@ parser_config.glimmer = {
   }
 }
 
-
-
-
 require"gitlinker".setup()
 require('nvim-autopairs').setup()
-
+require("nvim-surround").setup()
