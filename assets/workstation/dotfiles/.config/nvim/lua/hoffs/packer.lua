@@ -70,7 +70,5 @@ require('packer').startup(function(use)
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-buffer")
   use('jvgrootveld/telescope-zoxide')
-
-  -- use("nanotee/zoxide.vim")
 end)
 
