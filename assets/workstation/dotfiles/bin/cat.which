@@ -1,3 +1,0 @@
-#!/bin/bash
-
-bat  --theme gruvbox-dark $(which $1)
