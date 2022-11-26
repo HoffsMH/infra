@@ -34,3 +34,4 @@ nnoremap("q:", "<Nop>")
 -- make this keep expandign
 nnoremap("<C-e>", "<Plug>(expand_region_expand)")
 vnoremap("<C-e>", "<Plug>(expand_region_expand)")
+
