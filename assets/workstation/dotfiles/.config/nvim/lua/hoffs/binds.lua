@@ -17,11 +17,6 @@ nnoremap('<leader>gy', function () require("gitlinker") end)
 -- LF
 nnoremap("<leader>jf", "<cmd>Lf<cr>")
 
--- neogit
--- nnoremap("<leader>m", "<cmd>! trun lzg<cr>")
--- nnoremap("<leader>m", function() require('neogit').open({ }) end, silent)
-
-
 -- nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
 nnoremap("<C-p>", "<cmd>Telescope git_files hidden=true<cr>")
 nnoremap("<C-Up>", ":lua require('telescope.builtin').resume()<CR>")
