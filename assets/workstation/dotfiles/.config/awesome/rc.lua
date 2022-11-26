@@ -89,7 +89,7 @@ mytextclock.forced_width = 90
 -- @DOC_FOR_EACH_SCREEN@
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({ "", "", "", "", "", "", "scratch", "mpv", "cap" }, s, awful.layout.layouts[1])
+    awful.tag({ "", "", "", "", "", "", "mpv", "cap" }, s, awful.layout.layouts[1])
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {
@@ -97,7 +97,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
         disable_icon = true,
 
         filter  = function (t)
-            return not (t.name == "scratch") and not (t.name == "mpv") and not (t.name == "cap")
+            return not (t.name == "mpv") and not (t.name == "cap")
         end,
         buttons = {
             awful.button({ }, 1, function(t) t:view_only() end),
