@@ -1,8 +1,7 @@
 ## Cold
 
 - keybind to just move ALL clients from one to another screen, awesomewm
-- multiple scratches show up sometimes, can I write something in rc file to get rid of that behavior
-- sometimes spawning another window from a scratch causes it to be associated witht the scratch tag
+  rid of that behavior
 - go rm
 - thunar default save location
 - another dmenu where I can put in arb command I get a history and it opens it in new tmux window

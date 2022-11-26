@@ -20,7 +20,6 @@ installs=(
     "arc-icon-theme" # needed for battery widget in awesome wm
     "awesome-git" # wm
     "axel" # downloader
-    "bat" # rust cat
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
