@@ -6,7 +6,6 @@ local vim = vim;
 
 vim.api.nvim_command([[colorscheme gruvbox]])
 
-
 -- one day I will figure out how to just make this work on all files everywhere
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI <buffer> silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.* silent write]])
@@ -29,8 +28,6 @@ vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
 -- when entering a md wordwrap as long as the line ends in whitespace
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
 
-
-
 require('nvim_comment').setup({
 	-- Linters prefer comment and line to have a space in between markers
 	marker_padding = true,
@@ -49,7 +46,6 @@ require('nvim_comment').setup({
 	-- Hook function to call before commenting takes place
 	hook = nil
 })
-
 
 require('nvim-treesitter.configs').setup {
     ensure_installed = {
@@ -82,21 +78,6 @@ require('nvim-treesitter.configs').setup {
     },
 }
 
-local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-parser_config.glimmer = {
-  install_info = {
-    url = "~/Code/tree-sitter-glimmer",
-    files = {
-      "src/parser.c",
-      "src/scanner.c"
-    }
-  },
-  filetype = "hbs",
-  used_by = {
-    "handlebars",
-    "html.handlebars"
-  }
-}
 
 require"gitlinker".setup()
 require('nvim-autopairs').setup()
