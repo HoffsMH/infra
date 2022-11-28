@@ -82,3 +82,4 @@ require('nvim-treesitter.configs').setup {
 require"gitlinker".setup()
 require('nvim-autopairs').setup()
 require("nvim-surround").setup()
+require('lualine').setup()
