@@ -19,7 +19,7 @@ require('packer').startup(function(use)
 
   use 'nvim-telescope/telescope-live-grep-args.nvim'
   use 'nvim-telescope/telescope.nvim'
-
+  use 'ThePrimeagen/git-worktree.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use 'terrortylor/nvim-comment'
   use 'mbbill/undotree'

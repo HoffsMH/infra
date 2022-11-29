@@ -24,6 +24,11 @@ nnoremap("<leader>fd", "<cmd>Telescope grep_string<cr>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
+nnoremap('<leader>fw', ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
+nnoremap('<leader>fa', ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
+
+
+
 
 -- config
 nnoremap("<leader>.", "<cmd>e ~/.config/nvim<cr>")

@@ -1,5 +1,6 @@
 require("telescope").load_extension('zoxide')
 require("telescope").load_extension("live_grep_args")
+require("telescope").load_extension("git_worktree")
 
 local actions = require('telescope.actions')
 
