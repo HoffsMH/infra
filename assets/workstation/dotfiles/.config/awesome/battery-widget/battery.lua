@@ -125,7 +125,9 @@ local function worker(user_args)
         local battery_info = {}
         local capacities = {}
         for s in stdout:gmatch("[^\r\n]+") do
-            local status, charge_str, _ = string.match(s, '.+: (%a+), (%d?%d?%d)%%,?(.*)')
+            -- On my thinkpads BAT 1 seems to be the "true" battery
+            -- Would like to later figure out battery dynamically
+            local status, charge_str, _ = string.match(s, '.+1: (%a+), (%d?%d?%d)%%,?(.*)')
             if status ~= nil then
                 table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
             else
