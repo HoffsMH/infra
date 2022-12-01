@@ -215,7 +215,7 @@ awful.keyboard.append_global_keybindings({
 
   awful.key({ modkey,           }, "m", function ()
     local screen = awful.screen.focused()
-    local mpvtag = screen.tags[8]
+    local mpvtag = screen.tags[7]
     local mpv = mpvtag:clients()[1]
 
     if mpv then

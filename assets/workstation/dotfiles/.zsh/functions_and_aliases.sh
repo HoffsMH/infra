@@ -99,11 +99,13 @@ gcofw() {
     git worktree add $(echo "$target" | awk '{print $2}')
 }
 
+
 alias ytf="ytfzf -t"
 
 alias g="git"
 alias gb="git branch"
 alias gco="git checkout"
+alias gf="git fetch"
 
 gdn() {
  git diff "HEAD~$1"
