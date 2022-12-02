@@ -28,6 +28,9 @@ vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
 -- when entering a md wordwrap as long as the line ends in whitespace
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
 
+vim.api.nvim_set_hl(0, 'Search', { fg = 'LavenderBlush1', bg = 'Gray25' })
+vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'LavenderBlush1', bg = 'RoyalBlue4' })
+
 require('nvim_comment').setup({
 	-- Linters prefer comment and line to have a space in between markers
 	marker_padding = true,
