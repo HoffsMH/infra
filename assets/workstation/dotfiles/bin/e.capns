@@ -1,0 +1,10 @@
+#!/bin/bash
+
+capdir=$HOME/personal/00-capture/time
+capfile=$HOME/personal/00-capture/cap.md
+
+cat $capfile | hsplit $capdir
+
+rg "$1" --files-without-match $capdir | tfilter "${@:2}" | sort -h | hcat > $capfile
+
+nvim -c $ $capfile
