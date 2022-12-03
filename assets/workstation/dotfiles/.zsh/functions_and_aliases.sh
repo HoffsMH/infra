@@ -229,11 +229,11 @@ alias jfv='jf ~/personal/media/video'
 # docker
 ######################################################
 # start the docker daemon
-alias dockerstartdaemon='sudo systemctl stop docker.service'
+alias dockerstartdaemon='sudo systemctl start docker.service'
 
 # docker
 # stop the docker daemon
-alias dockerstopdaemon='sudo systemctl start docker.service'
+alias dockerstopdaemon='sudo systemctl stop docker.service'
 
 ######################################################
 # getting random text for passwords and secrets
