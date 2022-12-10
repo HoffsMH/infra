@@ -1,4 +1,4 @@
 #!/bin/bash
 
-xclip -o -selection clipboard | fold -w ${1:-80} -s | xargs -0 | xclip -selection clipboard
+tr '\n' ' ' | fold -w ${1:-80} -s |sed 's/ $//g'
 
