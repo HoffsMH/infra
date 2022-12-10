@@ -31,7 +31,7 @@ hyper + shift + c
 @XF86KbdBrightnessDown
   light -Us "sysfs/leds/smc::kbd_backlight" 3
 
-control + shift + 4
+hyper + s
   flameshot gui
 
 alt + space
