@@ -1,7 +1,9 @@
 #!/bin/bash
 
+# Takes a list of newline separated, absolute or relative paths,
+# turns them into a playlist and then plays that playlist in mpv
+# on the fly
 
-#playlist stdin mode
 \rm -fr ~/.pl
 
 resolve_relative_path() {
@@ -33,8 +35,8 @@ else
   while read i
   do
     case $i in
-      /*) echo "$i" >> ~/.pl ;;
-      *) echo "$(resolve_relative_path "$i")" >> ~/.pl ;;
+      /*) echo "$i" >> ~/.pl ;; # its absolute path
+      *) echo "$(resolve_relative_path "$i")" >> ~/.pl ;; # its a relative path
     esac
   done;
 fi
