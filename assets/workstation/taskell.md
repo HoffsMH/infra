@@ -1,7 +1,6 @@
 ## Cold
 
-- keybind to just move ALL clients from one to another screen, awesomewm
-  rid of that behavior
+- keybind to just move ALL clients from one to another screen, awesomewm rid of
 - go rm
 - thunar default save location
 - another dmenu where I can put in arb command I get a history and it opens it in new tmux window
