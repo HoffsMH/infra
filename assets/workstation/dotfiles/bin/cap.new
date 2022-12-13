@@ -2,7 +2,7 @@
 
 source $HOME/.envrc
 
-newcapfile=$(t $(echo "$CAP_DIR/cap.md" | prefix name))
+newcapfile=$(cap.new)
 
 echo $newcapfile
 
