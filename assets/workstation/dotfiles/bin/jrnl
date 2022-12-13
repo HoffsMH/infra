@@ -5,9 +5,9 @@ jrnlfile=~/personal/jrnl.md
 
 jrnl.unlock $jrnldir
 
-fd . $jrnldir | tfilter -c 5 | hcat > $jrnlfile
+fd . $jrnldir | tfilter -c 10 | hcat > $jrnlfile
 
-nvim $jrnlfile;
+nvim -c $ $jrnlfile;
 
 cat $jrnlfile | hsplit $jrnldir
 
