@@ -1,7 +1,0 @@
-#!/bin/zsh
-
-run "$@" && notify-send "COMMAND: $@
- DONE: success" || notify-send "COMMAND: $@
- DONE: failure $(cat ~/bin/temp-err)"
-
-
