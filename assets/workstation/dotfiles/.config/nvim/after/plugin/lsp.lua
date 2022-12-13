@@ -2,6 +2,7 @@ local nnoremap = require('hoffs.keymap').nnoremap
 local lspconfig = require('lspconfig')
 local cmp = require'cmp'
 local lspkind = require("lspkind")
+local vim = vim;
 
 local source_mapping = {
 	buffer = "[Buffer]",
@@ -76,9 +77,10 @@ lspconfig.ember.setup(config())
 lspconfig.solargraph.setup(config())
 lspconfig.gopls.setup(config())
 lspconfig.sumneko_lua.setup(config())
-lspconfig.elixirls.setup{
+
+lspconfig.elixirls.setup(config({
     cmd = { "/home/hoffs/code/util/elixir-ls/language_server.sh" };
-}
+}))
 
 
 function go_org_imports(wait_ms)
