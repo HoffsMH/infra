@@ -8,7 +8,7 @@ cap.new
 
 fd . $CAP_DIR | tfilter -c 1 | hcat > $CAP_FILE
 
-nvim  $CAP_FILE
+nvim -c $ $CAP_FILE
 
 cap.sync
 
