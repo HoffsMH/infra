@@ -1,10 +1,11 @@
 #!/bin/bash
 
-capdir=$HOME/personal/00-capture/time
-capfile=$HOME/personal/00-capture/cap.md
+source $HOME/.envrc
 
-cat $capfile | hsplit $capdir
+cap.dedup-links
 
-rg "$1" -l $capdir | tfilter "${@:2}" | sort -h | hcat > $capfile
+rg "$1" -l $CAP_DIR | tfilter "${@:2}" | sort -h | hcat > $CAP_FILE
 
-nvim -c $ $capfile
+nvim -c $ $CAP_FILE
+
+cap.sync
