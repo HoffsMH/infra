@@ -1,4 +1,15 @@
 #!/bin/bash
 
-nvim $(cap)
+source $HOME/.envrc
+
+
+cap.dedup-links
+
+cap.new
+
+fd . $CAP_DIR | tfilter -c 1 | hcat > $CAP_FILE
+
+nvim -c $ $CAP_FILE
+
+cap.sync
 
