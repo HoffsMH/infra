@@ -29,11 +29,16 @@ local function config(_config)
 	}, _config or {})
 end
 
+local ls = require("luasnip");
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			-- For `luasnip` user.
-			require("luasnip").lsp_expand(args.body)
+      if ls.expand_or_jumpable() then
+        ls.expand_or_jump(args.body)
+      else
+        ls.lsp_expand(args.body)
+      end
 		end,
 	},
 
@@ -44,19 +49,19 @@ cmp.setup({
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
 
-  formatting = {
-		format = function(entry, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind]
-			local menu = source_mapping[entry.source.name]
-			vim_item.menu = menu
-			return vim_item
-		end,
-	},
+	--   formatting = {
+	-- 	format = function(entry, vim_item)
+	-- 		vim_item.kind = lspkind.presets.default[vim_item.kind]
+	-- 		local menu = source_mapping[entry.source.name]
+	-- 		vim_item.menu = menu
+	-- 		return vim_item
+	-- 	end,
+	-- },
 
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
+		-- { name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
+		-- { name = "buffer" },
   })
 })
 
