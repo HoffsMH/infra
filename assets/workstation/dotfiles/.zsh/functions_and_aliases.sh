@@ -202,8 +202,7 @@ alias xclip="/usr/bin/xclip -selection clipboard"
 
 
 fz() {
-  # print -z "pushd $(fzo)"
-  cd $(fzo)
+  cd $(zoxide query -i)
 }
 
 ######################################################
