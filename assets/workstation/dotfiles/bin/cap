@@ -2,7 +2,7 @@
 
 source $HOME/.envrc
 
-newcapfile=$(t $(echo "$HOME/personal/00-capture/time/cap.md" | prefix name))
+newcapfile=$(cap.new)
 
 selection=$(select-input $@)
 
