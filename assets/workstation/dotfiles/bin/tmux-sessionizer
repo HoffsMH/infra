@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(fzo)
+    selected=$(zoxide query -i)
 fi
 
 if [[ -z $selected ]]; then
