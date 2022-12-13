@@ -3,18 +3,12 @@
 source $HOME/.envrc
 
 cap.dedup-links
-echo "dedup"
 
 cap.new
-echo "new"
 
 fd . $CAP_DIR | tfilter -c 1 | hcat > $CAP_FILE
 
-echo "hcat"
-
 nvim  $CAP_FILE
-echo "nvim"
 
 cap.sync
 
-echo "sync"
