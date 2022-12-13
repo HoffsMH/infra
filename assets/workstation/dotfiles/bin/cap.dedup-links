@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+source $HOME/.envrc
+
+hcat "$CAP_DIR"/* | dedup http -b '^\(' | hsplit $CAP_DIR
