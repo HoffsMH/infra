@@ -3,14 +3,5 @@ export SSH_PUB=ssh-add -L
 export INITIAL_ANSIBLE_USER="root"
 export INITIAL_ANSIBLE_PASSWORD=$(gopass show some_secret)
 
-# pass show personal/b2/account
-export B2_ACCOUNT_ID=
-
-# pass show personal/b2/account
-export B2_ACCOUNT_KEY=
-
-# pass show personal/b2/<machine-name>
-export RESTIC_REPOSITORY=
-
-# pass show personal/b2/<machine-name>
-export RESTIC_PASSWORD=
+export CAP_FILE="$HOME/personal/00-capture/cap.md"
+export CAP_DIR="$HOME/personal/00-capture/cap"
