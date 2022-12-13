@@ -49,19 +49,19 @@ cmp.setup({
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
 
-	--   formatting = {
-	-- 	format = function(entry, vim_item)
-	-- 		vim_item.kind = lspkind.presets.default[vim_item.kind]
-	-- 		local menu = source_mapping[entry.source.name]
-	-- 		vim_item.menu = menu
-	-- 		return vim_item
-	-- 	end,
-	-- },
+	formatting = {
+		format = function(entry, vim_item)
+			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			local menu = source_mapping[entry.source.name]
+			vim_item.menu = menu
+			return vim_item
+		end,
+	},
 
 	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
+		{ name = "nvim_lsp", keyword_length = 3 },
 		{ name = "luasnip" },
-		{ name = "buffer" },
+		{ name = "buffer", keyword_length = 5 },
   })
 })
 

@@ -115,7 +115,7 @@ gdn() {
 # useful for searching for code that you knew existed at one point
 gsearch() { git log -S$1 -p }
 
-gpoc() { git pull origin $(git.branch-name) --rebase }
+gpoc() { git pull origin $(g.bn) --rebase }
 
 alias gd="git diff"
 
