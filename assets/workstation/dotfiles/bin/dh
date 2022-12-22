@@ -3,7 +3,7 @@
 
 term="kitty"
 
-zshhist=$(cat ~/.zsh_history | sed -r 's/( *: *[0-9]*:0;\*? *)|( *[0-9]*\*? *)//' )
+zshhist=$(print_history)
 # run=$(echo $zshhist | sed -r 's/( *: *[0-9]*:0;\*? *)|( *[0-9]*\*? *)//' | sed -r 's/\\/\\\\/g' | dmenu -i \
 # -p "History:" \ "$@")
 

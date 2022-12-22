@@ -1,10 +1,7 @@
 #!/bin/zsh
 
-local zshhist=$(cat ~/.zsh_history)
-
 # linux needs -r
-# print  $(echo $zshhist | fzf +s --no-preview --tac --print-query | sed -r 's/( *: *[0-9]*:0;\*? *)|( *[0-9]*\*? *)//' | sed -r 's/\\/\\\\/g')
-print  $(echo $zshhist | sed -r 's/( *: *[0-9]*:0;\*? *)|( *[0-9]*\*? *)//' | sed -r 's/\\/\\\\/g' |  uniq | fzf +s --no-preview --tac --bind=enter:replace-query+print-query)
+print  $(print_history | fzf +s --no-preview --tac --bind=enter:replace-query+print-query)
 
 
 
