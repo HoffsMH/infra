@@ -1,0 +1,12 @@
+#!/bin/bash
+# My tool that:
+#   - makes a tar file containing the folder or file
+#   - encrypts that tar file and shreds original tar file
+#   - puts that encrypted tar file in a iso date named folder in ~/.trash
+#   - puts a shell script that restores the file to its original location if you have gpg unlock
+#     - doesn't even attempt to restore if there is a file or folder in the restore files place
+
+fd . $@ -t f -x shred {}
+# delete the dir when donezp
+
+rm -fr $@
