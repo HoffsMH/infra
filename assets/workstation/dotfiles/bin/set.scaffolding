@@ -7,7 +7,7 @@ echo "CREATE DIRS"
 echo "###############################################"
 
 mkdir -p "$HOME/code/paid/"
-mkdir -p "$HOME/code/fun/"
+mkdir -p "$HOME/code/fun/other-dots"
 mkdir -p "$HOME/personal/00-capture/"
 mkdir -p "$HOME/personal/feeds/"
 mkdir -p "$HOME/personal/media/audio/capture/"
