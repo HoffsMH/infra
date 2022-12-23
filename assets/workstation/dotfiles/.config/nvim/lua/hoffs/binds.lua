@@ -17,8 +17,9 @@ nnoremap('<leader>gy', function () require("gitlinker") end)
 -- LF
 nnoremap("<leader>jf", "<cmd>Lf<cr>")
 
--- nnoremap("<C-p>", "<cmd>Telescope find_files hidden=true<cr>")
-nnoremap("<C-p>", "<cmd>Telescope git_files show_untracked=true<cr>")
+-- main file finder
+nnoremap('<C-p>', "<cmd>lua require('hoffs.telescope-project-files').project_files()<CR>")
+
 nnoremap("<C-Up>", ":lua require('telescope.builtin').resume()<CR>")
 nnoremap("<leader>fd", "<cmd>Telescope grep_string<cr>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
@@ -26,9 +27,6 @@ nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
 nnoremap('<leader>fw', ":lua require('telescope').extensions.git_worktree.git_worktrees()<CR>")
 nnoremap('<leader>fa', ":lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>")
-
-
-
 
 -- config
 nnoremap("<leader>.", "<cmd>e ~/.config/nvim<cr>")
