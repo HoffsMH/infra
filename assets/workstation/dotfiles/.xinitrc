@@ -80,5 +80,5 @@ set.wall
 
 $HOME/.screenlayout/main.sh &
 
-exec $SESSION
+exec $SESSION > $HOME/.window-manager.log 2>&1
 
