@@ -7,7 +7,7 @@ local vim = vim
 
 require('telescope').setup{
   defaults = {
-    file_ignore_patterns = { ".git", "deps", "_build" },
+    file_ignore_patterns = { ".git", "deps", "_build", ".elixir_ls"},
     vimgrep_arguments = {
       'rg',
       '--color=never',
