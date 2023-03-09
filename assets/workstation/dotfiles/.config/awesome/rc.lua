@@ -209,7 +209,13 @@ awful.keyboard.append_global_keybindings({
   awful.key({ modkey,           }, "z", function () awful.screen.focus_relative( 1) end,
     {description = "focus the next screen", group = "screen"}),
 
+  awful.key({ modkey,           }, "x", function () awful.screen.focus_relative(-1) end,
+    {description = "focus the next screen", group = "screen"}),
+
   awful.key({ modkey,  "Shift"        }, "z", function () client.focus:move_to_screen() end,
+    {description = "move to next screen", group = "client"}),
+
+  awful.key({ modkey,  "Shift"        }, "x", function () client.focus:move_to_screen(-1) end,
     {description = "move to next screen", group = "client"}),
 
   awful.key({ modkey,           }, "m", function ()
