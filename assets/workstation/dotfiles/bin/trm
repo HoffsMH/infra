@@ -6,7 +6,7 @@
 #   - puts a shell script that restores the file to its original location if you have gpg unlock
 #     - doesn't even attempt to restore if there is a file or folder in the restore files place
 
-fd . $@ -t f -x shred {}
+# fd . $@ -t f -x shred {}
 # delete the dir when donezp
 
-rm -fr $@
+\rm -fr $@

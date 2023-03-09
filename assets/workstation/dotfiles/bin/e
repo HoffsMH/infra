@@ -1,4 +1,5 @@
 #!/bin/bash
 
-tmux new-window -S -n nvim "/usr/bin/nvim $@"
+# tmux new-window -S -n nvim "/usr/bin/nvim $@"
+nvim $@
 
