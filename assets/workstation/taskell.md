@@ -8,9 +8,6 @@
 - automate making a sample file
 - streamline awesomerc so that non-primary screens only have one tag
 - awesomerm keybinds for navigating and moving windows between screens better
-- awesome keybind for reseting screen to laptop mode
-- screenlayout system that  "inherits" laptop display settings
-    > should maybe be a script that can be passed another script as args?
 
 ## Warm
 

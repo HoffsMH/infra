@@ -85,11 +85,22 @@ end)
 mytextclock = wibox.widget.textclock(" %I:%M %p ")
 mytextclock.forced_width = 90
 
+screen.connect_signal("primary_changed", function(s)
+  -- This will re-arrange the windows according to my rules automatically
+  awesome.restart();
+end)
+
 
 -- @DOC_FOR_EACH_SCREEN@
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.tag({ "", "", "", "", "", "", "mpv", "cap" }, s, awful.layout.layouts[1])
+    awful.util.spawn(terminal.." -e set.wall")
+    if screen.primary == s then
+      awful.tag({ "", "", "", "", "", "", "mpv", "cap" }, s, awful.layout.layouts[1])
+    else
+      awful.tag({ "" }, s, awful.layout.layouts[1])
+    end
+
 
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist {

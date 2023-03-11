@@ -12,6 +12,7 @@ echo "###############################################"
 
 installs=(
     "acpi" # battery monitor
+    "autorandr" # automatically rearrange screens when plugging in monitors
     "acpid"
     "age" # simple encryption
     "ansible" # cfm
