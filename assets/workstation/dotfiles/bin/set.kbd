@@ -3,5 +3,5 @@
 xmodmap ~/.Xmodmap && echo 'xmodmap'
 xset r rate 200 30 && echo 'xset rate'
 
-pkill xcape
-xcape -t 200 -e Control_L=Escape && echo 'xcape control'
+# pkill xcape
+# xcape -t 200 -e Control_L=Escape && echo 'xcape control'

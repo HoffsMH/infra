@@ -10,7 +10,8 @@ clear Mod3
 ! 66 is x keycode for caps_lock on x220
 ! 58 is tty keycode for caps_lock on x220
 ! keysym Caps_Lock = Control_L
-keycode 66 = NoSymbol
+! keycode 66 = NoSymbol
+keycode 66 = Escape
 
 !!!!!!!!!!!!!!!
 ! ALT_L -> CTRL_L
