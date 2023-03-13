@@ -55,6 +55,7 @@
 
     # Padding between text and separator.
     padding = 20
+    offset = 10x50
 
     # Horizontal padding.
     horizontal_padding = 8
@@ -213,7 +214,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 4
 
     ### Legacy
 
