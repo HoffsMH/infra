@@ -4,6 +4,7 @@ installs=(
     "binlist"
     "bulksearch"
     "caseshift"
+
 )
 
 for i in $installs
@@ -41,3 +42,5 @@ pushd "$HOME/code/util/"
   git clone https://github.com/gopasspw/gopass
   sudo make clean install
 popd
+
+go install github.com/jesseduffield/lazygit@latest
