@@ -81,7 +81,7 @@ lspconfig.eslint.setup(config({
 lspconfig.ember.setup(config())
 lspconfig.solargraph.setup(config())
 lspconfig.gopls.setup(config())
-lspconfig.sumneko_lua.setup(config())
+lspconfig.lua_ls.setup(config())
 
 lspconfig.elixirls.setup(config({
     cmd = { "/home/hoffs/code/util/elixir-ls/language_server.sh" };
