@@ -16,7 +16,6 @@ installs=(
     "acpid"
     "age" # simple encryption
     "ansible" # cfm
-    "anydesk" # remote desk
     "arandr" # arranging screens and saving screen configs
     "arc-icon-theme" # needed for battery widget in awesome wm
     "awesome-git" # wm
@@ -33,7 +32,6 @@ installs=(
     "cpupower"
     "cronie" # cront implementation that includes anacron
     "cups" # : (, stands for "Cant Usually Print Stuff"
-    "cups" # printing
     "cups-pdf" # printings
     "dbeaver" # sql exploration
     "debtap" # tap into deb packages
