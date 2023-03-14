@@ -120,40 +120,26 @@ local function worker(user_args)
     local last_battery_check = os.time()
     local batteryType = "battery-good-symbolic"
 
-    watch("acpi -i", timeout,
+    watch("acpi", timeout,
     function(widget, stdout)
         local battery_info = {}
         local capacities = {}
-        for s in stdout:gmatch("[^\r\n]+") do
+        -- for s in stdout:gmatch("[^\r\n]+") do
+            -- print("here is our line: "..s)
             -- On my thinkpads BAT 1 seems to be the "true" battery
             -- Would like to later figure out battery dynamically
-            local status, charge_str, _ = string.match(s, '^Battery 1.* (%a+), (%d?%d?%d)%%,?(.*)')
+            local status = string.match(stdout, '^Battery .*: (%a+)')
+            local charge_str = string.match(stdout, '^Battery .*: .*, (%d+)%%')
+
             if status ~= nil then
                 table.insert(battery_info, {status = status, charge = tonumber(charge_str)})
             else
                 local cap_str = string.match(s, '.+:.+last full capacity (%d+)')
                 table.insert(capacities, tonumber(cap_str))
             end
-        end
+        -- end
 
-        local capacity = 0
-        for _, cap in ipairs(capacities) do
-            capacity = capacity + cap
-        end
-
-        local charge = 0
-        local status
-        for i, batt in ipairs(battery_info) do
-            if capacities[i] ~= nil then
-                if batt.charge >= charge then
-                    status = batt.status -- use most charged battery status
-                    -- this is arbitrary, and maybe another metric should be used
-                end
-
-                charge = charge + batt.charge * capacities[i]
-            end
-        end
-        charge = charge / capacity
+        charge = tonumber(charge_str)
 
         if show_current_level then
             level_widget.text = string.format('%d%%', charge)
