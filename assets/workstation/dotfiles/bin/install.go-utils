@@ -1,10 +1,8 @@
 #!/bin/zsh
 
 installs=(
-    "binlist"
-    "bulksearch"
     "caseshift"
-
+    "go-utils"
 )
 
 for i in $installs
@@ -19,24 +17,15 @@ do
 
   rm -fr $i
   git clone "https://github.com/HoffsMH/$i"
-  
   pushd "$HOME/code/util/$i"
-    if ./bin/install ; then
-      echo "###############################################"
-      echo "SUCCEEDED $i"
-      echo "###############################################"
-    else
-      echo "###############################################"
-      echo "FAILED $i"
-      echo "###############################################"
-      echo "- $i\n" >> "$HOME/failures.md"
-    fi
+    ./bin/install.sh
   popd
 done
 
 echo "###############################################"
 echo "INSTALLING gopass"
 echo "###############################################"
+
 
 go install github.com/gopasspw/gopass@latest
 
