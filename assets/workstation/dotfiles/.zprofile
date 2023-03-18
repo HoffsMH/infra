@@ -29,7 +29,7 @@ setopt -o sharehistory
 # path and shims
 source "$HOME/.zsh/path_and_shims.sh"
 
-sudo cpupower frequency-set -g powersave
-sudo cpupower set -b 13
+sudo cpupower frequency-set -g powersave > /dev/null
+sudo cpupower set -b 13 > /dev/null
 # sudo cpupower frequency-set -u 3.2G
 
