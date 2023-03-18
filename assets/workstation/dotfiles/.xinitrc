@@ -77,6 +77,7 @@ export SSH_AUTH_SOCK
 tl startx &
 set.wall
 set.kbd
+autorandr -c
 
 
 $HOME/.screenlayout/main.sh &
