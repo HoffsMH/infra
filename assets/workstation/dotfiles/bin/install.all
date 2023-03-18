@@ -66,7 +66,6 @@ installs=(
     "jdk-openjdk"
     "jq" # command line json parser
     "kitty"
-    "lazygit-git" # git gui
     "ledger-live" # crypto : (
     "lf-git" # vim like file manager
     "libinput"
