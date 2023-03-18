@@ -8,8 +8,9 @@ compinit
 
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+
 # unset z
-z() {}
+unalias z
 
 #python build env stuff
 export LDFLAGS="-L/usr/local/opt/zlib/lib"
