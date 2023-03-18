@@ -12,6 +12,11 @@ echo "###############################################"
 
 installs=(
     "acpi" # battery monitor
+    "sof-firmware" # Dell xps speakers
+
+    "xf86-input-synaptics" # dell xps touchpad
+    "xf86-input-libinput" # dell xps touchpad
+
     "autorandr" # automatically rearrange screens when plugging in monitors
     "acpid"
     "age" # simple encryption
