@@ -94,7 +94,7 @@ end)
 -- @DOC_FOR_EACH_SCREEN@
 screen.connect_signal("request::desktop_decoration", function(s)
     -- Each screen has its own tag table.
-    awful.util.spawn(terminal.." -e set.wall")
+    awful.util.spawn("set.wall")
     if screen.primary == s then
       awful.tag({ "", "", "", "", "", "", "mpv", "cap" }, s, awful.layout.layouts[1])
     else
@@ -660,6 +660,12 @@ ruled.client.connect_signal("request::rules", function()
     }
 
     ruled.client.append_rule {
+        rule       = { class = "kitty"     },
+        properties = { screen = awful.screen.preferred,
+        tag = "" }
+    }
+
+    ruled.client.append_rule {
         rule       = { class = "Google-chrome"     },
         properties = { screen = awful.screen.preferred, tag = "" }
     }
@@ -672,7 +678,7 @@ ruled.client.connect_signal("request::rules", function()
 
     ruled.client.append_rule {
         rule       = { class = "Slack"     },
-        properties = { screen = screen.count()>1 and 2 or 1, tag = screen.count()>1 and "" or "" }
+        properties = { screen = awful.screen.preferred, tag = "" }
     }
 
     ruled.client.append_rule {
