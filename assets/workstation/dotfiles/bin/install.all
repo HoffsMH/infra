@@ -213,6 +213,9 @@ sudo systemctl start "syncthing@$USER.service"
 sudo systemctl enable "cpupower"
 sudo systemctl start "cpupower"
 
+sudo systemctl enable "tlp"
+sudo systemctl start "tlp"
+
 # use dunst for notifications
 systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled"
 systemctl stop --user xfce4-notifyd.service || echo "stock notifications already stopped"
