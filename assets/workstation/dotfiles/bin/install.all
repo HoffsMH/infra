@@ -13,9 +13,11 @@ echo "###############################################"
 installs=(
     "acpi" # battery monitor
     "sof-firmware" # Dell xps speakers
-
     "xf86-input-synaptics" # dell xps touchpad
     "xf86-input-libinput" # dell xps touchpad
+    "tlp" # plug and play battery saving
+    "tlpui" # plug and play battery saving
+    "s-tui" # cpu stress tester
 
     "autorandr" # automatically rearrange screens when plugging in monitors
     "acpid"
@@ -34,7 +36,7 @@ installs=(
     "cht.sh-git" # fast help
     "clamav" # anti-virus
     "colorgrab" # grab color hex from anywhere on screen
-    "cpupower"
+    "cpupower" # needed to reduce power consumption and heat generation see zprofile
     "cronie" # cront implementation that includes anacron
     "cups" # : (, stands for "Cant Usually Print Stuff"
     "cups-pdf" # printings
