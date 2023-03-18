@@ -8,5 +8,5 @@
     # - ../../roles/workstation/scaffolding
     # - ../../roles/workstation/install
     # - ../../roles/workstation/misc
-    # - ../../roles/common/samba-client
-    - ../../roles/workstation/backup
+    - ../../roles/common/samba-client
+    # - ../../roles/workstation/backup
