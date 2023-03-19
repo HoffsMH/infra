@@ -8,7 +8,6 @@ echo "###############################################"
 extras=(
   # "autoconf"
   # "anydesk" # remote desk
-  # "balena-etcher"
   # "bfg"
   # "bspwm"
   # "calibre" # e-book reading
@@ -40,7 +39,6 @@ extras=(
   # "phoronix-test-suite"
   # "postgresql"
   # "python-crcmod"
-  # "qmk"
   # "qmk" # for flashing stuff
   # "rawtherapee"
   # "ruby-build" # may need sudo mkdir -p "/usr/local/opt/zlib/lib"

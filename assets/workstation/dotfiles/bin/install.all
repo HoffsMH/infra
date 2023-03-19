@@ -12,19 +12,13 @@ echo "###############################################"
 
 installs=(
     "acpi" # battery monitor
-    "sof-firmware" # Dell xps speakers
-    "xf86-input-synaptics" # dell xps touchpad
-    "xf86-input-libinput" # dell xps touchpad
-    "tlp" # plug and play battery saving
-    "tlpui" # plug and play battery saving
-    "s-tui" # cpu stress tester
-
-    "autorandr" # automatically rearrange screens when plugging in monitors
     "acpid"
     "age" # simple encryption
     "ansible" # cfm
     "arandr" # arranging screens and saving screen configs
     "arc-icon-theme" # needed for battery widget in awesome wm
+    "autoconf" # automatically rearrange screens when plugging in monitors
+    "autorandr" # automatically rearrange screens when plugging in monitors
     "awesome-git" # wm
     "axel" # downloader
     "blueman-git" # bluetooth gui
@@ -48,6 +42,7 @@ installs=(
     "dunst" # notifications
     "elixir"
     "entr" # useful little thing
+    "etcher-cli-bin" # cli iso flashing
     "evtest"
     "exa" # alternative to ls
     "fd-git" # alternative to find
@@ -79,7 +74,9 @@ installs=(
     "libratbag"
     "libreoffice"
     "light" # backlight and keyboard like control for laptops
+    "lua-language-server" #lua language server
     "lxappearance" # managing gtk themes
+    "lynx" # cli browser I want to learn one day
     "manjaro-arm-installer" # also bin
     "manjaro-arm-tools"
     "manjaro-settings-samba"
@@ -90,7 +87,7 @@ installs=(
     "mullvad-vpn" # vpn
     "ncurses5-compat-libs"
     "neovim"
-    "neovim-remote"
+    "neovide"
     "net-tools" # for netstat
     "network-manager-applet"
     "nmap" # gimme da open ports
@@ -127,11 +124,13 @@ installs=(
     "restic" # remote backup
     "ripgrep"
     "ristretto" # no keybind memory needed image browser
+    "s-tui" # cpu stress tester
     "samba"
     "scrot" # total screenshot taker
     "seahorse"
     "slack-desktop"
     "slock"
+    "sof-firmware" # Dell xps speakers
     "soulseekqt" # shhe
     "squashfs-tools"
     "sshpass"
@@ -143,8 +142,11 @@ installs=(
     "syncthing"
     "sysstat" # pidstat cifsiostat iostat
     "taskell"
+    "httpie" # api testing
     "teensy-loader-cli" # for kinesis
     "thunar"
+    "tlp" # plug and play battery saving
+    "tlpui" # plug and play battery saving
     "tmux" # lovehate this
     "tokei" # count lines of code
     "udisks2" # personal drive mounting system that doesn't require sudo
@@ -153,6 +155,7 @@ installs=(
     "unzip"
     "usbutils" # lsusb bus and device id
     "via-bin" # keyboard conifuration
+    "w3m" # cli browser I want to learn one day
     "webkit2gtk" # undocumented dependency of font-manager :(
     "wg-quick"
     "wkhtmltopdf"
@@ -161,6 +164,8 @@ installs=(
     "xclip" # clipboard command interface
     "xcursor-breeze"
     "xdotool"
+    "xf86-input-libinput" # dell xps touchpad
+    "xf86-input-synaptics" # dell xps touchpad
     "xorg-font-util"
     "xorg-fonts-encodings"
     "xorg-server"
