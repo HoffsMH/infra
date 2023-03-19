@@ -26,3 +26,5 @@ go install github.com/gopasspw/gopass@latest
 
 go install github.com/jesseduffield/lazygit@latest
 
+go install github.com/caarlos0/timer@latest
+
