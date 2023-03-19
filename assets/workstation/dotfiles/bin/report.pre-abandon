@@ -18,4 +18,4 @@ cat ~/.installed
 
 
 echo ""
-gfold $HOME
+sudo gfold $HOME
