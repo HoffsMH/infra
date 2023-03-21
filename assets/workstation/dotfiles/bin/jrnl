@@ -12,3 +12,4 @@ nvim -c $ $jrnlfile;
 cat $jrnlfile | hsplit $jrnldir
 
 jrnl.lock $jrnldir
+cp ~/personal/jrnl/*.gpg ~/personal/personal-reference/jrnlarchive/jrnl/
