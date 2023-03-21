@@ -18,7 +18,7 @@ do
   rm -fr $i
   git clone "https://github.com/$i"
   pushd "$HOME/code/util/$i"
-    ./bin/install.sh
+    ./install
   popd
 done
 
