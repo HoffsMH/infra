@@ -73,7 +73,7 @@ lspconfig.eslint.setup(config({
   -- to get this:
   -- npm i -g vscode-langservers-extracted
   -- project could be behind and this lsp needs higher version
-  cmd = { "asdf.exec", "nodejs", "18.4.0", "vscode-eslint-language-server", "--stdio" },
+  cmd = { "asdf.exec", "nodejs", "latest", "vscode-eslint-language-server", "--stdio" },
 }))
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
