@@ -2,6 +2,10 @@
 
 source $HOME/.envrc
 
+if [ -f "$CAP_FILE" ]; then
+  exit 1
+fi
+
 cap.dedup-links
 
 rg "$1" -l $CAP_DIR | tfilter "${@:2}" | sort -h | hcat > $CAP_FILE
