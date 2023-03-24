@@ -7,14 +7,18 @@
       - "cron"
       - "python3-certbot-nginx"
 
-- name: Allow connections on http and https
-  iptables:
-    chain: INPUT
-    protocol: tcp
-    destination_ports:
-      - "80"
-      - "443"
-    jump: ACCEPT
+
+- name: Allow all access to tcp port 80
+  community.general.ufw:
+    rule: allow
+    port: '80'
+    proto: tcp
+
+- name: Allow all access to tcp port 80
+  community.general.ufw:
+    rule: allow
+    port: '442'
+    proto: tcp
 
 - name: "place nginx conf"
   template:
