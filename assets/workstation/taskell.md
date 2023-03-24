@@ -1,5 +1,6 @@
 ## Cold
 
+- time installs and figure out what installs are taking the most time on fresh laptop installs
 - keybind to just move ALL clients from one to another screen, awesomewm rid of
 - go rm
 - thunar default save location
