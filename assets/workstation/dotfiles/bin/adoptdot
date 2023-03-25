@@ -10,7 +10,7 @@ full_path=$(readlink -f "$1")
 full_dir=$(dirname "$full_path")
 base=$(basename $1)
 
-dotfile_dir=$(readlink -f ~/infra/assets/workstation/dotfiles)
+dotfile_dir=$(readlink -f $HOME/infra/assets/workstation/dotfiles)
 
 intermediate_path=${full_dir/$HOME/''}
 
@@ -26,12 +26,12 @@ echo 'dotfile path'
 echo $dotfile_path
 echo ''
 
-echo 'mkdir -p $dotfile_dir$intermediate_path'
+echo "mkdir -p $dotfile_dir$intermediate_path"
 mkdir -p "$dotfile_dir$intermediate_path"
 
-echo 'cp "$full_path" "$dotfile_path"'
+echo "cp $full_path $dotfile_path"
 cp "$full_path" "$dotfile_path"
 
 
-echo 'ln -sf "$dotfile_path" "$full_path"'
+echo "ln -sf $dotfile_path $full_path"
 ln -sf "$dotfile_path" "$full_path"

@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-# tmux new-window -S -n nvim "/usr/bin/nvim $@"
+x=$(tmux display-message -p '#W')
+
 tmux rename-window nvim
 nvim $@
+tmux rename-window $x
 
