@@ -196,15 +196,18 @@ do
   echo "###############################################"
   echo "INSTALLING $i"
   echo "###############################################"
-  if yay -S --noconfirm $i ; then
+
+  if (time yay -S --noconfirm "$i" 2>&1 ) 2>> ~/.install.all.report ; then
     echo "###############################################"
     echo "SUCCEEDED $i"
     echo "###############################################"
+    echo "$i succeeded" >> ~/.install.all.report
   else
     echo "###############################################"
     echo "FAILED $i"
     echo "###############################################"
     echo "- $i\n" >> "$HOME/failures.md"
+    echo "$i failed" >> ~/.install.all.report
   fi
 done
 
