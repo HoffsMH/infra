@@ -60,7 +60,6 @@ installs=(
     "gruvbox-dark-gtk" # my gtk theme
     "gruvbox-material-gtk-theme-git" # just for the icons
     "htop" # system process monitor
-    "iftop"
     "imagemagick"
     "inotify-tools"
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
@@ -70,7 +69,7 @@ installs=(
     "kitty"
     "ledger-live" # crypto : (
     "lf-git" # vim like file manager
-    "libinput"
+    "libinput" # synaptics
     "libratbag"
     "libreoffice"
     "light" # backlight and keyboard like control for laptops
@@ -107,9 +106,7 @@ installs=(
     "piper" # adjusting mouse settings
     "pistol-git"
     "polkit"
-    "poppler"
     "poppler" # pdf library
-    "postgresql"
     "postgresql"
     "protonvpn-cli-ng" # vpn provider
     "pulseaudio-alsa"
@@ -130,7 +127,6 @@ installs=(
     "seahorse"
     "slack-desktop"
     "slock"
-    "sof-firmware" # Dell xps speakers
     "soulseekqt" # shhe
     "squashfs-tools"
     "sshpass"
