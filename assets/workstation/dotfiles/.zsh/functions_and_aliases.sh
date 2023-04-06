@@ -290,7 +290,7 @@ alias udunmount="udisksctl unmount -b"
 # PASS
 ######################################################
 
-alias passedit='pass edit -e "$WAIT_EDITOR"'
+alias passedit='pass edit -c -e "$WAIT_EDITOR"'
 
 fh() {
   print -z "$(fho)"
