@@ -24,8 +24,7 @@ alias vim="nvim"
 export EXA_COLORS="*.mp3=34"
 
 #fancy ls command
-alias l="exa -laFGgh --icons -T -L 1"
-alias ls="exa -Fla --icons -T -L 1"
+alias l="exa -FlaGgh  --git --icons -T -L 1"
 
 # alias l="ls -laFGgohq"
 # alias ls='ls -Fa'
