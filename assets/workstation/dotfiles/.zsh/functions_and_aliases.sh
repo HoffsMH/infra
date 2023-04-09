@@ -29,6 +29,8 @@ alias tree="tree -L 3"
 alias cat="bat --theme gruvbox-dark"
 alias dig="dog"
 alias http="xh"
+alias yotpc="ykman oath accounts code"
+alias yotpl="ykman oath accounts list"
 
 # makes a generic tar.gz file for the given folder
 tarmake () {

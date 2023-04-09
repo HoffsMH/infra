@@ -8,7 +8,7 @@ fi
 
 cap.dedup-links
 
-rg "$1" -l $CAP_DIR | tfilter "${@:2}" | sort -h | hcat > $CAP_FILE
+rg "$1" -l $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
 
 nvim -c $ $CAP_FILE
 

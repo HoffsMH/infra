@@ -6,7 +6,7 @@ cap.dedup-links
 
 cap.new
 
-fd . $CAP_DIR | tfilter -c 1 | hcat > $CAP_FILE
+fd . $CAP_DIR | tail -n 1 | hcat > $CAP_FILE
 
 nvim -c $ $CAP_FILE
 
