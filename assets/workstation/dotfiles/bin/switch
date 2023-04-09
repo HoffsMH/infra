@@ -15,5 +15,6 @@ windows=$(echo "$windows" | \
 target=$(echo "$windows" | dmenu -l 10 -i -p switch: | tr -s '[:blank:]' | cut -d ' ' -f 2-)
 
 if [[ -n $target ]]; then
+    notify-send "$target"
     wmctrl -a "$target"
 fi

@@ -5,7 +5,7 @@ xset r rate 200 30 && echo 'xset rate'
 
 pkill xcape
 xcape -t 200 -e Mode_switch=Escape && echo 'xcape Mode_switch'
-# xcape -t 200 -e Control_L=Escape && echo 'xcape Mode_switch'
+xcape -t 200 -e Control_L=Escape && echo 'xcape Control_L'
 
 touchpad_id=$(xinput list | rg TouchPad | rg -o '\bid=(\d+)\b' |  cut -d= -f2)
 two_finger=$(xinput list-props $touchpad_id | rg 'Two-Finger Scrolling' | rg -o '\((296)\)' | cut  --delimiter=\( -f2 | cut --delimiter=\) -f1)
