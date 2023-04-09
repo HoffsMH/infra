@@ -25,12 +25,10 @@ export EXA_COLORS="*.mp3=34"
 
 #fancy ls command
 alias l="exa -FlaGgh  --git --icons -T -L 1"
-
-# alias l="ls -laFGgohq"
-# alias ls='ls -Fa'
-# alias lg='l | grep -i'
-
 alias tree="tree -L 3"
+alias cat="bat"
+alias dig="dog"
+alias http="xh"
 
 # makes a generic tar.gz file for the given folder
 tarmake () {

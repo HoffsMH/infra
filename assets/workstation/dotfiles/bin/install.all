@@ -21,6 +21,7 @@ installs=(
     "autorandr" # automatically rearrange screens when plugging in monitors
     "awesome-git" # wm
     "axel" # downloader
+    "bat" # alternative cat
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
@@ -39,7 +40,9 @@ installs=(
     "direnv" # env var management
     "discord"
     "dnsutils" # dig
+    "dog" # alternative dig
     "dunst" # notifications
+    "dust" # alternative du
     "elixir"
     "entr" # useful little thing
     "etcher-cli-bin" # cli iso flashing
@@ -85,8 +88,8 @@ installs=(
     "mpv" # audio and video player
     "mullvad-vpn" # vpn
     "ncurses5-compat-libs"
-    "neovim"
     "neovide"
+    "neovim"
     "net-tools" # for netstat
     "network-manager-applet"
     "nmap" # gimme da open ports
@@ -124,6 +127,7 @@ installs=(
     "s-tui" # cpu stress tester
     "samba"
     "scrot" # total screenshot taker
+    "sd" # alternative sed
     "seahorse"
     "slack-desktop"
     "slock"
@@ -138,7 +142,6 @@ installs=(
     "syncthing"
     "sysstat" # pidstat cifsiostat iostat
     "taskell"
-    "httpie" # api testing
     "teensy-loader-cli" # for kinesis
     "thunar"
     "tlp" # plug and play battery saving
@@ -162,6 +165,7 @@ installs=(
     "xdotool"
     "xf86-input-libinput" # dell xps touchpad
     "xf86-input-synaptics" # dell xps touchpad
+    "xh" # alternative curl
     "xorg-font-util"
     "xorg-fonts-encodings"
     "xorg-server"
