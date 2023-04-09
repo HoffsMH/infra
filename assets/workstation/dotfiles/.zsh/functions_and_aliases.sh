@@ -26,7 +26,7 @@ export EXA_COLORS="*.mp3=34"
 #fancy ls command
 alias l="exa -FlaGgh  --git --icons -T -L 1"
 alias tree="tree -L 3"
-alias cat="bat"
+alias cat="bat --theme gruvbox-dark"
 alias dig="dog"
 alias http="xh"
 
