@@ -25,5 +25,6 @@ if [[ -z "$touchpad_id" ]]; then
 else
   echo "xinput set-prop magic Trackpad Two-Finger Scrolling 1 1"
   xinput set-prop $touchpad_id 'Synaptics Two-Finger Scrolling' 1 1
+  xinput set-prop $touchpad_id 'Synaptics Finger' 0 20 0
 fi
 
