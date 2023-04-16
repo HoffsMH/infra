@@ -1,11 +1,11 @@
 #!/bin/bash
 
 jrnldir=~/personal/jrnl/
-jrnlfile=~/personal/jrnl.md
+jrnlfile=$(mktemp  /tmp/jrnl-XXXX.md)
 
 jrnl.unlock $jrnldir
 
-fd . $jrnldir | tfilter -c 10 | hcat > $jrnlfile
+fd . $jrnldir | tail -n 10 | hcat > $jrnlfile
 
 nvim -c $ $jrnlfile;
 
