@@ -55,7 +55,7 @@ installs=(
     "fzf" # cli fuzzy finder
     "gfold-git" # see git repo status across many repos
     "gimp"
-    "git-delta-git" # diff viewer
+    "git-delta" # diff viewer
     "git-lfs"
     "gnome-calculator" # calculator
     "gnutls"
@@ -225,16 +225,19 @@ sudo systemctl enable "tlp"
 sudo systemctl start "tlp"
 
 # use dunst for notifications
-systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled"
-systemctl stop --user xfce4-notifyd.service || echo "stock notifications already stopped"
-systemctl enable --user dunst.service || echo "dunst service not found"
-systemctl start --user dunst.service || echo "starting dunst failed"
+systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled" >> ~/.install.all.report
+systemctl stop --user xfce4-notifyd.service || echo "stock notifications already stopped" >> ~/.install.all.report
+systemctl enable --user dunst.service || echo "dunst service not found" >> ~/.install.all.report
+systemctl start --user dunst.service || echo "starting dunst failed" >> ~/.install.all.report
 
-sudo systemctl enable bluetooth.service || echo "bluetooth service not found"
-sudo systemctl start bluetooth.service || echo "starting bluetooth failed"
+sudo systemctl enable bluetooth.service || echo "bluetooth service not found" >> ~/.install.all.report
+sudo systemctl start bluetooth.service || echo "starting bluetooth failed" >> ~/.install.all.report
 
-sudo systemctl enable "pcscd.service"
-sudo systemctl start "pcscd.service"
+sudo systemctl enable cups.service || echo "cupx service not found" >> ~/.install.all.report
+sudo systemctl start cups.service || echo "starting cups failed" >> ~/.install.all.report
+
+sudo systemctl enable "pcscd.service" || echo "yubikey daemon(pcscd) not found" >> ~/.install.all.report
+sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) failed" >> ~/.install.all.report
 
 "$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
