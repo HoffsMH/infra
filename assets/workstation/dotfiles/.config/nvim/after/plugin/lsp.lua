@@ -32,15 +32,23 @@ end
 local ls = require("luasnip");
 
 cmp.setup({
-	snippet = {
-		expand = function(args)
-      if ls.expand_or_jumpable() then
-        ls.expand_or_jump(args.body)
-      else
-        ls.lsp_expand(args.body)
-      end
-		end,
-	},
+  -- old way of doing things should watch tutorial again some day to get jumpable
+  -- snippets working
+-- 	snippet = {
+-- 		expand = function(args)
+--       if ls.expand_or_jumpable() then
+--         ls.expand_or_jump(args.body)
+--       else
+--         ls.lsp_expand(args.body)
+--       end
+-- 		end,
+-- 	},
+  snippet = {
+      -- REQUIRED - you must specify a snippet engine
+      expand = function(args)
+        ls.lsp_expand(args.body) -- For `luasnip` users.
+      end,
+    },
 
   mapping = cmp.mapping.preset.insert({
       ['<C-d>'] = cmp.mapping.scroll_docs(-4),
