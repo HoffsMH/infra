@@ -1,0 +1,3 @@
+#!/bin/bash
+
+fd . ~/personal/00-capture | sfilter | xargs -I {} mv {} ~/personal/01-large-capture
