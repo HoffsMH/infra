@@ -3,3 +3,4 @@ git:
 os:
   editCommand: 'e' # see 'Configuring File Editing' section
   editCommandTemplate: '{{editor}} +{{line}} -- {{filename}}'
+notARepository: 'skip'
