@@ -1,2 +1,5 @@
+#!/bin/bash
 
-sed -E 's/_([a-z])/\U\1/g'
+sed -E 's/_([a-z])/\U\1/g' | sed -E 's/\.([a-z])/\U\1/g' | sed -E 's/-([a-z])/\U\1/g'
+
+
