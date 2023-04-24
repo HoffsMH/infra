@@ -208,7 +208,6 @@ fz() {
 # files
 ######################################################
 
-alias open="xdg-open"
 alias jfc='jf ~/personal/00-capture'
 alias jfa='jf ~/personal/media/audio'
 alias jfi='jf ~/personal/media/image'
