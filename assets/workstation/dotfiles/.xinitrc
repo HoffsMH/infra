@@ -68,16 +68,15 @@ source "$HOME/.envrc"
 
 dunst &
 
-# start gnome keyring so I dont have to type password on every git push
-eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-export SSH_AUTH_SOCK
-
-"$HOME/bin/kbdsetup"
-
-tl startx &
 set.wall
 set.kbd
 autorandr -c
+/usr/bin/xset r "rate" "200" "30"
+/usr/bin/sxhkd &
+
+# start gnome keyring so I dont have to type password on every git push
+eval $(/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+export SSH_AUTH_SOCK
 
 
 $HOME/.screenlayout/main.sh &
