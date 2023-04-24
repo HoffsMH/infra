@@ -16,7 +16,6 @@ installs=(
     "age" # simple encryption
     "ansible" # cfm
     "arandr" # arranging screens and saving screen configs
-    "arc-icon-theme" # needed for battery widget in awesome wm
     "autoconf" # automatically rearrange screens when plugging in monitors
     "autorandr" # automatically rearrange screens when plugging in monitors
     "awesome-git" # wm
@@ -25,10 +24,8 @@ installs=(
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
-    "bookworm" # e-reader
     "brave-bin" # browser
     "brlaser" # vs "brother-hll2300d" try both if needed
-    "cht.sh-git" # fast help
     "clamav" # anti-virus
     "colorgrab" # grab color hex from anywhere on screen
     "cpupower" # needed to reduce power consumption and heat generation see zprofile
@@ -66,14 +63,13 @@ installs=(
     "imagemagick"
     "inotify-tools"
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
-    "iso-image"
     "jdk-openjdk"
     "jq" # command line json parser
     "kitty"
     "ledger-live" # crypto : (
     "lf-git" # vim like file manager
     "libinput" # synaptics
-    "libratbag"
+    "libratbag" # gaming mice configuration
     "libreoffice"
     "light" # backlight and keyboard like control for laptops
     "lua-language-server" #lua language server
@@ -98,10 +94,7 @@ installs=(
     "ntfs-3g" # for viewing and manipulating windows filesystems
     "ntp"
     "openssh"
-    "openssh"
     "p7zip" # 7z
-    "parallel" # for performing tasks in parallel
-    "pcloud-drive" # cloud storage provider
     "peek" # Screen cast gifs
     "pfetch" # simple screen fetch
     "pinentry-dispatch"
@@ -111,7 +104,6 @@ installs=(
     "polkit"
     "poppler" # pdf library
     "postgresql"
-    "protonvpn-cli-ng" # vpn provider
     "pulseaudio-alsa"
     "pulseaudio-bluetooth"
     "pulsemixer" # mixer and volume control
@@ -129,10 +121,9 @@ installs=(
     "scrot" # total screenshot taker
     "sd" # alternative sed
     "seahorse"
-    "slack-desktop"
     "slock"
     "soulseekqt" # shhe
-    "squashfs-tools"
+    "squashfs-tools" # burning firmware and nerves
     "sshpass"
     "stalonetray"
     "starship" # fast terminal prompt
@@ -156,7 +147,6 @@ installs=(
     "via-bin" # keyboard conifuration
     "w3m" # cli browser I want to learn one day
     "webkit2gtk" # undocumented dependency of font-manager :(
-    "wg-quick"
     "wkhtmltopdf"
     "wmctrl"
     "xcape"
@@ -177,8 +167,6 @@ installs=(
     "xwallpaper" # set the wall paper
     "ytfzf" # youtube fzf
     "yubikey-manager"
-    "yubikey-manager-qt"
-    "yubioath-desktop"
     "zathura" # pdf viewer
     "zathura-pdf-poppler"
     "zip"
