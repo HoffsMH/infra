@@ -171,21 +171,11 @@ systemctl stop --user xfce4-notifyd.service || echo "stock notifications already
 systemctl enable --user dunst.service || echo "dunst service not found" >> ~/.install.all.report
 systemctl start --user dunst.service || echo "starting dunst failed" >> ~/.install.all.report
 
-sudo systemctl enable bluetooth.service || echo "bluetooth service not found" >> ~/.install.all.report
-sudo systemctl start bluetooth.service || echo "starting bluetooth failed" >> ~/.install.all.report
-
-sudo systemctl enable cups.service || echo "cupx service not found" >> ~/.install.all.report
-sudo systemctl start cups.service || echo "starting cups failed" >> ~/.install.all.report
-
 sudo systemctl enable "pcscd.service" || echo "yubikey daemon(pcscd) not found" >> ~/.install.all.report
 sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) failed" >> ~/.install.all.report
 
-"$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.go-utils"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.paru"
 

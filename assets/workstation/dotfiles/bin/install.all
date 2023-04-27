@@ -131,14 +131,6 @@ installs=(
     "xf86-input-libinput" # dell xps touchpad
     "xf86-input-synaptics" # dell xps touchpad
     "xh" # alternative curl
-    "xorg-font-util"
-    "xorg-fonts-encodings"
-    "xorg-server"
-    "xorg-xclipboard"
-    "xorg-xev" # x event
-    "xorg-xinit"
-    "xorg-xinput" # adjusting touchpad settings
-    "xorg-xsetroot"
     "xwallpaper" # set the wall paper
     "ytfzf" # youtube fzf
     "yubikey-manager"
@@ -178,21 +170,6 @@ echo "###############################################"
 echo "enable services"
 echo "###############################################"
 
-sudo systemctl enable "syncthing@$USER.service"
-sudo systemctl start "syncthing@$USER.service"
-
-sudo systemctl enable "cpupower"
-sudo systemctl start "cpupower"
-
-sudo systemctl enable "tlp"
-sudo systemctl start "tlp"
-
-# use dunst for notifications
-systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled" >> ~/.install.all.report
-systemctl stop --user xfce4-notifyd.service || echo "stock notifications already stopped" >> ~/.install.all.report
-systemctl enable --user dunst.service || echo "dunst service not found" >> ~/.install.all.report
-systemctl start --user dunst.service || echo "starting dunst failed" >> ~/.install.all.report
-
 sudo systemctl enable bluetooth.service || echo "bluetooth service not found" >> ~/.install.all.report
 sudo systemctl start bluetooth.service || echo "starting bluetooth failed" >> ~/.install.all.report
 
@@ -205,9 +182,5 @@ sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) fail
 "$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.go-utils"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.paru"
 
