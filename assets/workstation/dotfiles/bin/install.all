@@ -6,60 +6,35 @@ set -e
 sudo sed -i '/MAKEFLAGS=/c\MAKEFLAGS="-j$(nproc)"' /etc/makepkg.conf
 sudo sed 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -T 0 -c -z -)/' /etc/makepkg.conf
 
+"$HOME/infra/assets/workstation/dotfiles/bin/install.minimal"
+
 echo "###############################################"
-echo "YAY BASIC RECIPE"
+echo "YAY BASIC"
 echo "###############################################"
 
 installs=(
-    "acpi" # battery monitor
-    "acpid"
     "age" # simple encryption
-    "ansible" # cfm
-    "arandr" # arranging screens and saving screen configs
-    "autoconf" # automatically rearrange screens when plugging in monitors
-    "autorandr" # automatically rearrange screens when plugging in monitors
-    "awesome-git" # wm
-    "axel" # downloader
     "bat" # alternative cat
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
-    "brave-bin" # browser
     "brlaser" # vs "brother-hll2300d" try both if needed
-    "clamav" # anti-virus
     "colorgrab" # grab color hex from anywhere on screen
-    "cpupower" # needed to reduce power consumption and heat generation see zprofile
-    "cronie" # cront implementation that includes anacron
-    "cups" # : (, stands for "Cant Usually Print Stuff"
-    "cups-pdf" # printings
     "dbeaver" # sql exploration
     "debtap" # tap into deb packages
-    "direnv" # env var management
     "discord"
-    "dnsutils" # dig
     "dog" # alternative dig
-    "dunst" # notifications
     "dust" # alternative du
     "elixir"
-    "entr" # useful little thing
     "etcher-cli-bin" # cli iso flashing
     "evtest"
-    "exa" # alternative to ls
-    "fd-git" # alternative to find
     "ffmpegthumbnailer" # ytdl dependency
     "flameshot" # take a screenshot of a specific area on screen
     "font-manager" # manage fonts
-    "fzf" # cli fuzzy finder
-    "gfold-git" # see git repo status across many repos
     "gimp"
-    "git-delta" # diff viewer
-    "git-lfs"
-    "gnome-calculator" # calculator
-    "gnutls"
     "google-chrome" # for front-end testing fidelity
     "gruvbox-dark-gtk" # my gtk theme
     "gruvbox-material-gtk-theme-git" # just for the icons
-    "htop" # system process monitor
     "imagemagick"
     "inotify-tools"
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
