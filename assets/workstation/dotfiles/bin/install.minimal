@@ -7,7 +7,7 @@ sudo sed -i '/MAKEFLAGS=/c\MAKEFLAGS="-j$(nproc)"' /etc/makepkg.conf
 sudo sed 's/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -T 0 -c -z -)/' /etc/makepkg.conf
 
 echo "###############################################"
-echo "YAY BASIC RECIPE"
+echo "YAY MINIMAL"
 echo "###############################################"
 
 installs=(
@@ -27,12 +27,9 @@ installs=(
     "direnv" # env var management
     "dnsutils" # dig
     "dunst" # notifications
-    "elixir"
     "entr" # useful little thing
-    "etcher-cli-bin" # cli iso flashing
     "exa" # alternative to ls
     "fd-git" # alternative to find
-    "flameshot" # take a screenshot of a specific area on screen
     "fzf" # cli fuzzy finder
     "gfold-git" # see git repo status across many repos
     "git-delta" # diff viewer
