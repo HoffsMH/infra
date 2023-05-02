@@ -29,7 +29,7 @@ installs=(
     "dunst" # notifications
     "entr" # useful little thing
     "exa" # alternative to ls
-    "fd-git" # alternative to find
+    "fd" # alternative to find
     "fzf" # cli fuzzy finder
     "gfold-git" # see git repo status across many repos
     "git-delta" # diff viewer
@@ -41,16 +41,12 @@ installs=(
     "htop" # system process monitor
     "inotify-tools"
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
-    "jdk-openjdk"
     "jq" # command line json parser
     "kitty"
     "lf-git" # vim like file manager
     "libinput" # synaptics
+    "libratbag" # gaming mice configuration
     "light" # backlight and keyboard like control for laptops
-    "lua-language-server" #lua language server
-    "lynx" # cli browser I want to learn one day
-    "manjaro-arm-installer" # also bin
-    "manjaro-arm-tools"
     "manjaro-settings-samba"
     "mediainfo"
     "mpv" # audio and video player
@@ -64,8 +60,7 @@ installs=(
     "ntp"
     "openssh"
     "p7zip" # 7z
-    "peek" # Screen cast gifs
-    "pfetch" # simple screen fetch
+    "fastfetch" # simple screen fetch
     "pinentry-dispatch"
     "pinentry-git"
     "pistol-git"
@@ -75,22 +70,17 @@ installs=(
     "pulseaudio-bluetooth"
     "pulsemixer" # mixer and volume control
     "python-crcmod" # used to download stuff fast
-    "qimgv"
-    "qmk" # for all qmk boards
     "redshift" # blue light reducer
-    "rescuetime2"
     "resolvconf"
     "restic" # remote backup
     "ripgrep"
     "ristretto" # no keybind memory needed image browser
-    "s-tui" # cpu stress tester
     "samba"
     "sd" # alternative sed
     "sshpass"
     "stalonetray"
     "starship" # fast terminal prompt
     "sxhkd"
-    "sxiv"
     "syncthing"
     "sysstat" # pidstat cifsiostat iostat
     "thunar"
@@ -99,9 +89,7 @@ installs=(
     "tmux" # lovehate this
     "tokei" # count lines of code
     "udisks2" # personal drive mounting system that doesn't require sudo
-    "ueberzug" # kitty image and video preview
     "unzip"
-    "usbutils" # lsusb bus and device id
     "w3m" # cli browser I want to learn one day
     "webkit2gtk" # undocumented dependency of font-manager :(
     "wmctrl"

@@ -14,132 +14,84 @@ echo "###############################################"
 
 installs=(
     "age" # simple encryption
-    "bat" # alternative cat
     "blueman-git" # bluetooth gui
     "bluez"
     "bluez-utils" # connect to bluetooth devices
     "brlaser" # vs "brother-hll2300d" try both if needed
+    "brother-hll2300d"
     "colorgrab" # grab color hex from anywhere on screen
     "dbeaver" # sql exploration
     "debtap" # tap into deb packages
     "discord"
     "dog" # alternative dig
     "dust" # alternative du
-    "elixir"
-    "etcher-cli-bin" # cli iso flashing
     "evtest"
     "ffmpegthumbnailer" # ytdl dependency
     "flameshot" # take a screenshot of a specific area on screen
     "font-manager" # manage fonts
-    "gimp"
     "google-chrome" # for front-end testing fidelity
     "gruvbox-dark-gtk" # my gtk theme
     "gruvbox-material-gtk-theme-git" # just for the icons
     "imagemagick"
-    "inotify-tools"
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
-    "jdk-openjdk"
-    "jq" # command line json parser
-    "kitty"
-    "ledger-live" # crypto : (
     "lf-git" # vim like file manager
-    "libinput" # synaptics
-    "libratbag" # gaming mice configuration
     "libreoffice"
-    "light" # backlight and keyboard like control for laptops
     "lua-language-server" #lua language server
     "lxappearance" # managing gtk themes
-    "lynx" # cli browser I want to learn one day
-    "manjaro-arm-installer" # also bin
-    "manjaro-arm-tools"
-    "manjaro-settings-samba"
     "mediainfo"
-    "mednafen" # snes
-    "monero-gui"
     "mpv" # audio and video player
-    "mullvad-vpn" # vpn
     "ncurses5-compat-libs"
-    "neovide"
     "neovim"
-    "net-tools" # for netstat
     "network-manager-applet"
     "nmap" # gimme da open ports
     "noto-fonts"
     "noto-fonts-emoji"
     "ntfs-3g" # for viewing and manipulating windows filesystems
-    "ntp"
     "openssh"
-    "p7zip" # 7z
     "peek" # Screen cast gifs
-    "pfetch" # simple screen fetch
-    "pinentry-dispatch"
-    "pinentry-git"
-    "piper" # adjusting mouse settings
-    "pistol-git"
-    "polkit"
     "poppler" # pdf library
     "postgresql"
-    "pulseaudio-alsa"
-    "pulseaudio-bluetooth"
-    "pulsemixer" # mixer and volume control
     "python-crcmod" # used to download stuff fast
-    "qimgv"
-    "qmk" # for all qmk boards
+    "qmk" # for kinesis kint
     "redshift" # blue light reducer
     "rescuetime2"
     "resolvconf"
-    "restic" # remote backup
     "ripgrep"
     "ristretto" # no keybind memory needed image browser
-    "s-tui" # cpu stress tester
-    "samba"
     "scrot" # total screenshot taker
     "sd" # alternative sed
-    "seahorse"
     "slock"
-    "soulseekqt" # shhe
     "squashfs-tools" # burning firmware and nerves
-    "sshpass"
-    "stalonetray"
     "starship" # fast terminal prompt
-    "sublime-text-4"
-    "sxhkd"
-    "sxiv"
-    "syncthing"
     "sysstat" # pidstat cifsiostat iostat
-    "taskell"
     "teensy-loader-cli" # for kinesis
     "thunar"
-    "tlp" # plug and play battery saving
-    "tlpui" # plug and play battery saving
-    "tmux" # lovehate this
-    "tokei" # count lines of code
-    "udisks2" # personal drive mounting system that doesn't require sudo
     "ueberzug" # kitty image and video preview
     "unrar-libre" # winrar
-    "unzip"
-    "usbutils" # lsusb bus and device id
-    "via-bin" # keyboard conifuration
-    "w3m" # cli browser I want to learn one day
     "webkit2gtk" # undocumented dependency of font-manager :(
     "wkhtmltopdf"
     "wmctrl"
-    "xcape"
-    "xclip" # clipboard command interface
     "xcursor-breeze"
-    "xdotool"
-    "xf86-input-libinput" # dell xps touchpad
-    "xf86-input-synaptics" # dell xps touchpad
-    "xh" # alternative curl
-    "xwallpaper" # set the wall paper
     "ytfzf" # youtube fzf
     "yubikey-manager"
     "zathura" # pdf viewer
     "zathura-pdf-poppler"
-    "zip"
     "zoom" # in a post covid world
-    "zoxide-git" # fuzzy finder cd
-    "zstd" # facebooks compression
+    # "etcher-cli-bin" # cli iso flashing
+    # "jdk-openjdk" # on the off chance I want to program on something on the jvm :(
+    # "ledger-live" # crypto : (
+    # "manjaro-arm-installer" # also bin
+    # "manjaro-arm-tools"
+    # "mednafen" # snes
+    # "monero-gui"
+    # "mullvad-vpn" # vpn
+    # "neovide" # animated nvim
+    # "restic" # remote backup
+    # "seahorse"
+    # "soulseekqt" # shhe
+    # "taskell" # want to eventually migrate off this and just use /doc dir in my projects
+    # "usbutils" # lsusb bus and device id
+    # "via-bin" # keyboard conifuration
 )
 
 sudo pacman -Syu

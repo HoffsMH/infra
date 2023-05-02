@@ -21,7 +21,7 @@ source ~/.zsh/util.sh
 # export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/yubikey-agent/yubikey-agent.sock"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
-pfetch
+fastfetch
 
 if {[ -n "$SINGLE_COMMAND_MODE" ]; } then
   source ~/.zsh/single_command_mode.zsh
