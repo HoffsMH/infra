@@ -28,3 +28,7 @@ go install github.com/jesseduffield/lazygit@latest
 
 go install github.com/caarlos0/timer@latest
 
+go install github.com/gennaro-tedesco/archimede@latest
+
+env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
+

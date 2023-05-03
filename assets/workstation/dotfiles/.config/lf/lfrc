@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-set previewer pistol
+set previewer "bat --color=always"
 set ratios 1:2:1
 
 set hidden

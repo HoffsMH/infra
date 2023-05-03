@@ -30,48 +30,34 @@ installs=(
     "flameshot" # take a screenshot of a specific area on screen
     "font-manager" # manage fonts
     "google-chrome" # for front-end testing fidelity
-    "gruvbox-dark-gtk" # my gtk theme
-    "gruvbox-material-gtk-theme-git" # just for the icons
     "imagemagick"
-    "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
-    "lf-git" # vim like file manager
     "libreoffice"
     "lua-language-server" #lua language server
     "lxappearance" # managing gtk themes
-    "mediainfo"
     "mpv" # audio and video player
-    "ncurses5-compat-libs"
-    "neovim"
-    "network-manager-applet"
     "nmap" # gimme da open ports
     "noto-fonts"
     "noto-fonts-emoji"
     "ntfs-3g" # for viewing and manipulating windows filesystems
-    "openssh"
     "peek" # Screen cast gifs
     "poppler" # pdf library
     "postgresql"
     "python-crcmod" # used to download stuff fast
     "qmk" # for kinesis kint
-    "redshift" # blue light reducer
     "rescuetime2"
     "resolvconf"
     "ripgrep"
     "ristretto" # no keybind memory needed image browser
-    "scrot" # total screenshot taker
     "sd" # alternative sed
     "slock"
     "squashfs-tools" # burning firmware and nerves
     "starship" # fast terminal prompt
-    "sysstat" # pidstat cifsiostat iostat
     "teensy-loader-cli" # for kinesis
-    "thunar"
     "ueberzug" # kitty image and video preview
     "unrar-libre" # winrar
     "webkit2gtk" # undocumented dependency of font-manager :(
     "wkhtmltopdf"
     "wmctrl"
-    "xcursor-breeze"
     "ytfzf" # youtube fzf
     "yubikey-manager"
     "zathura" # pdf viewer
@@ -86,6 +72,8 @@ installs=(
     # "monero-gui"
     # "mullvad-vpn" # vpn
     # "neovide" # animated nvim
+    # "network-manager-applet"
+    # "redshift" # blue light reducer
     # "restic" # remote backup
     # "seahorse"
     # "soulseekqt" # shhe

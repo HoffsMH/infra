@@ -20,6 +20,7 @@ installs=(
     "awesome-git" # wm
     "axel" # downloader
     "bat" # alternative cat
+    "bc"
     "brave-bin" # browser
     "clamav" # anti-virus
     "cpupower" # needed to reduce power consumption and heat generation see zprofile
@@ -34,7 +35,6 @@ installs=(
     "gfold-git" # see git repo status across many repos
     "git-delta" # diff viewer
     "git-lfs"
-    "gnome-calculator" # calculator
     "gnutls"
     "gruvbox-dark-gtk" # my gtk theme
     "gruvbox-material-gtk-theme-git" # just for the icons
@@ -43,34 +43,25 @@ installs=(
     "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
     "jq" # command line json parser
     "kitty"
-    "lf-git" # vim like file manager
     "libinput" # synaptics
     "libratbag" # gaming mice configuration
     "light" # backlight and keyboard like control for laptops
     "manjaro-settings-samba"
     "mediainfo"
-    "mpv" # audio and video player
     "ncurses5-compat-libs"
     "neovim"
     "net-tools" # for netstat
-    "network-manager-applet"
-    "noto-fonts"
-    "noto-fonts-emoji"
-    "ntfs-3g" # for viewing and manipulating windows filesystems
     "ntp"
     "openssh"
     "p7zip" # 7z
-    "fastfetch" # simple screen fetch
+    "pfetch" # simple screen fetch
     "pinentry-dispatch"
     "pinentry-git"
-    "pistol-git"
     "polkit"
-    "poppler" # pdf library
     "pulseaudio-alsa"
     "pulseaudio-bluetooth"
     "pulsemixer" # mixer and volume control
     "python-crcmod" # used to download stuff fast
-    "redshift" # blue light reducer
     "resolvconf"
     "restic" # remote backup
     "ripgrep"
@@ -91,7 +82,6 @@ installs=(
     "udisks2" # personal drive mounting system that doesn't require sudo
     "unzip"
     "w3m" # cli browser I want to learn one day
-    "webkit2gtk" # undocumented dependency of font-manager :(
     "wmctrl"
     "xcape"
     "xclip" # clipboard command interface
@@ -109,8 +99,6 @@ installs=(
     "xwallpaper" # set the wall paper
     "ytfzf" # youtube fzf
     "yubikey-manager"
-    "zathura" # pdf viewer
-    "zathura-pdf-poppler"
     "zip"
     "zoxide-git" # fuzzy finder cd
     "zstd" # facebooks compression
