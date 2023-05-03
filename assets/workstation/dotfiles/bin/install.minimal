@@ -61,13 +61,10 @@ installs=(
     "pulseaudio-alsa"
     "pulseaudio-bluetooth"
     "pulsemixer" # mixer and volume control
-    "python-crcmod" # used to download stuff fast
     "resolvconf"
     "restic" # remote backup
     "ripgrep"
-    "ristretto" # no keybind memory needed image browser
     "samba"
-    "sd" # alternative sed
     "sshpass"
     "stalonetray"
     "starship" # fast terminal prompt
@@ -97,7 +94,6 @@ installs=(
     "xorg-xinput" # adjusting touchpad settings
     "xorg-xsetroot"
     "xwallpaper" # set the wall paper
-    "ytfzf" # youtube fzf
     "yubikey-manager"
     "zip"
     "zoxide-git" # fuzzy finder cd

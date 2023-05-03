@@ -46,20 +46,16 @@ installs=(
     "qmk" # for kinesis kint
     "rescuetime2"
     "resolvconf"
-    "ripgrep"
     "ristretto" # no keybind memory needed image browser
     "sd" # alternative sed
     "slock"
     "squashfs-tools" # burning firmware and nerves
-    "starship" # fast terminal prompt
     "teensy-loader-cli" # for kinesis
     "ueberzug" # kitty image and video preview
     "unrar-libre" # winrar
     "webkit2gtk" # undocumented dependency of font-manager :(
     "wkhtmltopdf"
-    "wmctrl"
     "ytfzf" # youtube fzf
-    "yubikey-manager"
     "zathura" # pdf viewer
     "zathura-pdf-poppler"
     "zoom" # in a post covid world
