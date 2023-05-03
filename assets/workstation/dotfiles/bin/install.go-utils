@@ -1,9 +1,14 @@
 #!/bin/zsh
 
 installs=(
-    "HoffsMH/caseshift"
-    "HoffsMH/go-utils"
+    "caseshift"
+    "go-utils"
 )
+
+asdf plugin add golang
+asdf install golang latest
+
+asdf global golang latest
 
 for i in $installs
 do
@@ -16,7 +21,7 @@ do
   echo $i
 
   rm -fr $i
-  git clone "https://github.com/$i"
+  git clone "https://github.com/HoffsMH/$i"
   pushd "$HOME/code/util/$i"
     ./install
   popd

@@ -146,6 +146,8 @@ systemctl start --user dunst.service || echo "starting dunst failed" >> ~/.insta
 sudo systemctl enable "pcscd.service" || echo "yubikey daemon(pcscd) not found" >> ~/.install.all.report
 sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) failed" >> ~/.install.all.report
 
+"$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
+"$HOME/infra/assets/workstation/dotfiles/bin/install.packer-nvim"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.go-utils"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"

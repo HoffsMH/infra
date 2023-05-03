@@ -117,6 +117,5 @@ sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) fail
 
 "$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
 
