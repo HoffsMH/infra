@@ -72,8 +72,8 @@ installs=(
     "syncthing"
     "sysstat" # pidstat cifsiostat iostat
     "thunar"
-    "tlp" # plug and play battery saving
-    "tlpui" # plug and play battery saving
+    # "tlp" # plug and play battery saving
+    # "tlpui" # plug and play battery saving
     "tmux" # lovehate this
     "tokei" # count lines of code
     "udisks2" # personal drive mounting system that doesn't require sudo
