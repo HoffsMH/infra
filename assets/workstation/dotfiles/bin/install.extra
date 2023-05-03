@@ -7,47 +7,31 @@ echo "###############################################"
 
 extras=(
   # "anydesk" # remote desk
-  # "bfg"
-  # "bspwm"
   # "calibre" # e-book reading
   # "bookworm" # e-reader
   # "chafa" # jpg to ascii neeto
   # "chrysalis-bin" # for flashing atreus kb specifically
-  # "colorgrab"
   # "deluge-git"
   # "discord"
-  # "discord"
-  # "docker"
-  # "docker-compose"
   # "factorio"
   # "figlet"
   # "filezilla"
   # "fop"
   # "fzf"
-  # "git-delta-git"
-  # "google-chrome"
   # "graphviz"
-  # "httpie"
   # "insomnia-bin"
   # "lua-language-server"
   # "mednafen"
   # "neofetch"
   # "neovide"
   # "neovim-remote"
-  # "nmap"
   # "pcsx2"
-  # "phoronix-test-suite"
-  # "postgresql"
-  # "python-crcmod"
-  # "qmk" # for flashing stuff
   # "rawtherapee"
   # "ruby-build" # may need sudo mkdir -p "/usr/local/opt/zlib/lib"
-  # "soulseekqt"
   # "teensy-loader-cli"
   # "trezor-suite-appimage"
   # "vagrant"
   # "zenm"
-  # "zoom"
 )
 
 echo $extras
