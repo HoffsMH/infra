@@ -54,7 +54,6 @@ installs=(
     "ueberzug" # kitty image and video preview
     "unrar-libre" # winrar
     "webkit2gtk" # undocumented dependency of font-manager :(
-    "wkhtmltopdf"
     "ytfzf" # youtube fzf
     "zathura" # pdf viewer
     "zathura-pdf-poppler"
@@ -76,6 +75,7 @@ installs=(
     # "taskell" # want to eventually migrate off this and just use /doc dir in my projects
     # "usbutils" # lsusb bus and device id
     # "via-bin" # keyboard conifuration
+    # "wkhtmltopdf"
 )
 
 sudo pacman -Syu
@@ -117,5 +117,4 @@ sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) fail
 
 "$HOME/infra/assets/workstation/dotfiles/bin/install.docker"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.ytdl"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.tl"
 

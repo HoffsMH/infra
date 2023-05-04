@@ -1,5 +1,7 @@
 #! /bin/zsh
 
+"$HOME/infra/assets/workstation/dotfiles/bin/install.packer-nvim"
+
 set -e
 
 #speed up aur makepkg
@@ -23,7 +25,7 @@ installs=(
     "bc"
     "brave-bin" # browser
     "clamav" # anti-virus
-    "cpupower" # needed to reduce power consumption and heat generation see zprofile
+    # "cpupower" # needed to reduce power consumption and heat generation see zprofile
     "cronie" # cront implementation that includes anacron
     "direnv" # env var management
     "dnsutils" # dig
@@ -96,7 +98,7 @@ installs=(
     "xwallpaper" # set the wall paper
     "yubikey-manager"
     "zip"
-    "zoxide-git" # fuzzy finder cd
+    "zoxide" # fuzzy finder cd
     "zstd" # facebooks compression
 )
 
@@ -128,14 +130,18 @@ echo "###############################################"
 echo "enable services"
 echo "###############################################"
 
-sudo systemctl enable "syncthing@$USER.service"
-sudo systemctl start "syncthing@$USER.service"
 
-sudo systemctl enable "cpupower"
-sudo systemctl start "cpupower"
+sudo systemctl enable "syncthing@$USER.service" || echo "syncthing service not found" >> ~/.install.all.report
+sudo systemctl start "syncthing@$USER.service" || echo "starting syncthing failed" >> ~/.install.all.report
 
-sudo systemctl enable "tlp"
-sudo systemctl start "tlp"
+
+sudo systemctl enable "cpupower" || echo "cpupower service not found" >> ~/.install.all.report
+sudo systemctl start "cpupower" || echo "starting cpupower failed" >> ~/.install.all.report
+
+
+sudo systemctl enable "tlp" || echo "tlp service not found" >> ~/.install.all.report
+sudo systemctl start "tlp" || echo "starting tlp service failed" >> ~/.install.all.report
+
 
 # use dunst for notifications
 systemctl disable --user xfce4-notifyd.service || echo "stock notifications already uninstalled" >> ~/.install.all.report
@@ -147,7 +153,6 @@ sudo systemctl enable "pcscd.service" || echo "yubikey daemon(pcscd) not found" 
 sudo systemctl start "pcscd.service"|| echo "starting yubikey daemon(pcscd) failed" >> ~/.install.all.report
 
 "$HOME/infra/assets/workstation/dotfiles/bin/install.asdf"
-"$HOME/infra/assets/workstation/dotfiles/bin/install.packer-nvim"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.go-utils"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.zsh-extra"
 "$HOME/infra/assets/workstation/dotfiles/bin/install.dmenu"
