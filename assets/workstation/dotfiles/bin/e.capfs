@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source $HOME/.envrc
+
+if [ -f "$CAP_FILE" ]; then
+  exit 1
+fi
+
+cap.dedup-links
+
+fd "$1" $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
+
+nvim -c $ $CAP_FILE
+
+cap.sync

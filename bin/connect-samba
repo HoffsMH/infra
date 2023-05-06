@@ -1,0 +1,6 @@
+ansible-playbook -vv \
+  --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+  -i inventory.vault.yml \
+  --extra-vars "@vars.vault.yml" \
+  --extra-vars "ansible_host=localhost" \
+  ansible/play/provision/workstation.yml
