@@ -34,3 +34,4 @@ go install github.com/gennaro-tedesco/archimede@latest
 
 env CGO_ENABLED=0 go install -ldflags="-s -w" github.com/gokcehan/lf@latest
 
+go install golang.org/x/tools/gopls@latest
