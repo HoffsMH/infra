@@ -28,6 +28,10 @@ vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
 
 -- when entering a md wordwrap as long as the line ends in whitespace
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
+vim.api.nvim_create_autocmd({ "BufWritePre"}, {
+  pattern = { "*.md" },
+  command = [[%s/\s\+$//e]],
+})
 
 vim.api.nvim_set_hl(0, 'Search', { fg = 'LavenderBlush1', bg = 'Gray25' })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'LavenderBlush1', bg = 'RoyalBlue4' })
