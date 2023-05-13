@@ -58,7 +58,13 @@ installs=(
     "zathura" # pdf viewer
     "zathura-pdf-poppler"
     "zoom" # in a post covid world
+    # "anydesk" # remote desk
+    # "bookworm" # e-reader
+    # "darktable"
+    # "deluge-git"
     # "etcher-cli-bin" # cli iso flashing
+    # "figlet"
+    # "graphviz"
     # "jdk-openjdk" # on the off chance I want to program on something on the jvm :(
     # "ledger-live" # crypto : (
     # "manjaro-arm-installer" # also bin
@@ -67,7 +73,9 @@ installs=(
     # "monero-gui"
     # "mullvad-vpn" # vpn
     # "neovide" # animated nvim
+    # "neovim-remote"
     # "network-manager-applet"
+    # "pcsx2"
     # "redshift" # blue light reducer
     # "restic" # remote backup
     # "seahorse"
