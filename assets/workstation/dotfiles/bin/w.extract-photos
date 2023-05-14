@@ -1,0 +1,3 @@
+#!/bin/bash
+
+udmount "$1" && darktable; udunmount "$1"
