@@ -207,8 +207,6 @@ fz() {
 # files
 ######################################################
 
-alias jfa='jf ~/personal/media/audio'
-alias jfi='jf ~/personal/media/image'
 alias jfs='jf ~/personal/media/software'
 alias jft='jf ~/personal/media/text'
 
