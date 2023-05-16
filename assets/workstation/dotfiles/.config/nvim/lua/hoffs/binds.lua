@@ -13,6 +13,9 @@ nnoremap("<C-w>J", "<cmd>hs #<cr>")
 nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)
 
 nnoremap('<leader>gy', function () require("gitlinker") end)
+-- yf will copy the path of the current file
+nnoremap("<leader>yf", "<cmd>:let @+ = '/' . expand('%')<CR>")
+
 
 -- LF
 nnoremap("<leader>jf", "<cmd>Lf<cr>")
