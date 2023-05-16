@@ -1,6 +1,0 @@
----
-- name: "run scaffolding script"
-  shell: "$HOME/infra/assets/workstation/dotfiles/bin/set.scaffolding"
-  args:
-    executable: /bin/bash
-
