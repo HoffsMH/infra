@@ -9,7 +9,6 @@ verbosity="-vv"
 if [[ $# -eq 3 ]]; then
     ansible-playbook $verbosity \
       --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
-      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
       -i inventory.vault.yml \
       --extra-vars "@vars.vault.yml" \
       --extra-vars "ansible_host=$2" \
@@ -20,7 +19,6 @@ if [[ $# -eq 3 ]]; then
   elif [[ $# -eq 2 ]]; then
     ansible-playbook $verbosity \
       --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
-      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
       -i inventory.vault.yml \
       --extra-vars "@vars.vault.yml" \
       --extra-vars "ansible_host=$2" \
@@ -29,7 +27,6 @@ if [[ $# -eq 3 ]]; then
   elif [[ $# -eq 1 ]]; then
     ansible-playbook $verbosity \
       --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
-      --connection-password-file=~/.config/ansible/.ssh-connection-pass \
       -i inventory.vault.yml \
       --extra-vars "@vars.vault.yml" \
       $1
