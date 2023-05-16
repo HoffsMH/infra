@@ -14,17 +14,14 @@
     path: "/headscale.deb"
     state: absent
 
-- name: "Replace server_url"
-  lineinfile:
-    path: "/etc/headscale/config.yaml"
-    regexp: '^server_url: http://127.0.0.1:8080'
-    line: 'server_url: http://mhkr.xyz:8080'
-
-- name: "Replace listen_addr"
-  lineinfile:
-    path: "/etc/headscale/config.yaml"
-    regexp: '^listen_addr: 127.0.0.1:8080'
-    line: 'listen_addr: 0.0.0.0:8080'
+- name: Copy config file
+  copy:
+    src: ./config.yaml
+    dest: /etc/headscale/config.yaml
+    owner: root
+    group: root
+    mode: '0644'
+    force: yes
 
 - name: "Run headscale users create infra"
   command:
