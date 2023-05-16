@@ -261,7 +261,7 @@ gpgstart() {
 }
 
 alias gpg-reload-card='gpg-connect-agent "scd serialno" "learn --force" /bye'
-alias gpg-import-my-key='curl mhkr.io/key.pub | gpg --import'
+alias gpg-import-my-key='curl mhkr.xyz/key.pub | gpg --import'
 
 alias addoath="ykman oath add -t $1 $(xclip -o)"
 
