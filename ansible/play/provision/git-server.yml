@@ -6,6 +6,7 @@
   roles:
     # git init bare on every repo I might care about
     - ../../roles/infra/repo
+    - ../../roles/tailscale
     - ../../roles/git-server/git-user
     - ../../roles/common/samba-client
     - ../../roles/git-server/backup
