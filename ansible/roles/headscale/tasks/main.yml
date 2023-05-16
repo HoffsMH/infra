@@ -1,0 +1,60 @@
+---
+- name: "Download headscale installer"
+  get_url:
+    url:  "https://github.com/juanfont/headscale/releases/download/v0.22.3/headscale_0.22.3_linux_amd64.deb"
+    dest: "/headscale.deb"
+    mode: 0644
+
+- name: "Install headscale.deb package"
+  apt:
+    deb: "/headscale.deb"
+
+- name: "Remove the headscale installed"
+  file:
+    path: "/headscale.deb"
+    state: absent
+
+- name: "Replace server_url"
+  lineinfile:
+    path: "/etc/headscale/config.yaml"
+    regexp: '^server_url: http://127.0.0.1:8080'
+    line: 'server_url: http://mhkr.xyz:8080'
+
+- name: "Replace listen_addr"
+  lineinfile:
+    path: "/etc/headscale/config.yaml"
+    regexp: '^listen_addr: 127.0.0.1:8080'
+    line: 'listen_addr: 0.0.0.0:8080'
+
+- name: "Run headscale users create infra"
+  command:
+    cmd: "headscale users create infra"
+  ignore_errors: yes
+
+- name: "Run headscale users create nas"
+  command:
+    cmd: "headscale users create nas"
+  ignore_errors: yes
+
+- name: "Run headscale users create git-server"
+  command:
+    cmd: "headscale users create git-server"
+  ignore_errors: yes
+
+- name: "Run headscale users create pihole"
+  command:
+    cmd: "headscale users create pihole"
+  ignore_errors: yes
+
+- name: "Allow all access to tcp port 8080"
+  community.general.ufw:
+    rule: allow
+    port: '8080'
+    proto: tcp
+
+- name: "Start and enable headscale service"
+  systemd:
+    name: headscale
+    state: started
+    enabled: yes
+

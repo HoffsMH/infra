@@ -7,7 +7,6 @@
       - "cron"
       - "python3-certbot-nginx"
 
-
 - name: Allow all access to tcp port 80
   community.general.ufw:
     rule: allow
@@ -31,6 +30,15 @@
     src: "../../../assets/nginx/.env.j2"
     dest: "/infra/assets/nginx/.env"
     mode: 0644
+
+- name: "Check if Let's Encrypt certificate exists"
+  stat:
+    path: "/etc/letsencrypt/live/{{ ansible_host }}/fullchain.pem"
+  register: letsencrypt_cert
+
+- name: "run certbot for the first time if cert does not exist"
+  command: "/infra/assets/nginx/init-certbot"
+  when: not letsencrypt_cert.stat.exists
 
 - name: Start and enable service
   service:

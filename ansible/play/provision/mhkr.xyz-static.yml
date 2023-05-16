@@ -6,4 +6,5 @@
   roles:
     - ../../roles/infra/repo
     - ../../roles/vm-nginx
+    - ../../roles/headscale
     - ../../roles/static-site
