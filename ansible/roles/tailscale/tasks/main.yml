@@ -1,0 +1,25 @@
+---
+- name: "Download tailscale stuff"
+  get_url:
+    url:  "https://pkgs.tailscale.com/stable/raspbian/bullseye.noarmor.gpg"
+    dest: "/usr/share/keyrings/tailscale-archive-keyring.gpg"
+    mode: 0644
+
+- name: "Download tailscale stuff"
+  get_url:
+    url:  "https://pkgs.tailscale.com/stable/raspbian/bullseye.tailscale-keyring.list"
+    dest: "/etc/apt/sources.list.d/tailscale.list"
+    mode: 0644
+
+- name: "Update apt and install Tailscale"
+  apt:
+    update_cache: yes
+    name: tailscale
+    state: present
+
+- name: "Start and enable headscale service"
+  systemd:
+    name: tailscaled
+    state: started
+    enabled: yes
+
