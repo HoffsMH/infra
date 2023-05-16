@@ -276,8 +276,8 @@ alias nmapo="sudo nmap -O -v"
 # Restic and backup stuff
 ######################################################
 
-alias udmount="udisksctl mount -b"
-alias udunmount="udisksctl unmount -b"
+alias udm="udisksctl mount -b"
+alias udum="udisksctl unmount -b"
 
 ######################################################
 # PASS
