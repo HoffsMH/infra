@@ -1,0 +1,68 @@
+---
+- name: 'Ensure group syncthing exists'
+  group:
+    name: syncthing
+    state: present
+
+- name: 'Ensure user syncthing exists'
+  user:
+    name: syncthing
+    group: syncthing
+    create_home: yes
+    shell: /bin/bash
+    state: present
+
+- name: 'Install syncthing'
+  apt:
+    name: syncthing
+    state: present
+    update_cache: yes
+
+- name: 'Check if Syncthing config file exists'
+  stat:
+    path: /home/syncthing/.config/syncthing/config.xml
+  register: syncthing_config
+
+- name: Generate Syncthing config file
+  block:
+    - name: Run Syncthing to generate config file
+      command: /usr/bin/syncthing
+      become: yes
+      become_user: syncthing
+      become_method: sudo
+      async: 10
+      poll: 0
+      ignore_errors: true
+      register: syncthing_job
+
+    - name: Sleep for few seconds to allow Syncthing to generate config file
+      pause:
+        seconds: 10
+
+    - name: Kill Syncthing
+      command: "kill {{ syncthing_job.pid }}"
+      become: yes
+      become_method: sudo
+  when: not syncthing_config.stat.exists
+
+- name: 'Replace address in Syncthing config.xml'
+  replace:
+    path: /home/syncthing/.config/syncthing/config.xml
+    regexp: '<address>127.0.0.1:8384</address>'
+    replace: '<address>0.0.0.0:8384</address>'
+
+- name: 'Copy Syncthing systemd service file'
+  copy:
+    src: ./syncthing.service
+    dest: /etc/systemd/system/syncthing.service
+
+- name: 'Reload systemd'
+  systemd:
+    daemon_reload: yes
+
+- name: 'Enable and start Syncthing service'
+  systemd:
+    name: syncthing
+    state: started
+    enabled: yes
+
