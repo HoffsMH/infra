@@ -25,7 +25,7 @@
 
 - name: "Run headscale users create infra"
   command:
-    cmd: "headscale users create main"
+    cmd: "/usr/bin/headscale users create main"
   ignore_errors: yes
 
 - name: "Allow all access to tcp port 8080"
