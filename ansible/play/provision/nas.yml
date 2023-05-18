@@ -12,3 +12,4 @@
     - ../../roles/nas/parity-disks
     - ../../roles/nas/samba-server
     - ../../roles/syncthing
+    - ../../roles/git-server/git-user
