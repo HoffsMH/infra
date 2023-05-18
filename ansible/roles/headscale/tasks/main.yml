@@ -25,22 +25,7 @@
 
 - name: "Run headscale users create infra"
   command:
-    cmd: "headscale users create infra"
-  ignore_errors: yes
-
-- name: "Run headscale users create nas"
-  command:
-    cmd: "headscale users create nas"
-  ignore_errors: yes
-
-- name: "Run headscale users create git-server"
-  command:
-    cmd: "headscale users create git-server"
-  ignore_errors: yes
-
-- name: "Run headscale users create pihole"
-  command:
-    cmd: "headscale users create pihole"
+    cmd: "headscale users create main"
   ignore_errors: yes
 
 - name: "Allow all access to tcp port 8080"
