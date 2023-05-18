@@ -2,7 +2,9 @@
 - hosts: rpi4-a
   vars:
     ansible_host_key_checking: false
+    hostname: "nas-git"
   roles:
+    - ../../roles/common/hostname
     - ../../roles/debian/base-apt
     - ../../roles/infra/repo
     - ../../roles/tailscale
@@ -12,4 +14,4 @@
     - ../../roles/nas/parity-disks
     - ../../roles/nas/samba-server
     - ../../roles/syncthing
-    - ../../roles/git-server/git-user
+    - ../../roles/git-user
