@@ -3,7 +3,7 @@
   connection: local
   vars:
     ansible_host_key_checking: false
-    samba_server: "nas.nas.tailscale.mhkr.xyz"
+    samba_server: "nas-git"
   roles:
     - ../../roles/common/samba-client
     # - ../../roles/workstation/backup

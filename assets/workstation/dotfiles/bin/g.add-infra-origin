@@ -2,4 +2,4 @@
 
 name=$(basename $(pwd))
 
-git remote add infra "git@git.local.mhkr.xyz:$name.git"
+git remote add infra "git@nas-git:git/$name.git"
