@@ -8,5 +8,5 @@ fi
 
 
 pushd $HOME
-  git init --bare "$1.git"
+  git init --bare "/mnt/storage/data/git/$1.git"
 popd
