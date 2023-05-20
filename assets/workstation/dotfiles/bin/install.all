@@ -23,6 +23,7 @@ installs=(
     "dbeaver" # sql exploration
     "debtap" # tap into deb packages
     "discord"
+    "cheese" # easy webcam configuration
     "dog" # alternative dig
     "dust" # alternative du
     "evtest"
