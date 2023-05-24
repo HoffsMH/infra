@@ -106,7 +106,7 @@ alias gco="git checkout"
 alias gf="git fetch"
 
 gdn() {
- git diff "HEAD~$1"
+ git diff "HEAD~$1" $2 $3 $4
 }
 
 # finds text across all commits, be careful when searching to not use common terms
