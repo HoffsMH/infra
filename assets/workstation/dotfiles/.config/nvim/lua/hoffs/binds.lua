@@ -17,8 +17,24 @@ nnoremap('<leader>gy', function () require("gitlinker") end)
 nnoremap("<leader>yf", "<cmd>:let @+ = '/' . expand('%')<CR>")
 
 
--- LF
-nnoremap("<leader>jf", "<cmd>Lf<cr>")
+nnoremap(
+  "<leader>jf",
+  function()
+    require("lf").start(
+      -- nil, -- this is the path to open Lf (nil means CWD)
+              -- this argument is optional see `.start` below
+      {
+        -- Pass options (if any) that you would like
+        dir = "", -- directory where `lf` starts ('gwd' is git-working-directory)
+        direction = "float", -- window type: float horizontal vertical
+        border = "double", -- border kind: single double shadow curved
+        height = 0.80, -- height of the *floating* window
+        width = 0.85, -- width of the *floating* window
+        mappings = true, -- whether terminal buffer mapping is enabled
+    })
+  end,
+  {noremap = true}
+)
 
 -- main file finder
 nnoremap('<C-p>', "<cmd>lua require('hoffs.telescope-project-files').project_files()<CR>")

@@ -27,8 +27,8 @@ require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
   }
-  use 'voldikss/vim-floaterm'
-  use 'ptzz/lf.vim'
+  use 'akinsho/toggleterm.nvim'
+  use 'lmburns/lf.nvim'
 
   use {
     'lewis6991/gitsigns.nvim',
