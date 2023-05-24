@@ -4,3 +4,8 @@
     name: systemd-resolved
     state: stopped
     enabled: false
+
+# COPY pihole-updatelists.php /usr/local/sbin/pihole-updatelists
+# COPY pihole-updatelists.conf /etc/pihole-updatelists.conf
+# COPY pihole-updatelists.cron /etc/cron.d/pihole-updatelists
+# COPY additional-regex.txt /etc/additional-regex.txt
