@@ -17,6 +17,9 @@ run=$((echo "$most_used"; dmenu_path | grep -vxF "$most_used") | dmenu -i \
 mv "$cache.$$" "$cache"
 
 case "$run" in
+    kitty\;)  exec kitty;;
+    fh)  exec ~/bin/fhd;;
+    fh\;)  exec ~/bin/fhd;;
     *\;) exec $(echo trun ${run%;} && wmctrl -a "tmux" || wmctrl -a "zsh") ;;
     *)   exec $run ;;
 esac
