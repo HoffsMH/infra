@@ -27,9 +27,9 @@ if {[ -n "$SINGLE_COMMAND_MODE" ]; } then
   source ~/.zsh/single_command_mode.zsh
 fi
 
-if ! {[ -n "$TMUX" ]; } then
-  tmux new-session -A main
-fi
+# if ! {[ -n "$TMUX" ]; } then
+#   tmux new-session -A main
+# fi
 
 
 # The next line updates PATH for the Google Cloud SDK.
