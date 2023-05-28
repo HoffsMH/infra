@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # linux needs -r
-print  $(print_history | fzf +s --no-preview --tac --bind=enter:replace-query+print-query)
+print  $(print-history | fzf +s --no-preview --tac --bind=enter:replace-query+print-query)
 
 
 
