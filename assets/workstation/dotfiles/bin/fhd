@@ -1,5 +1,5 @@
 #!/usr/bin/bash
 
-run=$(print-history | dmenu)
+run=$(print-history | tac | dmenu)
 
 exec $run
