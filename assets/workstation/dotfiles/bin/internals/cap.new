@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source $HOME/.envrc
+
+if [ -z "$1" ]; then
+  name="cap"
+else
+  name="$1"
+fi
+
+newcapfile=$(t $(echo "$CAP_DIR/${name}.md" | prefix name iso))
+
+echo $newcapfile

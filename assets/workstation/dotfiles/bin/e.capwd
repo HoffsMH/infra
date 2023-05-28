@@ -6,8 +6,8 @@ if [ -f "$CAP_FILE" ]; then
   ~/bin/internals/cap.sync
 fi
 
-~/internals/cap.dedup-links
+~/bin/internals/cap.dedup-links
 
-rg "$1" --files-without-match $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
+fd "$(basename $(pwd))" $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
 
 ~/bin/internals/nvim.cap

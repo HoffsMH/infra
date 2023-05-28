@@ -2,13 +2,6 @@
 
 source $HOME/.envrc
 
-cap.dedup-links
+type=$(cap.new $1 | cap.get-type)
 
-cap.new
-
-fd . $CAP_DIR | tail -n 1 | hcat > $CAP_FILE
-
-nvim -c $ $CAP_FILE
-
-cap.sync
-
+nvim -c  $type

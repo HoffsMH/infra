@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+workingDir="$HOME"
+cmd=${1:-e.capwd}
+name="cap"
+
+if ! tmux has-session -t="$name" 2> /dev/null; then
+    # tmux new-session -ds $name -c $workingDir "$cmd '${@:2}'"
+    tmux new-session -ds "$name" -c $workingDir "$cmd $2 $3 $4 $5 $6 $7"
+fi
+
+tmux switch-client -t "$name"

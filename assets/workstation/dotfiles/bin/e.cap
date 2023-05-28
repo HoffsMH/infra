@@ -3,14 +3,11 @@
 source $HOME/.envrc
 
 if [ -f "$CAP_FILE" ]; then
-  exit 1
+  ~/bin/internals/cap.sync
 fi
 
-cap.dedup-links
+~/bin/internals/cap.dedup-links
 
 fd . $CAP_DIR | tail -n 20 | hcat > $CAP_FILE
 
-nvim $CAP_FILE -c 'cd ~/personal/00-capture/cap' -c '$'
-
-cap.sync
-
+~/bin/internals/nvim.cap

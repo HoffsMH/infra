@@ -1,5 +1,5 @@
 #!/bin/bash
-# My tool that:
+# Eventually ... My tool that:
 #   - makes a tar file containing the folder or file
 #   - encrypts that tar file and shreds original tar file
 #   - puts that encrypted tar file in a iso date named folder in ~/.trash

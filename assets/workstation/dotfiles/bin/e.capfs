@@ -3,13 +3,17 @@
 source $HOME/.envrc
 
 if [ -f "$CAP_FILE" ]; then
-  exit 1
+  ~/bin/internals/cap.sync
 fi
 
-cap.dedup-links
+~/bin/internals/cap.dedup-links
 
-fd "$1" $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
+if [ -z "$1" ]; then
+  term=$(ls $CAP_DIR | ~/bin/internals/cap.get-type | sort -u | fzf)
+else
+  term="$1"
+fi
 
-nvim -c $ $CAP_FILE
+fd "$term" $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
 
-cap.sync
+~/bin/internals/nvim.cap

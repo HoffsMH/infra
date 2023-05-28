@@ -2,13 +2,13 @@
 
 source $HOME/.envrc
 
-newcapfile=$(cap.new)
+newcapfile=$(~/bin/internals/cap.new $1)
 
-selection=$(select-input $@)
+selection=$(~/bin/internals/select-input $@)
 
-echo "$selection" | append_title >> $newcapfile
+echo "$selection" | append-html-title >> $newcapfile
 
-cap.dedup-links
+~/bin/internals/cap.dedup-links
 
 notify-send "cap: ${selection}"
 

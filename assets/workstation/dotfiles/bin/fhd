@@ -1,0 +1,5 @@
+#!/usr/bin/bash
+
+run=$(print-history | dmenu)
+
+exec $run

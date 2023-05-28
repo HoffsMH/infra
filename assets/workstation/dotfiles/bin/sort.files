@@ -1,3 +1,4 @@
 #!/bin/bash
 
+# things over 500M go into large capture
 fd . ~/personal/00-capture | sfilter | xargs -I {} mv {} ~/personal/01-large-capture
