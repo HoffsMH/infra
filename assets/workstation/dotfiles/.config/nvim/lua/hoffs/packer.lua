@@ -16,6 +16,7 @@ require('packer').startup(function(use)
   -- use the damn % key plx
   use 'andymass/vim-matchup'
   use 'windwp/nvim-autopairs'
+  use 'github/copilot.vim'
 
   use 'nvim-telescope/telescope-live-grep-args.nvim'
   use 'nvim-telescope/telescope.nvim'
