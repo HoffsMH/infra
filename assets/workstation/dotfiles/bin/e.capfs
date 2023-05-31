@@ -14,6 +14,6 @@ else
   term="$1"
 fi
 
-fd "$term" $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
+fd "$term" $CAP_DIR | sort | tail -n 20 | hcat > $CAP_FILE
 
 ~/bin/internals/nvim.cap

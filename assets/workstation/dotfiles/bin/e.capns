@@ -8,6 +8,6 @@ fi
 
 ~/internals/cap.dedup-links
 
-rg "$1" --files-without-match $CAP_DIR | tail -n 20 | sort -h | hcat > $CAP_FILE
+rg "$1" --files-without-match $CAP_DIR | sort | tail -n 20 | hcat > $CAP_FILE
 
 ~/bin/internals/nvim.cap
