@@ -285,6 +285,3 @@ alias udum="udisksctl unmount -b"
 
 alias passedit='pass edit -c -e "$WAIT_EDITOR"'
 
-fh() {
-  print -z "$(fho)"
-}
