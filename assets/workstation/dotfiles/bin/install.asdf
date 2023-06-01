@@ -44,11 +44,11 @@ asdf install rust latest
 asdf install python latest
 asdf install python 2.7.13
 
-# asdf global ruby latest
-# asdf global erlang latest
-# asdf global elixir latest
-asdf global nodejs latest
-asdf global rust latest
-asdf global python 2.7.13 latest
+# asdf global ruby <version>
+# asdf global erlang <version>
+# asdf global elixir <version
+# asdf global nodejs <version>
+# asdf global rust  <version
+asdf global python 2.7.13 3.11.3
 
 popd

@@ -25,7 +25,7 @@ installs=(
     "bc"
     "brave-bin" # browser
     "clamav" # anti-virus
-    # "cpupower" # needed to reduce power consumption and heat generation see zprofile
+    "cpupower" # needed to reduce power consumption and heat generation see zprofile
     "cronie" # cront implementation that includes anacron
     "direnv" # env var management
     "dnsutils" # dig
@@ -100,6 +100,7 @@ installs=(
     "zip"
     "zoxide" # fuzzy finder cd
     "zstd" # facebooks compression
+    "atuin" # shell history manager
 )
 
 sudo pacman -Syu
