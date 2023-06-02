@@ -286,6 +286,6 @@ alias udum="udisksctl unmount -b"
 alias passedit='pass edit -c -e "$WAIT_EDITOR"'
 
 fh() {
-  print -z "$(atuin search -i)"
+  output=$(atuin search $* -i -- $BUFFER 3>&1 1>&2 2>&3)
+  print -z "$output"
 }
-

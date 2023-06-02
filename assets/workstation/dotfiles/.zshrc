@@ -37,3 +37,6 @@ if [ -f '/home/hoffs/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/home/hof
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/hoffs/.config/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/hoffs/.config/google-cloud-sdk/completion.zsh.inc'; fi
+
+eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
+
