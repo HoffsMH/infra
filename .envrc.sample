@@ -1,7 +1,1 @@
 export SSH_PUB=ssh-add -L
-
-export INITIAL_ANSIBLE_USER="root"
-export INITIAL_ANSIBLE_PASSWORD=$(gopass show some_secret)
-
-export CAP_FILE="$HOME/personal/cap.md"
-export CAP_DIR="$HOME/personal/00-capture/cap"
