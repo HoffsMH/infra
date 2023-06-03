@@ -36,6 +36,31 @@ vim.api.nvim_create_autocmd({ "BufWritePre"}, {
 vim.api.nvim_set_hl(0, 'Search', { fg = 'LavenderBlush1', bg = 'Gray25' })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'LavenderBlush1', bg = 'RoyalBlue4' })
 
+vim.g.firenvim_config = {
+    globalSettings = { alt = "all" },
+    localSettings = {
+        [".*"] = {
+            cmdline  = "neovim",
+            content  = "text",
+            priority = 0,
+            selector = "textarea",
+            takeover = "never"
+        }
+    }
+}
+
+vim.api.nvim_create_autocmd({'UIEnter'}, {
+    callback = function(event)
+        local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
+        if client ~= nil and client.name == "Firenvim" then
+            vim.o.laststatus = 0
+            vim.api.nvim_command([[Copilot disable]])
+            vim.api.nvim_command([[set lines=20]])
+            vim.api.nvim_command([[set columns=100]])
+        end
+    end
+})
+
 require('nvim_comment').setup({
 	-- Linters prefer comment and line to have a space in between markers
 	marker_padding = true,
