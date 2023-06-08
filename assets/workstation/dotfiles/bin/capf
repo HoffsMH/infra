@@ -1,7 +1,0 @@
-#!/bin/bash
-
-source $HOME/.envrc
-
-type=$(cap.new $1 | cap.get-type)
-
-nvim -c  $type

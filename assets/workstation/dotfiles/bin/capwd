@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source $HOME/.envrc
+
+cap $(~/bin/internals/cap.get-wd) $@
+

@@ -8,6 +8,6 @@ fi
 
 ~/bin/internals/cap.dedup-links
 
-fd "$(basename $(pwd))" $CAP_DIR | sort | tail -n 20 | hcat > $CAP_FILE
+fd "$(~/bin/internals/cap.get-wd)" $CAP_DIR | sort | tail -n 20 | hcat > $CAP_FILE
 
 ~/bin/internals/nvim.cap
