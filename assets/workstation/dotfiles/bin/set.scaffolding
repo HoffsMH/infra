@@ -8,7 +8,6 @@ echo "###############################################"
 
 mkdir -p "$HOME/code/paid/"
 mkdir -p "$HOME/code/fun/other-dots"
-mkdir -p "$HOME/code/fun/exercise"
 mkdir -p "$HOME/code/fun/inspect-try"
 mkdir -p "$HOME/code/fun/projects"
 mkdir -p "$HOME/personal/00-capture/"
