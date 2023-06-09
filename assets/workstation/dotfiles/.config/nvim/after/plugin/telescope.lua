@@ -25,6 +25,11 @@ end
 
 require('telescope').setup{
   defaults = {
+    layout_config = {
+      width = 0.9,
+      preview_cutoff = 10,
+      preview_width = 0.5,
+    },
     file_ignore_patterns = { "deps", "_build", ".elixir_ls"},
     vimgrep_arguments = {
       'rg',
