@@ -20,6 +20,6 @@ case "$run" in
     kitty\;)  exec kitty;;
     fh)  exec ~/bin/fhd;;
     fh\;)  exec ~/bin/fhd;;
-    *\;) exec $(echo trun ${run%;} && wmctrl -a "tmux" || wmctrl -a "zsh") ;;
+    *\;) exec $(echo trun "${run%;}" && wmctrl -a "tmux" || wmctrl -a "zsh") ;;
     *)   exec $run ;;
 esac
