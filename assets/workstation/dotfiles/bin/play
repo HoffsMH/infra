@@ -29,12 +29,13 @@ resolve_relative_path() {
 # if we have args
 if [ "$#" -gt 0 ]; then
     echo "got an arg"
-    echo $1 >> ~/.pl
+    echo "$1" >> ~/.pl
   # no args so look to stdin
 else
-  while read i
+  while read -r i || [[ -n $i ]];
   do
     case $i in
+      http*) echo "$i" >> ~/.pl ;; # its a url
       /*) echo "$i" >> ~/.pl ;; # its absolute path
       *) echo "$(resolve_relative_path "$i")" >> ~/.pl ;; # its a relative path
     esac

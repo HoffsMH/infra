@@ -20,6 +20,7 @@ vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.ex silent write]])
 -- https://superuser.com/questions/299419/prevent-vim-from-clearing-the-clipboard-on-exit
 vim.api.nvim_command([[autocmd VimLeave * call system("xclip -selection clipboard -o | xclip -selection clipboard")]])
 
+-- remove trailing whitespace on save
 vim.api.nvim_command([[autocmd BufWritePre *.js :%s/\s\+$//e]])
 vim.api.nvim_command([[autocmd BufWritePre *.rb :%s/\s\+$//e]])
 
@@ -29,10 +30,16 @@ vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
 -- when entering a md wordwrap as long as the line ends in whitespace
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal formatoptions+=aw]])
 vim.api.nvim_command([[autocmd BufEnter *.md setlocal wrap]])
+-- remove trailing whitespace on save
 vim.api.nvim_create_autocmd({ "BufWritePre"}, {
   pattern = { "*.md" },
   command = [[%s/\s\+$//e]],
 })
+
+-- set tabstop and shiftwidth for markdown files
+vim.api.nvim_command([[
+  autocmd FileType markdown setlocal tabstop=2 shiftwidth=2 expandtab
+]])
 
 vim.api.nvim_set_hl(0, 'Search', { fg = 'LavenderBlush1', bg = 'Gray25' })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'LavenderBlush1', bg = 'RoyalBlue4' })
