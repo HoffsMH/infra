@@ -18,6 +18,8 @@ require('packer').startup(function(use)
   use 'windwp/nvim-autopairs'
   use 'github/copilot.vim'
 
+  use 'nvim-telescope/telescope-file-browser.nvim'
+
   use 'nvim-telescope/telescope-live-grep-args.nvim'
   use 'nvim-telescope/telescope.nvim'
   use 'ThePrimeagen/git-worktree.nvim'
@@ -25,6 +27,7 @@ require('packer').startup(function(use)
   use 'terrortylor/nvim-comment'
   use 'mbbill/undotree'
   use 'glacambre/firenvim'
+  use 'andrewferrier/wrapping.nvim'
   use {
     'nvim-lualine/lualine.nvim',
     requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -76,4 +79,5 @@ require('packer').startup(function(use)
   use("hrsh7th/cmp-buffer")
   use('jvgrootveld/telescope-zoxide')
 end)
+
 
