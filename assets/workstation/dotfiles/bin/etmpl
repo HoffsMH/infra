@@ -1,0 +1,18 @@
+#!/bin/bash
+# Read input into variable
+input=$(cat)
+
+# Find all instances of e{...} and replace them with the output of the command inside the braces
+while [[ $input =~ e\{([^\}]*)\} ]]; do
+    # Extract the command
+    command="${BASH_REMATCH[1]}"
+
+    # Execute the command
+    output=$(eval "$command")
+
+    # Substitute the command with its output in the input
+    input=${input/"e{${command}}"/$output}
+done
+
+# Output the final result
+echo "$input"
