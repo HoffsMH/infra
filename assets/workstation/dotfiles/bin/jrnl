@@ -5,11 +5,11 @@ jrnlfile=$(mktemp  /tmp/jrnl-XXXX.md)
 
 jrnl.unlock $jrnldir
 
-fd . $jrnldir | tail -n 10 | hcat > $jrnlfile
+fd . -tf --base-directory=$jrnldir | tail -n 10 | hcat $jrnldir > $jrnlfile
 
 nvim -c $ $jrnlfile;
 
-cat $jrnlfile | hsplit $jrnldir
+cat $jrnlfile | etmpl | hsplit $jrnldir
 
 shred -vuf $jrnlfile && jrnl.lock $jrnldir || echo "Failed to lock"
 
