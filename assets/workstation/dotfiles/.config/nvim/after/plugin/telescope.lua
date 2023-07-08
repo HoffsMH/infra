@@ -26,9 +26,6 @@ changed_on_branch = function()
     }:find()
 end
 
-
-local fb_actions = require "telescope".extensions.file_browser.actions
-
 require('telescope').setup{
   defaults = {
     layout_config = {
@@ -57,17 +54,6 @@ require('telescope').setup{
     },
   },
   extensions ={
-    file_browser = {
-      hijack_netrw = true,
-      mappings = {
-        ["i"] = {
-          ["<C-c>"] = fb_actions.create_from_prompt
-        },
-        ["n"] = {
-          -- your custom normal mode mappings
-        },
-      },
-    },
   },
   pickers = {
       find_files = {
@@ -90,5 +76,4 @@ require('telescope').setup{
   },
 }
 
-require("telescope").load_extension "file_browser"
 
