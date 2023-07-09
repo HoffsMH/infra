@@ -1,6 +1,6 @@
 require("telescope").load_extension('zoxide')
 require("telescope").load_extension("live_grep_args")
-require("telescope").load_extension("git_worktree")
+require('telescope').load_extension('media_files')
 
 local actions = require('telescope.actions')
 local vim = vim
