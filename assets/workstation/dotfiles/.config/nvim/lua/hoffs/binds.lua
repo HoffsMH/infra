@@ -46,6 +46,7 @@ nnoremap("<C-Up>", ":lua require('telescope.builtin').resume()<CR>")
 nnoremap("<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>")
 nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
+nnoremap('<leader>fm', "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>")
 
 -- config
 nnoremap("<leader>.", "<cmd>e ~/.config/nvim<cr>")
@@ -56,4 +57,5 @@ nnoremap("q:", "<Nop>")
 -- make this keep expandign
 nnoremap("<C-e>", "<Plug>(expand_region_expand)")
 vnoremap("<C-e>", "<Plug>(expand_region_expand)")
+
 
