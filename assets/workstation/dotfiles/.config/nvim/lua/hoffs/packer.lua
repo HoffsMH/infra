@@ -75,6 +75,13 @@ require('packer').startup(function(use)
   use("hrsh7th/cmp-nvim-lsp")
   use("hrsh7th/cmp-buffer")
   use('jvgrootveld/telescope-zoxide')
+
+  -- TO TRY
+  -- use 'ggandor/leap.nvim'
+  -- use 'phaazon/hop.nvim'
+  --
+  use 'ekickx/clipboard-image.nvim'
+  use 'nvim-telescope/telescope-media-files.nvim'
 end)
 
 
