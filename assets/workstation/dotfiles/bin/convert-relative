@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Check if there are enough arguments
+if [ "$#" -ne 1 ]; then
+    echo "Usage: ./script.sh /path/to/base/directory"
+    exit 1
+fi
+
+# Get the base directory from the first argument
+base_directory="$1"
+
+# Read the absolute paths from the input, one line at a time
+while IFS= read -r absolute_path; do
+    # Calculate the relative path using realpath
+    relative_path=$(realpath --relative-to="$base_directory" "$absolute_path")
+
+    # Remove the leading './' if it exists
+    relative_path=${relative_path#./}
+
+    # Output the relative path
+    echo "$relative_path"
+done
