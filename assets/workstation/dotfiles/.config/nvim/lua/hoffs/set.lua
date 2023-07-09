@@ -22,7 +22,6 @@ opt.ignorecase = true
 opt.smartcase = true
 opt.wrap = false
 opt.list = true
-opt.foldlevel = 10
 opt.listchars="tab:>-,space:.,eol:¬"
 opt.backup = false
 g.netrw_banner = 0
@@ -34,6 +33,7 @@ opt.cmdheight = 1
 
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldenable = false
 
 
 vim.opt.errorbells = false
