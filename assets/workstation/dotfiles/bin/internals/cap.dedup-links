@@ -3,4 +3,4 @@
 
 source $HOME/.envrc
 
-hcat "$CAP_DIR"/* | dedup http -b '^\(' | hsplit $CAP_DIR
+fd . $CAP_DIR -tf | hcat | dedup http -b '^\(' | hsplit $CAP_DIR

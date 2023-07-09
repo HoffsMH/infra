@@ -4,5 +4,5 @@ source $HOME/.envrc
 
 if [ -f "$CAP_FILE" ];
 then
-  cat $CAP_FILE | hsplit $CAP_DIR && \rm $CAP_FILE
+  cat $CAP_FILE| etmpl | hsplit $CAP_DIR && \rm $CAP_FILE
 fi
