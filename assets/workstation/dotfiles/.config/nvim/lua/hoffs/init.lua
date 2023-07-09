@@ -17,6 +17,9 @@ vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.yml silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.scss silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.ex silent write]])
 
+-- handlebar comments
+vim.api.nvim_command([[autocmd BufEnter *.hbs :lua vim.api.nvim_buf_set_option(0, "commentstring", "{{!-- %s --}}") ]])
+
 -- https://superuser.com/questions/299419/prevent-vim-from-clearing-the-clipboard-on-exit
 vim.api.nvim_command([[autocmd VimLeave * call system("xclip -selection clipboard -o | xclip -selection clipboard")]])
 
