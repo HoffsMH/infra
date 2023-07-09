@@ -27,6 +27,8 @@ changed_on_branch = function()
 end
 
 require('telescope').setup{
+  extensions ={
+  },
   defaults = {
     layout_config = {
       width = 0.9,
@@ -52,8 +54,6 @@ require('telescope').setup{
         ["<C-w>"] = actions.send_selected_to_qflist,
       }
     },
-  },
-  extensions ={
   },
   pickers = {
       find_files = {
