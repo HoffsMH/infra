@@ -3,20 +3,21 @@ local vnoremap = require('hoffs.keymap').vnoremap
 
 vim.g.mapleader = " "
 
--- keybind to switch between folding methods so I can prefer syntx
-
 nnoremap("<leader>u", ":UndotreeShow<CR>")
 
 nnoremap("<leader>n", "<cmd>e #<cr>")
-nnoremap("<C-w>L", "<cmd>vs #<cr>")
-nnoremap("<C-w>J", "<cmd>hs #<cr>")
-nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)
+nnoremap("<C-w>L", "<cmd>vs<cr>")
+nnoremap("<C-w>J", "<cmd>hs<cr>")
 
+-- git
+nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)
 nnoremap('<leader>gy', function () require("gitlinker") end)
+
 -- yf will copy the path of the current file
 nnoremap("<leader>yfr", "<cmd>:let @+=expand('%')<CR>")
 nnoremap("<leader>yfa", "<cmd>:let @+=expand('%:p')<CR>")
 
+-- delete current file and buffer
 nnoremap("<leader><S-d>", "<cmd>:call delete(expand('%')) | bdelete!<CR>")
 
 nnoremap(
@@ -49,14 +50,14 @@ nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
 nnoremap('<leader>fz', "<cmd>Telescope zoxide list<cr>")
 nnoremap('<leader>fm', "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>")
 
--- config
-nnoremap("<leader>.", "<cmd>e ~/.config/nvim<cr>")
-
 -- fat thumb
 nnoremap("q:", "<Nop>")
 
--- make this keep expandign
+-- make this keep expanding
 nnoremap("<C-e>", "<Plug>(expand_region_expand)")
 vnoremap("<C-e>", "<Plug>(expand_region_expand)")
+
+-- paste image
+nnoremap("<leader>pi", "<cmd>:PasteImg<CR>")
 
 
