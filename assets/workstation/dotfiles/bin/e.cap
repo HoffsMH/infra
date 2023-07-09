@@ -4,6 +4,19 @@ set -e
 
 source $HOME/.envrc
 
+# Function for displaying help
+function display_help() {
+    echo "Usage: $0 [options...] arguments"
+    echo
+    echo "  -n [value]   Show the most recent [value] number of files (default 5)"
+    echo "  -f [string]  Show all files whose filenames match [string]"
+    echo "  -s [string]  Show all files whose contents match [string]"
+    echo "  -h           Display this help message"
+    echo
+    echo "The default directory is the cap root directory"
+    exit 1
+}
+
 if [ -f "$CAP_FILE" ]; then
   ~/bin/internals/cap.sync
 fi
@@ -54,6 +67,9 @@ while (( "$#" )); do
         echo "Error: Argument for $1 is missing" >&2
         exit 1
       fi
+      ;;
+    -h)
+      display_help
       ;;
     --) # End of all options
       shift
