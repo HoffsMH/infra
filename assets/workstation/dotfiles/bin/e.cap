@@ -1,13 +1,93 @@
 #!/bin/bash
 
+set -e
+
 source $HOME/.envrc
 
 if [ -f "$CAP_FILE" ]; then
   ~/bin/internals/cap.sync
 fi
 
-~/bin/internals/cap.dedup-links
+# use cases
+# I want to see the x most recent in a given dir
+# I want to see all files everywhere whose filenames match
+# I want to see all files everywhere whose contents match
 
-fd . $CAP_DIR | tail -n 20 | hcat > $CAP_FILE
+
+# x files This is an option (default 5) -n
+# match filenames This is an option -f
+# match contents This is an option -s
+#
+# In a given subdir This is the arg (default is cap root)
+
+# Initialize variables for flags
+flagN=5
+flagF=.
+flagS=0
+
+# Iterate over all inputs
+while (( "$#" )); do
+  case "$1" in
+    -n)
+     if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        flagN=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    -f)
+     if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        flagF=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    -s)
+     if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+        flagS=$2
+        shift 2
+      else
+        echo "Error: Argument for $1 is missing" >&2
+        exit 1
+      fi
+      ;;
+    --) # End of all options
+      shift
+      break
+      ;;
+    -*|--*=) # Unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # Preserve positional arguments
+      PARAMS="$PARAMS $1"
+      shift
+      ;;
+  esac
+done
+
+# Set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+# echo "flagA: $flagA"
+# echo "flagB: $flagB"
+# echo "Positional parameters: $@"
+
+# ~/bin/internals/cap.dedup-links
+
+
+if [ "$flagS" != 0 ]; then
+  file_list=$(rg -l "$flagS" $CAP_DIR/$@ | convert-relative $CAP_DIR | tail -n "$flagN")
+else
+  file_list=$(fd "$flagF" -tf --base-directory="$CAP_DIR" --max-depth=1 $@ | tail -n "$flagN")
+fi
+
+while IFS= read -r file; do
+  echo "$file" | hcat "$CAP_DIR" >> $CAP_FILE
+done <<< "$file_list"
 
 ~/bin/internals/nvim.cap
