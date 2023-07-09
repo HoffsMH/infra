@@ -14,7 +14,8 @@ nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)
 
 nnoremap('<leader>gy', function () require("gitlinker") end)
 -- yf will copy the path of the current file
-nnoremap("<leader>yf", "<cmd>:let @+ = '/' . expand('%')<CR>")
+nnoremap("<leader>yfr", "<cmd>:let @+=expand('%')<CR>")
+nnoremap("<leader>yfa", "<cmd>:let @+=expand('%:p')<CR>")
 
 nnoremap("<leader><S-d>", "<cmd>:call delete(expand('%')) | bdelete!<CR>")
 
