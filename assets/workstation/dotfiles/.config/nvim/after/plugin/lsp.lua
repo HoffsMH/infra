@@ -68,13 +68,15 @@ cmp.setup({
 
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp", keyword_length = 2 },
-		{ name = "luasnip", keyword_length = 1 },
 		{ name = "buffer", keyword_length = 2 },
   })
 })
 
 cmp.setup.filetype('markdown', {
-  enabled = false,
+  enabled = true,
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp", keyword_length = 2 },
+  })
 })
 
 lspconfig.eslint.setup(config({
@@ -90,6 +92,7 @@ lspconfig.ember.setup(config())
 lspconfig.solargraph.setup(config())
 lspconfig.gopls.setup(config())
 lspconfig.lua_ls.setup(config())
+lspconfig.marksman.setup{}
 
 lspconfig.elixirls.setup(config({
     cmd = { "/home/hoffs/code/util/elixir-ls/language_server.sh" };
