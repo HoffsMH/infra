@@ -99,7 +99,7 @@ eval set -- "$PARAMS"
 if [ "$flagS" != 0 ]; then
   file_list=$(rg -l "$flagS" $CAP_DIR/$@ | convert-relative $CAP_DIR | tail -n "$flagN")
 else
-  file_list=$(fd "$flagF" -tf --base-directory="$CAP_DIR" --max-depth=1 $@ | tail -n "$flagN")
+  file_list=$(fd "$flagF".md -tf --base-directory="$CAP_DIR" --max-depth=1 $@ | tail -n "$flagN")
 fi
 
 while IFS= read -r file; do
