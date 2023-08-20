@@ -70,6 +70,7 @@ while (( "$#" )); do
       ;;
     -h)
       display_help
+      exit 0;
       ;;
     --) # End of all options
       shift

@@ -83,7 +83,8 @@ lspconfig.eslint.setup(config({
   -- to get this:
   -- npm i -g vscode-langservers-extracted
   -- project could be behind and this lsp needs higher version
-  cmd = { "asdf.exec", "nodejs", "20.2.0", "vscode-eslint-language-server", "--stdio" },
+  -- cmd = { "asdf.exec", "nodejs", "20.2.0", "vscode-eslint-language-server", "--stdio" },
+  cmd = { "vscode-eslint-language-server", "--stdio" },
 }))
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -95,7 +96,7 @@ lspconfig.lua_ls.setup(config())
 lspconfig.marksman.setup{}
 
 lspconfig.elixirls.setup(config({
-    cmd = { "/home/hoffs/code/util/elixir-ls/language_server.sh" };
+    cmd = { "/home/hoffs/code/util/elixir-ls/release/language_server.sh" };
 }))
 
 

@@ -7,24 +7,24 @@ pkill xcape
 xcape -t 200 -e Mode_switch=Escape && echo 'xcape Mode_switch'
 xcape -t 200 -e Control_L=Escape && echo 'xcape Control_L'
 
-touchpad_id=$(xinput list | rg TouchPad | rg -o '\bid=(\d+)\b' |  cut -d= -f2)
-
-if [[ -z "$touchpad_id" ]]; then
-    echo "Touch Pad not found"
-else
-  echo "xinput set-prop latop touchpad Two-Finger Scrolling 1 1"
-  xinput set-prop $touchpad_id 'Synaptics Two-Finger Scrolling' 1 1
-fi
-
-
-
-touchpad_id=$(xinput list | rg "Magic Trackpad" | rg -o '\bid=(\d+)\b' |  cut -d= -f2)
-
-if [[ -z "$touchpad_id" ]]; then
-    echo "Magic Trackpad not found"
-else
-  echo "xinput set-prop magic Trackpad Two-Finger Scrolling 1 1"
-  xinput set-prop $touchpad_id 'Synaptics Two-Finger Scrolling' 1 1
-  xinput set-prop $touchpad_id 'Synaptics Finger' 0 20 0
-fi
-
+# touchpad_id=$(xinput list | rg TouchPad | rg -o '\bid=(\d+)\b' |  cut -d= -f2)
+#
+# if [[ -z "$touchpad_id" ]]; then
+#     echo "Touch Pad not found"
+# else
+#   echo "xinput set-prop latop touchpad Two-Finger Scrolling 1 1"
+#   xinput set-prop $touchpad_id 'Synaptics Two-Finger Scrolling' 1 1
+# fi
+#
+#
+#
+# touchpad_id=$(xinput list | rg "Magic Trackpad" | rg -o '\bid=(\d+)\b' |  cut -d= -f2)
+#
+# if [[ -z "$touchpad_id" ]]; then
+#     echo "Magic Trackpad not found"
+# else
+#   echo "xinput set-prop magic Trackpad Two-Finger Scrolling 1 1"
+#   xinput set-prop $touchpad_id 'Synaptics Two-Finger Scrolling' 1 1
+#   xinput set-prop $touchpad_id 'Synaptics Finger' 0 20 0
+# fi
+#
