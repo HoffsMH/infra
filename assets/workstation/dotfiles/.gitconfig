@@ -5,7 +5,7 @@
   editor = "nvim"
   excludesfile = ~/.gitignore_global
 [pager]
-    diff = delta -s --syntax-theme=gruvbox-dark
+    diff = delta --syntax-theme=gruvbox-dark
     log = delta -s --syntax-theme=gruvbox-dark
     reflog = delta -s --syntax-theme=gruvbox-dark
     show = delta -s --syntax-theme=gruvbox-dark

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+##
+# Interactive search.
+# Usage: `ff` or `ff <folder>`.
+#
+[[ -n $1 ]] && cd $1 # go to provided folder or noop
+
+# Use fd to get every file, then cat to get every line, then pipe to dmenu for interactive selection
+selected=$(fd -t f -x cat | dmenu -l 20)
+
+[[ -n $selected ]] && echo $selected

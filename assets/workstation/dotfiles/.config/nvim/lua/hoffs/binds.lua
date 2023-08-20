@@ -8,6 +8,7 @@ nnoremap("<leader>u", ":UndotreeShow<CR>")
 nnoremap("<leader>n", "<cmd>e #<cr>")
 nnoremap("<C-w>L", "<cmd>vs<cr>")
 nnoremap("<C-w>J", "<cmd>hs<cr>")
+nnoremap("<leader><S-v>", "<C-v>")
 
 -- git
 nnoremap('<leader>gb', function() require("gitsigns").blame_line{full=true} end)

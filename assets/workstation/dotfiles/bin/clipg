@@ -1,0 +1,5 @@
+#!/bin/bash
+
+selection=$(fif ~/personal/00-cap-md/clip)
+cat "$selection" | xclip -selection clipboard
+
