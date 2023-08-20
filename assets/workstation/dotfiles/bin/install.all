@@ -73,6 +73,7 @@ installs=(
     # "mednafen" # snes
     # "monero-gui"
     # "mullvad-vpn" # vpn
+    # "mullvad-vpn-cli" # vpn
     # "neovide" # animated nvim
     # "neovim-remote"
     # "network-manager-applet"
