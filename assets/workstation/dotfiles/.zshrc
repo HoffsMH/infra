@@ -40,3 +40,6 @@ if [ -f '/home/hoffs/.config/google-cloud-sdk/completion.zsh.inc' ]; then . '/ho
 
 eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 
+
+# Turso
+export PATH="/home/hoffs/.turso:$PATH"

@@ -13,6 +13,11 @@ require('packer').startup(function(use)
   use { 'ellisonleao/gruvbox.nvim', as = 'gruvbox' }
   use { 'terryma/vim-expand-region', as = 'expand_region' }
 
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+  }
+
   -- use the damn % key plx
   use 'andymass/vim-matchup'
   use 'windwp/nvim-autopairs'
@@ -84,3 +89,4 @@ require('packer').startup(function(use)
 end)
 
 
+require("mason").setup()

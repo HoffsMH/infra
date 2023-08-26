@@ -69,8 +69,18 @@ require('telescope').setup{
                   local dir = vim.fn.fnamemodify(selection.path, ":p:h")
                   require("telescope.actions").close(prompt_bufnr)
                   vim.cmd(string.format("silent lcd %s", dir))
+              end,
+
+              ["<C-f>"] = function(prompt_bufnr)
+                  require("telescope.actions").send_to_qflist(prompt_bufnr)
               end
             },
+            i = {
+              ["<C-f>"] = function(prompt_bufnr)
+                  require("telescope.actions").send_to_qflist(prompt_bufnr)
+              end
+
+            }
           },
       },
   },

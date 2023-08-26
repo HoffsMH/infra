@@ -94,6 +94,8 @@ lspconfig.solargraph.setup(config())
 lspconfig.gopls.setup(config())
 lspconfig.lua_ls.setup(config())
 lspconfig.marksman.setup{}
+lspconfig.tailwindcss.setup{}
+
 
 lspconfig.elixirls.setup(config({
     cmd = { "/home/hoffs/code/util/elixir-ls/release/language_server.sh" };
