@@ -27,42 +27,66 @@ local plugins = {
   -- highlighting
   {
     'nvim-treesitter/nvim-treesitter',
-    opts = {
-        ensure_installed = {
-          "html",
-          "c",
-          "lua",
-          "glimmer",
-          "javascript",
-          "go",
-          "ruby",
-          "heex",
-          "eex",
-          "elixir",
-          "scss",
-          "sql",
-          "bash"
-        },
-        -- auto_install = true,
+    name = 'nvim-treesitter.configs',
+    config = function()
+      require('nvim-treesitter.configs').setup{
+          ensure_installed = {
+            "html",
+            "c",
+            "lua",
+            "glimmer",
+            "javascript",
+            "go",
+            "ruby",
+            "heex",
+            "eex",
+            "elixir",
+            "scss",
+            "sql",
+            "bash",
+          },
+          auto_install = true,
 
-        indent = {
-          enable = true
-        },
-        -- disable = function(_lang, buf)
-        --         local max_filesize = 1000 * 1024 -- 1 MB
-        --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        --         if ok and stats and stats.size > max_filesize then
-        --             return true
-        --         end
-        --     end,
+          indent = {
+            enable = true
+          },
+          disable = function(_lang, buf)
+                  local max_filesize = 1000 * 1024 -- 1 MB
+                  local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                  if ok and stats and stats.size > max_filesize then
+                      return true
+                  end
+              end,
 
-        highlight = {
-          enable = true,
+          highlight = {
+            enable = true,
 
-          additional_vim_regex_highlighting = true,
-        },
-    }
+            additional_vim_regex_highlighting = true,
+          },
+      }
+    end,
   },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      -- add any options here
+    },
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      -- OPTIONAL:
+      --   `nvim-notify` is only needed, if you want to use the notification view.
+      --   If not available, we use `mini` as the fallback
+      "rcarriga/nvim-notify",
+      }
+  },
+
+  -- {
+  --   'Wansmer/treesj',
+  --   keys = { '<space>m' },
+  --   config = function() require('treesj').setup({--[[ your config ]]}) end,
+  -- },
 
   -- finding files and text
   --
@@ -102,13 +126,13 @@ local plugins = {
         mappings = {
           i ={
             ["<C-w>"] = function(prompt_bufnr)
-              require("telescope.actions").send_to_qflist(prompt_bufnr)
+              require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
             end
           },
 
           n ={
             ["<C-w>"] = function(prompt_bufnr)
-              require("telescope.actions").send_to_qflist(prompt_bufnr)
+              require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
             end
           }
         },
@@ -121,6 +145,11 @@ local plugins = {
       { "<C-Up>", function() require("telescope.builtin").resume() end, desc = "changed on branch" },
       { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "buffers" },
       { "<leader>fm", function() require('telescope').extensions.media_files.media_files()  end, desc = "media_files" },
+      { "<leader>qf", function() require('telescope.builtin').quickfix()  end, desc = "quickfix" },
+      { "<leader>qh", function() require('telescope.builtin').quickfixhistory()  end, desc = "quickfix history" },
+      { "<leader>qn", function() vim.api.nvim_command('cnext')  end, desc = "quickfix next" },
+      { "<leader>qb", function() vim.api.nvim_command('cprev')  end, desc = "quickfix prev" },
+      { "<leader>fz", function() require('telescope').extensions.zoxide.list()  end, desc = "zoxide" },
       { "<C-o>", function() require('telescope').extensions.frecency.frecency() end, desc = "frecency" },
     }
   },
@@ -302,7 +331,37 @@ local plugins = {
 
   ----------------------------------------
   -- Misc
-  'glacambre/firenvim',
+  {
+    'glacambre/firenvim',
+    config = function()
+      vim.g.firenvim_config = {
+        globalSettings = {
+          alt = 'all',
+        },
+        localSettings = {
+          ['.*'] = {
+            cmdline = 'neovim',
+            content = 'text',
+            priority = 0,
+            selector = 'textarea',
+            takeover = 'never',
+          },
+        },
+      }
+
+      vim.api.nvim_create_autocmd({'UIEnter'}, {
+        callback = function(event)
+          local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
+          if client ~= nil and client.name == "Firenvim" then
+              vim.o.laststatus = 0
+              vim.api.nvim_command([[Copilot disable]])
+              vim.api.nvim_command([[set lines=20]])
+              vim.api.nvim_command([[set columns=100]])
+          end
+        end
+      })
+    end,
+  },
   {
     'lewis6991/gitsigns.nvim',
     opts = {},

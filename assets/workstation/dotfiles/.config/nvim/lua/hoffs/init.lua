@@ -1,13 +1,13 @@
-require("hoffs.set")
-require("hoffs.packer")
+require('hoffs.set')
+require('hoffs.lazy')
 require('hoffs.binds')
+require('plugin.lsp')
 
 local vim = vim;
 
 vim.api.nvim_command([[colorscheme gruvbox]])
 
 -- one day I will figure out how to just make this work on all files everywhere
-vim.api.nvim_command([[autocmd TextChanged,TextChangedI <buffer> silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.* silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.rb silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.hbs silent write]])
@@ -17,15 +17,14 @@ vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.yml silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.scss silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.ex silent write]])
 
--- handlebar comments
-vim.api.nvim_command([[autocmd BufEnter *.hbs :lua vim.api.nvim_buf_set_option(0, "commentstring", "{{!-- %s --}}") ]])
-
 -- https://superuser.com/questions/299419/prevent-vim-from-clearing-the-clipboard-on-exit
 vim.api.nvim_command([[autocmd VimLeave * call system("xclip -selection clipboard -o | xclip -selection clipboard")]])
 
 -- remove trailing whitespace on save
-vim.api.nvim_command([[autocmd BufWritePre *.js :%s/\s\+$//e]])
+vim.api.nvim_command([[autocmd BufWritePre *.js :%s/\s\+\ze\($\|\n\)//e]])
+vim.api.nvim_command([[autocmd BufWritePre *.hbs :%s/\s\+\ze\($\|\n\)//e]])
 vim.api.nvim_command([[autocmd BufWritePre *.rb :%s/\s\+$//e]])
+
 
 vim.api.nvim_command([[highlight RedundantSpaces ctermbg=red guibg=red]])
 vim.api.nvim_command([[match RedundantSpaces /\s\+$/]])
@@ -46,106 +45,4 @@ vim.api.nvim_command([[
 
 vim.api.nvim_set_hl(0, 'Search', { fg = 'LavenderBlush1', bg = 'Gray25' })
 vim.api.nvim_set_hl(0, 'IncSearch', { fg = 'LavenderBlush1', bg = 'RoyalBlue4' })
-
-vim.g.firenvim_config = {
-    globalSettings = { alt = "all" },
-    localSettings = {
-        [".*"] = {
-            cmdline  = "neovim",
-            content  = "text",
-            priority = 0,
-            selector = "textarea",
-            takeover = "never"
-        }
-    }
-}
-
-vim.api.nvim_create_autocmd({'UIEnter'}, {
-    callback = function(event)
-        local client = vim.api.nvim_get_chan_info(vim.v.event.chan).client
-        if client ~= nil and client.name == "Firenvim" then
-            vim.o.laststatus = 0
-            vim.api.nvim_command([[Copilot disable]])
-            vim.api.nvim_command([[set lines=20]])
-            vim.api.nvim_command([[set columns=100]])
-        end
-    end
-})
-
-require('nvim_comment').setup({
-	-- Linters prefer comment and line to have a space in between markers
-	marker_padding = true,
-	-- should comment out empty or whitespace only lines
-	comment_empty = true,
-	-- trim empty comment whitespace
-	comment_empty_trim_whitespace = true,
-	-- Should key mappings be created
-	create_mappings = true,
-	-- Normal mode mapping left hand side
-	line_mapping = "gcc",
-	-- Visual/Operator mapping left hand side
-	operator_mapping = "gc",
-	-- text object mapping, comment chunk,,
-	comment_chunk_text_object = "ic",
-	-- Hook function to call before commenting takes place
-	hook = nil
-})
-
-require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-      "html",
-      "c",
-      "lua",
-      "glimmer",
-      "javascript",
-      "go",
-      "ruby",
-      "heex",
-      "eex",
-      "elixir"
-    },
-    -- auto_install = true,
-
-    indent = {
-      enable = true
-    },
-
-    highlight = {
-      -- `false` will disable the whole extension
-      enable = true,
-
-      -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-      -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-      -- Using this option may slow down your editor, and you may see some duplicate highlights.
-      -- Instead of true it can also be a list of languages
-      additional_vim_regex_highlighting = true,
-    },
-}
-
-
-require"gitlinker".setup()
-require('nvim-autopairs').setup()
-require("nvim-surround").setup()
-require('lualine').setup()
-
-require'clipboard-image'.setup {
-  -- Default configuration for all filetype
-  default = {
-    img_dir = "images",
-    img_name = function() return os.date('%Y-%m-%d-%H-%M-%S') end, -- Example result: "2021-04-13-10-04-18"
-    affix = "<\n  %s\n>" -- Multi lines affix
-  },
-  -- You can create configuration for ceartain filetype by creating another field (markdown, in this case)
-  -- If you're uncertain what to name your field to, you can run `lua print(vim.bo.filetype)`
-  -- Missing options from `markdown` field will be replaced by options from `default` field
-  markdown = {
-    img_dir = {"img"}, -- Use table for nested dir (New feature form PR #20)
-    img_dir_txt = "img",
-    affix = "[[%s]]",
-    img_handler = function(img) -- New feature from PR #22
-      local script = string.format('./image_compressor.sh "%s"', img.path)
-      os.execute(script)
-    end,
-  }
-}
 
