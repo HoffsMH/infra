@@ -15,9 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
 vim.api.nvim_command([[autocmd BufEnter *.hbs :lua vim.api.nvim_buf_set_option(0, "commentstring", "{{!-- %s --}}") ]])
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-
--- vim.api.nvim_command('packadd packer.nvim')
 local plugins = {
   ----------------------------------------
   -- base
@@ -28,9 +27,41 @@ local plugins = {
   -- highlighting
   {
     'nvim-treesitter/nvim-treesitter',
-    config = function()
-      require('plugin.nvim-treesitter')
-    end
+    opts = {
+        ensure_installed = {
+          "html",
+          "c",
+          "lua",
+          "glimmer",
+          "javascript",
+          "go",
+          "ruby",
+          "heex",
+          "eex",
+          "elixir",
+          "scss",
+          "sql",
+          "bash"
+        },
+        -- auto_install = true,
+
+        indent = {
+          enable = true
+        },
+        -- disable = function(_lang, buf)
+        --         local max_filesize = 1000 * 1024 -- 1 MB
+        --         local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+        --         if ok and stats and stats.size > max_filesize then
+        --             return true
+        --         end
+        --     end,
+
+        highlight = {
+          enable = true,
+
+          additional_vim_regex_highlighting = true,
+        },
+    }
   },
 
   -- finding files and text

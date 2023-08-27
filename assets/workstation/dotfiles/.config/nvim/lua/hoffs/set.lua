@@ -32,7 +32,6 @@ g.telescope_map_keys = 0
 opt.cmdheight = 1
 
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldenable = false
 
 
