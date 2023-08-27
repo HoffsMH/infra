@@ -182,6 +182,14 @@ local plugins = {
   -- lsp management
   {
     'VonHeikemen/lsp-zero.nvim',
+    config = function()
+      local lsp = require('lsp-zero').preset({})
+      lsp.on_attach(function(client, bufnr)
+        -- see :help lsp-zero-keybindings
+        -- to learn the available actions
+        lsp.default_keymaps({buffer = bufnr})
+      end)
+    end,
     keys = {
       { "K", function() vim.lsp.buf.hover()  end, desc = "def" },
       { "gd", function() vim.lsp.buf.definition()  end, desc = "def" },
