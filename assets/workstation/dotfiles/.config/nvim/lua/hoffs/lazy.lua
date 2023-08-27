@@ -1,3 +1,4 @@
+local vim = vim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -10,11 +11,10 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 
+
 vim.opt.rtp:prepend(lazypath)
 
-
 vim.g.mapleader = " "
-vim.api.nvim_command([[autocmd BufEnter *.hbs :lua vim.api.nvim_buf_set_option(0, "commentstring", "{{!-- %s --}}") ]])
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 local plugins = {
@@ -67,6 +67,26 @@ local plugins = {
     end,
   },
   {
+    "lukas-reineke/indent-blankline.nvim",
+    config = function()
+      vim.opt.list = true
+      vim.opt.listchars:append "space: "
+      vim.opt.listchars:append "eol:↴"
+
+      vim.cmd [[highlight IndentBlanklineIndent4 guifg=#534B42 gui=nocombine]]
+      vim.cmd [[highlight IndentBlanklineContextChar guifg=#689d69 gui=nocombine]]
+
+      require("indent_blankline").setup {
+        show_end_of_line = true,
+        space_char_blankline = " ",
+        show_current_context = true,
+        char_highlight_list = {
+          "IndentBlanklineIndent4",
+        },
+      }
+    end
+  },
+  {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
@@ -82,11 +102,11 @@ local plugins = {
       }
   },
 
-  -- {
-  --   'Wansmer/treesj',
-  --   keys = { '<space>m' },
-  --   config = function() require('treesj').setup({--[[ your config ]]}) end,
-  -- },
+  {
+    'Wansmer/treesj',
+    keys = { '<space>m' },
+    config = function() require('treesj').setup({--[[ your config ]]}) end,
+  },
 
   -- finding files and text
   --
@@ -232,24 +252,28 @@ local plugins = {
   {
     'terrortylor/nvim-comment',
     name = 'nvim_comment',
-    opts = {
-      -- Linters prefer comment and line to have a space in between markers
-      marker_padding = true,
-      -- should comment out empty or whitespace only lines
-      comment_empty = true,
-      -- trim empty comment whitespace
-      comment_empty_trim_whitespace = true,
-      -- Should key mappings be created
-      create_mappings = true,
-      -- Normal mode mapping left hand side
-      line_mapping = "gcc",
-      -- Visual/Operator mapping left hand side
-      operator_mapping = "gc",
-      -- text object mapping, comment chunk,,
-      comment_chunk_text_object = "ic",
-      -- Hook function to call before commenting takes place
-      hook = nil
-    },
+    config = function()
+      require('nvim_comment').setup({
+        -- Linters prefer comment and line to have a space in between markers
+        marker_padding = true,
+        -- should comment out empty or whitespace only lines
+        comment_empty = true,
+        -- trim empty comment whitespace
+        comment_empty_trim_whitespace = true,
+        -- Should key mappings be created
+        create_mappings = true,
+        -- Normal mode mapping left hand side
+        line_mapping = "gcc",
+        -- Visual/Operator mapping left hand side
+        operator_mapping = "gc",
+        -- text object mapping, comment chunk,,
+        comment_chunk_text_object = "ic",
+        -- Hook function to call before commenting takes place
+        hook = nil
+      })
+
+      vim.api.nvim_command([[autocmd BufEnter *.hbs :lua vim.api.nvim_buf_set_option(0, "commentstring", "{{!-- %s --}}") ]])
+    end,
   },
   {
     'mbbill/undotree',
@@ -301,6 +325,7 @@ local plugins = {
       -- refer to the configuration section below
     }
   },
+
   {
     'goolord/alpha-nvim',
     config = function ()

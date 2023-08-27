@@ -1,8 +1,6 @@
 local nnoremap = require('hoffs.keymap').nnoremap
-local vnoremap = require('hoffs.keymap').vnoremap
 
 vim.g.mapleader = " "
-
 
 nnoremap("<leader>n", "<cmd>e #<cr>")
 nnoremap("<C-w>L", "<cmd>vs<cr>")
