@@ -171,7 +171,7 @@ local plugins = {
       { "<leader>qn", function() vim.api.nvim_command('cnext')  end, desc = "quickfix next" },
       { "<leader>qb", function() vim.api.nvim_command('cprev')  end, desc = "quickfix prev" },
       { "<leader>fz", function() require('telescope').extensions.zoxide.list()  end, desc = "zoxide" },
-      { "<C-o>", function() require('telescope').extensions.frecency.frecency() end, desc = "frecency" },
+      -- { "<C-o>", function() require('telescope').extensions.frecency.frecency() end, desc = "frecency" },
     }
   },
   {
@@ -237,6 +237,7 @@ local plugins = {
         'ember',
         'eslint',
         'elixirls',
+        'cssls',
       }
     }
   },
