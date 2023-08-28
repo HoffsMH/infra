@@ -396,14 +396,17 @@ local plugins = {
       })
     end,
   },
+
   {
     'lewis6991/gitsigns.nvim',
+    lazy = false,
     opts = {},
     keys = {
       { "<leader>gb", function() require("gitsigns").blame_line{full=true} end, desc = "blame line" },
     }
   },
 }
+
 local opts = {}
 
 require('lazy').setup(plugins, opts)

@@ -14,6 +14,7 @@ opt.autoread = true
 opt.guicursor = ""
 
 opt.smartindent = true
+opt.autoindent = true
 opt.nu = true
 
 opt.swapfile = false
