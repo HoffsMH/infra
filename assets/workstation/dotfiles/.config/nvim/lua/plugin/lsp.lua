@@ -29,6 +29,7 @@ local source_mapping = {
 -- 	}, _config or {})
 -- end
 
+
 local ls = require("luasnip");
 
 cmp.setup({
@@ -38,7 +39,10 @@ cmp.setup({
         ls.lsp_expand(args.body) -- For `luasnip` users.
       end,
   },
-
+  mapping = cmp.mapping.preset.insert({
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
 	formatting = {
 		format = function(entry, vim_item)
 			vim_item.kind = lspkind.presets.default[vim_item.kind]

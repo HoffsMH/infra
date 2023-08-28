@@ -11,7 +11,6 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 
-
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
@@ -90,7 +89,9 @@ local plugins = {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = {
-      -- add any options here
+      messages = {
+        enabled = false, -- enables the Noice messages UI
+      },
     },
     dependencies = {
       -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
