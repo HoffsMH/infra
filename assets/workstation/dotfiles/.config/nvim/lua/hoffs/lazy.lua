@@ -43,6 +43,7 @@ local plugins = {
             "scss",
             "sql",
             "bash",
+            "python"
           },
           auto_install = true,
 
@@ -148,12 +149,27 @@ local plugins = {
           i ={
             ["<C-w>"] = function(prompt_bufnr)
               require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
-            end
+            end,
+
+            ["<C-e>"] = function(prompt_bufnr)
+              require("telescope.actions").smart_add_to_qflist(prompt_bufnr)
+            end,
+            ["<C-Down>"] = function(prompt_bufnr)
+              require('telescope.actions').cycle_history_next(prompt_bufnr)
+            end,
+
+            ["<C-Up>"] = function(prompt_bufnr)
+              require('telescope.actions').cycle_history_prev(prompt_bufnr)
+            end,
           },
 
           n ={
             ["<C-w>"] = function(prompt_bufnr)
               require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
+            end,
+
+            ["<C-e>"] = function(prompt_bufnr)
+              require("telescope.actions").smart_add_to_qflist(prompt_bufnr)
             end
           }
         },
