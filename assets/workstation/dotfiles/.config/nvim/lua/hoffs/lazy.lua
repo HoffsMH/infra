@@ -26,7 +26,6 @@ local plugins = {
   -- highlighting
   {
     'nvim-treesitter/nvim-treesitter',
-    name = 'nvim-treesitter.configs',
     config = function()
       require('nvim-treesitter.configs').setup{
           ensure_installed = {
@@ -40,7 +39,6 @@ local plugins = {
             "heex",
             "eex",
             "elixir",
-            "scss",
             "sql",
             "bash",
             "python"
@@ -102,12 +100,6 @@ local plugins = {
       --   If not available, we use `mini` as the fallback
       "rcarriga/nvim-notify",
       }
-  },
-
-  {
-    'Wansmer/treesj',
-    keys = { '<space>m' },
-    config = function() require('treesj').setup({--[[ your config ]]}) end,
   },
 
   -- finding files and text
