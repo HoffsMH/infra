@@ -292,6 +292,16 @@ local plugins = {
     }
   },
   {
+    'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup({--[[ your config ]]})
+    end,
+    keys = {
+      { "<leader>m", function() require('treesj').toggle() end, desc = "toggle splitjoin" },
+    },
+  },
+  {
     'lmburns/lf.nvim',
     dependencies ={
       'akinsho/toggleterm.nvim',
@@ -411,7 +421,9 @@ local plugins = {
     lazy = false,
     opts = {},
     keys = {
-      { "<leader>gb", function() require("gitsigns").blame_line{full=true} end, desc = "blame line" },
+      { "<leader>gb", function() require("gitsigns").blame_line{ full=true } end, desc = "blame line" },
+      { "<leader>gn", function() require("gitsigns").next_hunk{ full=true } end, desc = "blame line" },
+      { "<leader>gp", function() require("gitsigns").prev_hunk{ full=true } end, desc = "blame line" },
     }
   },
 }
