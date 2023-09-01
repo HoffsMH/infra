@@ -4,4 +4,4 @@ source $HOME/.envrc
 
 nvim $CAP_FILE -c 'cd ~/personal/00-cap-md' -c '$'
 
-~/bin/internals/cap.sync
+~/bin/cap.sync
