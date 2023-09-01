@@ -18,7 +18,7 @@ function display_help() {
 }
 
 if [ -f "$CAP_FILE" ]; then
-  ~/bin/internals/cap.sync
+  ~/bin/cap.sync
 fi
 
 # use cases
@@ -94,7 +94,7 @@ eval set -- "$PARAMS"
 # echo "flagB: $flagB"
 # echo "Positional parameters: $@"
 
-# ~/bin/internals/cap.dedup-links
+# ~/bin/cap.dedup-links
 
 
 if [ "$flagS" != 0 ]; then
@@ -109,4 +109,4 @@ while IFS= read -r file; do
   echo "$file" | hcat "$CAP_DIR" >> $CAP_FILE
 done <<< "$file_list"
 
-~/bin/internals/nvim.cap
+~/bin/nvim.cap
