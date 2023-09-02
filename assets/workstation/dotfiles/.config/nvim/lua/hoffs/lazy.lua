@@ -201,7 +201,12 @@ local plugins = {
     }
   },
   'andymass/vim-matchup',
-
+  {
+    'ggandor/leap.nvim',
+    config =function ()
+      require('leap').add_default_mappings()
+    end
+  },
   -- TO TRY
   -- use 'ggandor/leap.nvim'
   -- use 'phaazon/hop.nvim'
