@@ -249,7 +249,7 @@ local plugins = {
         'tailwindcss',
         'ember',
         'eslint',
-        'elixirls',
+        'nextls',
         'cssls',
       }
     }
