@@ -169,7 +169,7 @@ local plugins = {
     },
     keys = {
       { "<leader>fg", function() require("telescope").extensions.live_grep_args.live_grep_args() end, desc = "find in project" },
-      { "<C-p>", function() require("hoffs.telescope-custom-pickers").project_files() end, desc = "find files" },
+      { "<C-p>", function() require("telescope").extensions.smart_open.smart_open() end, desc = "find files" },
       { "<leader>fd", function() require("hoffs.telescope-custom-pickers").changed_on_branch() end, desc = "changed on brach" },
       { "<C-Up>", function() require("telescope.builtin").resume() end, desc = "changed on branch" },
       { "<leader>fb", function() require("telescope.builtin").buffers() end, desc = "buffers" },
@@ -181,6 +181,18 @@ local plugins = {
       { "<leader>fz", function() require('telescope').extensions.zoxide.list()  end, desc = "zoxide" },
       -- { "<C-o>", function() require('telescope').extensions.frecency.frecency() end, desc = "frecency" },
     }
+  },
+  {
+    "danielfalk/smart-open.nvim",
+    branch = "0.2.x",
+    config = function()
+      require("telescope").load_extension("smart_open")
+    end,
+  },
+  {
+    "chrisgrieser/nvim-early-retirement",
+    config = true,
+    event = "VeryLazy",
   },
   {
     'ThePrimeagen/harpoon',
@@ -238,6 +250,27 @@ local plugins = {
     opts = {},
   },
   {
+    "elixir-tools/elixir-tools.nvim",
+    version = "*",
+    event = { "BufReadPre", "BufNewFile" },
+    config = function()
+      local elixir = require("elixir")
+      local elixirls = require("elixir.elixirls")
+
+      elixir.setup {
+        nextls = {enable = true},
+        credo = {},
+        elixirls = {
+          enable = true,
+          settings = elixirls.settings {
+            dialyzerEnabled = false,
+            enableTestLenses = false,
+          },
+        }
+      }
+    end,
+  },
+  {
     'williamboman/mason-lspconfig.nvim',
     opts = {
       ensure_installed = {
@@ -247,11 +280,11 @@ local plugins = {
         'gopls',
         'glint',
         'tailwindcss',
-        'ember',
         'eslint',
         'nextls',
         'cssls',
-      }
+      },
+      automatic_installation = false,
     }
   },
 
