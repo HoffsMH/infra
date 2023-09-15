@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# needs to respect existing newlines
+
+# tr '\n' ' ' | fold -w ${1:-80} -s |sed 's/ $//g'
+
+fmt -w ${1:-80} -c

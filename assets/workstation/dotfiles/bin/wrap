@@ -1,6 +1,1 @@
-#!/bin/bash
-
-# needs to respect existing newlines
-
-tr '\n' ' ' | fold -w ${1:-80} -s |sed 's/ $//g'
-
+/home/hoffs/infra/assets/workstation/dotfiles/infra/assets/workstation/dotfiles/bin/wrap
