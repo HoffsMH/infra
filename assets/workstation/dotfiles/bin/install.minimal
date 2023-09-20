@@ -31,7 +31,7 @@ installs=(
     "dnsutils" # dig
     "dunst" # notifications
     "entr" # useful little thing
-    "exa" # alternative to ls
+    "eza" # alternative to ls
     "fd" # alternative to find
     "fzf" # cli fuzzy finder
     "gfold-git" # see git repo status across many repos
