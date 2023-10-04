@@ -340,6 +340,21 @@ local plugins = {
     },
   },
   {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    opts = {},
+    keys = {
+      {
+        "<leader>lg",
+        function()
+          local Terminal  = require('toggleterm.terminal').Terminal
+          Terminal:new({ cmd = "lazygit", direction = 'float' }):toggle()
+        end,
+        desc = "media_files"
+    },
+    }
+  },
+  {
     'lmburns/lf.nvim',
     dependencies ={
       'akinsho/toggleterm.nvim',
