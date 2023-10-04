@@ -1,3 +1,8 @@
 git:
   autoFetch: false
+  paging:
+      colorArg: always
+      pager: delta --dark --paging=never --syntax-theme=gruvbox-dark
+os:
+  editPreset: 'nvim-remote'
 notARepository: 'skip'
