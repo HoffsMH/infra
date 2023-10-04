@@ -99,7 +99,7 @@ gcofw() {
 
 
 alias ytf="ytfzf -t"
-
+alias gsw="g sw -i"
 alias g="git"
 alias gb="git branch"
 alias gco="git checkout"

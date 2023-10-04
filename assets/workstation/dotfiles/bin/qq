@@ -2,5 +2,5 @@
 
 source ~/.envrc
 
-mods --continue $(date "+%Y-%m-%d") $@
+mods --continue $(date-str) $@
 

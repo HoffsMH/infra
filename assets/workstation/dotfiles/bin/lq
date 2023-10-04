@@ -1,0 +1,12 @@
+#!/bin/bash
+
+
+# Create a temporary file
+tempfile=$(mktemp)
+
+nvim -c "$" "$tempfile"
+
+cat "$tempfile" | mods --continue $(date-str) -P "see attached file:"
+
+# Clean up the temp file
+rm "$tempfile"
