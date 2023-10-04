@@ -289,3 +289,6 @@ fh() {
   output=$(atuin search $* -i 3>&1 1>&2 2>&3)
   print -z "$output"
 }
+
+alias df="dust"
+alias du="duf"
