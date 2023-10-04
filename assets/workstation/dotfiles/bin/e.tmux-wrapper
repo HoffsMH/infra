@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 workingDir=.
-cmd=${1:-nvim}
+cmd=${1:-nvim --listen /tmp/nvimsocket}
 name="edit"
 
 # Get the current tmux session ID
