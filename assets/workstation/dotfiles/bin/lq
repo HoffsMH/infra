@@ -6,7 +6,8 @@ tempfile=$(mktemp)
 
 nvim -c "$" "$tempfile"
 
-cat "$tempfile" | mods --continue $(date-str) -P "see attached file:"
+cat "$tempfile" | mods --continue $(date-str) -m 4 -P "see attached file:"
+
 
 # Clean up the temp file
 rm "$tempfile"
