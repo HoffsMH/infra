@@ -34,7 +34,7 @@ fi
 # In a given subdir This is the arg (default is cap root)
 
 # Initialize variables for flags
-flagN=5
+flagN=10
 flagF=.
 flagS=0
 
