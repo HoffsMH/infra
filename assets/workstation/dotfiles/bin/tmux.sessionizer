@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
-else
-    selected=$(zoxide query -i)
-fi
+list="$(tmux list-sessions | awk -F':' '{print $1}'; zoxide query -l)"
+# tmux list-sessions | awk -F':' '{print $1}'; zoxide query -l
+
+
+selected=$(echo -e "$list" | fzf)
 
 if [[ -z $selected ]]; then
     exit 0
