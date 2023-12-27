@@ -281,7 +281,6 @@ local plugins = {
         'glint',
         'tailwindcss',
         'eslint',
-        'nextls',
         'cssls',
       },
       automatic_installation = false,
