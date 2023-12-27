@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+source ~/.envrc
+
 # Create a temporary file
 tempfile=$(mktemp)
 
