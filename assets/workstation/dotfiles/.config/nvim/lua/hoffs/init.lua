@@ -18,6 +18,7 @@ vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.scss silent write]])
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.ex silent write]])
 vim.api.nvim_command([[autocmd StdinReadPre * set buftype=nofile]])
 
+
 -- https://superuser.com/questions/299419/prevent-vim-from-clearing-the-clipboard-on-exit
 vim.api.nvim_command([[autocmd VimLeave * call system("xclip -selection clipboard -o | xclip -selection clipboard")]])
 
@@ -29,6 +30,19 @@ vim.api.nvim_command([[autocmd VimLeave * call system("xclip -selection clipboar
 --   pattern = { "*.md" },
 --   command = [[%s/\s\+$//e]],
 -- })
+--
+
+ vim.api.nvim_command([[autocmd BufWritePre * lua
+  vim.api.nvim_buf_set_option(0, 'eol', true)]])
+
+ vim.cmd([[
+ function! CleanExtraSpaces()
+    let l:current_view = winsaveview()
+    keeppatterns %s/\v\s+$\ze(\n\%$)//e
+    call winrestview(l:current_view)
+  endfunction
+  autocmd BufWritePre * :call CleanExtraSpaces()
+]])
 
 vim.api.nvim_command([[autocmd BufWritePre *.js :%s/\s\+\ze\($\|\n\)//e]])
 vim.api.nvim_command([[autocmd BufWritePre *.hbs :%s/\s\+\ze\($\|\n\)//e]])
