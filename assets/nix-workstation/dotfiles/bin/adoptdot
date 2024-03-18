@@ -1,0 +1,37 @@
+#!/bin/bash
+
+if [[ $# -lt 1 ]];
+then
+  echo "not enough args"
+  exit 1
+fi
+
+full_path=$(readlink -f "$1")
+full_dir=$(dirname "$full_path")
+base=$(basename $1)
+
+dotfile_dir=$(readlink -f $HOME/infra/assets/nix-workstation/dotfiles)
+
+intermediate_path=${full_dir/$HOME/''}
+
+dotfile_path="$dotfile_dir$intermediate_path/$base"
+
+echo 'intermediate_path'
+echo $intermediate_path
+echo ''
+echo 'dotfile dir'
+echo $dotfile_dir
+echo ''
+echo 'dotfile path'
+echo $dotfile_path
+echo ''
+
+echo "mkdir -p $dotfile_dir$intermediate_path"
+mkdir -p "$dotfile_dir$intermediate_path"
+
+echo "cp $full_path $dotfile_path"
+cp "$full_path" "$dotfile_path"
+
+
+echo "ln -sf $dotfile_path $full_path"
+ln -sf "$dotfile_path" "$full_path"

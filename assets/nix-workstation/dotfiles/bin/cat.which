@@ -1,0 +1,12 @@
+#!/bin/zsh
+
+if [ $# -eq 0 ]; then
+  file=$(binlist | fzf --height=50% --layout=reverse --preview='bat --color=always {}' --preview-window=:hidden)
+  if [ -n "$file" ]; then
+    bat --theme gruvbox-dark $(which "$file")
+  else
+    echo "No file selected"
+  fi
+else
+  bat --theme gruvbox-dark "$(which "$1")"
+fi

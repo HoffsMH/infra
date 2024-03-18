@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+  file=$(binlist | fzf --height=50% --layout=reverse --preview='bat --color=always {}' --preview-window=:hidden)
+  if [ -n "$file" ]; then
+    nvim $(which "$file")
+  else
+    echo "No file selected"
+  fi
+else
+  nvim "$(which "$1")"
+fi
