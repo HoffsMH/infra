@@ -10,6 +10,9 @@ eval "$(starship init zsh)"
 
 eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 
+source "$(fd autopair.zsh /run/current-system/sw -L)"
+source "$(fd 'fast-syntax-highlighting.plugin.zsh' /run/current-system -L)"
+
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 pfetch

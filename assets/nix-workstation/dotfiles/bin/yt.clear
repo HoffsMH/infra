@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export ytgo_template_location="$HOME/infra/assets/nix-workstation/samples/bin/ytgo"
+export ytgo_location="$HOME/bin/ytgo"
+
+trm $ytgo_location
+cp -f $ytgo_template_location $ytgo_location

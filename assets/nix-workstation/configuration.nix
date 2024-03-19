@@ -10,16 +10,18 @@
       /etc/nixos/hardware-configuration.nix
     ];
 
+  nix = {
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "danube"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -88,12 +90,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -169,7 +165,8 @@
   syncthing
   samba
   # gnome.gnome-tweaks
-
+  yt-dlp
+  htop
 
   fd
   bat
@@ -181,15 +178,39 @@
   dogdns
   input-remapper
   pfetch
+  btop
+  zsh-autopair
+  zsh-fast-syntax-highlighting
+  manix
+  # xremap
 
   ];
+
+  fonts.packages = with pkgs; [
+    nerdfonts
+    fira
+  ];
+
+  fonts.fontconfig = {
+    defaultFonts = {
+      # serif = [ "Vazirmatn" "Ubuntu" ];
+      sansSerif = [ "Fira Sans" ];
+      monospace = [ "BlexMono" ];
+    };
+  };
 
   environment.shellInit = ''
     gpg-connect-agent /bye
     export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
     export SHELL=$(which zsh)
     export NIXPKGS_ALLOW_INSECURE=1
+    export CAP_FILE="$HOME/personal/00-cap-md/cap.md"
+    export CAP_DIR="$HOME/personal/00-cap-md/"
   '';
+
+  # environment.variables = {
+  #   CAP_FILE =
+  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
