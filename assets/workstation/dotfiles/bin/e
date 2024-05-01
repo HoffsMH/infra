@@ -1,8 +1,0 @@
-#!/bin/zsh
-
-x=$(tmux display-message -p '#W')
-
-tmux rename-window nvim
-nvim $@
-tmux rename-window $x
-

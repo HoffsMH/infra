@@ -1,0 +1,20 @@
+#!/bin/zsh
+
+FILE_PATH="/tmp/kitty"
+
+[[ -p $FILE_PATH ]] || touch $FILE_PATH
+
+~/go/bin/binlist > $FILE_PATH
+
+kitty -c ~/.config/kitty/kitty-menu.conf --class=kitty-menu ~/bin/tmp-fzf
+
+cmd=$(cat $FILE_PATH)
+
+rm $FILE_PATH
+
+if [[ "$cmd" =~ \;$ ]]; then
+  kitty --class=kitty-popup zshc $cmd
+else
+  "$cmd"
+fi
+

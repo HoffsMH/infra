@@ -1,5 +1,0 @@
-#!/usr/bin/bash
-
-run=$(print-history | tac | dmenu)
-
-exec $run

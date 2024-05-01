@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -e
+
+# Default number of files to show
+flagN=10
+
+# Set the default directory for CAP_DIR using the first script argument or an existing value
+if [[ -n "$1" ]]; then
+    CAP_DIR="$HOME/personal/00-cap-md/$1/"
+else
+    CAP_DIR=${CAP_DIR:-"~/personal/00-cap-md/"}
+fi
+
+# Sync cap file if it exists
+if [ -f "$CAP_FILE" ]; then
+  ~/bin/cap.sync
+fi
+
+# Find the 10 most recent Markdown files in CAP_DIR
+pushd "$CAP_DIR" > /dev/null
+file_list=$(fd ".**\.md$" --regex -tf --base-directory="$CAP_DIR" --max-depth=1 | tail -n "$flagN")
+popd > /dev/null
+
+# Process the file list
+while IFS= read -r file; do
+  echo "$file" | hcat "$CAP_DIR" >> "$CAP_FILE"
+done <<< "$file_list"
+
+~/bin/nvim.cap

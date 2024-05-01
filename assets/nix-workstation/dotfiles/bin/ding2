@@ -8,6 +8,6 @@ echo "$ding"
 
 for i in $(seq $count);
 do
-  mpv --player-operation-mode=pseudo-gui "$ding" --volume=130
+  mpv "$ding" --volume=130 > /dev/null 2>&1
 done
 

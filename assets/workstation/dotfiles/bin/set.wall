@@ -1,8 +1,0 @@
-#!/bin/bash
-
-if [ $# -gt 0 ];
-then
-  cp "$@" "$HOME/infra/assets/workstation/dotfiles/.wall.jpg"
-fi
-
-xwallpaper --zoom ~/.wall.jpg --zoom ~/.wall.jpg --zoom ~/.wall.jpg

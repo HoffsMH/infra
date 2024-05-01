@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+
+FILE_PATH="/tmp/kitty"
+input_source="file"  # Default input source
+
+# Check if data is being piped into stdin
+if read -t 0; then
+    # If stdin has data, read from stdin
+    selection=$(fpf --layout=reverse)
+    input_source="stdin"  # Set input source to stdin
+else
+    # If stdin is empty, check if the file exists and read from the file
+    if [[ -f "$FILE_PATH" ]]; then
+        selection=$(cat "$FILE_PATH" | fpf --layout=reverse)
+    else
+        echo "No input available from stdin and file not found."
+        exit 1
+    fi
+fi
+
+# Output handling based on the source of input
+if [[ "$input_source" == "stdin" ]]; then
+    # If the input was from stdin, just echo it out
+    echo "$selection"
+else
+    # If the input was from the file, write it back to the file
+    echo "$selection" > "$FILE_PATH"
+fi
+
+
+

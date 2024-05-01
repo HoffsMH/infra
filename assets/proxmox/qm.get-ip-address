@@ -1,3 +1,0 @@
-#!/bin/bash
-
-qm guest cmd $1 network-get-interfaces | jq '.[1]["ip-addresses"][0]["ip-address"]'

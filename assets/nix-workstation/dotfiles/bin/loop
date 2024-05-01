@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Function to handle SIGINT (Ctrl+C)
+handle_sigint() {
+    echo "Interrupt received, stopping..."
+    exit 0
+}
+
+# Trap SIGINT and call handle_sigint when received
+trap handle_sigint SIGINT
+
+# Check if at least one argument is provided
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <command> [arguments...]"
+    exit 1
+fi
+
+# Loop indefinitely until Ctrl+C is pressed
+while true; do
+    "$@"
+done
+

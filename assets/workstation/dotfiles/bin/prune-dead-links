@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if [[ $# -lt 1 ]];
-then
-  echo "not enough args"
-  exit 1
-fi
-
-find -L $1 -name $1 -o -type d -prune -o -type l -exec rm {} +

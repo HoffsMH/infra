@@ -1,6 +1,0 @@
-#!/bin/bash
-
-sudo ntpd -qg
-sudo timedatectl set-timezone "America/Chicago"
-# sudo timedatectl set-timezone "America/New_York"
-sudo hwclock -w
