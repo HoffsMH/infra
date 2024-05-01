@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Attempt to get a file selection via 'fif'
+selection=$(fif ~/personal/00-cap-md/clip)
+
+# Exit if 'fif' returns an empty selection
+if [[ -z "$selection" ]]; then
+    echo "No selection made."
+    exit 1
+fi
+
+# Check if the selected file exists
+if [[ ! -f "$selection" ]]; then
+    echo "Selected file does not exist."
+    exit 1
+fi
+
+# Define the command to use on the file
+cmd=clip
+
+# Process the selected file
+{
+    exec >> /dev/null 2>&1
+    set -x
+    cat "$selection" | if ! $cmd; then
+        ret=$?
+        printf '%s\n' "Command failed with exit code $ret"
+        exit $ret
+    fi
+}
+

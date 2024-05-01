@@ -13,49 +13,27 @@ echo "YAY MINIMAL"
 echo "###############################################"
 
 installs=(
-    "acpi" # battery monitor
-    "acpid"
-    "ansible" # cfm
     "arandr" # arranging screens and saving screen configs
     "autoconf" # automatically rearrange screens when plugging in monitors
     "autorandr" # automatically rearrange screens when plugging in monitors
-    "awesome-git" # wm
-    "axel" # downloader
-    "bat" # alternative cat
-    "bc"
-    "brave-bin" # browser
-    "clamav" # anti-virus
-    "cpupower" # needed to reduce power consumption and heat generation see zprofile
+
     "cronie" # cront implementation that includes anacron
     "direnv" # env var management
     "dnsutils" # dig
     "dunst" # notifications
-    "entr" # useful little thing
-    "eza" # alternative to ls
-    "fd" # alternative to find
-    "fzf" # cli fuzzy finder
-    "gfold-git" # see git repo status across many repos
-    "git-delta" # diff viewer
-    "git-lfs"
     "gnutls"
-    "gruvbox-dark-gtk" # my gtk theme
-    "gruvbox-material-gtk-theme-git" # just for the icons
-    "htop" # system process monitor
     "inotify-tools"
-    "iptables-nft" # docker compose will try to use an option on the legacy version of iptables that no longer exists
     "jq" # command line json parser
     "kitty"
     "libinput" # synaptics
     "libratbag" # gaming mice configuration
     "light" # backlight and keyboard like control for laptops
-    "manjaro-settings-samba"
     "mediainfo"
     "ncurses5-compat-libs"
     "neovim"
     "net-tools" # for netstat
     "ntp"
     "openssh"
-    "p7zip" # 7z
     "pfetch" # simple screen fetch
     "pinentry-dispatch"
     "pinentry-git"
@@ -65,28 +43,16 @@ installs=(
     "pulsemixer" # mixer and volume control
     "resolvconf"
     "restic" # remote backup
-    "ripgrep"
-    "samba"
     "sshpass"
     "stalonetray"
-    "starship" # fast terminal prompt
-    "sxhkd"
-    "syncthing"
-    "sysstat" # pidstat cifsiostat iostat
     "thunar"
     # "tlp" # plug and play battery saving
     # "tlpui" # plug and play battery saving
-    "tmux" # lovehate this
-    "tokei" # count lines of code
     "udisks2" # personal drive mounting system that doesn't require sudo
-    "unzip"
-    "w3m" # cli browser I want to learn one day
-    "wmctrl"
     "xcape"
     "xclip" # clipboard command interface
     "xcursor-breeze"
     "xdotool"
-    "xh" # alternative curl
     "xorg-font-util"
     "xorg-fonts-encodings"
     "xorg-server"
@@ -94,13 +60,8 @@ installs=(
     "xorg-xev" # x event
     "xorg-xinit"
     "xorg-xinput" # adjusting touchpad settings
-    "xorg-xsetroot"
-    "xwallpaper" # set the wall paper
-    "yubikey-manager"
     "zip"
-    "zoxide" # fuzzy finder cd
     "zstd" # facebooks compression
-    "atuin" # shell history manager
 )
 
 sudo pacman -Syu

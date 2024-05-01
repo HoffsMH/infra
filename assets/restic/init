@@ -1,6 +1,0 @@
-#!/bin/bash
-
-source /infra/assets/restic/.env
-
-restic init --verbose \
-  -r $RESTIC_REPOSITORY | tee -a /var/log/restic/log

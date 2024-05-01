@@ -1,6 +1,0 @@
-#!/bin/bash
-
-source ~/.envrc
-
-mods --continue $(date-str) -m 4 $@
-

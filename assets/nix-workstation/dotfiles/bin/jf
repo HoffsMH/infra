@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+	lf "$@"
+else
+	OPENER=~/bin/linkhandler lf $@ 3>&-
+fi

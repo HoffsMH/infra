@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# File to check and link source/destination
+link_source="$HOME/infra/assets/nix-workstation/configuration.nix"
+link_destination="/etc/nixos/configuration.nix"
+
+# Check if 'luks' is in the file
+if grep -q 'luks' "$link_destination"; then
+    echo "Warning: 'luks' found in $link_destination. Exiting early."
+    echo "copy the luks line to hardware configuration"
+    exit 1
+else
+    # Force create a symbolic link
+    sudo ln -sf "$link_source" "$link_destination"
+    echo "Link created from $link_source to $link_destination."
+fi
