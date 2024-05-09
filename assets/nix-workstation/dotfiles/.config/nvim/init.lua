@@ -514,6 +514,25 @@ require('lazy').setup({
             '--ignore-file',
             '.gitignore',
           },
+
+          mappings = {
+            i ={
+              ["<C-w>"] = function(prompt_bufnr)
+                require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
+              end,
+
+              ["<C-e>"] = function(prompt_bufnr)
+                require("telescope.actions").smart_add_to_qflist(prompt_bufnr)
+              end,
+              ["<C-Down>"] = function(prompt_bufnr)
+                require('telescope.actions').cycle_history_next(prompt_bufnr)
+              end,
+
+              ["<C-Up>"] = function(prompt_bufnr)
+                require('telescope.actions').cycle_history_prev(prompt_bufnr)
+              end,
+            },
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -542,6 +561,14 @@ require('lazy').setup({
       nnoremap('<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       nnoremap('<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       nnoremap('<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+      nnoremap('<leader>qf', builtin.quickfix, { desc = 'quickfix' })
+      nnoremap('<leader>qh', builtin.quickfixhistory, { desc = 'quickfix history' })
+      nnoremap('<leader>qn', function() vim.api.nvim_command('cnext')  end, { desc = 'quickfix next' })
+      nnoremap('<leader>qb', function() vim.api.nvim_command('cprev')  end, { desc = 'quickfix next' })
+
+      -- { "<leader>qn", function() vim.api.nvim_command('cnext')  end, desc = "quickfix next" },
+      -- { "<leader>qb", function() vim.api.nvim_command('cprev')  end, desc = "quickfix prev" },
 
       -- Slightly advanced example of overriding default behavior and theme
       nnoremap('<leader>/', function()
