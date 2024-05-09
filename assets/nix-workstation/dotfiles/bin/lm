@@ -1,14 +1,21 @@
 #!/bin/zsh
 
 FILE_PATH="/tmp/kitty"
+HIST_FILE="$HOME/.menu-history"
 
 [[ -p $FILE_PATH ]] || touch $FILE_PATH
 
-~/go/bin/binlist > $FILE_PATH
+cat $HIST_FILE | dedup > $FILE_PATH
+~/go/bin/binlist >> $FILE_PATH
 
 kitty -c ~/.config/kitty/kitty-menu.conf --class=kitty-menu ~/bin/tmp-fzf
 
 cmd=$(cat $FILE_PATH)
+
+temp_file=$(mktemp)
+echo "$cmd" > $temp_file
+cat $HIST_FILE >> $temp_file
+mv $temp_file $HIST_FILE
 
 rm $FILE_PATH
 
