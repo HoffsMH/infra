@@ -4,13 +4,13 @@
 dir="$HOME/personal/00-cap-md/clip"
 
 # Get clipboard data
-clipped_data=$(uclip)
+clipped_data=$($HOME/bin/uclip)
 
 # Get sha256 sum
 shasum=$(echo -n "$clipped_data" | sha256sum | awk '{print $1}')
 
 # Get current date
-date=$(iso-str)
+date=$($HOME/bin/iso-str)
 
 # Generate filename
 filename="${date}-${shasum}.md"
