@@ -5,8 +5,12 @@ HIST_FILE="$HOME/.menu-history"
 
 [[ -p $FILE_PATH ]] || touch $FILE_PATH
 
-cat $HIST_FILE | dedup > $FILE_PATH
-~/go/bin/binlist >> $FILE_PATH
+ITEMS=$(mktemp)
+
+cat $HIST_FILE > $ITEMS
+~/go/bin/binlist >> $ITEMS
+
+cat $ITEMS | dedup > $FILE_PATH
 
 kitty -c ~/.config/kitty/kitty-menu.conf --class=kitty-menu ~/bin/tmp-fzf
 
