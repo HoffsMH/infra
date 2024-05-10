@@ -11,7 +11,7 @@ cat $HIST_FILE > $ITEMS
 
 eval "$(atuin init zsh)"
 
-atuin history list | tac | awk '{for (i=3; i<=NF; i++) printf "%s ", $i; print ";"}' | awk '{gsub(/[0-9]+ms/, ""); print $0}' >> $ITEMS
+atuin history list | tac | awk '{for (i=3; i<=NF; i++) printf "%s ", $i; print ";"}' | awk '{gsub(/[0-9]+(ms|s|m)/, ""); print $0}' >> $ITEMS
 
 ~/go/bin/binlist >> $ITEMS
 
