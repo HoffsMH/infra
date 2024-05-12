@@ -242,13 +242,9 @@ alias ya='yarn'
 # alias gpg-import-my-key='curl mhkr.xyz/key.pub | gpg --import'
 #
 # alias addoath="ykman oath add -t $1 $(xclip -o)"
-##
-# ######################################################
-# # Restic and backup stuff
-# ######################################################
-#
-# alias udm="udisksctl mount -b"
-# alias udum="udisksctl unmount -b"
+
+alias udm="udisksctl mount -b"
+alias udum="udisksctl unmount -b"
 #
 # ######################################################
 # # PASS
