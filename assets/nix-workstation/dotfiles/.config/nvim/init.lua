@@ -107,6 +107,7 @@ vim.opt.number = true
 vim.opt.eol = false
 vim.opt.fixeol = false
 vim.opt.fixendofline = false
+vim.opt.swapfile = false
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
