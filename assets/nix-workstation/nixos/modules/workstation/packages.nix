@@ -85,6 +85,7 @@
       grim
       slurp
       swappy
+      xdg-desktop-portal-hyprland
       nwg-look
       hyprcursor
       yt-dlp
