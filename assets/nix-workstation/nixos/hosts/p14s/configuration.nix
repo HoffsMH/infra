@@ -40,6 +40,7 @@ in
         devices = {
           "pixel" = { id = "CYNFWDD-VM6L4E3-PWXXSU3-Q57ABXS-LRNPX24-S4GYGMC-66RSISQ-DN2KWAT"; };
           "old-laptop" = { id = "RB7GILS-Y2WUKW4-PSZGYFS-XVXTJGV-FGMUE4J-M5JFN5R-2V2F4GP-FZQDVAO"; };
+          "lexi-phone" = { id = "SFC6HWI-V2WDT70-T765LFQ-HGH6UGB-GVHZNSB-QWYRJGR-SL4DJTA-V6APEQW"; };
         };
         folders = {
           ".password-store" = {
@@ -60,7 +61,7 @@ in
           };
           "shares/lexi-matt" = {
             path = "/home/hoffs/personal/shares/lexi-matt";
-            devices = [ "old-laptop" ];
+            devices = [ "old-laptop" "lexi-phone" ];
           };
           "reference" = {
             path = "/home/hoffs/personal/reference";
