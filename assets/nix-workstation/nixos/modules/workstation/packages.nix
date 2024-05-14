@@ -20,7 +20,6 @@
       starship
       wl-clipboard
       xclip
-      # inputs.nixpkgs-stable.wl-clipboard
       zoxide
       brave
       google-chrome
@@ -36,7 +35,6 @@
       ripgrep
       gcc
       gnumake
-      kitty
       unzip
       lua
       gopass
@@ -47,6 +45,8 @@
       samba
       yt-dlp
       htop
+      foot
+      chafa
 
       fd
       bat

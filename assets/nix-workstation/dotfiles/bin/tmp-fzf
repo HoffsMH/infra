@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-FILE_PATH="/tmp/kitty"
+FILE_PATH="/tmp/term"
 input_source="file"  # Default input source
 
 # Check if data is being piped into stdin

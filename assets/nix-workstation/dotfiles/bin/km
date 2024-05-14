@@ -1,16 +1,16 @@
 #!/bin/zsh
 
-FILE_PATH="/tmp/kitty"
+FILE_PATH="/tmp/term"
 
 [[ -p $FILE_PATH ]] || touch $FILE_PATH
 
 ~/go/bin/binlist > $FILE_PATH
 
-kitty -c ~/.config/kitty/kitty-menu.conf --class=kitty-menu ~/bin/tmp-fzf
+foot -c $HOME/.config/foot/menu.ini -a=term-menu ~/bin/tmp-fzf
 
 cmd=$(cat $FILE_PATH)
 
 rm $FILE_PATH
 
-kitty --class=kitty-popup zshc $cmd
+foot -a=term-popup zshc $cmd
 

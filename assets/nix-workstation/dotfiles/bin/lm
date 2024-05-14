@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-FILE_PATH="/tmp/kitty"
+FILE_PATH="/tmp/term"
 HIST_FILE="$HOME/.menu-history"
 
 [[ -p $FILE_PATH ]] || touch $FILE_PATH
@@ -9,27 +9,27 @@ ITEMS=$(mktemp)
 
 cat $HIST_FILE > $ITEMS
 
-eval "$(atuin init zsh)"
-
-atuin history list | tac | awk '{for (i=3; i<=NF; i++) printf "%s ", $i; print ";"}' | awk '{gsub(/[0-9]+(ms|s|m)/, ""); print $0}' >> $ITEMS
-
 ~/go/bin/binlist >> $ITEMS
 
-cat $ITEMS | dedup > $FILE_PATH
+cat $ITEMS | dedup  > $FILE_PATH
 
-kitty -c ~/.config/kitty/kitty-menu.conf --class=kitty-menu ~/bin/tmp-fzf
+echo "hi"
+echo "$(cat $ITEMS)"
+
+# foot -a=term-menu $HOME/bin/tmp-fzf
+foot  -c $HOME/.config/foot/menu.ini -a=term-menu $HOME/bin/tmp-fzf
 
 cmd=$(cat $FILE_PATH)
 
 temp_file=$(mktemp)
 echo "$cmd" > $temp_file
-cat $HIST_FILE >> $temp_file
+cat $HIST_FILE | dedup >> $temp_file
 mv $temp_file $HIST_FILE
 
 rm $FILE_PATH
 
 if [[ "$cmd" =~ \;$ ]]; then
-  kitty --class=kitty-popup zshc $cmd
+  foot -a=term-popup zshc $cmd
 else
   "$cmd"
 fi

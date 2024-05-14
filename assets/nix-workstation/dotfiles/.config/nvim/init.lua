@@ -281,7 +281,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 
   'andymass/vim-matchup',
-  -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
+  {
+    'windwp/nvim-autopairs',
+    opts = {}
+  },
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
   {
