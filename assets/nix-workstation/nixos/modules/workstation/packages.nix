@@ -70,7 +70,6 @@
       p7zip
       lf
       timer
-      dunst
       swww
       rofi
       wofi
