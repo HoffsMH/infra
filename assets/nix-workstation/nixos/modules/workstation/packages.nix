@@ -21,7 +21,6 @@
       wl-clipboard
       xclip
       zoxide
-      brave
       google-chrome
       gnupg
       neovim

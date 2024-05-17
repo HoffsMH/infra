@@ -205,7 +205,6 @@ in
     xclip
     # inputs.nixpkgs-stable.wl-clipboard
     zoxide
-    brave
     google-chrome
     gnupg
     neovim

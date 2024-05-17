@@ -5,6 +5,6 @@ then
   cp "$@" "$HOME/infra/assets/workstation/dotfiles/.wall.jpg"
 fi
 
-swww init &
+swww-daemon &
 
 swww img ~/.wall.jpg
