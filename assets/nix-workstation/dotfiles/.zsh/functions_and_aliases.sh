@@ -113,7 +113,7 @@ gdn() {
 #
 # # finds text across all commits, be careful when searching to not use common terms
 # # useful for searching for code that you knew existed at one point
-# gsearch() { git log -S$1 -p }
+gsearch() { git log -S$1 -p }
 #
 gpoc() { git pull origin $(g.bn) --rebase }
 #
