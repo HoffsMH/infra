@@ -4,11 +4,7 @@
 [core]
   editor = "nvim"
   excludesfile = ~/.gitignore_global
-[pager]
-    diff = delta --syntax-theme=gruvbox-dark
-    log = delta  --syntax-theme=gruvbox-dark
-    reflog = delta  --syntax-theme=gruvbox-dark
-    show = delta  --syntax-theme=gruvbox-dark
+  pager = delta
 
 [interactive]
     diffFilter = delta -s --color-only --features=interactive
@@ -21,3 +17,16 @@
 	allow = always
 [safe]
     directory = *
+
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = false
+    line-numbers = true
+    syntax-theme = gruvbox-dark
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
