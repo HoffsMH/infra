@@ -51,6 +51,9 @@
               CapsLock-l = "right";
               VolumeUp = { launch = ["/run/current-system/sw/bin/wpctl" "set-volume" "@DEFAULT_SINK@" "5%+"]; };
               VolumeDown = { launch = ["/run/current-system/sw/bin/wpctl" "set-volume" "@DEFAULT_SINK@" "5%-"]; };
+
+              XREL_Z_AXIS_1 = "BTN_MIDDLE";
+              XREL_Z_AXIS_2 = "BTN_MIDDLE";
             };
           }
         ];
