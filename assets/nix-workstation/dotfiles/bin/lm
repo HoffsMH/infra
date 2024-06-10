@@ -30,7 +30,10 @@ rm $FILE_PATH
 
 if [[ "$cmd" =~ \;$ ]]; then
   foot -a=term-popup zshc $cmd
+elif [[ "$cmd" =~ '\.$' ]]; then
+  cmd=${cmd%.}
+  zshc "$cmd"
 else
-  "$cmd"
+  zshc "$cmd"
 fi
 

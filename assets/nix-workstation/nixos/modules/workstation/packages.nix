@@ -46,6 +46,7 @@
       htop
       foot
       chafa
+      figlet
 
       fd
       bat

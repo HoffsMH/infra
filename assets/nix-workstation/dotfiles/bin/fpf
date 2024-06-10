@@ -13,6 +13,10 @@ selection=$(echo "$output" | sed -n '2p')
 if [[ "$query" =~ \;$ ]]; then
   # If query ends with a semicolon, use the query regardless of the selection
   selection="$query"
+
+elif [[ "$query" =~ \.$ ]]; then
+  # If query ends with a period, use the query regardless of the selection
+  selection="$query"
 elif [ -z "$selection" ]; then
   # If no selection made, fallback to the query
   selection="$query"
