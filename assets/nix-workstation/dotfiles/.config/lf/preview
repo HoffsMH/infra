@@ -10,9 +10,12 @@ image() {
 
     echo "$geometry"
     echo "$1"
+    echo "HELLO"
     # chafa "$1" -f sixel -s
-    chafa "$1" -f sixel -s "$geometry" --animate false
-    # exit 1
+    # chafa "$1" -f sixel -s "$geometry" --animate false
+    # chafa "$1" -f sixel -s "50x50"
+    chafa -f sixel -s "$2x$3" --animate off --polite on "$1"
+    exit 1
 }
 
 batorcat() {

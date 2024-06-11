@@ -103,6 +103,7 @@
       ctpv
       glow
       vial
+      via
 
       # keyboard events
       wev
