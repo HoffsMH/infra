@@ -132,8 +132,12 @@ end
 
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
 
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+--
+vim.opt.foldmethod = "indent"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
 vim.opt.foldlevel = 99
 vim.opt.foldlevelstart = 99
 vim.opt.foldnestmax = 4
@@ -294,13 +298,22 @@ require('lazy').setup({
     opts = {},
     -- stylua: ignore
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+      { "as", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      -- { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
   },
+
+
+  -- {
+  --   'ggandor/leap.nvim',
+  --   config = function()
+  --     vim.keymap.set('n',        's', '<Plug>(leap)')
+  --   end,
+  -- },
+
   'onsails/lspkind-nvim',
 
   -- NOTE: Plugins can also be added by using a table,
@@ -1005,6 +1018,27 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      -- require('mini.jump').setup({
+      --   -- Module mappings. Use `''` (empty string) to disable one.
+      --   mappings = {
+      --     forward = 'f',
+      --     backward = 'F',
+      --     forward_till = 't',
+      --     backward_till = 'T',
+      --     repeat_jump = ';',
+      --   },
+      --
+      --   -- Delay values (in ms) for different functionalities. Set any of them to
+      --   -- a very big number (like 10^7) to virtually disable.
+      --   delay = {
+      --     -- Delay between jump and highlighting all possible jumps
+      --     highlight = 250,
+      --
+      --     -- Delay between jump and automatic stop if idle (no jump is done)
+      --     idle_stop = 10000000,
+      --   },
+      -- })
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
