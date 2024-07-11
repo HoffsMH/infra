@@ -29,6 +29,7 @@
       yubikey-manager
       fzf
       pinentry
+
       # pinentry-gnome
       pulsemixer
       ripgrep
@@ -46,8 +47,6 @@
       htop
       foot
       chafa
-      figlet
-
       fd
       bat
       eza
@@ -68,11 +67,9 @@
       mako
       qmk
       p7zip
-      lf
+      # lf
       timer
       swww
-      rofi
-      wofi
       kooha
       zoom-us
       acpi
@@ -87,7 +84,6 @@
       xdg-desktop-portal-hyprland
       nwg-look
       hyprcursor
-      yt-dlp
       ansible
       axel
       entr
@@ -100,10 +96,10 @@
       poppler_utils
       imagemagick
       file
-      ctpv
       glow
       vial
       via
+      epub-thumbnailer
 
       # keyboard events
       wev
