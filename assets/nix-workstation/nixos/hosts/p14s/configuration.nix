@@ -60,7 +60,7 @@ in
           };
           "shares/lexi-matt" = {
             path = "/home/hoffs/personal/shares/lexi-matt";
-            devices = [ "old-laptop" "lexi-phone" ];
+            devices = [ "old-laptop" "lexi-phone" "pixel" ];
           };
           "reference" = {
             path = "/home/hoffs/personal/reference";

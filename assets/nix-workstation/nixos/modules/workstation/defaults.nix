@@ -17,9 +17,6 @@
       LC_TIME = "en_US.UTF-8";
     };
 
-    hardware.bluetooth.enable = true; # enables support for Bluetooth
-    hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
     time.timeZone = "America/Chicago";
 
     nixpkgs.config = {

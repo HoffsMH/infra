@@ -7,6 +7,7 @@
       xkb.variant = "";
     };
 
+
     # keyboard
     hardware.keyboard.qmk.enable = true;
     hardware.uinput.enable = true;
@@ -33,6 +34,23 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+    };
+
+    # Bluetooth
+    hardware.bluetooth = {
+      powerOnBoot = true;
+      enable = true;
+      settings = {
+        General = {
+          FastConnectable = true;
+          Experimental = true;
+        };
+
+        Policy = {
+          AutoEnable = true;
+        };
+
+      };
     };
   };
 }
