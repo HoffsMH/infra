@@ -34,6 +34,14 @@
           inputs.home-manager.nixosModules.default
         ];
       };
+
+      closet = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./hosts/closet/configuration.nix
+          inputs.home-manager.nixosModules.default
+        ];
+      };
     };
   };
 }
