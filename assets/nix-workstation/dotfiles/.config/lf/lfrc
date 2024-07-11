@@ -8,6 +8,7 @@ set incsearch
 set mouse
 set icons
 set shell zsh
+set sixel true
 
 map L playfolder
 map <c-l> fzffolder
