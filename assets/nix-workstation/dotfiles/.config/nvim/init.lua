@@ -385,6 +385,11 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+    keys = {
+      { "<leader>gb", function() require("gitsigns").blame_line{ full=true } end, desc = "blame line" },
+      { "<leader>gbl", function() require("gitsigns").toggle_current_line_blame{ full=true } end, desc = "blame line" },
+      { "<leader>gl", function() require("gitsigns").toggle_current_line_blame{ full=true } end, desc = "blame line" },
+    },
   },
 
   { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
@@ -444,7 +449,9 @@ require('lazy').setup({
 
   {
     "chrisgrieser/nvim-early-retirement",
-    config = true,
+    config = {
+      minimumBufferNum = 6,
+    },
     event = "VeryLazy",
   },
 

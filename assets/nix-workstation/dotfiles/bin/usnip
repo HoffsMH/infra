@@ -19,13 +19,14 @@ fi
 cmd=clip
 
 # Process the selected file
-{
-    exec >> /dev/null 2>&1
-    set -x
-    cat "$selection" | if ! $cmd; then
-        ret=$?
-        printf '%s\n' "Command failed with exit code $ret"
-        exit $ret
-    fi
-}
+# {
+#     exec >> /dev/null 2>&1
+#     set -x
+#     cat "$selection" | if ! $cmd; then
+#         ret=$?
+#         printf '%s\n' "Command failed with exit code $ret"
+#         exit $ret
+#     fi
+# }
 
+nvim $selection

@@ -105,7 +105,7 @@
       wev
       xorg.xev
       sqlite
-      yt-dlp 
+      gource
     ];
 
     fonts.packages = with pkgs; [
