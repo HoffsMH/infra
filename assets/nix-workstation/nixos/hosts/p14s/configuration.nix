@@ -24,7 +24,7 @@ in
     ];
 
   networking.hostName = "p14s"; # Define your hostname.
-  xremap.withHypr = true;
+  xremap.withWlroots = true;
   main-user.enable = true;
   main-user.userName = userName;
 
@@ -86,6 +86,6 @@ in
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "24.05"; # Did you read the comment?
 
 }

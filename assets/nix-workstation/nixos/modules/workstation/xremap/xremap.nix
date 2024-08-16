@@ -3,7 +3,7 @@
 
   options = {
     xremap.withGnome = lib.mkEnableOption "with gnome";
-    xremap.withHypr = lib.mkEnableOption "with hypr";
+    xremap.withWlroots = lib.mkEnableOption "with Wlroots";
     xremap.userName = lib.mkOption {
       default = "hoffs";
       description = "user name";
@@ -14,7 +14,7 @@
     services.xremap = {
       debug = true;
       withGnome = config.xremap.withGnome;
-      withHypr = config.xremap.withHypr;
+      withWlroots = config.xremap.withWlroots;
       watch = true;
       serviceMode = "system";
       userName = "${config.xremap.userName}";

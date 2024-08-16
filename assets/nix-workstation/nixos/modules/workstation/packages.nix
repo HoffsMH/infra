@@ -1,4 +1,7 @@
-{ config, pkgs, ...}:
+{ config, pkgs, inputs, ...}:
+let
+  nixpkgsStable = import inputs.nixpkgs-stable { inherit (pkgs) system; };
+in
 {
   config = {
 
@@ -14,7 +17,12 @@
       docker
       docker-compose
       google-cloud-sdk
-      delta
+
+      # delta
+      # inputs.nixpkgs-stable.packages.${pkgs.system}.delta
+
+      nixpkgsStable.delta
+
       direnv
       lazygit
       starship

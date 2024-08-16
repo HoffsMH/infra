@@ -1,0 +1,14 @@
+#!/bin/zsh
+
+# Get the first argument
+arg1=$1
+
+# Get the second argument or default to a date that is approximately one month ago
+if [ -z "$2" ]; then
+  date_str=$(date -d "1 month ago" "+%Y-%m-%d")
+else
+  date_str=$2
+fi
+
+# Run the gource command with the arguments
+$(gource --log-command git) -- "$arg1" | gource --path - --log-format git --start-date "$date_str"

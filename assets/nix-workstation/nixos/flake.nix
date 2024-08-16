@@ -3,9 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # hyprland.url = "git+https://github.com/hyprwm/Hyprland/tree/v0.40.0?submodules=1";
 
-    hyprland.url = "github:hyprwm/Hyprland/v0.40.0?submodules=1";
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland?ref=v0.42.0";
+      submodules = true;
+    };
 
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
