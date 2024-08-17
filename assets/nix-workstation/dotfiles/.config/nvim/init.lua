@@ -298,7 +298,7 @@ require('lazy').setup({
     opts = {},
     -- stylua: ignore
     keys = {
-      { "as", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "<leader>as", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       -- { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
       -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
       -- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
@@ -633,7 +633,7 @@ require('lazy').setup({
       nnoremap('<leader>qf', builtin.quickfix, { desc = 'quickfix' })
       nnoremap('<leader>qh', builtin.quickfixhistory, { desc = 'quickfix history' })
       nnoremap('<leader>qn', function() vim.api.nvim_command('cnext')  end, { desc = 'quickfix next' })
-      nnoremap('<leader>qb', function() vim.api.nvim_command('cprev')  end, { desc = 'quickfix next' })
+      nnoremap('<leader>qb', function() vim.api.nvim_command('cprev')  end, { desc = 'quickfix prev' })
 
       -- { "<leader>qn", function() vim.api.nvim_command('cnext')  end, desc = "quickfix next" },
       -- { "<leader>qb", function() vim.api.nvim_command('cprev')  end, desc = "quickfix prev" },
