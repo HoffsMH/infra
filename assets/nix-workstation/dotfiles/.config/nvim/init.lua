@@ -450,7 +450,7 @@ require('lazy').setup({
   {
     "chrisgrieser/nvim-early-retirement",
     config = {
-      minimumBufferNum = 6,
+      minimumBufferNum = 10,
     },
     event = "VeryLazy",
   },
