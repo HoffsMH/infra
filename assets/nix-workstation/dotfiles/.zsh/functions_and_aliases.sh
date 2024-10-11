@@ -1,14 +1,3 @@
-######################################################
-# manjaro
-######################################################
-
-# alias mirrors-f="sudo pacman-mirrors -f"
-# alias update-f="sudo pacman -Syyu --overwrite '*'"
-# alias keyring-f="sudo pacman -S manjaro-keyring"
-#
-# # sudo pacman-key --init
-# # sudo pacman-key --populate manjaro archlinux
-#
 # ######################################################
 # # zsh
 # ######################################################
@@ -108,7 +97,7 @@ alias gco="git checkout"
 alias gf="git fetch"
 #
 gdn() {
- git diff "HEAD~$1" $2 $3 $4
+ git diff "HEAD" "HEAD~$1" $2 $3 $4
 }
 #
 # # finds text across all commits, be careful when searching to not use common terms

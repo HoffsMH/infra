@@ -11,7 +11,7 @@ in
 
     environment.systemPackages = with pkgs; [
       firefox
-      git-branchless
+      nixpkgsStable.git-branchless
       slack
       atuin
       docker

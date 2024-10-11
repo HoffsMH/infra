@@ -1,6 +1,6 @@
 #!/bin/bash
 
-swww init &
+swww-daemon &
 
 swww img ~/.wall.jpg
 
