@@ -11,7 +11,6 @@ in
 
     environment.systemPackages = with pkgs; [
       firefox
-      nixpkgsStable.git-branchless
       slack
       atuin
       docker
@@ -22,6 +21,8 @@ in
       # inputs.nixpkgs-stable.packages.${pkgs.system}.delta
 
       nixpkgsStable.delta
+      nixpkgsStable.git-branchless
+      xcp
 
       direnv
       lazygit

@@ -159,6 +159,8 @@ nnoremap("<leader><S-d>", "<cmd>:call delete(expand('%')) | bdelete!<CR>")
 nnoremap("q:", "<Nop>")
 
 nnoremap('<Esc>', '<cmd>nohlsearch<CR>')
+nnoremap('<C-e>', 'viw')
+nnoremap('<C-y>', 'yiw')
 nnoremap('<leader>n', '<cmd>e #<cr>', { desc = 'goto last buffer' })
 
 nnoremap('[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -450,17 +452,9 @@ require('lazy').setup({
   {
     "chrisgrieser/nvim-early-retirement",
     config = {
-      minimumBufferNum = 10,
+      minimumBufferNum = 20,
     },
     event = "VeryLazy",
-  },
-
-  { 'terryma/vim-expand-region',
-    name = 'expand_region',
-    keys = {
-      { "<C-e>", "<Plug>(expand_region_expand)",  mode = "v"},
-      { "<C-e>", "<Plug>(expand_region_expand)", mode = "n"},
-    }
   },
 
   {
