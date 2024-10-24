@@ -26,6 +26,7 @@ in
 
       direnv
       lazygit
+      lazydocker
       starship
       wl-clipboard
       xclip
