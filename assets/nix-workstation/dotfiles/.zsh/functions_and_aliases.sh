@@ -97,7 +97,7 @@ alias gco="git checkout"
 alias gf="git fetch"
 #
 gdn() {
- git diff "HEAD" "HEAD~$1" $2 $3 $4
+ git diff "HEAD~$1" "HEAD" $2 $3 $4
 }
 #
 # # finds text across all commits, be careful when searching to not use common terms
@@ -248,3 +248,14 @@ fh() {
 #
 alias df="dust"
 alias du="duf"
+
+function edit_command {
+    local temp_file=$(mktemp)
+    echo "$BUFFER" > "$temp_file"
+    nvim "$temp_file"
+    BUFFER=$(<"$temp_file")
+    rm "$temp_file"
+    zle reset-prompt
+}
+
+zle -N edit_command

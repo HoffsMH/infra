@@ -181,6 +181,7 @@ nnoremap('<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 nnoremap('<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 nnoremap('<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+nnoremap('<leader>fd', ':Explore %:p:h<CR>', { desc = "Open file explorer in current buffer's directory" })
 
 nnoremap('<leader>b', '<cmd>:bufdo bwipeout<CR>', { desc = 'wipe out all current buffers (after checking out a different branch for instance)' })
 

@@ -16,4 +16,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 bindkey -e
 
+bindkey '^e' edit_command
+bindkey '^o' edit_last_output
+
 pfetch

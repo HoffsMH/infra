@@ -23,6 +23,8 @@ in
       nixpkgsStable.delta
       nixpkgsStable.git-branchless
       xcp
+      keymapp
+
 
       direnv
       lazygit

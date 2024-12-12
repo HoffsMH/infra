@@ -12,6 +12,12 @@ else
     CAP_DIR=${CAP_DIR:-"~/personal/00-cap-md/"}
 fi
 
+if [[ -n "$2" ]]; then
+    DEPTH="$2"
+else
+    DEPTH="1"
+fi
+
 # Sync cap file if it exists
 if [ -f "$CAP_FILE" ]; then
   ~/bin/cap.sync
@@ -19,7 +25,7 @@ fi
 
 # Find the 10 most recent Markdown files in CAP_DIR
 pushd "$CAP_DIR" > /dev/null
-file_list=$(fd ".**\.md$" --regex -tf --base-directory="$CAP_DIR" --max-depth=1 | tail -n "$flagN")
+  file_list=$(fd ".**\.md$" --regex -tf --base-directory="$CAP_DIR" --max-depth=1 | tail -n "$flagN")
 popd > /dev/null
 
 # Process the file list
