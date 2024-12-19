@@ -1,0 +1,32 @@
+[user]
+  name = HoffsMH
+  email = matthecker@pm.me
+[core]
+  editor = "nvim"
+  excludesfile = ~/.gitignore_global
+  pager = delta
+
+[interactive]
+    diffFilter = delta -s --color-only --features=interactive
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[protocol "file"]
+	allow = always
+[safe]
+    directory = *
+
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true    # use n and N to move between diff sections
+    light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    side-by-side = false
+    line-numbers = true
+    syntax-theme = gruvbox-dark
+[merge]
+    conflictstyle = diff3
+[diff]
+    colorMoved = default
