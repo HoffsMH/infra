@@ -1,0 +1,34 @@
+
+[gaps]
+inner.horizontal = 0
+inner.vertical =   0
+outer.left =       20
+outer.bottom =     20
+outer.top =        20
+outer.right =      20
+
+[mode.main.binding]
+cmd-alt-ctrl-j =         'focus --boundaries-action wrap-around-the-workspace left'
+cmd-alt-ctrl-k =         'focus --boundaries-action wrap-around-the-workspace right'
+
+cmd-alt-ctrl-q = 'workspace 1'
+cmd-alt-ctrl-w = 'workspace 2'
+cmd-alt-ctrl-e = 'workspace 3'
+cmd-alt-ctrl-r = 'workspace 4'
+
+cmd-alt-ctrl-shift-q = ['move-node-to-workspace 1', 'workspace 1']
+cmd-alt-ctrl-shift-w = ['move-node-to-workspace 2', 'workspace 2']
+cmd-alt-ctrl-shift-e = ['move-node-to-workspace 3', 'workspace 3']
+cmd-alt-ctrl-shift-r = ['move-node-to-workspace 4', 'workspace 4']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
+run = 'move-node-to-workspace 1'
+
+[[on-window-detected]]
+if.app-id = 'com.brave.browser'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.google.Chrome'
+run = 'move-node-to-workspace 2'
