@@ -1,7 +1,7 @@
 
 [gaps]
-inner.horizontal = 0
-inner.vertical =   0
+inner.horizontal = 20
+inner.vertical =   20
 outer.left =       20
 outer.bottom =     20
 outer.top =        20
@@ -10,6 +10,8 @@ outer.right =      20
 [mode.main.binding]
 cmd-alt-ctrl-j =         'focus --boundaries-action wrap-around-the-workspace left'
 cmd-alt-ctrl-k =         'focus --boundaries-action wrap-around-the-workspace right'
+cmd-alt-ctrl-p =         'layout h_accordion'
+cmd-alt-ctrl-t =         'layout h_tiles'
 
 cmd-alt-ctrl-q = 'workspace 1'
 cmd-alt-ctrl-w = 'workspace 2'
