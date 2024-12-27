@@ -83,7 +83,12 @@ vim.opt.hlsearch = true
 vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.* silent write]])
 
 nnoremap("<M-w>L", "<cmd>vs<cr>")
-nnoremap("<M-w>J", "<cmd>hs<cr>")
+nnoremap("<M-w>J", "<cmd>sp<cr>")
+
+nnoremap("<M-w>h", "<C-w>h")
+nnoremap("<M-w>j", "<C-w>j")
+nnoremap("<M-w>k", "<C-w>k")
+nnoremap("<M-w>l", "<C-w>l")
 
 -- yf will copy the path of the current file
 nnoremap("<leader>yfr", "<cmd>:let @+=expand('%')<CR>")
