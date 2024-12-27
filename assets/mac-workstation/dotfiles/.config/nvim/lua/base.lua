@@ -94,6 +94,7 @@ nnoremap("q:", "<Nop>")
 
 nnoremap("<M-d>", "<C-d>")
 vnoremap("<M-d>", "<C-d>")
+
 nnoremap("<M-u>", "<C-u>")
 vnoremap("<M-u>", "<C-u>")
 
@@ -128,7 +129,12 @@ return {
     'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
-    opts = {},
+    opts = {
+      view_options = {
+        show_hidden = true
+      }
+    },
+
     -- Optional dependencies
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
     -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
