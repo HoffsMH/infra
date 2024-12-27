@@ -175,10 +175,9 @@ random_key() {
 # ######################################################
 # # gpg
 # ######################################################
-#
-# gpgstart() {
-#   gpgconf --launch gpg-agent
-# }
+
+alias gpgstart="gpgconf --launch gpg-agent"
+
 #
 # alias gpg-reload-card='gpg-connect-agent "scd serialno" "learn --force" /bye'
 # alias gpg-import-my-key='curl mhkr.xyz/key.pub | gpg --import'
@@ -205,7 +204,7 @@ alias du="duf"
 function edit_command {
     local temp_file=$(mktemp)
     echo "$BUFFER" > "$temp_file"
-    nvim "$temp_file"
+    nvim "$temp_file" -u "$HOME/.config/nvim/lua/text-editor.lua"
     BUFFER=$(<"$temp_file")
     rm "$temp_file"
     zle reset-prompt
