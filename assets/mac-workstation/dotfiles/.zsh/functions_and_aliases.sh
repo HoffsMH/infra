@@ -176,7 +176,7 @@ random_key() {
 # # gpg
 # ######################################################
 
-alias gpgstart="gpgconf --launch gpg-agent"
+alias gpgstart="gpg-agent --daemon --pinentry-program=$(which pinentry-mac)"
 
 #
 # alias gpg-reload-card='gpg-connect-agent "scd serialno" "learn --force" /bye'
