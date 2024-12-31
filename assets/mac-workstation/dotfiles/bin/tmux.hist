@@ -4,6 +4,6 @@ f=$(mktemp)
 
 tmux capture-pane -pS -1000000 > $f
 
-nvim $f -c '$'
+nvim $f -c '$' -u $HOME/.config/nvim/lua/text-editor.lua
 
 rm $f

@@ -18,6 +18,11 @@ alias cat="bat --theme gruvbox-dark"
 alias dig="dog"
 # alias http="xh"
 alias yotpc="ykman oath accounts code"
+
+yotp() {
+    ykman oath accounts code "$1" | awk '{ print $2 }' | clip
+}
+
 alias yotpl="ykman oath accounts list"
 #
 # makes a generic tar.gz file for the given folder
