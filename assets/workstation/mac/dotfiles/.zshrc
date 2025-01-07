@@ -7,6 +7,23 @@ alias bbix="brew update &&\
 
 source "$HOME/.zsh/functions_and_aliases.sh"
 
+# export PATH=""
+export PATH=/bin:$PATH
+export PATH=/sbin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+
+# languages
+export PATH=$ASDF_DATA_DIR/shims:$PATH
+
+# openssl on path
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+
+
 eval "$(direnv hook zsh)"
 
 eval "$(starship init zsh)"
@@ -14,8 +31,6 @@ eval "$(starship init zsh)"
 eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
 
 eval "$(zoxide init zsh)"
-
-# source "$(fd autopair.zsh /run/current-system/sw -L)"
 
 source "$HOME/.zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 
