@@ -15,15 +15,4 @@ if [[ ! -f "$selection" ]]; then
     exit 1
 fi
 
-# Process the selected file
-# {
-#     exec >> /dev/null 2>&1
-#     set -x
-#     cat "$selection" | if ! $cmd; then
-#         ret=$?
-#         printf '%s\n' "Command failed with exit code $ret"
-#         exit $ret
-#     fi
-# }
-
 nvim $selection -u ~/.config/nvim/lua/text-editor.lua

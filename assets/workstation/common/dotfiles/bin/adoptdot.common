@@ -10,7 +10,7 @@ full_path=$(readlink -f "$1")
 full_dir=$(dirname "$full_path")
 base=$(basename $1)
 
-dotfile_dir=$(readlink -f $HOME/infra/assets/mac-workstation/dotfiles)
+dotfile_dir=$(readlink -f $HOME/infra/assets/workstation/common/dotfiles)
 
 intermediate_path=${full_dir/$HOME/''}
 
