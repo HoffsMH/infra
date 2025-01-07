@@ -209,7 +209,8 @@ alias du="duf"
 function edit_command {
     local temp_file=$(mktemp)
     echo "$BUFFER" > "$temp_file"
-    nvim "$temp_file" -u "$HOME/.config/nvim/lua/text-editor.lua"
+    nvim "$temp_file" -u "$HOME/.config/nvim/lua/base.lua"
+
     BUFFER=$(<"$temp_file")
     rm "$temp_file"
     zle reset-prompt
