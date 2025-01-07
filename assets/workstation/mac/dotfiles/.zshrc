@@ -45,8 +45,6 @@ export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.asdf/shims:$PATH
 export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 
-pfetch
-
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/matt/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/matt/.config/google-cloud-sdk/path.zsh.inc'; fi

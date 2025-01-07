@@ -1,0 +1,17 @@
+# The syntax is "key = value". The whitespace around the
+# equals doesn't matter.
+# background = ffffff
+# foreground = ffffff
+
+# Comments start with a `#` and are only valid on their own line.
+# Blank lines are ignored!
+
+# keybind = cmd+f=ignore
+# keybind = cmd+f=esc:\x1bf
+#
+keybind = unconsumed:cmd+f=text:\x1b
+
+keybind = global:cmd+grave_accent=toggle_quick_terminal
+
+# Empty values reset the configuration to the default value
+font-family =
