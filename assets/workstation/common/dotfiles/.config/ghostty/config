@@ -10,8 +10,11 @@
 # keybind = cmd+f=esc:\x1bf
 #
 keybind = unconsumed:cmd+f=text:\x1b
+keybind = cmd+d=text:\x1bd
+keybind = cmd+u=text:\x1bu
 
 keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # Empty values reset the configuration to the default value
 font-family =
+theme = GruvboxDark
