@@ -131,24 +131,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 return {
   {
-    'stevearc/oil.nvim',
-    ---@module 'oil'
-    ---@type oil.SetupOpts
-    opts = {
-      view_options = {
-        show_hidden = true
-      }
-    },
-
-    -- Optional dependencies
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-  },
-
-  -- NOTE: Plugins can also be added by using a table,
-  -- with the first argument being the link and the following
-  -- keys can be used to configure plugin behavior/loading/etc.
-  {
     'ellisonleao/gruvbox.nvim',
     name = 'gruvbox',
     init = function()

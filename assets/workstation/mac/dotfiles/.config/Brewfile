@@ -32,3 +32,6 @@ brew "duf"
 brew "htop"
 cask "aerospace"
 brew "pinentry-mac"
+cask "ghostty"
+
+cask "redis-stack/redis-stack/redis-stack"

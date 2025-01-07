@@ -26,4 +26,4 @@ fi
 #     fi
 # }
 
-nvim $selection
+nvim $selection -u ~/.config/nvim/lua/text-editor.lua
