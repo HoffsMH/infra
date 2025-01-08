@@ -24,13 +24,17 @@ cmd-alt-ctrl-shift-e = ['move-node-to-workspace 3', 'workspace 3']
 cmd-alt-ctrl-shift-r = ['move-node-to-workspace 4', 'workspace 4']
 
 [[on-window-detected]]
-if.app-id = 'net.kovidgoyal.kitty'
-run = 'move-node-to-workspace 1'
-
-[[on-window-detected]]
 if.app-id = 'com.brave.browser'
 run = 'move-node-to-workspace 3'
 
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = 'move-node-to-workspace 2'
+
+[workspace-to-monitor-force-assignment]
+1 = 1                            # Monitor sequence number from left to right. 1-based indexing
+2 = 1
+3 = 1
+4 = 2
+# 5 = '^built-in retina display$'  # Case insensitive regex match
+# 6 = ['secondary', 'dell']        # You can specify multiple patterns. The first matching pattern will be used

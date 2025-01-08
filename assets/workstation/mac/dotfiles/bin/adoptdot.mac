@@ -8,22 +8,31 @@ fi
 
 full_path=$(readlink -f "$1")
 full_dir=$(dirname "$full_path")
-base=$(basename $1)
+base=$(basename "$1")
 
-dotfile_dir=$(readlink -f $HOME/infra/assets/workstation-common/dotfiles)
+dotfile_dir=$(readlink -f $HOME/infra/assets/workstation/mac/dotfiles)
 
 intermediate_path=${full_dir/$HOME/''}
 
 dotfile_path="$dotfile_dir$intermediate_path/$base"
 
+echo '$1'
+echo "$1"
+echo ''
+echo 'base'
+echo "$base"
+echo ''
 echo 'intermediate_path'
-echo $intermediate_path
+echo "$intermediate_path"
 echo ''
 echo 'dotfile dir'
-echo $dotfile_dir
+echo "$dotfile_dir"
 echo ''
 echo 'dotfile path'
-echo $dotfile_path
+echo "$dotfile_path"
+echo ''
+echo '$full_path'
+echo "$full_path"
 echo ''
 
 echo "mkdir -p $dotfile_dir$intermediate_path"
