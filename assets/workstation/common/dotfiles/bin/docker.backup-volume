@@ -1,0 +1,6 @@
+#!/bin/bash
+
+containerName=$1
+backupDir=${2:-/var/lib/postgresql/data}
+
+docker run --rm --volumes-from "$containerName" -v $(realpath ..):/backup ubuntu tar cvf /backup/$containerName-backup.tar $backupDir

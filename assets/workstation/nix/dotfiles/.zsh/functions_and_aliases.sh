@@ -47,7 +47,7 @@ untar(){
     fi
 }
 
-alias pass="gopass"
+# alias pass="gopass"
 
 # ######################################################
 # # git

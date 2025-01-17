@@ -16,6 +16,7 @@ in
       docker
       docker-compose
       google-cloud-sdk
+      bw-cli
 
       # delta
       # inputs.nixpkgs-stable.packages.${pkgs.system}.delta
