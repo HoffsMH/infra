@@ -7,10 +7,7 @@ alias zource="source ~/.zshrc"
 # ######################################################
 # # files/directory work
 # ######################################################
-#
-# # lsing on my music directory was getting annoying with the default color
-# export EXA_COLORS="*.mp3=34"
-#
+##
 alias e="nvim"
 # #fancy ls command
 alias l="eza -laGghHMS  --git --icons -T -L 1"
@@ -118,14 +115,6 @@ alias gr1="git reset HEAD~1"
 # # pretty git log
 alias glog="GIT_PAGER=less git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 #
-# # diffs your version of the current branch vs the internet's version
-# # useful with difi to see updated branch on origin
-# # $ gdo | difi
-# gdo() {
-#     local branchname
-#     branchname=$(git.branch-name)
-#     git diff "$branchname" "origin/$branchname" $1
-# }
 #
 # ######################################################
 # # docker
@@ -181,8 +170,6 @@ random_key() {
 # # gpg
 # ######################################################
 
-alias gpgstart="gpg-agent --daemon --pinentry-program=$(which pinentry-mac)"
-
 #
 # alias gpg-reload-card='gpg-connect-agent "scd serialno" "learn --force" /bye'
 # alias gpg-import-my-key='curl mhkr.xyz/key.pub | gpg --import'
@@ -196,7 +183,6 @@ alias udum="udisksctl unmount -b"
 # # PASS
 # ######################################################
 #
-alias passedit='pass edit -c -e nvim'
 #
 fh() {
   output=$(atuin search $* -i 3>&1 1>&2 2>&3)
