@@ -33,5 +33,6 @@ cask "aerospace"
 brew "pinentry-mac"
 cask "ghostty"
 brew "mpv"
+brew "redis"
 
-cask "redis-stack/redis-stack/redis-stack"
+# cask "redis-stack/redis-stack/redis-stack"
