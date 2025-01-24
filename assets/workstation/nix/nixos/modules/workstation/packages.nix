@@ -16,7 +16,7 @@ in
       docker
       docker-compose
       google-cloud-sdk
-      bw-cli
+      bitwarden-cli
 
       # delta
       # inputs.nixpkgs-stable.packages.${pkgs.system}.delta
@@ -25,6 +25,7 @@ in
       nixpkgsStable.git-branchless
       xcp
       keymapp
+      kitty
 
 
       direnv
