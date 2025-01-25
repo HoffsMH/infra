@@ -1,5 +1,4 @@
 #!/bin/bash
 
 ansible-vault encrypt ./inventory.vault.yml --vault-password-file ~/.config/ansible/.ansible-vault-pass
-ansible-vault encrypt ./taskell.vault.md --vault-password-file ~/.config/ansible/.ansible-vault-pass
 ansible-vault encrypt ./vars.vault.yml --vault-password-file ~/.config/ansible/.ansible-vault-pass

@@ -1,35 +1,57 @@
 #!/bin/bash
 
-# run ansible/play/deploy/service.yml -- specified by hosts in inventory
-# run ansible/play/deploy/service.yml 10.33.0.102 -- vars still specified
-# run ansible/play/deploy/service.yml 10.33.0.102 service_name --service_name can be overridden
+# A simple script to run an Ansible playbook with dynamic arguments.
+#
+# USAGE:
+#   ./bin/play <playbook_path> <limit> [additional_args...]
+#
+# ARGUMENTS:
+#   <playbook_path>   The path to the Ansible playbook to execute.
+#   <limit>           The host or group to target (e.g., "closet", "all").
+#   [additional_args] Optional. Any additional arguments to pass to ansible-playbook
+#                     (e.g., --tags "install" --skip-tags "cleanup").
+#
+# EXAMPLES:
+#   # Run the playbook targeting the "closet" host:
+#   ./bin/play ./ansible/play/deploy/service.yml closet --ask-pass
+#
+#   # Run the playbook with tags and skip-tags:
+#   ./bin/play ./ansible/play/deploy/service.yml closet --tags "install" --skip-tags "cleanup"
+#
+#   # Run the playbook targeting a specific IP:
+#   ./bin/play ./ansible/play/deploy/service.yml 192.168.1.100
+#
+# NOTES:
+#   - Ensure the inventory file is named "inventory.vault.yml" and present in the same directory.
+#   - The script uses a vault password file located at "~/.config/ansible/.ansible-vault-pass".
+#   - This script will prompt for the SSH password unless key-based authentication is set up.
 
-verbosity="-vv"
+# Enable debug verbosity
+verbosity="-vvvv"
 
-if [[ $# -eq 3 ]]; then
-    ansible-playbook $verbosity \
+# Shift arguments to extract $1 (playbook) and $2 (limit/host)
+playbook=$1
+limit=$2
+
+shift 2
+
+# Remaining arguments (from $3 onward) can now be splatted
+extra_args="$@"
+
+echo $verbosity
+
+echo $playbook
+
+echo $limit
+
+echo $extra_args
+
+ansible-playbook $verbosity \
       --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
       -i inventory.vault.yml \
       --extra-vars "@vars.vault.yml" \
-      --extra-vars "ansible_host=$2" \
-      --extra-vars "service_name=$3" \
-      $1
+      --limit "$limit" \
+      "$playbook"  $extra_args
 
-    exit 0
-  elif [[ $# -eq 2 ]]; then
-    ansible-playbook $verbosity \
-      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
-      -i inventory.vault.yml \
-      --extra-vars "@vars.vault.yml" \
-      --extra-vars "ansible_host=$2" \
-      $1
-    exit 0
-  elif [[ $# -eq 1 ]]; then
-    ansible-playbook $verbosity \
-      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
-      -i inventory.vault.yml \
-      --extra-vars "@vars.vault.yml" \
-      $1
-    exit 0
-fi
+
 
