@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# A simple script to run an Ansible playbook with dynamic arguments.
+#
+# USAGE:
+#   ./bin/play <playbook_path> <limit> [additional_args...]
+#
+# ARGUMENTS:
+#   <playbook_path>   The path to the Ansible playbook to execute.
+#   <limit>           The host or group to target (e.g., "closet", "all").
+#   [additional_args] Optional. Any additional arguments to pass to ansible-playbook
+#                     (e.g., --tags "install" --skip-tags "cleanup").
+#
+# EXAMPLES:
+#   # Run the playbook targeting the "closet" host:
+#   ./bin/play ./ansible/play/deploy/service.yml closet --ask-pass
+#
+#   # Run the playbook with tags and skip-tags:
+#   ./bin/play ./ansible/play/deploy/service.yml closet --tags "install" --skip-tags "cleanup"
+#
+#   # Run the playbook targeting a specific IP:
+#   ./bin/play ./ansible/play/deploy/service.yml 192.168.1.100
+#
+# NOTES:
+#   - Ensure the inventory file is named "inventory.vault.yml" and present in the same directory.
+#   - The script uses a vault password file located at "~/.config/ansible/.ansible-vault-pass".
+#   - This script will prompt for the SSH password unless key-based authentication is set up.
+
+# Enable debug verbosity
+verbosity="-vvvv"
+
+# Shift arguments to extract $1 (playbook) and $2 (limit/host)
+limit=$1
+role_name=$2
+
+shift 2
+
+# Remaining arguments (from $3 onward) can now be splatted
+extra_args="$@"
+
+ansible-playbook $verbosity \
+      --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
+      -i inventory.vault.yml \
+      --extra-vars "role_name=$role_name" \
+      --limit "$limit" \
+      "./ansible/play/add-role.yml"  $extra_args
+
+
+

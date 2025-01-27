@@ -1,0 +1,27 @@
+---
+- name: Ensure Immich app directory exists
+  file:
+    path: "{{ immich_app_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: copy docker compose over
+  copy:
+    src: ./docker-compose.yml
+    dest: "{{ immich_app_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0700'
+    force: true  # Ensures the file is replaced even if it exists
+
+- name: copy .env over
+  copy:
+    src: ./example.env
+    dest: "{{ immich_app_directory }}/.env"
+    owner: root
+    group: root
+    mode: '0700'
+    force: true  # Ensures the file is replaced even if it exists
+

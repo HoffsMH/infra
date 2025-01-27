@@ -26,6 +26,8 @@ in
       xcp
       keymapp
       kitty
+      tailscale
+      sshpass
 
 
       direnv

@@ -2,6 +2,7 @@
 - name: Install mergerfs
   apt:
     pkg:
+      - "fuse"
       - "mergerfs"
 
 - name: Add storage to fstab

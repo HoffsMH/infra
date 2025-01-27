@@ -5,12 +5,12 @@
       - "git"
 - name: "cleanup dir"
   file:
-    path: /infra
+    path: /opt/infra
     state: absent
 
 - name: pull down latest infra
   git:
     repo: 'https://github.com/HoffsMH/infra'
-    dest: "/infra"
+    dest: "/opt/infra"
     force: yes
     version: master
