@@ -1,3 +1,4 @@
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 [gaps]
 inner.horizontal = 20
@@ -36,3 +37,4 @@ run = 'move-node-to-workspace 2'
 2 = ['secondary','main']
 3 = ['secondary','main']
 4 = ['main']
+
