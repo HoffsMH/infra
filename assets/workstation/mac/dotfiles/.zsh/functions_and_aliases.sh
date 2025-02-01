@@ -4,6 +4,13 @@
 #
 alias zource="source ~/.zshrc"
 
+mov-to-gif() {
+    local out="${1%.*}.gif"
+
+    ffmpeg -i "$1" -s 1000x1000 -r 15 -f gif - | gifsicle --dither > "$out"
+}
+
+
 # ######################################################
 # # files/directory work
 # ######################################################
@@ -189,8 +196,8 @@ fh() {
   print -z "$output"
 }
 #
-alias df="dust"
-alias du="duf"
+alias du="dust"
+alias df="duf"
 
 function edit_command {
     local temp_file=$(mktemp)

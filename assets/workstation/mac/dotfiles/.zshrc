@@ -47,7 +47,7 @@ export PATH=/Applications/Postgres.app/Contents/Versions/latest/bin:$PATH
 
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/matt/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/matt/.config/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/mh/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mh/.config/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/Users/matt/.config/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/matt/.config/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f '/Users/mh/.config/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mh/.config/google-cloud-sdk/completion.zsh.inc'; fi

@@ -4,7 +4,7 @@
 [core]
   editor = "nvim"
   excludesfile = ~/.gitignore_global
-  pager = delta
+    pager = delta
 
 [interactive]
     diffFilter = delta -s --color-only --features=interactive
@@ -26,6 +26,8 @@
     side-by-side = false
     line-numbers = true
     syntax-theme = gruvbox-dark
+    paging = always
+    pager = less
 [merge]
     conflictstyle = diff3
 [diff]

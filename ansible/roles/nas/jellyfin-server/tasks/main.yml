@@ -1,0 +1,17 @@
+---
+- name: Ensure jellyfin app directory exists
+  file:
+    path: "{{ jellyfin_app_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: copy docker compose over
+  copy:
+    src: ./docker-compose.yml
+    dest: "{{ jellyfin_app_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0700'
+    force: true  # Ensures the file is replaced even if it exists
