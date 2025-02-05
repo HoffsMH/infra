@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source "$HOME/.envrc"
+
+echo '## e{date-str}.md' >> $CAP_FILE
+
+nvim $CAP_FILE -c 'cd ~/personal/00-cap-md' -c -u "$HOME/.config/nvim/lua/base.lua" '$'
+
+~/bin/cap.sync

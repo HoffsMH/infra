@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source "$HOME/.envrc"
 
 if [ -f "$CAP_FILE" ];
 then
