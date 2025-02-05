@@ -1,0 +1,8 @@
+---
+- name: setup app data disks
+  include_tasks: setup-disk.yml
+  loop: "{{ app_data_disks }}"
+
+- name: mount everything
+  command:
+    cmd: "mount -a"

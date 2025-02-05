@@ -16,3 +16,7 @@
     - ../../roles/nas/mergerfs-storage
     - ../../roles/nas/samba-server
     - ../../roles/nas/immich-server
+    - ../../roles/nas/atuin-server
+    - ../../roles/nas/jellyfin-server
+    - ../../roles/nas/syncthing-server/
+    # 
