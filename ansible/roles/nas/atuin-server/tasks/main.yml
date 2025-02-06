@@ -1,0 +1,36 @@
+---
+- name: Ensure atuin app directory exists
+  file:
+    path: "{{ atuin_app_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+
+- name: Ensure atuin app config directory exists
+  file:
+    path: "/mnt/storage/app-data-disk1/atuin/database"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: copy docker compose over
+  copy:
+    src: ./docker-compose.yml
+    dest: "{{ atuin_app_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0700'
+    force: true  # Ensures the file is replaced even if it exists
+
+- name: copy .env over
+  copy:
+    src: ./example.env
+    dest: "{{ atuin_app_directory }}/.env"
+    owner: root
+    group: root
+    mode: '0700'
+    force: true  # Ensures the file is replaced even if it exists
+
