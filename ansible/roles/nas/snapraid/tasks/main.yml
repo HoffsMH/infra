@@ -22,5 +22,6 @@
     job: "snapraid sync; snapraid scrub"
     cadence: "0 */3 * * *"
     dest: "/etc/cron.d/snapraid-sync-scrub"
+    user: "root"
   include_role:
     name: "../../roles/common/has-cron-job"
