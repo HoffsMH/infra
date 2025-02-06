@@ -125,7 +125,8 @@ in
     ];
 
     fonts.packages = with pkgs; [
-      nerdfonts
+      nerd-fonts._0xproto
+      nerd-fonts.droid-sans-mono
       fira
     ];
     services.cpupower-gui.enable = true;
