@@ -12,6 +12,7 @@
       - tmux
       - jq
       - git
+      - zsh
     state: latest
     update_cache: yes
 

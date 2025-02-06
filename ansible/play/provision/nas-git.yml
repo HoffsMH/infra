@@ -7,6 +7,7 @@
     - ../../roles/common/yubi-ssh-secured
     - ../../roles/common/hostname
     - ../../roles/debian/base-apt
+    - ../../roles/debian/niceties/
     - ../../roles/debian/docker-ce
     - ../../roles/infra/repo
     - ../../roles/debian/tailscale
