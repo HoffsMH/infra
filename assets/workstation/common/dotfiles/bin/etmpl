@@ -1,18 +1,15 @@
-#!/bin/bash
-# Read input into variable
-input=$(cat)
+#!/usr/bin/perl
+use strict;
+use warnings;
 
-# Find all instances of e{...} and replace them with the output of the command inside the braces
-while [[ $input =~ e\{([^\}]*)\} ]]; do
-    # Extract the command
-    command="${BASH_REMATCH[1]}"
+# Read all input
+my $input = do { local $/; <STDIN> };
 
-    # Execute the command
-    output=$(eval "$command")
+# Repeat until no more patterns are found
+1 while $input =~ s/e\{(.*?)\}/
+    my $cmd = $1;
+    chomp(my $output = `$cmd`);
+    $output
+/ge;
 
-    # Substitute the command with its output in the input
-    input=${input/"e{${command}}"/$output}
-done
-
-# Output the final result
-echo "$input"
+print $input;

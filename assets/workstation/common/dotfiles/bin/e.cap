@@ -13,7 +13,6 @@ if [[ -n "$1" ]]; then
 else
     CAP_DIR=${CAP_DIR:-"$HOME/personal/00-cap-md/"}
 fi
-echo $CAP_DIR
 
 if [[ -n "$2" ]]; then
     DEPTH="$2"
@@ -26,8 +25,6 @@ if [ -f "$CAP_FILE" ]; then
   ~/bin/cap.sync
 fi
 
-echo $CAP_DIR
-
 # Find the 10 most recent Markdown files in CAP_DIR
 pushd "$CAP_DIR" > /dev/null
   file_list=$(fd ".**\.md$" --regex -tf --base-directory="$CAP_DIR" --max-depth=1 | tail -n "$flagN")
@@ -35,9 +32,7 @@ popd > /dev/null
 
 echo $file_list
 
-# Process the file list
-while IFS= read -r file; do
-  echo "$file" | hcat "$CAP_DIR" >> "$CAP_FILE"
-done <<< "$file_list"
+
+echo "$file_list" | hcat "$CAP_DIR" >> "$CAP_FILE"
 
 ~/bin/nvim.cap
