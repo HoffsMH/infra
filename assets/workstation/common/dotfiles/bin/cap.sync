@@ -1,10 +1,8 @@
 #!/bin/bash
 
-echo "about to source .envrc"
 source "$HOME/.envrc"
 
-echo "about to hsplit"
 if [ -f "$CAP_FILE" ];
 then
-  cat $CAP_FILE | etmpl | hsplit $CAP_DIR && echo "done hsplit about to rm the capfile" && \rm $CAP_FILE
+  cat $CAP_FILE | etmpl | hsplit $CAP_DIR  && \rm $CAP_FILE
 fi

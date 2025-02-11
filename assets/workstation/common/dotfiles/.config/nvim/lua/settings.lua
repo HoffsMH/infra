@@ -131,3 +131,16 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.tabstop = 2      -- Number of visual spaces per TAB
+    vim.opt_local.shiftwidth = 2   -- Number of spaces to use for each step of (auto)indent
+    vim.opt_local.expandtab = true -- Use spaces instead of tabs
+  end,
+})
+
+vim.api.nvim_set_option("tabstop", 2)
+vim.api.nvim_set_option("shiftwidth", 2)
+vim.api.nvim_set_option("softtabstop", 2)
