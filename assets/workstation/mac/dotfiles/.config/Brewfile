@@ -1,5 +1,4 @@
 brew "nvim"
-cask "kitty"
 cask "google-chrome"
 cask "brave-browser"
 
@@ -42,6 +41,7 @@ cask "ghostty"
 brew "mpv"
 brew "redis"
 brew "tailscale"
-brew "mullvadvpn"
+cask "mullvadvpn"
+brew "caarlos0/tap/timer"
 
 # cask "redis-stack/redis-stack/redis-stack"
