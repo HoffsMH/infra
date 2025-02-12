@@ -30,6 +30,7 @@ brew "gifsicle"
 brew "ansible"
 cask "discord"
 brew "bitwarden-cli"
+cask "steam"
 
 brew "lazygit"
 brew "dust"
