@@ -35,7 +35,7 @@ tarmake () {
 }
 
 # found this thing on SO it supposed to extract most things
-untar(){
+extract(){
     if [ -f $1 ] ; then
         case $1 in
             *.tar.bz2)   tar xvjf $1    ;;
