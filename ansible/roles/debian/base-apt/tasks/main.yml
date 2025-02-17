@@ -14,6 +14,9 @@
       - git
       - zsh
       - ripgrep
+      - ffmpeg
+      - vlc
+      - restic
     state: latest
     update_cache: yes
 
