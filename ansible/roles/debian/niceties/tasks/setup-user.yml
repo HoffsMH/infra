@@ -1,0 +1,16 @@
+---
+- name: Change shell to zsh for the current root
+  user:
+    name: "{{ item.name }}"
+    shell: /bin/zsh
+  become: yes
+
+- name:  .zshrc
+  copy:
+    src: ./.zshrc
+    dest: "{{ item.home }}/.zshrc"
+
+- name:  .tmux.conf
+  copy:
+    src: ./.tmux.conf
+    dest: "{{ item.home }}/.tmux.conf"

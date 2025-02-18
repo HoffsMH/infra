@@ -41,6 +41,7 @@ extra_args="$@"
 ansible-playbook $verbosity \
       --vault-pass-file=~/.config/ansible/.ansible-vault-pass \
       -i inventory.vault.yml \
+      --extra-vars "@vars.vault.yml" \
       --extra-vars "role_name=$role_name" \
       --limit "$limit" \
       "./ansible/play/add-role.yml"  $extra_args

@@ -1,0 +1,4 @@
+---
+- name: Add authorized keys for other user
+  authorized_key: user="{{ item }}"
+                  key="{{ lookup('env', 'SSH_PUB') }}"

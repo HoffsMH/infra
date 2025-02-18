@@ -1,16 +1,5 @@
 ---
-- name: Change shell to zsh for the current root
-  user:
-    name: "{{ ansible_env.USER }}"
-    shell: /bin/zsh
-  become: yes
+- name: setup user niceties
+  include_tasks: setup-user.yml
+  loop: "{{ niceties.users }}"
 
-- name:  .zshrc
-  copy:
-    src: ./.zshrc
-    dest: "{{ ansible_env.HOME }}/.zshrc"
-
-- name:  .tmux.conf
-  copy:
-    src: ./.tmux.conf
-    dest: "{{ ansible_env.HOME }}/.tmux.conf"

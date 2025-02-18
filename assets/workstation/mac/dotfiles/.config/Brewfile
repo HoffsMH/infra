@@ -34,6 +34,8 @@ cask "steam"
 brew "sendme"
 brew "organize-tool"
 brew "wget"
+brew "sops"
+brew "coreutils"
 
 brew "lazygit"
 brew "dust"

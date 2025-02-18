@@ -1,9 +1,13 @@
 ---
 - name: "as super user"
   block:
-    - name: Add authorized keys for main user
+    - name: Add authorized keys for root user
       authorized_key: user=root
                       key="{{ lookup('env', 'SSH_PUB') }}"
+
+    - name: setup user other_users
+      include_tasks: add-user-ssh.yml
+      loop: "{{ other_users | default([]) }}"
 
     - name: Allow Root
       lineinfile: dest=/etc/ssh/sshd_config
