@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Change the starting directory as needed
+base_dir="$1"
+
+# List directories under base_dir
+fdfind -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
+    # Get total size of the directory (in bytes)
+    total=$(du -s --block-size=1 "$dir" | cut -f1)
+
+    # Count files under the directory
+    count=$(fdfind -t f . "$dir" | wc -l)
+
+    # Avoid division by zero if no files are found
+    if [ "$count" -gt 0 ]; then
+         avg=$(( total / count ))
+    else
+         avg=0
+    fi
+
+    # Convert the average to a human-readable format
+    avg_h=$(numfmt --to=iec --suffix=B "$avg")
+
+    echo "$(numfmt --to=iec --suffix=B "$total") $count $avg_h $dir"
+done

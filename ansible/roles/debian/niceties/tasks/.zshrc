@@ -7,5 +7,6 @@ fh () {
 
 alias rm="safe-rm"
 
+export PATH=$HOME/bin:$PATH
 
 PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '
