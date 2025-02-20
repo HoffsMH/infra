@@ -1,8 +1,7 @@
 #!/bin/sh
 
-# Set Internal Field Separator to newline for proper handling of filenames with spaces
-IFS=$'\n'
-
+# Use a NUL-separated list to correctly handle filenames with spaces/newlines.
+# (We no longer need to set IFS manually)
 echo "----------------------------------------------"
 echo "Starting dotfiles linking script with verbose output"
 echo "----------------------------------------------"
@@ -19,133 +18,73 @@ else
     exit 1
 fi
 
-# Run common dotfiles linking
-echo "----------------------------------------------"
-echo "Processing common dotfiles"
-porcelaindir="$infradir/assets/workstation/common/dotfiles"
-echo "Looking for common dotfiles in: $porcelaindir"
-files=$(find "$porcelaindir" -type f)
-echo "Found common files:"
-for f in $files; do
-  echo "  $f"
-done
-
 h="$HOME"
 echo "Home directory: $h"
 
-for i in $files; do
+# Function to process a directory of dotfiles
+link_dotfiles() {
+  local source_dir="$1"
   echo "----------------------------------------------"
-  echo "Processing file: $i"
-  if [ -f "$i" ]; then
-    dirn=$(dirname "$i")
-    basen=$(basename "$i")
+  echo "Processing dotfiles in: $source_dir"
+
+  # Use find -print0 to output NUL-separated file names
+  find "$source_dir" -type f -print0 | while IFS= read -r -d '' file; do
+    echo "----------------------------------------------"
+    echo "Processing file: $file"
+
+    # Get the directory and base name of the file
+    dirn=$(dirname "$file")
+    basen=$(basename "$file")
     echo "  Directory: $dirn"
     echo "  Basename: $basen"
-    
-    newdirn=${dirn/$porcelaindir/}
-    echo "  New directory path relative to HOME: $newdirn"
-    
+
+    # Create the relative directory path by removing the source_dir prefix
+    newdirn=${dirn#"$source_dir"}
+    echo "  New relative directory (to be created under HOME): $newdirn"
+
+    # Construct the target link location
     newlink="$h/$newdirn/$basen"
     echo "  Target link location: $newlink"
 
     # Create target directory if it doesn't exist
     if [ ! -d "$h/$newdirn" ]; then
-      echo "  Directory does not exist. Creating directory: $h/$newdirn"
+      echo "  Directory does not exist. Creating: $h/$newdirn"
       mkdir -p "$h/$newdirn"
     else
       echo "  Directory already exists: $h/$newdirn"
     fi
 
-    # Check if force flag is given or if the link file does not already exist
+    # Check if force flag (-f) was given or if the target file doesn't exist
     if [ "$1" = "-f" ]; then
       echo "  Force flag detected (-f)"
     fi
     if [ ! -f "$newlink" ]; then
-      echo "  No file at target location, will create link"
+      echo "  No file at target location; will create link."
     else
-      echo "  File already exists at target location"
+      echo "  A file already exists at target location."
     fi
 
     if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
-      echo "  Setting permissions on source file: $i"
-      chmod go-rwx "$i"
-      chmod u+rw "$i"
-      echo "  Creating symbolic link from $i to $newlink"
-      ln -sf "$i" "$newlink"
+      echo "  Setting permissions on source file: $file"
+      chmod go-rwx "$file"
+      chmod u+rw "$file"
+      echo "  Creating symbolic link from $file to $newlink"
+      ln -sf "$file" "$newlink"
     else
-      echo "  Skipping linking for $i"
+      echo "  Skipping linking for $file"
     fi
-  else
-    echo "  Skipping: $i is not a regular file."
-  fi
-done
+  done
+}
 
-# Run platform-specific dotfiles linking
-echo "----------------------------------------------"
+# Process common dotfiles
+common_dir="$infradir/assets/workstation/common/dotfiles"
+echo "Processing common dotfiles from: $common_dir"
+link_dotfiles "$common_dir"
+
+# Process platform-specific dotfiles
 if [ "$(uname)" = "Darwin" ]; then
     echo "Detected platform: macOS"
-    porcelaindir="$infradir/assets/workstation/mac/dotfiles"
+    platform_dir="$infradir/assets/workstation/mac/dotfiles"
 elif [ "$(uname)" = "Linux" ]; then
     echo "Detected platform: Linux"
-    porcelaindir="$infradir/assets/workstation/nix/dotfiles"
-else
-    echo "Unsupported platform: $(uname)"
-    exit 1
-fi
-
-echo "Processing platform-specific dotfiles in: $porcelaindir"
-files=$(find "$porcelaindir" -type f)
-echo "Found platform-specific files:"
-for f in $files; do
-  echo "  $f"
-done
-
-for i in $files; do
-  echo "----------------------------------------------"
-  echo "Processing file: $i"
-  if [ -f "$i" ]; then
-    dirn=$(dirname "$i")
-    basen=$(basename "$i")
-    echo "  Directory: $dirn"
-    echo "  Basename: $basen"
-    
-    newdirn=${dirn/$porcelaindir/}
-    echo "  New directory path relative to HOME: $newdirn"
-    
-    newlink="$h/$newdirn/$basen"
-    echo "  Target link location: $newlink"
-
-    # Create target directory if it doesn't exist
-    if [ ! -d "$h/$newdirn" ]; then
-      echo "  Directory does not exist. Creating directory: $h/$newdirn"
-      mkdir -p "$h/$newdirn"
-    else
-      echo "  Directory already exists: $h/$newdirn"
-    fi
-
-    # Check if force flag is given or if the link file does not already exist
-    if [ "$1" = "-f" ]; then
-      echo "  Force flag detected (-f)"
-    fi
-    if [ ! -f "$newlink" ]; then
-      echo "  No file at target location, will create link"
-    else
-      echo "  File already exists at target location"
-    fi
-
-    if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
-      echo "  Setting permissions on source file: $i"
-      chmod go-rwx "$i"
-      chmod u+rw "$i"
-      echo "  Creating symbolic link from $i to $newlink"
-      ln -sf "$i" "$newlink"
-    else
-      echo "  Skipping linking for $i"
-    fi
-  else
-    echo "  Skipping: $i is not a regular file."
-  fi
-done
-
-echo "----------------------------------------------"
-echo "Dotfiles linking complete."
+    platform_dir="$infradir/assets/workstat
