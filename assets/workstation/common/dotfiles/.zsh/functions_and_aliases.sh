@@ -16,7 +16,7 @@ mov-to-gif() {
 # ######################################################
 ##
 
-alias rm="safe-rm"
+alias rm="echo 'use trm'"
 alias e="nvim"
 # #fancy ls command
 alias l="eza -laGghHMS  --git --icons -T -L 1"

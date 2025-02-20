@@ -1,0 +1,32 @@
+---
+- name: ensure /opt/restic exists
+  file:
+    path: "{{ restic_app_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Determine git repository root
+  delegate_to: localhost
+  shell: git rev-parse --show-toplevel
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: git_root
+  changed_when: false
+
+- name: Get data.env file content from secrets submodule
+  delegate_to: localhost
+  shell: ./secrets/restic/dec-data.sh
+  args:
+    chdir: "{{ git_root.stdout }}"
+  register: env_output
+
+- name: Transfer .env file to host
+  copy:
+    content: "{{ env_output.stdout }}"
+    dest: /opt/restic/.env
+    owner: root
+    group: root
+    mode: '0644'
+

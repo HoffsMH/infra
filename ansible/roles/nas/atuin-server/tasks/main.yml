@@ -10,7 +10,7 @@
 
 - name: Ensure atuin app config directory exists
   file:
-    path: "/mnt/storage/volatile-data-disk1/atuin/database"
+    path: "/mnt/volatile-data-disk1/atuin/database"
     state: directory
     owner: root
     group: root
