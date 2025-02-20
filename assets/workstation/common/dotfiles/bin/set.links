@@ -1,96 +1,81 @@
 #!/bin/sh
 
-# https://unix.stackexchange.com/questions/9496/looping-through-files-with-spaces-in-the-names
+# Set Internal Field Separator to newline
 IFS=$'\n'
 
+# Determine where the infra directory is located: $HOME/infra or /opt/infra
+if [ -d "$HOME/infra" ]; then
+    infradir="$HOME/infra"
+elif [ -d "/opt/infra" ]; then
+    infradir="/opt/infra"
+else
+    echo "Error: infra directory not found in $HOME or /opt/infra"
+    exit 1
+fi
+
+echo "Using infra directory: $infradir"
+
+# Run common dotfiles linking
 echo "Running common..."
-porcelaindir=$HOME/infra/assets/workstation/common/dotfiles
-files=$(find $porcelaindir -name '*')
+porcelaindir="$infradir/assets/workstation/common/dotfiles"
+files=$(find "$porcelaindir" -name '*')
 h="$HOME"
 
-for i in $files
-do
-  if [ -f "$i" ]
-  then
-    dirn=$(dirname $i)
-    basen=$(basename $i)
-    newdirn=${dirn/$porcelaindir}
-
+for i in $files; do
+  if [ -f "$i" ]; then
+    dirn=$(dirname "$i")
+    basen=$(basename "$i")
+    newdirn=${dirn/$porcelaindir/}
     newlink="$h/$newdirn/$basen"
 
-    # if the file doesn't already exist
-    # clear the way
-    if [ ! -d "$h/$newdirn" ]
-    then
+    # Create target directory if it doesn't exist
+    if [ ! -d "$h/$newdirn" ]; then
       echo "making dir: $h/$newdirn"
       mkdir -p "$h/$newdirn"
     fi
 
-    # if force is true
-    # or if the file doesn't already exist
-    if [[ $1 = "-f" ]] || [ ! -f "$newlink" ]
-    then
+    # If force is true or the file doesn't already exist, set permissions and link
+    if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
       echo "linking: $newlink"
-      # # subtract read and write from
-      # # group and others
       chmod go-rwx "$i"
-      #
-      # # add read and write to
-      # # owner
       chmod u+rw "$i"
-      #
-      # # link real file to new link location
       ln -sf "$i" "$newlink"
     fi
   fi
 done
 
+# Run platform-specific dotfiles linking
 if [ "$(uname)" = "Darwin" ]; then
     echo "Running on macOS"
-    porcelaindir=$HOME/infra/assets/workstation/mac/dotfiles
+    porcelaindir="$infradir/assets/workstation/mac/dotfiles"
 elif [ "$(uname)" = "Linux" ]; then
     echo "Running on Linux"
-    porcelaindir=$HOME/infra/assets/workstation/nix/dotfiles
+    porcelaindir="$infradir/assets/workstation/nix/dotfiles"
+else
+    echo "Platform not explicitly supported."
+    exit 1
 fi
 
 echo "Running platform specific for $(uname)..."
-files=$(find $porcelaindir -name '*')
-h="$HOME"
+files=$(find "$porcelaindir" -name '*')
 
-for i in $files
-do
-  if [ -f "$i" ]
-  then
-    dirn=$(dirname $i)
-    basen=$(basename $i)
-    newdirn=${dirn/$porcelaindir}
-
+for i in $files; do
+  if [ -f "$i" ]; then
+    dirn=$(dirname "$i")
+    basen=$(basename "$i")
+    newdirn=${dirn/$porcelaindir/}
     newlink="$h/$newdirn/$basen"
 
-    # if the file doesn't already exist
-    # clear the way
-    if [ ! -d "$h/$newdirn" ]
-    then
+    if [ ! -d "$h/$newdirn" ]; then
       echo "making dir: $h/$newdirn"
       mkdir -p "$h/$newdirn"
     fi
 
-    # if force is true
-    # or if the file doesn't already exist
-    if [[ $1 = "-f" ]] || [ ! -f "$newlink" ]
-    then
+    if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
       echo "linking: $newlink"
-      # # subtract read and write from
-      # # group and others
       chmod go-rwx "$i"
-      #
-      # # add read and write to
-      # # owner
       chmod u+rw "$i"
-      #
-      # # link real file to new link location
       ln -sf "$i" "$newlink"
     fi
   fi
 done
-

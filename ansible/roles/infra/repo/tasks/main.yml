@@ -14,3 +14,4 @@
     dest: "/opt/infra"
     force: yes
     version: master
+    recursive: no
