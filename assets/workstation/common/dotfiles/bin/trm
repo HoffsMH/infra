@@ -9,4 +9,6 @@
 # fd . $@ -t f -x shred {}
 # delete the dir when donezp
 
-\rm -fr $@
+du -chs $@
+
+\rm -ir $@
