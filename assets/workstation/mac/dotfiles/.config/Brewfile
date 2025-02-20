@@ -36,6 +36,7 @@ brew "organize-tool"
 brew "wget"
 brew "sops"
 brew "coreutils"
+brew "safe-rm"
 
 brew "lazygit"
 brew "dust"

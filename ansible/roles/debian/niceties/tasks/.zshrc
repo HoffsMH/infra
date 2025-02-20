@@ -5,4 +5,7 @@ fh () {
         print -z "$output"
 }
 
+alias rm="safe-rm"
+
+
 PS1='%F{blue}%~ %(?.%F{green}.%F{red})%#%f '

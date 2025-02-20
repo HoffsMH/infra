@@ -15,6 +15,8 @@ mov-to-gif() {
 # # files/directory work
 # ######################################################
 ##
+
+alias rm="safe-rm"
 alias e="nvim"
 # #fancy ls command
 alias l="eza -laGghHMS  --git --icons -T -L 1"

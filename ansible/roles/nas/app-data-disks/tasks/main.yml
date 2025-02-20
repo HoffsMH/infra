@@ -1,7 +1,7 @@
 ---
-- name: setup app data disks
+- name: setup volatile data disks
   include_tasks: setup-disk.yml
-  loop: "{{ app_data_disks }}"
+  loop: "{{ volatile_data_disks }}"
 
 - name: mount everything
   command:

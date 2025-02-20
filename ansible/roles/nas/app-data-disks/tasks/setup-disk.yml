@@ -3,11 +3,11 @@
   lineinfile:
     dest: /etc/fstab
     regexp: "^/dev/disk/by-id/{{ item.id }}"
-    line: "/dev/disk/by-id/{{ item.id }} /mnt/app-data-disk{{ item.number }}   ext4 defaults 0 0"
+    line: "/dev/disk/by-id/{{ item.id }} /mnt/volatile-data-disk{{ item.number }}   ext4 defaults 0 0"
     state: present
 
 - name: "add mount point for {{ item.number }}"
   file:
     state: directory
-    path: "/mnt/app-data-disk{{ item.number }}"
+    path: "/mnt/volatile-data-disk{{ item.number }}"
     mode: '0777'

@@ -9,7 +9,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /mnt/app-data-disk1/app-data/syncthing:/var/syncthing
+      - /mnt/volatile-data-disk1/app-data/syncthing:/var/syncthing
       - /mnt/storage/data:/data
     ports:
       - 8384:8384 # Web UI

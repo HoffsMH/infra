@@ -7,7 +7,7 @@ services:
     ports:
       - '8096:8096'
     volumes:
-      - /mnt/app-data-disk1/app-data/jellyfin/config:/config
+      - /mnt/volatile-data-disk1/app-data/jellyfin/config:/config
       - /opt/jellyfin/cache:/cache
       - type: bind
         source: /mnt/storage/data/personal/media
