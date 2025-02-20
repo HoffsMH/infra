@@ -1,7 +1,5 @@
-#!/bin/sh
+#!/bin/bash
 
-# Use a NUL-separated list to correctly handle filenames with spaces/newlines.
-# (We no longer need to set IFS manually)
 echo "----------------------------------------------"
 echo "Starting dotfiles linking script with verbose output"
 echo "----------------------------------------------"
@@ -27,7 +25,7 @@ link_dotfiles() {
   echo "----------------------------------------------"
   echo "Processing dotfiles in: $source_dir"
 
-  # Use find -print0 to output NUL-separated file names
+  # Use find -print0 to output NUL-separated file names and read them correctly
   find "$source_dir" -type f -print0 | while IFS= read -r -d '' file; do
     echo "----------------------------------------------"
     echo "Processing file: $file"
@@ -87,4 +85,15 @@ if [ "$(uname)" = "Darwin" ]; then
     platform_dir="$infradir/assets/workstation/mac/dotfiles"
 elif [ "$(uname)" = "Linux" ]; then
     echo "Detected platform: Linux"
-    platform_dir="$infradir/assets/workstat
+    platform_dir="$infradir/assets/workstation/nix/dotfiles"
+else
+    echo "Unsupported platform: $(uname)"
+    exit 1
+fi
+
+echo "Processing platform-specific dotfiles from: $platform_dir"
+link_dotfiles "$platform_dir"
+
+echo "----------------------------------------------"
+echo "Dotfiles linking complete."
+
