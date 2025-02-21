@@ -9,7 +9,9 @@ fdfind -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
     total=$(du -s --block-size=1 "$dir" | cut -f1)
 
     # Count files under the directory
-    count=$(fdfind -t f . "$dir" | wc -l)
+    count=$(fd -t f . "$dir" | wc -l)
+
+    dcount=$(fd -t d . "$dir" | wc -l)
 
     # Avoid division by zero if no files are found
     if [ "$count" -gt 0 ]; then
@@ -21,5 +23,7 @@ fdfind -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
     # Convert the average to a human-readable format
     avg_h=$(numfmt --to=iec --suffix=B "$avg")
 
-    echo "$(numfmt --to=iec --suffix=B "$total") $count $avg_h $dir"
+    echo "$(numfmt --to=iec --suffix=B "$total") $avg_h $dcount $count $dir"
 done
+echo "total_size average_file_size directorys files name"
+
