@@ -3,10 +3,21 @@
 # Change the starting directory as needed
 base_dir="$1"
 
+# Function to check if the system is macOS or Linux
+is_mac() {
+    [[ "$(uname)" == "Darwin" ]]
+}
+
 # List directories under base_dir
-fdfind -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
+fd -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
     # Get total size of the directory (in bytes)
-    total=$(du -s --block-size=1 "$dir" | cut -f1)
+    if is_mac; then
+        # macOS uses -sk to show size in kilobytes
+        total=$(du -sk "$dir" | cut -f1)
+    else
+        # Linux uses --block-size=1 to show size in bytes
+        total=$(du --block-size=1 -s "$dir" | cut -f1)
+    fi
 
     # Count files under the directory
     count=$(fd -t f . "$dir" | wc -l)
@@ -15,15 +26,16 @@ fdfind -t d  . "$base_dir" -d 1 | while IFS= read -r dir; do
 
     # Avoid division by zero if no files are found
     if [ "$count" -gt 0 ]; then
-         avg=$(( total / count ))
+        avg=$(( total / count ))
     else
-         avg=0
+        avg=0
     fi
 
-    # Convert the average to a human-readable format
-    avg_h=$(numfmt --to=iec --suffix=B "$avg")
+    # Convert the total and average to a human-readable format (du -h)
+    total_h=$(du -sh "$dir" | cut -f1)
+    avg_h=$(du -sh <<< "$avg" | cut -f1)
 
-    echo "$(numfmt --to=iec --suffix=B "$total") $avg_h $dcount $count $dir"
+    echo "$total_h $avg_h $dcount $count $dir"
 done
-echo "total_size average_file_size directorys files name"
 
+echo "total_size average_file_size directories files name"

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-echo "----------------------------------------------"
-echo "Starting dotfiles linking script with verbose output"
-echo "----------------------------------------------"
-
 # Determine where the infra directory is located: $HOME/infra or /opt/infra
 if [ -d "$HOME/infra" ]; then
     infradir="$HOME/infra"
@@ -27,49 +23,39 @@ link_dotfiles() {
 
   # Use find -print0 to output NUL-separated file names and read them correctly
   find "$source_dir" -type f -print0 | while IFS= read -r -d '' file; do
-    echo "----------------------------------------------"
-    echo "Processing file: $file"
 
     # Get the directory and base name of the file
     dirn=$(dirname "$file")
     basen=$(basename "$file")
-    echo "  Directory: $dirn"
-    echo "  Basename: $basen"
 
     # Create the relative directory path by removing the source_dir prefix
     newdirn=${dirn#"$source_dir"}
-    echo "  New relative directory (to be created under HOME): $newdirn"
 
     # Construct the target link location
     newlink="$h/$newdirn/$basen"
-    echo "  Target link location: $newlink"
 
     # Create target directory if it doesn't exist
     if [ ! -d "$h/$newdirn" ]; then
       echo "  Directory does not exist. Creating: $h/$newdirn"
       mkdir -p "$h/$newdirn"
-    else
-      echo "  Directory already exists: $h/$newdirn"
+    fi
+
+    if [ ! -f "$newlink" ]; then
+      echo "  No file at target location; will create link."
     fi
 
     # Check if force flag (-f) was given or if the target file doesn't exist
     if [ "$1" = "-f" ]; then
       echo "  Force flag detected (-f)"
     fi
-    if [ ! -f "$newlink" ]; then
-      echo "  No file at target location; will create link."
-    else
-      echo "  A file already exists at target location."
-    fi
 
     if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
       echo "  Setting permissions on source file: $file"
       chmod go-rwx "$file"
       chmod u+rw "$file"
+      echo "  Target link location: $newlink"
       echo "  Creating symbolic link from $file to $newlink"
       ln -sf "$file" "$newlink"
-    else
-      echo "  Skipping linking for $file"
     fi
   done
 }
