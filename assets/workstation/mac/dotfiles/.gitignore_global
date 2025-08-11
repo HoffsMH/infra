@@ -31,3 +31,5 @@ shell.nix
 flake.nix
 flake.lock
 .direnv/*
+/dumb.rdb
+.crush/
