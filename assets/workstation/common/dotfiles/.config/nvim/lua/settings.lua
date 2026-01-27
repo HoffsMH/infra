@@ -144,3 +144,9 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_set_option("tabstop", 2)
 vim.api.nvim_set_option("shiftwidth", 2)
 vim.api.nvim_set_option("softtabstop", 2)
+
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGained" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { "*" },
+})

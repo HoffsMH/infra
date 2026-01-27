@@ -1,0 +1,9 @@
+[[mgr.prepend_keymap]]
+on = "<C-y>"
+run = "plugin system-clipboard"
+desc = "Copy selected files to system clipboard"
+
+[[mgr.prepend_keymap]]
+on = "P"
+run = "plugin system-clipboard-paste"
+desc = "Paste files from system clipboard"

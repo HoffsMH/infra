@@ -6,10 +6,13 @@
 # Comments start with a `#` and are only valid on their own line.
 # Blank lines are ignored!
 
-# keybind = cmd+f=ignore
-# keybind = cmd+f=esc:\x1bf
+# keybind = unconsumed:cmd+f=ignore
+# keybind = unconsumed:cmd+f=esc:\x1b
 #
-keybind = unconsumed:cmd+f=text:\x1b
+keybind = all:unconsumed:cmd+f=text:\x1bf
+
+keybind = global:unconsumed:cmd+a=reload_config 
+
 keybind = cmd+d=text:\x1bd
 keybind = cmd+u=text:\x1bu
 keybind = cmd+enter=text:\x1b\r
@@ -20,4 +23,4 @@ keybind = global:cmd+grave_accent=toggle_quick_terminal
 
 # Empty values reset the configuration to the default value
 font-family =
-theme = GruvboxDark
+theme = Gruvbox Dark
