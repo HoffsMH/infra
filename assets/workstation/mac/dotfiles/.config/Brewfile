@@ -51,5 +51,6 @@ brew "tailscale"
 cask "mullvadvpn"
 brew "caarlos0/tap/timer"
 brew "charmbracelet/tap/crush"
+brew "clipboard"
 
 # cask "redis-stack/redis-stack/redis-stack"
