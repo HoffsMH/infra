@@ -33,3 +33,5 @@ flake.lock
 .direnv/*
 /dumb.rdb
 .crush/
+CRUSH.md
+.claude/settings.local.json
