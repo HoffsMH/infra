@@ -11,7 +11,7 @@ gui:
       - bold
 git:
   autoFetch: false
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never --syntax-theme=gruvbox-dark
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never --syntax-theme=gruvbox-dark
 notARepository: 'skip'
