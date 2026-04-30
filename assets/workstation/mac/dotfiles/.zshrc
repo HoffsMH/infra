@@ -16,6 +16,7 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 
 # languages
 export PATH=$ASDF_DATA_DIR/shims:$PATH
@@ -51,3 +52,9 @@ if [ -f '/Users/mh/.config/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/mh/.
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/mh/.config/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/mh/.config/google-cloud-sdk/completion.zsh.inc'; fi
+
+export PATH=$HOME/.cargo/bin:$PATH
+
+# Fly.io
+export FLYCTL_INSTALL="$HOME/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
