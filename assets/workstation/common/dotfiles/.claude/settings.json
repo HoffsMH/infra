@@ -1,15 +1,16 @@
 {
-  "enabledPlugins": {
-    "clangd-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
-  },
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "xhigh",
   "permissions": {
     "allow": [
       "Read(//var/folders/*/*/T/claude-clipboard-*/**)",
       "Read(//private/var/folders/*/*/T/claude-clipboard-*/**)",
-      "Read(//tmp/claude-clipboard-*/**)"
+      "Read(//tmp/claude-clipboard-*/**)",
+      "mcp__clipboard-paste-mcp__paste_clipboard_screenshot"
     ]
-  }
+  },
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true
 }
