@@ -17,7 +17,13 @@ mov-to-gif() {
 ##
 
 alias rm="echo 'use trm'"
+# nvim entry points by config tier:
+#   e   -> ide          (full LSP/treesitter/telescope; default)
+#   et  -> text-editor  (telescope + light editing; for prose/notes)
+#   eb  -> base         (gruvbox only; view-only)
 alias e="nvim"
+alias et="nvim -u $HOME/.config/nvim/lua/text-editor.lua"
+alias eb="nvim -u $HOME/.config/nvim/lua/base.lua"
 # #fancy ls command
 alias l="eza -laGghHMS  --git --icons -T -L 1"
 alias cat="bat --theme gruvbox-dark"
@@ -26,7 +32,43 @@ alias dig="dog"
 alias yotpc="ykman oath accounts code"
 
 yotp() {
-    ykman oath accounts code "$1" | awk '{ print $2 }' | clip
+    local query="$1"
+    if [[ -z "$query" ]]; then
+        echo "Usage: yotp <substring-of-account>" >&2
+        echo >&2
+        echo "Available accounts:" >&2
+        ykman oath accounts list 2>&1 | sed 's/^/  /' >&2
+        return 1
+    fi
+
+    local output rc
+    output=$(ykman oath accounts code "$query" 2>&1)
+    rc=$?
+
+    if (( rc != 0 )); then
+        echo "ykman: $output" >&2
+        echo >&2
+        echo "Available accounts:" >&2
+        ykman oath accounts list 2>&1 | sed 's/^/  /' >&2
+        return 1
+    fi
+
+    local n_lines
+    n_lines=$(printf '%s' "$output" | grep -c .)
+
+    if (( n_lines == 1 )); then
+        local code account
+        code=$(printf '%s' "$output" | awk '{print $NF}')
+        account=$(printf '%s' "$output" | sed -E 's/[[:space:]]+[^[:space:]]+[[:space:]]*$//')
+        printf '%s' "$code" | clip
+        echo "Copied code for: $account"
+    else
+        echo "Multiple accounts matched '$query':" >&2
+        printf '%s\n' "$output" | sed 's/^/  /' >&2
+        echo >&2
+        echo "Be more specific to copy a single code." >&2
+        return 1
+    fi
 }
 
 alias yotpl="ykman oath accounts list"
@@ -202,9 +244,12 @@ alias du="dust"
 alias df="duf"
 
 function edit_command {
+    # ^e (zsh widget) opens the current command line in nvim's text-editor
+    # mode (telescope + light editing). Heavier than base so we get
+    # search/snippets, lighter than ide so it spawns fast.
     local temp_file=$(mktemp)
     echo "$BUFFER" > "$temp_file"
-    nvim "$temp_file" -u "$HOME/.config/nvim/lua/base.lua"
+    nvim "$temp_file" -u "$HOME/.config/nvim/lua/text-editor.lua"
 
     BUFFER=$(<"$temp_file")
     rm "$temp_file"

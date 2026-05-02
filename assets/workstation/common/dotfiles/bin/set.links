@@ -70,8 +70,13 @@ if [ "$(uname)" = "Darwin" ]; then
     echo "Detected platform: macOS"
     platform_dir="$infradir/assets/workstation/mac/dotfiles"
 elif [ "$(uname)" = "Linux" ]; then
-    echo "Detected platform: Linux"
-    platform_dir="$infradir/assets/workstation/nix/dotfiles"
+    if [ -d "$HOME/.local/share/omarchy" ]; then
+        echo "Detected platform: Linux (Omarchy)"
+        platform_dir="$infradir/assets/workstation/omarchy/dotfiles"
+    else
+        echo "Detected platform: Linux (nix)"
+        platform_dir="$infradir/assets/workstation/nix/dotfiles"
+    fi
 else
     echo "Unsupported platform: $(uname)"
     exit 1
