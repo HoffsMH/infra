@@ -1,0 +1,86 @@
+# xremap config for this Omarchy host.
+# The NuPhy is firmware-remapped so caps -> leftctrl at the hardware level,
+# meaning the kernel only sees KEY_LEFTCTRL.
+#
+# Mac-on-Linux philosophy (mirrors the old nix setup):
+#   left-of-spacebar (LeftAlt physical)  ->  Ctrl  (the Linux Cmd-equivalent)
+#                                            with tap=Esc
+#   bottom-left ctrl (also caps via firmware) ->  Alt
+#   right-of-spacebar (RightAlt physical) ->  HYPER chord (Ctrl+Alt+Super)
+#
+# Result: muscle-memory "left-of-space + key" sends Ctrl+key, which natively
+# means copy/paste/find/new-tab/etc in apps. Shell readline M-keys move to
+# the bottom-left corner key. Tmux prefix is C-f to match this layout (see
+# ~/.config/tmux/tmux.conf).
+
+modmap:
+  # Tap leftalt  -> Escape
+  # Hold leftalt -> Control (Mac cmd-equivalent on Linux)
+  - name: leftalt tap=esc / hold=ctrl
+    remap:
+      KEY_LEFTALT:
+        held: KEY_LEFTCTRL
+        alone: KEY_ESC
+        alone_timeout_millis: 150
+
+  # leftctrl (which on this host = bottom-left ctrl key AND firmware-remapped
+  # caps) becomes Alt -- gives us shell readline M-keys and any other Alt use.
+  - name: leftctrl -> Alt
+    remap:
+      KEY_LEFTCTRL: KEY_LEFTALT
+
+  # Right Alt -> HYPER chord (Ctrl+Alt+Super held simultaneously).
+  # Personal layer prefix; bind in Hyprland with `SUPER CTRL ALT, <key>`.
+  - name: rightalt -> Hyper (Ctrl+Alt+Super chord)
+    remap:
+      KEY_RIGHTALT:
+        held: [KEY_LEFTCTRL, KEY_LEFTALT, KEY_LEFTMETA]
+        alone: KEY_RIGHTALT
+        alone_timeout_millis: 150
+
+# Razer Naga V2 Pro thumb pad -> Ctrl+<key>, scoped to the Naga's
+# keyboard interfaces so the regular keyboard's number row is untouched.
+keymap:
+  - name: Naga V2 Pro thumb pad -> Ctrl+N
+    device:
+      only:
+        - 'Razer Razer Naga V2 Pro Keyboard'
+        - 'Razer Razer Naga V2 Pro'
+    remap:
+      '1': C-1
+      '2': C-2
+      '3': C-l   # Naga thumb 3 -> Ctrl+L (exception)
+      '4': C-4
+      '5': C-5
+      '6': C-6
+      '7': C-7
+      '8': C-8
+      '9': C-9
+      '0': C-0
+      minus: C-minus
+      equal: C-equal
+
+  # Ctrl+hjkl -> arrow keys (the left-of-spacebar arrow layer; Ctrl is what
+  # the leftalt tap-Esc/hold-Ctrl key produces when held).
+  - name: Ctrl+hjkl -> arrows
+    remap:
+      C-h: left
+      C-j: down
+      C-k: up
+      C-l: right
+
+  # Alt+hjkl -> arrow keys (the Caps / bottom-left-ctrl arrow layer; on
+  # this host both physical keys send KEY_LEFTCTRL via NuPhy firmware
+  # which our modmap then turns into Alt). This means caps+hjkl AND
+  # bottom-left-ctrl+hjkl both produce arrow keys, mirroring nix's
+  # CapsLock-hjkl muscle memory.
+  #
+  # Tradeoff accepted: M-l (zsh `downcase-word`) is shadowed. The other
+  # common shell M-keys (M-f forward, M-b back, M-d delete-word) are not
+  # bound to hjkl and keep working as expected.
+  - name: Alt+hjkl -> arrows (caps / bottom-left-ctrl arrow layer)
+    remap:
+      M-h: left
+      M-j: down
+      M-k: up
+      M-l: right

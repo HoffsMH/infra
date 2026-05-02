@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Import session env into systemd-user (for gpg-agent pinentry)
+Comment=Pushes WAYLAND_DISPLAY/DISPLAY/DBUS/etc. into systemd-user manager
+        and DBus activation env so user services like gpg-agent can spawn
+        pinentry GUIs on the right display. Without this, YubiKey-backed
+        SSH auth fails silently with "Permission denied (publickey)" because
+        pinentry can't draw a PIN dialog. Restarts gpg-agent so any agent
+        already running picks up the freshly pushed env.
+Exec=sh -c '/home/mh/bin/tmux.import-env system && systemctl --user restart gpg-agent.service'
+NoDisplay=true
+X-GNOME-Autostart-enabled=true

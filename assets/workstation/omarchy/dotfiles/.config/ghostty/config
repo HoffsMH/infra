@@ -1,0 +1,70 @@
+# Source of truth for ghostty config on this Omarchy host.
+# Symlinked into ~/.config/ghostty/config — see ghostty.md for the port notes.
+#
+# Translation rule from the Mac-flavored common/dotfiles config:
+#   cmd+<key> on Mac  ->  alt+<key> on Linux  (left-of-spacebar muscle memory).
+#
+# Most Mac entries were "send M-<key>" text injections. On Linux, alt+<key>
+# already produces the same escape sequence natively, so those bindings are
+# redundant and intentionally dropped here. Only functional bindings (and
+# the close-window equivalent) are carried over.
+
+# ---------------- Theme / appearance (kept from omarchy default) ----------------
+config-file = ?"~/.config/omarchy/current/theme/ghostty.conf"
+
+# Inherit the system-wide monospace default from fontconfig
+# (~/.config/fontconfig/fonts.conf) so font choice flows down from a
+# single source of truth rather than being hard-coded per-app.
+font-family = "monospace"
+font-style = Regular
+font-size = 13
+
+window-theme = ghostty
+window-padding-x = 14
+window-padding-y = 14
+confirm-close-surface = false
+resize-overlay = never
+gtk-toolbar-style = flat
+
+cursor-style = "block"
+cursor-style-blink = false
+
+# Cursor styling + SSH session terminfo
+# (all shell integration options must be passed together)
+shell-integration-features = no-cursor,ssh-env
+
+# ---------------- Bindings ----------------
+
+# Clipboard (omarchy default)
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+
+# Mac muscle memory: left-of-spacebar + V (= Ctrl+V after the keyboard
+# remap) pastes from clipboard. Unconsumed so anything that wants to
+# intercept it explicitly still can.
+keybind = unconsumed:ctrl+v=paste_from_clipboard
+
+# Resize the focused split (omarchy default — uses HYPER chord-style 4-mod)
+keybind = super+control+shift+alt+arrow_down=resize_split:down,100
+keybind = super+control+shift+alt+arrow_up=resize_split:up,100
+keybind = super+control+shift+alt+arrow_left=resize_split:left,100
+keybind = super+control+shift+alt+arrow_right=resize_split:right,100
+
+# Note: Mac cmd+q (close window) and cmd+a (reload) are now handled at the
+# Hyprland WM level on Ctrl+Q (after xremap leftalt->Ctrl swap) -- Hyprland
+# intercepts before ghostty sees the keystroke. No per-terminal bind needed.
+# Reload via `ghostty +reload-config` from a terminal when needed.
+
+# Intentionally NOT ported:
+#   cmd+f / cmd+d / cmd+u / cmd+y / cmd+e -> on Linux alt+<key> already sends
+#       the same M-<key> escape sequence; tmux/zsh/readline see them natively.
+#   cmd+grave_accent=toggle_quick_terminal -> Linux ghostty has no quick
+#       terminal feature.
+#   cmd+enter=text:\x1b\r -> alt+enter already produces ESC+CR on Linux.
+
+# ---------------- Misc ----------------
+mouse-scroll-multiplier = 0.95
+
+# Fix general slowness on Hyprland
+# (https://github.com/ghostty-org/ghostty/discussions/3224)
+async-backend = epoll

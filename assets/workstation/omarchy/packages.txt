@@ -1,0 +1,34 @@
+# Packages explicitly installed via `yay -S` on this Omarchy host.
+# Captured: 2026-04-29 — formalize into a real installer later.
+# (Exclude package names like "discord" if pacman/yay resolved to a -bin variant — see notes.)
+
+# --- Workstation (work + personal) ---
+asdf-vm
+atuin
+brave-bin
+direnv
+discord            # resolved to discord-latest-bin
+dog
+duf
+ghostty
+gopass             # if needed for the `pass="gopass"` alias in functions_and_aliases.sh
+nuphyctl-bin
+ttf-ibm-plex          # Plex Sans / Plex Serif (default sans-serif/serif via fontconfig)
+ttf-ibmplex-mono-nerd # BlexMono Nerd Font (default monospace via fontconfig)
+xremap-hypr-bin
+zsh
+zsh-autopair-git
+zsh-fast-syntax-highlighting
+
+# --- YubiKey / GPG agent stack (installed by setup-yubikey.sh) ---
+yubikey-manager
+yubikey-personalization
+pcsc-tools
+libfido2
+
+# --- Recreational / non-work apps (TODO: split out to gaming repo) ---
+archon-appimage
+curseforge
+lutris
+protonplus
+steam
