@@ -13,9 +13,21 @@ debugging anything.
    First move when auth fails: ask the user to touch the YubiKey.
 
 2. **`rm` is aliased** to print "use trm". Bash `rm <path>` no-ops in
-   his shells. Use `\rm`, `command rm`, `rmdir`, or `trm`.
+   his shells. **Agents: use `\rm` (or `command rm` / `rmdir`).** Do
+   NOT use `trm` from agent shells -- it's an interactive trash helper
+   that doesn't accept `-rf` and runs `du` on its argument, so common
+   agent invocations fail. `trm` is for the user, `\rm` is for agents.
 
-3. **Mac-on-Linux keyboard.** Left-of-spacebar physical key sends
+3. **Work GitHub via SSH host alias.** Personal `github.com` is bound
+   to the YubiKey AUT subkey. The work account (matt-h-sage, orgs like
+   `Anvyl`) uses a separate key under the `github.com-work` Host alias
+   defined in `~/.ssh/config.local`. Clone work repos with
+   `git@github.com-work:<org>/<repo>.git` (NOT `github.com:` and NOT
+   `gh repo clone` -- the latter rewrites to `github.com:` and routes
+   through the YubiKey, which will refuse). Push URLs use the same
+   `-work` host, so cloning that way also fixes future pushes.
+
+4. **Mac-on-Linux keyboard.** Left-of-spacebar physical key sends
    Ctrl (Mac Cmd-equivalent on Linux) via xremap. Caps + bottom-left
    ctrl send Alt (shell readline M-keys, Alt+hjkl arrows). Right-of-
    spacebar is a HYPER chord (Ctrl+Alt+Super). When porting Mac
@@ -46,9 +58,32 @@ etc. `README.md` and `philosophy.md` at the root.
 - OK to run with permission / when explicitly asked: `git add <path>`
   (staging is fine; user will inspect before committing), `git pull
   --ff-only` (fast-forward only, no merge commits).
-- When you finish a chunk of work, summarize the changes and let the
-  user run the commit. Optionally draft a commit message they can
-  copy-paste, but don't run the commit yourself.
+
+## Runlog
+
+- `runlog` (in `~/bin`) pipes a command's stdout+stderr to
+  `../<dirname>-<command>.log`, skipping wrapper commands (bundle,
+  npx, yarn, etc.) when naming the file.
+- Use it when output will be too large for the context window AND
+  you'll need to grep it repeatedly (test suites, builds, etc.).
+- After running, **grep the log** instead of re-running the command.
+- Don't blanket every command — just the noisy ones.
+
+## Testing
+
+- **Never trust a test you haven't seen fail.** If you write a test
+  that passes on the first run, break or comment out the code you
+  think makes it pass, then verify it fails for the right reason
+  before restoring.
+
+## Shell
+
+- Commands run in `bash`, but the interactive shell is `zsh` where all
+  aliases, functions, and some PATH additions live.
+- Most utilities (`runlog`, `trm`, etc.) are standalone scripts in
+  `~/bin/` or `~/.local/bin/` — they work in either shell.
+- When adapting commands the user pastes from their zsh session,
+  strip zsh-specific syntax/aliases and translate to bash equivalents.
 
 ## Detail
 

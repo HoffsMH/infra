@@ -27,3 +27,9 @@ bindkey -e
 bindkey '^e' edit_command
 
 command -v fastfetch >/dev/null && fastfetch
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/mh/code/paid/sage/anvyl/google-cloud-sdk/path.zsh.inc' ]; then . '/home/mh/code/paid/sage/anvyl/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/mh/code/paid/sage/anvyl/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/mh/code/paid/sage/anvyl/google-cloud-sdk/completion.zsh.inc'; fi

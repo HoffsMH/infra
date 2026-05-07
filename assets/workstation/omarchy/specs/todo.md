@@ -5,6 +5,9 @@ keep its rationale.
 
 ## Infrastructure / portability
 
+- **Enable syncthing user service** on fresh installs:
+  `systemctl --user enable --now syncthing`. The package is installed
+  but the user unit ships disabled by default.
 - **Symlink remaining configs into infra**:
   - `~/.config/tmux/tmux.conf` (currently in-place)
   - `~/.zshrc` (currently in-place)

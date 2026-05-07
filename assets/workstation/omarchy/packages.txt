@@ -5,16 +5,19 @@
 # --- Workstation (work + personal) ---
 asdf-vm
 atuin
+bambustudio-nvidia-bin    # 3D printing slicer (nvidia variant for RTX cards on Wayland)
 brave-bin
 direnv
 discord            # resolved to discord-latest-bin
 dog
 duf
 ghostty
+google-cloud-cli   # gcloud / GCP SDK
 gopass             # if needed for the `pass="gopass"` alias in functions_and_aliases.sh
 nuphyctl-bin
 ttf-ibm-plex          # Plex Sans / Plex Serif (default sans-serif/serif via fontconfig)
 ttf-ibmplex-mono-nerd # BlexMono Nerd Font (default monospace via fontconfig)
+syncthing
 xremap-hypr-bin
 zsh
 zsh-autopair-git

@@ -60,14 +60,22 @@ keymap:
       minus: C-minus
       equal: C-equal
 
-  # Ctrl+hjkl -> arrow keys (the left-of-spacebar arrow layer; Ctrl is what
-  # the leftalt tap-Esc/hold-Ctrl key produces when held).
-  - name: Ctrl+hjkl -> arrows
-    remap:
-      C-h: left
-      C-j: down
-      C-k: up
-      C-l: right
+  # NOTE 2026-05-02: the Ctrl+hjkl -> arrows layer was removed on trial.
+  # It conflicted with the Naga thumb-3 -> C-l override (xremap chains
+  # keymap output through subsequent rules, so the synthesized C-l was
+  # being caught here and turned into Right arrow inside WoW). Trying
+  # to live with Alt+hjkl (caps / bottom-left-ctrl) as the only arrow
+  # layer. If muscle memory revolts, restore the block below AND solve
+  # the Naga collision separately (e.g. change '3' to F13 in the Naga
+  # device-scoped keymap and rebind in WoW). See gaming-side
+  # specs/done.md entry for the same date.
+  #
+  # - name: Ctrl+hjkl -> arrows
+  #   remap:
+  #     C-h: left
+  #     C-j: down
+  #     C-k: up
+  #     C-l: right
 
   # Alt+hjkl -> arrow keys (the Caps / bottom-left-ctrl arrow layer; on
   # this host both physical keys send KEY_LEFTCTRL via NuPhy firmware
