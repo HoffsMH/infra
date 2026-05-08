@@ -85,11 +85,9 @@ etc. `README.md` and `philosophy.md` at the root.
 - When adapting commands the user pastes from their zsh session,
   strip zsh-specific syntax/aliases and translate to bash equivalents.
 
-## Detail
+## Machine-specific
 
-Full notes (more YubiKey diagnostic recipes, the `IdentitiesOnly +
-IdentityFile` gotcha, replay/bootstrap flow, etc.) live at:
+`~/AGENTS-MACHINE.md` — machine-specific overrides, additions, and
+reference material that supplement this orientation. If the file
+exists, read it after this one.
 
-- [`~/infra/assets/workstation/omarchy/specs/agent-orientation.md`](infra/assets/workstation/omarchy/specs/agent-orientation.md)
-
-Read that before you touch anything load-bearing.
