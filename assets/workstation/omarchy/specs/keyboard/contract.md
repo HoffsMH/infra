@@ -28,7 +28,7 @@ load-bearing for muscle memory.
 
 | Press | Should produce |
 |---|---|
-| **left-of-spacebar + H/J/K/L** (= Ctrl+hjkl) | Left / Down / Up / Right arrow |
+| **left-of-spacebar + H/J/K/L** (= Ctrl+hjkl) | **Nothing remapped** -- removed on trial 2026-05-02 (see note below) |
 | **Caps + H/J/K/L** (= Alt+hjkl) | Left / Down / Up / Right arrow |
 | **Bottom-left ctrl + H/J/K/L** (= Alt+hjkl) | Same as Caps |
 | **HYPER + H/J/K/L** (= Ctrl+Alt+Super+hjkl) | reaches Hyprland untransformed -- so HYPER+J/K cycle windows |
@@ -38,6 +38,17 @@ modifiers, so without an explicit `HYPER+hjkl passthrough` block the
 Alt+hjkl rule fires for the HYPER chord (because the chord contains
 Alt) and turns HYPER+J into Down. The xremap config has a passthrough
 block specifically to prevent this; **don't remove it** when refactoring.
+
+### Trial: Ctrl+hjkl arrow layer disabled (2026-05-02)
+
+The `Ctrl+hjkl -> arrows` rule was removed because the gaming-side Naga
+thumb-3 override (`'3': C-l`) was being caught by it -- xremap chains
+keymap output through subsequent rules, so the synthesized C-l from the
+Naga rule turned into Right arrow inside WoW instead of reaching the game
+as Ctrl+L. Living without the left-of-space arrow path on trial; if it
+hurts, restore the block in `xremap/config.yml` and solve the Naga
+collision a different way (e.g. switch '3' to F13 in the Naga keymap and
+rebind in WoW). Mirrored in `~/personal/omarchy-gaming/specs/done.md`.
 
 ## Tmux prefix
 

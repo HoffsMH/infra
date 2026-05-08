@@ -3,6 +3,21 @@
 Most-recent first. Each entry is a short rule + the rationale that's
 useful to remember later.
 
+## 2026-05-02
+
+### Keyboard
+
+- **`Ctrl+hjkl -> arrows` xremap rule removed on trial.** Gaming-side
+  Naga thumb-3 override (`'3': C-l`) was being caught by this rule
+  because xremap chains keymap output through subsequent keymap rules,
+  so the synthesized Ctrl+L turned into Right arrow inside WoW instead
+  of reaching the game as Ctrl+L. Now only the Alt+hjkl arrow layer
+  (caps / bottom-left-ctrl) exists. Watching to see if muscle memory
+  for left-of-space + hjkl is missed; if so, restore the block in
+  `xremap/config.yml` and solve the Naga collision differently (e.g.
+  switch `'3'` to `F13` in the Naga keymap and rebind in WoW). Contract
+  table in `keyboard/contract.md` updated to reflect the trial.
+
 ## 2026-04-29 / 2026-04-30 (initial buildout session)
 
 ### Display layout
