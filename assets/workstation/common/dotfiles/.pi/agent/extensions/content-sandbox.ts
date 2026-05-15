@@ -126,6 +126,14 @@ export default function (pi: ExtensionAPI) {
 
   // Wrap web-fetch outputs.
   pi.on("tool_result", async (event) => {
+    // Primary: web_fetch custom tool
+    if (event.toolName === "web_fetch") {
+      const firstBlock = event.content?.[0];
+      const body = firstBlock?.type === "text" ? firstBlock.text : JSON.stringify(firstBlock ?? event.content);
+      return { content: [{ type: "text", text: start + body + end }] };
+    }
+
+    // Fallback: bash + content.js / search.js --content
     if (event.toolName !== "bash") return;
     if (!isWebFetch(event.input.command as string)) return;
 

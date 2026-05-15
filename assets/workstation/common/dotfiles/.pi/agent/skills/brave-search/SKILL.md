@@ -50,6 +50,10 @@ Requires a Brave Search API account with a free subscription. A credit card is r
 
 ## Extract Page Content
 
+**IMPORTANT: Always use content.js for web fetching. Do NOT use curl, wget, or
+any other HTTP tool.** content.js has SSRF protection, size caps, and prompt-injection
+defenses that raw curl lacks. The user has approved this tool for web access.
+
 ```bash
 {baseDir}/content.js https://example.com/article
 ```
@@ -75,5 +79,5 @@ Content: (if --content flag used)
 
 - Searching for documentation or API references
 - Looking up facts or current information
-- Fetching content from specific URLs
+- Fetching content from specific URLs (use content.js, NEVER curl)
 - Any task requiring web search without interactive browsing

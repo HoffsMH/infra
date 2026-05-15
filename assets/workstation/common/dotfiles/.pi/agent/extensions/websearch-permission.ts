@@ -1,13 +1,10 @@
 /**
- * Web Search & Fetch Permission Gate
+ * Web Search & Fetch Permission Gate (fallback)
  *
- * Standalone gate for web searches and URL fetches (Brave Search via
- * pi-skills).  Separate detection and separate whitelists for search
- * vs fetch — approving searches does not approve fetches.
- *
- * Tab on any option opens inline editor:
- *   - On "allow once / allow all": type a steer message
- *   - On "No": type a reason
+ * Catches bash invocations of brave-search scripts (search.js, content.js)
+ * and shows the appropriate permission dialog.  This is a fallback for
+ * cases where the model uses bash directly instead of the web_search /
+ * web_fetch tools.
  */
 
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
@@ -21,25 +18,23 @@ import {
 } from "@earendil-works/pi-tui";
 
 // ---------------------------------------------------------------------------
-// Detection
+// Detection — simple, no regex needed
 // ---------------------------------------------------------------------------
 
-const SEARCH_PATTERN = /brave-search\/search\.js(?!.*--content)/;
-const FETCH_PATTERN =
-  /brave-search\/(?:content\.js|search\.js\b.*--content)/;
+function isBraveSearch(command: string, cwd: string): boolean {
+  if (cwd.includes("brave-search")) return true;
+  if (command.includes("brave-search")) return true;
+  return false;
+}
 
 type WebMode = "search" | "fetch";
 
-function detectWebMode(command: string, cwd: string): WebMode | null {
-  if (FETCH_PATTERN.test(command)) return "fetch";
-  if (SEARCH_PATTERN.test(command)) return "search";
-  if (cwd.includes("brave-search")) {
-    // Can't distinguish from cwd alone — check command content.
-    if (command.includes("content.js") || command.includes("--content"))
-      return "fetch";
-    if (command.includes("search.js")) return "search";
-  }
-  return null;
+function detectMode(command: string): WebMode {
+  // content.js → fetch
+  if (command.includes("content.js") && !command.includes("search.js"))
+    return "fetch";
+  // search.js → search (even with --content)
+  return "search";
 }
 
 // ---------------------------------------------------------------------------
@@ -48,13 +43,8 @@ function detectWebMode(command: string, cwd: string): WebMode | null {
 
 type DialogAction = "allow-once" | "allow-all" | "block";
 
-interface DialogResult {
-  action: DialogAction;
-  message?: string;
-}
-
 // ---------------------------------------------------------------------------
-// Dialog items (per mode)
+// Dialog
 // ---------------------------------------------------------------------------
 
 function buildItems(mode: WebMode): SelectItem[] {
@@ -66,20 +56,15 @@ function buildItems(mode: WebMode): SelectItem[] {
   ];
 }
 
-// ---------------------------------------------------------------------------
-// Custom dialog
-// ---------------------------------------------------------------------------
-
-function showWebDialog(
+async function showWebDialog(
   mode: WebMode,
   command: string,
   cwd: string,
   ctx: Parameters<ExtensionAPI["on"]>[1] extends (e: infer E, c: infer C) => any ? C : never,
-): Promise<DialogResult | null> {
+): Promise<DialogAction | null> {
   const items = buildItems(mode);
-  const NO_INDEX = 2;
 
-  return ctx.ui.custom<DialogResult | null>((tui, theme, _kb, done) => {
+  return ctx.ui.custom<DialogAction | null>((tui: any, theme: any, _kb: any, done: any) => {
     let optionIndex = 0;
     let editorMode = false;
     let cachedLines: string[] | undefined;
@@ -96,89 +81,36 @@ function showWebDialog(
     };
     const editor = new Editor(tui, editorTheme);
 
-    editor.onSubmit = (value) => {
+    editor.onSubmit = () => {
       const item = items[optionIndex];
-      const result: DialogResult = {
-        action: (item?.value as DialogAction) || "block",
-        message: value.trim() || undefined,
-      };
-      done(result);
+      done((item?.value as DialogAction) || "block");
     };
 
-    function refresh() {
-      cachedLines = undefined;
-      tui.requestRender();
-    }
-
-    function enterEditor() {
-      editor.setText("");
-      editorMode = true;
-      refresh();
-    }
+    function refresh() { cachedLines = undefined; tui.requestRender(); }
 
     function handleInput(data: string) {
       if (editorMode) {
-        if (matchesKey(data, Key.escape)) {
-          editorMode = false;
-          editor.setText("");
-          refresh();
-          return;
-        }
+        if (matchesKey(data, Key.escape)) { editorMode = false; editor.setText(""); refresh(); return; }
         editor.handleInput(data);
         refresh();
         return;
       }
-
-      if (matchesKey(data, Key.up)) {
-        optionIndex = Math.max(0, optionIndex - 1);
-        refresh();
-        return;
-      }
-      if (matchesKey(data, Key.down)) {
-        optionIndex = Math.min(items.length - 1, optionIndex + 1);
-        refresh();
-        return;
-      }
-
-      if (matchesKey(data, Key.tab)) {
-        enterEditor();
-        return;
-      }
-
-      if (matchesKey(data, Key.enter)) {
-        const item = items[optionIndex];
-        if (item) {
-          done({ action: item.value as DialogAction });
-        }
-        return;
-      }
-
-      if (matchesKey(data, Key.escape)) {
-        done(null);
-      }
+      if (matchesKey(data, Key.up)) { optionIndex = Math.max(0, optionIndex - 1); refresh(); return; }
+      if (matchesKey(data, Key.down)) { optionIndex = Math.min(items.length - 1, optionIndex + 1); refresh(); return; }
+      if (matchesKey(data, Key.tab)) { editor.setText(""); editorMode = true; refresh(); return; }
+      if (matchesKey(data, Key.enter)) { done((items[optionIndex]?.value as DialogAction) || "block"); return; }
+      if (matchesKey(data, Key.escape)) { done(null); }
     }
 
     function render(width: number): string[] {
       if (cachedLines) return cachedLines;
-
       const lines: string[] = [];
       const add = (s: string) => lines.push(truncateToWidth(s, width));
-
-      const header =
-        mode === "fetch" ? "Allow web fetch?" : "Allow web search?";
+      const header = mode === "fetch" ? "Allow web fetch?" : "Allow web search?";
 
       add(theme.fg("accent", "─".repeat(width)));
       add(theme.fg("text", ` ${theme.bold(header)}`));
-
-      if (mode === "fetch") {
-        add(
-          theme.fg(
-            "warning",
-            " ⚠ Fetching URLs can expose internal network services.",
-          ),
-        );
-      }
-
+      if (mode === "fetch") add(theme.fg("warning", " ⚠ Fetching URLs can expose internal network services."));
       add(theme.fg("dim", `   ${command}`));
       add(theme.fg("dim", `   [${cwd}]`));
       lines.push("");
@@ -186,61 +118,28 @@ function showWebDialog(
       for (let i = 0; i < items.length; i++) {
         const item = items[i];
         const selected = i === optionIndex;
-        const isNo = i === NO_INDEX;
+        const isNo = i === 2;
         const prefix = selected ? theme.fg("accent", "> ") : "  ";
         const num = theme.fg("dim", `${i + 1}.`);
-
-        let label: string;
-        if (selected) {
-          label = theme.fg("accent", item.label);
-        } else if (isNo) {
-          label = theme.fg("warning", item.label);
-        } else {
-          label = theme.fg("text", item.label);
-        }
-
-        if (selected && !editorMode) {
-          label += " " + theme.fg("dim", "[Tab to add message]");
-        }
-
+        let label = selected ? theme.fg("accent", item.label) : isNo ? theme.fg("warning", item.label) : theme.fg("text", item.label);
+        if (selected && !editorMode) label += " " + theme.fg("dim", "[Tab to add message]");
         add(`${prefix}${num} ${label}`);
       }
 
       if (editorMode) {
         lines.push("");
-        const item = items[optionIndex];
-        const isNo = item?.value === "block";
-        const prompt = isNo
-          ? " Tell pi what to do differently:"
-          : " Add a message for pi:";
-        add(theme.fg("muted", prompt));
-        for (const line of editor.render(width - 2)) {
-          add(` ${line}`);
-        }
+        add(theme.fg("muted", items[optionIndex]?.value === "block" ? " Tell pi what to do differently:" : " Add a message for pi:"));
+        for (const line of editor.render(width - 2)) add(` ${line}`);
       }
 
       lines.push("");
-      if (editorMode) {
-        add(theme.fg("dim", " Enter to submit • Esc to go back"));
-      } else {
-        add(
-          theme.fg(
-            "dim",
-            " ↑↓ navigate • Enter select • Tab add message • Esc cancel",
-          ),
-        );
-      }
+      add(theme.fg("dim", editorMode ? " Enter to submit • Esc to go back" : " ↑↓ navigate • Enter select • Tab add message • Esc cancel"));
       add(theme.fg("accent", "─".repeat(width)));
-
       cachedLines = lines;
       return lines;
     }
 
-    return {
-      render,
-      invalidate: () => { cachedLines = undefined; },
-      handleInput,
-    };
+    return { render, invalidate: () => { cachedLines = undefined; }, handleInput };
   });
 }
 
@@ -252,82 +151,36 @@ export default function (pi: ExtensionAPI) {
   let searchAllowed = false;
   let fetchAllowed = false;
 
-  // --- session resume ------------------------------------------------
   pi.on("session_start", async (_event, ctx) => {
     searchAllowed = false;
     fetchAllowed = false;
     for (const entry of ctx.sessionManager.getEntries()) {
-      if (
-        entry.type === "custom" &&
-        entry.customType === "websearch-permission"
-      ) {
-        if (entry.data?._reset) {
-          searchAllowed = false;
-          fetchAllowed = false;
-          continue;
-        }
+      if (entry.type === "custom" && entry.customType === "websearch-permission") {
+        if (entry.data?._reset) { searchAllowed = false; fetchAllowed = false; continue; }
         if (entry.data?.search === true) searchAllowed = true;
         if (entry.data?.fetch === true) fetchAllowed = true;
       }
     }
   });
 
-  // --- gate ----------------------------------------------------------
   pi.on("tool_call", async (event, ctx) => {
     if (event.toolName !== "bash") return undefined;
-
     const command: string = event.input.command;
     const cwd = ctx.cwd;
-    const mode = detectWebMode(command, cwd);
-    if (!mode) return undefined; // Not ours.
+    if (!isBraveSearch(command, cwd)) return undefined;
 
-    // Already whitelisted for this mode.
-    const allowed = mode === "search" ? searchAllowed : fetchAllowed;
-    if (allowed) return undefined;
+    const mode = detectMode(command);
+    if ((mode === "search" && searchAllowed) || (mode === "fetch" && fetchAllowed))
+      return undefined;
 
-    if (!ctx.hasUI) {
-      return {
-        block: true,
-        reason: `Web ${mode} blocked in non-interactive mode.`,
-      };
-    }
+    if (!ctx.hasUI) return { block: true, reason: `Web ${mode} blocked in non-interactive mode.` };
 
     const result = await showWebDialog(mode, command, cwd, ctx);
-
-    if (!result) {
-      return { block: true, reason: "Cancelled by user" };
+    if (!result || result === "block") return { block: true, reason: "Cancelled by user" };
+    if (result === "allow-all") {
+      if (mode === "search") { searchAllowed = true; pi.appendEntry("websearch-permission", { search: true }); }
+      else { fetchAllowed = true; pi.appendEntry("websearch-permission", { fetch: true }); }
     }
-
-    if (result.message) {
-      pi.sendMessage(
-        {
-          customType: "websearch-permission",
-          content: result.message,
-          display: true,
-        },
-        { deliverAs: "steer" },
-      );
-    }
-
-    if (result.action === "block") {
-      return {
-        block: true,
-        reason: result.message
-          ? `Blocked: ${result.message}`
-          : "Blocked by user",
-      };
-    }
-
-    if (result.action === "allow-all") {
-      if (mode === "search") {
-        searchAllowed = true;
-        pi.appendEntry("websearch-permission", { search: true });
-      } else {
-        fetchAllowed = true;
-        pi.appendEntry("websearch-permission", { fetch: true });
-      }
-    }
-
     return undefined;
   });
 }

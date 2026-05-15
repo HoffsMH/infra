@@ -97,11 +97,9 @@ function isWhitelisted(
 // Websearch skip (handled by websearch-permission.ts)
 // ---------------------------------------------------------------------------
 
-const WEBSEARCH_PATTERN = /brave-search\/(?:search|content)\.js/;
-
 function isWebSearch(command: string, cwd: string): boolean {
-  if (WEBSEARCH_PATTERN.test(command)) return true;
   if (cwd.includes("brave-search")) return true;
+  if (command.includes("brave-search")) return true;
   return false;
 }
 

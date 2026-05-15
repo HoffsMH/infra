@@ -3,5 +3,8 @@
   "defaultProvider": "openrouter",
   "defaultModel": "deepseek/deepseek-v4-pro",
   "defaultThinkingLevel": "high",
-  "shellCommandPrefix": "source ~/.envrc\n"
+  "shellCommandPrefix": "source ~/.envrc\n",
+  "packages": [
+    "npm:pi-ask-user"
+  ]
 }
