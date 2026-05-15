@@ -18,8 +18,13 @@ echo "Home directory: $h"
 # Function to process a directory of dotfiles
 link_dotfiles() {
   local source_dir="$1"
+  local force="$2"
+  local dry="$3"
   echo "----------------------------------------------"
   echo "Processing dotfiles in: $source_dir"
+  if [ "$dry" = "true" ]; then
+    echo "  [DRY RUN — no changes will be made]"
+  fi
 
   # Use find -print0 to output NUL-separated file names and read them correctly
   find "$source_dir" -type f -print0 | while IFS= read -r -d '' file; do
@@ -36,8 +41,10 @@ link_dotfiles() {
 
     # Create target directory if it doesn't exist
     if [ ! -d "$h/$newdirn" ]; then
-      echo "  Directory does not exist. Creating: $h/$newdirn"
-      mkdir -p "$h/$newdirn"
+      echo "  Directory does not exist. Would create: $h/$newdirn"
+      if [ "$dry" != "true" ]; then
+        mkdir -p "$h/$newdirn"
+      fi
     fi
 
     if [ ! -f "$newlink" ]; then
@@ -45,25 +52,42 @@ link_dotfiles() {
     fi
 
     # Check if force flag (-f) was given or if the target file doesn't exist
-    if [ "$1" = "-f" ]; then
+    if [ "$force" = "-f" ]; then
       echo "  Force flag detected (-f)"
     fi
 
-    if [ "$1" = "-f" ] || [ ! -f "$newlink" ]; then
-      echo "  Setting permissions on source file: $file"
-      chmod go-rwx "$file"
-      chmod u+rw "$file"
-      echo "  Target link location: $newlink"
-      echo "  Creating symbolic link from $file to $newlink"
-      ln -sf "$file" "$newlink"
+    if [ "$force" = "-f" ] || [ ! -f "$newlink" ]; then
+      local action
+      if [ -f "$newlink" ]; then
+        action="Would replace"
+      else
+        action="Would create"
+      fi
+      echo "  $action symlink: $newlink → $file"
+      if [ "$dry" != "true" ]; then
+        chmod go-rwx "$file"
+        chmod u+rw "$file"
+        ln -sf "$file" "$newlink"
+      fi
     fi
   done
 }
 
+# Capture optional flags before processing
+force_flag=""
+dry_run="false"
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -f) force_flag="-f" ;;
+    -n) dry_run="true" ;;
+  esac
+  shift
+done
+
 # Process common dotfiles
 common_dir="$infradir/assets/workstation/common/dotfiles"
 echo "Processing common dotfiles from: $common_dir"
-link_dotfiles "$common_dir"
+link_dotfiles "$common_dir" "$force_flag" "$dry_run"
 
 # Process platform-specific dotfiles
 if [ "$(uname)" = "Darwin" ]; then
@@ -83,7 +107,7 @@ else
 fi
 
 echo "Processing platform-specific dotfiles from: $platform_dir"
-link_dotfiles "$platform_dir"
+link_dotfiles "$platform_dir" "$force_flag" "$dry_run"
 
 echo "----------------------------------------------"
 echo "Dotfiles linking complete."

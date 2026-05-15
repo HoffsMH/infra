@@ -1,1 +1,2 @@
 export SSH_PUB=ssh-add -L
+# export BRAVE_API_KEY=  # get from https://api-dashboard.search.brave.com (free tier)

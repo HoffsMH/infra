@@ -91,3 +91,32 @@ etc. `README.md` and `philosophy.md` at the root.
 reference material that supplement this orientation. If the file
 exists, read it after this one.
 
+## Pi coding agent
+
+Global pi config is symlinked from here via `set.links`:
+
+```
+~/infra/assets/workstation/common/dotfiles/.pi/agent/
+├── settings.json              # shellCommandPrefix, provider, model
+├── extensions/
+│   ├── bash-permission.ts     # gate every bash command
+│   ├── websearch-permission.ts # gate web search + fetch separately
+│   └── content-sandbox.ts     # prompt-injection defense for web fetches
+└── skills/
+    └── brave-search/
+        ├── search.js          # Brave Search API (needs BRAVE_API_KEY)
+        ├── content.js         # URL → markdown (SSRF-hardened, 5 MB cap)
+        └── package.json       # npm install on new machines
+```
+
+**New machine bootstrap:**
+1. `set.links -n` — dry-run first to see what will be linked
+2. `set.links -f` — force-replace all dotfiles with symlinks to infra
+3. `cd ~/.pi/agent/skills/brave-search && npm install`
+3. Set `BRAVE_API_KEY` in `~/.envrc` (get from https://api-dashboard.search.brave.com/register — free tier, credit card required for verification)
+4. `settings.json` sources `~/.envrc` via `shellCommandPrefix` before every
+   bash command so the key is always available
+
+**Session commands:**
+- `/reset-permissions` — clear all bash + websearch whitelists
+
