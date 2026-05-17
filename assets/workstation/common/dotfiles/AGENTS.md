@@ -33,12 +33,6 @@ debugging anything.
    spacebar is a HYPER chord (Ctrl+Alt+Super). When porting Mac
    configs, translate `cmd -> alt` on the source side.
 
-## Spec tree
-
-`~/infra/assets/workstation/omarchy/specs/` — workstation (employer-
-facing-adjacent). Mac/Linux dev setup, keyboard, Hyprland, terminal,
-etc. `README.md` and `philosophy.md` at the root.
-
 ## File-edit rules
 
 - `~/.config/**` — runtime config; editing in place is fine.
