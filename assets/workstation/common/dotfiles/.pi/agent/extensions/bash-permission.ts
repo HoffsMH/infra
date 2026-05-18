@@ -104,13 +104,36 @@ function isWebSearch(command: string, cwd: string): boolean {
 }
 
 // ---------------------------------------------------------------------------
+// Git detection — block, redirect to git_* tools
+// ---------------------------------------------------------------------------
+
+/**
+ * Detect any sub-command that is or starts with "git".
+ * Handles: git, git status, /usr/bin/git, git -C /tmp, etc.
+ * Does NOT match: gitlab, digital, etc.
+ */
+function isGitCommand(command: string): boolean {
+  // Split compound commands; check each sub-command
+  const subs = splitCommands(command);
+  return subs.some((sub) => {
+    const trimmed = sub.trimStart();
+    // Match "git" as the first token (handles git, git status, /usr/bin/git, git -C ...)
+    // Must be followed by space, end-of-string, or flag
+    return /(?:^|[\s;&|])(?:\S*\/)?git(?:[\s;&|]|$)/.test(" " + trimmed);
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Dialog items
 // ---------------------------------------------------------------------------
 
 function buildItems(command: string, cwd: string): SelectItem[] {
+  // Sanitize command for display: replace newlines with spaces, truncate if too long
+  const displayCommand = command.replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').trim();
+  const truncatedCommand = displayCommand.length > 60 ? displayCommand.slice(0, 57) + '...' : displayCommand;
   return [
     { value: "allow-once", label: "Yes (this once)" },
-    { value: "allow-prefix", label: `Yes, allow prefix \`${command}\` this session` },
+    { value: "allow-prefix", label: `Yes, allow prefix \`${truncatedCommand}\` this session` },
     { value: "allow-dir", label: `Yes, allow any command in ${cwd} this session` },
     { value: "block", label: "No" },
   ];
@@ -232,7 +255,9 @@ function showPermissionDialog(
 
       add(theme.fg("accent", "─".repeat(width)));
       add(theme.fg("text", ` ${theme.bold("Allow bash command?")}`));
-      add(theme.fg("dim", `   ${command}`));
+      for (const cmdLine of command.split(/\r?\n/)) {
+        add(theme.fg("dim", `   ${cmdLine}`));
+      }
       add(theme.fg("dim", `   [${cwd}]`));
       lines.push("");
 
@@ -327,11 +352,13 @@ export default function (pi: ExtensionAPI) {
 
   // /reset-permissions — clear all session permission whitelists.
   pi.registerCommand("reset-permissions", {
-    description: "Reset all bash and websearch permissions for this session",
+    description: "Reset all bash, websearch, git, and edit permissions for this session",
     handler: async (_args, ctx) => {
       whitelist = [];
       pi.appendEntry("bash-permission", { _reset: true });
       pi.appendEntry("websearch-permission", { _reset: true });
+      pi.appendEntry("git-permission", { _reset: true });
+      pi.appendEntry("edit-permission", { _reset: true });
       ctx.ui.notify("All permissions reset — you'll be asked again.", "info");
     },
   });
@@ -357,6 +384,19 @@ export default function (pi: ExtensionAPI) {
 
     // Websearch commands are handled by websearch-permission.ts.
     if (isWebSearch(command, cwd)) return undefined;
+
+    // Git commands are handled by git-permission.ts / git_* tools.
+    // Block and redirect — never show the bash dialog for git.
+    if (isGitCommand(command)) {
+      return {
+        block: true,
+        reason:
+          `Git commands must go through the dedicated git_* tools ` +
+          `(git_status, git_diff, git_log, git_show, git_fetch, ` +
+          `git_branch, git_remote, git_ls_files, git_add, git_pull_ff, ` +
+          `git_stash).  The bash gate does not handle git.`,
+      };
+    }
 
     const result = await showPermissionDialog(command, cwd, ctx);
 
