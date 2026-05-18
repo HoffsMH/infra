@@ -1,10 +1,9 @@
 {
-  "lastChangelogVersion": "0.74.0",
+  "lastChangelogVersion": "0.75.3",
   "defaultProvider": "openrouter",
   "defaultModel": "deepseek/deepseek-v4-pro",
   "defaultThinkingLevel": "high",
   "shellCommandPrefix": "source ~/.envrc\n",
-  "packages": [
-    "npm:pi-ask-user"
-  ]
+  "packages": [],
+  "theme": "dark"
 }
