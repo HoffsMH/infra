@@ -29,6 +29,27 @@ alias l="eza -laGghHMS  --git --icons -T -L 1"
 alias cat="bat --theme gruvbox-dark"
 alias dig="dog"
 # alias http="xh"
+
+# ######################################################
+# # yazi (file manager) + quick folder openers
+# ######################################################
+# `ya` is already taken by yarn, so yazi aliases use the `yz` prefix.
+alias yz='yazi'
+alias yzp='yazi ~/personal'
+alias yzstore='yazi ~/personal/01-cap-storage'
+alias yzdl='yazi ~/Downloads'
+alias yzcode='yazi ~/code'
+
+# clf <file> [file ...] — pipe file contents into the Claude CLI as the prompt.
+# `command cat` bypasses the cat->bat alias above (bat would inject ANSI codes).
+clf() {
+    if [[ $# -eq 0 ]]; then
+        echo "Usage: clf <file> [file ...]" >&2
+        return 1
+    fi
+    command cat "$@" | ~/.local/bin/claude
+}
+
 alias yotpc="ykman oath accounts code"
 
 yotp() {
