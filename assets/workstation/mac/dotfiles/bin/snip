@@ -6,6 +6,9 @@
 # category is the optional first arg and defaults to "main":
 #   snip          -> ~/personal/00-cap-md/snip-main
 #   snip prompt   -> ~/personal/00-cap-md/snip-prompt   (auto-created if absent)
+# Piped stdin overrides the clipboard and is always saved as a text snip:
+#   echo "note to self" | snip
+#   some-command | snip prompt
 # Browse a category with `usnip [category]`.
 #
 # Requirements / fresh-machine setup:
@@ -25,7 +28,8 @@ date=$($HOME/bin/iso-str)
 
 # If the clipboard holds an image (e.g. a screenshot), snip it as a file using
 # the same timestamp + sha256 scheme as text snips, but over the image's bytes.
-if ext=$($HOME/bin/iclip type 2>/dev/null); then
+# Skipped when stdin is piped — piped input wins over the clipboard.
+if [ -t 0 ] && ext=$($HOME/bin/iclip type 2>/dev/null); then
     tmpdir=$(mktemp -d -t snip)
     trap 'rm -rf "$tmpdir"' EXIT
     tmp="$tmpdir/clip.$ext"
@@ -59,8 +63,12 @@ fi
 
 # Otherwise fall back to a text snip (original behavior).
 
-# Get clipboard data
-clipped_data=$($HOME/bin/uclip)
+# Get content: piped stdin if present, otherwise the clipboard
+if [ -t 0 ]; then
+    clipped_data=$($HOME/bin/uclip)
+else
+    clipped_data=$(cat)
+fi
 
 # Get sha256 sum
 shasum=$(echo -n "$clipped_data" | sha256sum | awk '{print $1}')

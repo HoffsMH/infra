@@ -4,6 +4,17 @@ local tnoremap = keymap.tnoremap
 local vnoremap = keymap.vnoremap
 
 local plugins = {
+  { -- Useful plugin to show you pending keybinds.
+    -- Also load-bearing for leader sequences: without it, a pause longer than
+    -- timeoutlen (300ms) after <space> aborts the leader map and e.g. yfr
+    -- becomes yank-to-find-r, clobbering the clipboard. which-key waits.
+    'folke/which-key.nvim',
+    event = 'VimEnter',
+    config = function()
+      require('which-key').setup()
+    end,
+  },
+
  { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',

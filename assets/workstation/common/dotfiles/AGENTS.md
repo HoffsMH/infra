@@ -63,6 +63,15 @@ debugging anything.
 - After running, **grep the log** instead of re-running the command.
 - Don't blanket every command — just the noisy ones.
 
+## Snip
+
+- `snip [category]` saves the clipboard into
+  `~/personal/00-cap-md/snip-<category>` (default `main`) as a
+  timestamped, content-addressed file.
+- Piped stdin overrides the clipboard and always saves as text:
+  `echo "some plan" | snip plans`. Use this to save plans/notes
+  for the user without touching their clipboard.
+
 ## Testing
 
 - **Never trust a test you haven't seen fail.** If you write a test
