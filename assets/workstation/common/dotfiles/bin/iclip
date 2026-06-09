@@ -1,0 +1,120 @@
+#!/bin/bash
+
+# iclip — agnostic image clipboard helper (companion to `uclip` for text).
+#
+# Usage:
+#   iclip type          print an image extension (e.g. "png") if the clipboard
+#                       currently holds an image; exit 1 if it does not.
+#   iclip save <file>   write the clipboard image to <file>.
+#   iclip copy <file>   load <file> into the clipboard as an image.
+#
+# Platform support mirrors `uclip`: Wayland (wl-*), X11 (xclip), macOS (osascript).
+#
+# Requirements / fresh-machine setup (only the current platform's tools needed):
+#   Wayland: wl-clipboard        (provides wl-paste / wl-copy)
+#   X11:     xclip
+#   macOS:   osascript + sips    (both ship with macOS — nothing to install)
+
+set -euo pipefail
+
+session="${XDG_SESSION_TYPE:-}"
+
+die() { echo "iclip: $*" >&2; exit 1; }
+
+# ---- type -----------------------------------------------------------------
+img_type() {
+    if [[ "$session" == "wayland" ]]; then
+        local types
+        types=$(wl-paste --list-types 2>/dev/null || true)
+        case "$types" in
+            *image/png*)  echo png ;;
+            *image/jpeg*) echo jpg ;;
+            *image/gif*)  echo gif ;;
+            *image/*)     echo png ;;
+            *) exit 1 ;;
+        esac
+    elif [[ "$session" == "x11" ]]; then
+        local targets
+        targets=$(xclip -selection clipboard -t TARGETS -o 2>/dev/null || true)
+        case "$targets" in
+            *image/png*)  echo png ;;
+            *image/jpeg*) echo jpg ;;
+            *image/gif*)  echo gif ;;
+            *image/*)     echo png ;;
+            *) exit 1 ;;
+        esac
+    else
+        # macOS: the pasteboard advertises PNGf / TIFF for image content.
+        local info
+        info=$(osascript -e 'clipboard info' 2>/dev/null || true)
+        case "$info" in
+            *PNGf*|*TIFF*) echo png ;;   # normalized to png on save
+            *) exit 1 ;;
+        esac
+    fi
+}
+
+# ---- save -----------------------------------------------------------------
+img_save() {
+    local out="$1"
+    [[ -n "$out" ]] || die "save needs an output path"
+    if [[ "$session" == "wayland" ]]; then
+        local t; t=$(wl-paste --list-types 2>/dev/null | grep -m1 '^image/' || true)
+        [[ -n "$t" ]] || die "no image on clipboard"
+        wl-paste --type "$t" > "$out"
+    elif [[ "$session" == "x11" ]]; then
+        local t; t=$(xclip -selection clipboard -t TARGETS -o 2>/dev/null | grep -m1 '^image/' || true)
+        [[ -n "$t" ]] || die "no image on clipboard"
+        xclip -selection clipboard -t "$t" -o > "$out"
+    else
+        # macOS: prefer a direct PNG; fall back to TIFF -> sips -> PNG.
+        if ! osascript - "$out" >/dev/null 2>&1 <<'OSA'
+on run argv
+    set outPath to item 1 of argv
+    set theData to (the clipboard as «class PNGf»)
+    set fh to open for access (POSIX file outPath) with write permission
+    set eof fh to 0
+    write theData to fh
+    close access fh
+end run
+OSA
+        then
+            local tiff; tiff=$(mktemp -t iclip).tiff
+            osascript - "$tiff" >/dev/null 2>&1 <<'OSA' || { rm -f "$tiff"; die "no image on clipboard"; }
+on run argv
+    set outPath to item 1 of argv
+    set theData to (the clipboard as «class TIFF»)
+    set fh to open for access (POSIX file outPath) with write permission
+    set eof fh to 0
+    write theData to fh
+    close access fh
+end run
+OSA
+            sips -s format png "$tiff" --out "$out" >/dev/null 2>&1 || { rm -f "$tiff"; die "could not convert clipboard image"; }
+            rm -f "$tiff"
+        fi
+    fi
+}
+
+# ---- copy -----------------------------------------------------------------
+img_copy() {
+    local in="$1"
+    [[ -n "$in" && -f "$in" ]] || die "copy needs an existing file"
+    if [[ "$session" == "wayland" ]]; then
+        wl-copy --type image/png < "$in"
+    elif [[ "$session" == "x11" ]]; then
+        xclip -selection clipboard -t image/png -i "$in"
+    else
+        osascript -e 'on run argv' \
+                  -e 'set the clipboard to (read (POSIX file (item 1 of argv)) as «class PNGf»)' \
+                  -e 'end run' "$in" >/dev/null
+    fi
+}
+
+cmd="${1:-}"
+case "$cmd" in
+    type) img_type ;;
+    save) img_save "${2:-}" ;;
+    copy) img_copy "${2:-}" ;;
+    *) die "usage: iclip {type|save <file>|copy <file>}" ;;
+esac
