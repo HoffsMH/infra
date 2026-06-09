@@ -1,5 +1,6 @@
+# Valid `for` values: all, linux, macos, windows, android, unix. "unix" covers
+# both macOS and Linux, so a single entry is enough (there is no "mac").
 [opener]
 edit = [
 	{ run = 'nvim "$@"', block = true, for = "unix" },
-	{ run = 'nvim "$@"', block = true, for = "mac" },
 ]
