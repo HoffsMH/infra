@@ -1,6 +1,10 @@
 
 local plugins = {
   {
+    'github/copilot.vim',
+    event = 'InsertEnter',
+  },
+  {
     'stevearc/oil.nvim',
     ---@module 'oil'
     ---@type oil.SetupOpts
