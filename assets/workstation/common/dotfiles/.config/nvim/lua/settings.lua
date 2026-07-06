@@ -80,7 +80,19 @@ vim.opt.scrolloff = 10
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
 
-vim.api.nvim_command([[autocmd TextChanged,TextChangedI *.* silent write]])
+-- Autosave on change, but only for normal, named, writable buffers so an
+-- unwritable file doesn't error on every keystroke and block typing.
+vim.api.nvim_create_autocmd({ "TextChanged", "TextChangedI" }, {
+  pattern = "*",
+  callback = function(args)
+    local name = vim.api.nvim_buf_get_name(args.buf)
+    if name == "" then return end
+    if vim.bo[args.buf].buftype ~= "" then return end
+    if not vim.bo[args.buf].modifiable or vim.bo[args.buf].readonly then return end
+    if vim.fn.filewritable(name) ~= 1 then return end
+    vim.cmd("silent! write")
+  end,
+})
 
 nnoremap("<M-w>L", "<cmd>vs<cr>")
 nnoremap("<M-w>J", "<cmd>sp<cr>")

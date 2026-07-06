@@ -26,7 +26,7 @@ date=$($HOME/bin/iso-str)
 # If the clipboard holds an image (e.g. a screenshot), snip it as a file using
 # the same timestamp + sha256 scheme as text snips, but over the image's bytes.
 if ext=$($HOME/bin/iclip type 2>/dev/null); then
-    tmpdir=$(mktemp -d -t snip)
+    tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/snip.XXXXXXXX") || exit 1
     trap 'rm -rf "$tmpdir"' EXIT
     tmp="$tmpdir/clip.$ext"
 

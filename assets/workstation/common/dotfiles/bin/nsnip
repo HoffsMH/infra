@@ -19,7 +19,10 @@ dir="$HOME/personal/00-cap-md/snip-${category}"
 mkdir -p "$dir"
 
 # Scratch file to compose in (kept private; removed on exit).
-tmpdir=$(mktemp -d -t nsnip)
+# Portable template: GNU and BSD mktemp both require explicit X's. A bare
+# `-t nsnip` works on BSD/macOS but errors on GNU/Linux, leaving $tmpdir empty
+# and $tmp pointing at /snip.md (unwritable root).
+tmpdir=$(mktemp -d "${TMPDIR:-/tmp}/nsnip.XXXXXXXX") || exit 1
 trap 'rm -rf "$tmpdir"' EXIT
 tmp="$tmpdir/snip.md"
 
