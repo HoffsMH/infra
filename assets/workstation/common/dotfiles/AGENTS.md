@@ -115,7 +115,7 @@ Global pi config is symlinked from here via `set.links`:
 **New machine bootstrap:**
 1. `set.links -n` — dry-run first to see what will be linked
 2. `set.links -f` — force-replace all dotfiles with symlinks to infra
-3. `cd ~/.pi/agent/skills/brave-search && npm install`
+3. `cd ~/infra/assets/workstation/common/dotfiles/.pi/agent/skills/brave-search && npm install` — must be the infra realpath, NOT `~/.pi/...` (see Troubleshooting in that skill's SKILL.md)
 3. Set `BRAVE_API_KEY` in `~/.envrc` (get from https://api-dashboard.search.brave.com/register — free tier, credit card required for verification)
 4. `settings.json` sources `~/.envrc` via `shellCommandPrefix` before every
    bash command so the key is always available

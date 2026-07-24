@@ -1,9 +1,28 @@
 #!/usr/bin/env node
 
-import { Readability } from "@mozilla/readability";
-import { JSDOM } from "jsdom";
-import TurndownService from "turndown";
-import { gfm } from "turndown-plugin-gfm";
+import { realpathSync } from "node:fs";
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+
+// This file is symlinked into ~/.pi from ~/infra (via set.links). Node resolves
+// node_modules from the script's REAL path, so deps must be installed there.
+const skillDir = dirname(realpathSync(fileURLToPath(import.meta.url)));
+
+let Readability, JSDOM, TurndownService, gfm;
+try {
+	({ Readability } = await import("@mozilla/readability"));
+	({ JSDOM } = await import("jsdom"));
+	({ default: TurndownService } = await import("turndown"));
+	({ gfm } = await import("turndown-plugin-gfm"));
+} catch (err) {
+	if (err.code === "ERR_MODULE_NOT_FOUND") {
+		console.error(`[brave-search] Missing npm dependency: ${err.message.match(/'([^']+)'/)?.[1] ?? "unknown"}`);
+		console.error(`Fix: cd "${skillDir}" && npm install`);
+		console.error(`Docs: "Troubleshooting" section of ${skillDir}/SKILL.md`);
+		process.exit(1);
+	}
+	throw err;
+}
 
 const url = process.argv[2];
 

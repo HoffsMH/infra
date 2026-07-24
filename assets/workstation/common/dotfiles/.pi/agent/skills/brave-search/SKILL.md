@@ -75,6 +75,35 @@ Content: (if --content flag used)
 ...
 ```
 
+## Troubleshooting
+
+**`ERR_MODULE_NOT_FOUND` for `@mozilla/readability`, `jsdom`, `turndown`, etc.**
+
+The npm dependencies are missing or were installed in the wrong place. The
+scripts here are symlinked into `~/.pi` from `~/infra` (via `set.links`), and
+Node resolves `node_modules` from the script's **realpath** — so deps must be
+installed in the infra directory, NOT via the `~/.pi` path:
+
+```bash
+cd ~/infra/assets/workstation/common/dotfiles/.pi/agent/skills/brave-search
+npm install
+```
+
+Running `npm install` from `~/.pi/agent/skills/brave-search` creates a
+`node_modules` there that Node never looks at (and with an unmodified
+`package.json` it will PRUNE existing packages — this exact breakage happened
+on 2026-07-23).
+
+If `npm install` reports "audited 1 package" or removes packages instead of
+adding them, `package.json` has been clobbered — it should declare the four
+dependencies above. Restore it from git and rerun.
+
+**`Error: BRAVE_API_KEY environment variable is required` / HTTP 401/422**
+
+The key lives in `~/.envrc`, which pi's `settings.json` sources via
+`shellCommandPrefix` before every bash command. Verify with
+`echo $BRAVE_API_KEY`; if empty, check `~/.envrc`.
+
 ## When to Use
 
 - Searching for documentation or API references
