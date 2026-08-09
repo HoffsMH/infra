@@ -1,0 +1,363 @@
+#!/usr/bin/env bash
+# fpv-import — import DJI O4 footage from a plugged-in air unit or SD card.
+#
+#   fpv-import [raw|dvr] [-n] [--by-mtime] [--sha256]
+#
+# Detects the single plugged-in DJI volume, mounts it, and rsyncs into
+#   ~/personal/01-cap-storage/fpv/{raw,dvr}/YYYY-MM-DD/
+# where the date comes from the DJI filename timestamp (raw), or today's
+# date (dvr — goggles DVR filenames carry no timestamp).
+#
+# Rules:
+#   - Never writes to or deletes from the card.
+#   - Errors out if more than one candidate volume is plugged in.
+#   - Errors out if a destination file exists with a different size
+#     (DVR filenames collide across cards — never skip silently).
+#   - Leaves the card MOUNTED and tells you the exact delete command.
+#
+# Every run, dry or real, writes a full per-file log to
+#   ${XDG_STATE_HOME:-~/.local/state}/fpv-import/
+
+set -euo pipefail
+
+DEST_ROOT="${FPV_DEST_ROOT:-$HOME/personal/01-cap-storage/fpv}"
+LOG_DIR="${FPV_LOG_DIR:-${XDG_STATE_HOME:-$HOME/.local/state}/fpv-import}"
+
+RSYNC_OPTS=(
+  -th
+  --info=progress2
+  --modify-window=1
+  --partial-dir=.rsync-partial
+  --exclude='._*'
+  --exclude='.DS_Store'
+  --exclude='.Spotlight-V100'
+  --exclude='.Trashes'
+  --exclude='.fseventsd'
+  --exclude='System Volume Information'
+)
+
+WANT_TYPE=""
+DRY_RUN=0
+DVR_BY_MTIME=0
+DO_SHA256=0
+
+usage() { sed -n '2,22p' "$0" | sed 's/^# \{0,1\}//'; exit "${1:-0}"; }
+
+while (($#)); do
+  case "$1" in
+    raw|dvr)        WANT_TYPE="$1" ;;
+    -n|--dry-run)   DRY_RUN=1 ;;
+    --by-mtime)     DVR_BY_MTIME=1 ;;
+    --sha256)       DO_SHA256=1 ;;
+    -h|--help)      usage 0 ;;
+    *)              printf 'error: unknown argument: %s (try --help)\n' "$1" >&2; exit 1 ;;
+  esac
+  shift
+done
+
+# ------------------------------------------------------------------ logging --
+mkdir -p "$LOG_DIR"
+if ((DRY_RUN)); then MODE=dryrun; else MODE=import; fi
+LOGFILE="$LOG_DIR/${MODE}-$(date +%Y%m%d-%H%M%S)-$$.log"
+: > "$LOGFILE"
+
+logline() { printf '%s\n' "$*" >> "$LOGFILE"; }
+info()    { printf '\033[36m==>\033[0m %s\n' "$*"; logline "==> $*"; }
+warn()    { printf '\033[33mwarn:\033[0m %s\n' "$*" >&2; logline "warn: $*"; }
+die()     { printf '\033[31merror:\033[0m %s\n' "$*" >&2; logline "error: $*"
+            printf 'log: %s\n' "$LOGFILE" >&2; exit 1; }
+human()   { awk -v b="${1:-0}" 'BEGIN{ printf (b>=1073741824) ? "%.1f GiB" : "%.1f MiB",
+                                       (b>=1073741824) ? b/1073741824 : b/1048576 }'; }
+
+logline "fpv-import log"
+logline "mode        : $MODE$( ((DRY_RUN)) && printf ' (NO FILES WILL BE WRITTEN)')"
+logline "started     : $(date -Is)"
+logline "host        : $(hostname)"
+logline "dest root   : $DEST_ROOT"
+logline "requested   : ${WANT_TYPE:-<auto-detect>}"
+logline "options     : by-mtime=$DVR_BY_MTIME sha256=$DO_SHA256"
+logline "rsync opts  : ${RSYNC_OPTS[*]}"
+logline ""
+
+command -v jq        >/dev/null || die "jq is required"
+command -v rsync     >/dev/null || die "rsync is required"
+command -v udisksctl >/dev/null || die "udisksctl is required"
+
+TMP=$(mktemp -d)
+trap 'command rm -rf "$TMP"' EXIT
+
+# ---------------------------------------------------------------- detection --
+# Removable USB volumes with a FAT-family filesystem and non-zero size.
+# The size filter drops the phantom 0 B slots a multi-slot card reader exposes.
+detect_volumes() {
+  lsblk -J -b -o PATH,SIZE,FSTYPE,LABEL,MOUNTPOINT,TRAN 2>/dev/null | jq -r '
+    def collect($tran):
+      .[]? | . as $d | (($d.tran // $tran)) as $t |
+      ( if ($d.fstype == "exfat" or $d.fstype == "vfat")
+           and $t == "usb" and (($d.size // 0) > 0)
+        then [$d.path, ($d.label // ""), ($d.mountpoint // "")] | @tsv
+        else empty end ),
+      ( ($d.children // []) | collect($t) );
+    .blockdevices | collect(null)
+  '
+}
+
+ensure_mounted() {  # $1=device  $2=existing mountpoint (may be empty)
+  local dev="$1" mp="${2:-}" out
+  if [[ -n "$mp" ]]; then printf '%s\n' "$mp"; return 0; fi
+  if out=$(udisksctl mount -b "$dev" 2>&1); then
+    printf '%s\n' "$out" | sed -n 's/^Mounted .* at \(.*\)$/\1/p' | sed 's/\.$//'
+  else
+    # Already mounted by something else — dig the path out of the error text.
+    printf '%s\n' "$out" | sed -n "s/.*already mounted at [\`']\{0,1\}\([^'\`]*\)['\`]\{0,1\}.*/\1/p"
+  fi
+}
+
+has_media() {
+  [[ -n $(find "$1" -maxdepth 1 -type f -iname "$2" ! -name '._*' -print -quit 2>/dev/null) ]]
+}
+
+# Emit "<type>\t<leafdir>" for every DCIM leaf holding recognisable media.
+classify() {
+  local mp="$1" d name
+  [[ -d "$mp/DCIM" ]] || return 0
+  for d in "$mp"/DCIM/*/; do
+    [[ -d "$d" ]] || continue
+    name=$(basename "$d")
+    if [[ $name =~ ^[0-9]{3}MEDIA$ ]]; then
+      has_media "$d" '*.mov' && printf 'dvr\t%s\n' "${d%/}"
+    elif [[ $name =~ ^DJI_[0-9]+$ ]]; then
+      has_media "$d" '*.mp4' && printf 'raw\t%s\n' "${d%/}"
+    fi
+  done
+  # Fallback: some firmware drops files straight into DCIM/.
+  has_media "$mp/DCIM" '*.mp4' && printf 'raw\t%s\n' "$mp/DCIM"
+  has_media "$mp/DCIM" '*.mov' && printf 'dvr\t%s\n' "$mp/DCIM"
+  return 0
+}
+
+info "scanning for DJI volumes"
+mapfile -t VOLS < <(detect_volumes)
+logline "-- candidate volumes (removable, FAT-family, non-zero) --"
+if ((${#VOLS[@]})); then printf '  %s\n' "${VOLS[@]}" >> "$LOGFILE"; else logline "  (none)"; fi
+logline ""
+((${#VOLS[@]})) || die "no removable exFAT/FAT volume found — is the O4 or card plugged in?"
+
+declare -a FOUND_DEV FOUND_LABEL FOUND_MP FOUND_TYPES AUTO_MOUNTED
+
+for v in "${VOLS[@]}"; do
+  IFS=$'\t' read -r dev label mp <<<"$v"
+  was_mounted=1; [[ -n "$mp" ]] || was_mounted=0
+  mp=$(ensure_mounted "$dev" "$mp") || true
+  [[ -n "$mp" && -d "$mp" ]] || { warn "could not mount $dev — skipping"; continue; }
+  ((was_mounted)) || { AUTO_MOUNTED+=("$dev"); logline "mounted $dev at $mp (was not mounted)"; }
+
+  mapfile -t hits < <(classify "$mp")
+  ((${#hits[@]})) || { logline "no DJI media under $mp/DCIM — ignoring $dev"; continue; }
+
+  types=$(printf '%s\n' "${hits[@]}" | cut -f1 | sort -u | paste -sd, -)
+  FOUND_DEV+=("$dev"); FOUND_LABEL+=("${label:-<unlabelled>}")
+  FOUND_MP+=("$mp");   FOUND_TYPES+=("$types")
+  printf '%s\n' "${hits[@]}" > "$TMP/hits.$((${#FOUND_DEV[@]} - 1))"
+  logline "candidate: $dev label=${label:-<unlabelled>} mp=$mp types=$types"
+done
+logline ""
+
+# Unmount anything we opened purely to look inside and aren't going to use.
+release_unused() {
+  local keep="${1:-}" dev
+  for dev in "${AUTO_MOUNTED[@]:-}"; do
+    [[ -n "$dev" && "$dev" != "$keep" ]] && udisksctl unmount -b "$dev" >/dev/null 2>&1 || true
+  done
+}
+
+((${#FOUND_DEV[@]})) || { release_unused
+  die "found removable volume(s) but none contain a DCIM/ tree with DJI media"; }
+
+if ((${#FOUND_DEV[@]} > 1)); then
+  printf '\033[31merror:\033[0m more than one DJI volume is plugged in — unplug one:\n' >&2
+  logline "error: more than one DJI volume plugged in"
+  for i in "${!FOUND_DEV[@]}"; do
+    line=$(printf '  %s  label=%-14s type=%-8s mounted=%s' \
+      "${FOUND_DEV[$i]}" "${FOUND_LABEL[$i]}" "${FOUND_TYPES[$i]}" "${FOUND_MP[$i]}")
+    printf '%s\n' "$line" >&2; logline "$line"
+  done
+  release_unused
+  printf 'log: %s\n' "$LOGFILE" >&2
+  exit 1
+fi
+
+DEV="${FOUND_DEV[0]}"; LABEL="${FOUND_LABEL[0]}"; MP="${FOUND_MP[0]}"
+mapfile -t HITS < "$TMP/hits.0"
+mapfile -t AVAIL < <(printf '%s\n' "${HITS[@]}" | cut -f1 | sort -u)
+
+# ------------------------------------------------------------ type selection --
+if [[ -z "$WANT_TYPE" ]]; then
+  if ((${#AVAIL[@]} > 1)); then
+    release_unused "$DEV"
+    die "volume holds both raw and dvr content — say which: fpv-import raw | fpv-import dvr"
+  fi
+  WANT_TYPE="${AVAIL[0]}"
+  info "auto-detected type: $WANT_TYPE"
+else
+  printf '%s\n' "${AVAIL[@]}" | grep -qx "$WANT_TYPE" \
+    || { release_unused "$DEV"; die "you asked for '$WANT_TYPE' but $DEV ($LABEL) holds: ${AVAIL[*]}"; }
+fi
+
+release_unused "$DEV"
+info "source: $DEV  label=$LABEL  mounted at $MP"
+logline ""
+logline "selected    : $DEV ($LABEL) at $MP"
+logline "type        : $WANT_TYPE"
+logline "source dirs : $(printf '%s\n' "${HITS[@]}" | awk -F'\t' -v t="$WANT_TYPE" '$1==t{print $2}' | paste -sd' ' -)"
+logline ""
+
+# ------------------------------------------------------------------- planning --
+# plan lines: <date>\t<srcdir>\t<filename>\t<bytes>
+: > "$TMP/plan"
+while IFS=$'\t' read -r t srcdir; do
+  [[ "$t" == "$WANT_TYPE" ]] || continue
+  while IFS= read -r -d '' f; do
+    base=$(basename "$f")
+    if [[ "$WANT_TYPE" == "raw" ]] && [[ $base =~ ^DJI_([0-9]{4})([0-9]{2})([0-9]{2})[0-9]{6}_ ]]; then
+      d="${BASH_REMATCH[1]}-${BASH_REMATCH[2]}-${BASH_REMATCH[3]}"; src=filename
+    elif ((DVR_BY_MTIME)) || [[ "$WANT_TYPE" == "raw" ]]; then
+      d=$(date -r "$f" +%F); src=mtime
+    else
+      d=$(date +%F); src=today
+    fi
+    printf '%s\t%s\t%s\t%s\t%s\n' "$d" "$srcdir" "$base" "$(stat -c %s "$f")" "$src" >> "$TMP/plan"
+  done < <(find "$srcdir" -maxdepth 1 -type f ! -name '._*' ! -name '.*' -print0)
+done < <(printf '%s\n' "${HITS[@]}")
+
+[[ -s "$TMP/plan" ]] || die "nothing to import from $MP"
+sort -o "$TMP/plan" "$TMP/plan"
+mapfile -t DATES < <(cut -f1 "$TMP/plan" | sort -u)
+
+# --------------------------------------------------- per-file plan + conflicts --
+# Classify each file against what is already at the destination:
+#   NEW        not present
+#   IDENTICAL  present, same size — rsync will skip it, harmless
+#   COLLISION  present, different size — two distinct clips share a name. Fatal.
+logline "-- per-file plan --"
+logline "$(printf '%-12s %-34s %12s  %-9s %-10s %s' DATE FILE BYTES DATE-FROM STATUS DEST)"
+
+conflicts=0; need_bytes=0; n_new=0; n_same=0
+while IFS=$'\t' read -r d srcdir base bytes datesrc; do
+  dst="$DEST_ROOT/$WANT_TYPE/$d/$base"
+  if [[ ! -e "$dst" ]]; then
+    status=NEW; ((n_new++)) || true; need_bytes=$((need_bytes + bytes))
+  elif [[ "$(stat -c %s "$dst")" == "$bytes" ]]; then
+    status=IDENTICAL; ((n_same++)) || true
+  else
+    status=COLLISION; ((conflicts++)) || true
+    printf '  \033[31mCOLLISION\033[0m %s  card=%s bytes  disk=%s bytes\n' \
+      "$base" "$bytes" "$(stat -c %s "$dst")" >&2
+  fi
+  logline "$(printf '%-12s %-34s %12s  %-9s %-10s %s' "$d" "$base" "$bytes" "$datesrc" "$status" "$dst")"
+done < "$TMP/plan"
+logline ""
+
+total_files=$(wc -l < "$TMP/plan")
+total_bytes=$(awk -F'\t' '{s+=$4} END{print s+0}' "$TMP/plan")
+
+# ------------------------------------------------------------------ summary --
+printf '\n\033[1mimport plan\033[0m  (%s from %s)\n' "$WANT_TYPE" "$LABEL"
+logline "-- summary by date --"
+for d in "${DATES[@]}"; do
+  n=$(awk -F'\t' -v d="$d" '$1==d' "$TMP/plan" | wc -l)
+  b=$(awk -F'\t' -v d="$d" '$1==d {s+=$4} END{print s+0}' "$TMP/plan")
+  line=$(printf '  %s  %4d files  %10s  ->  %s/' "$d" "$n" "$(human "$b")" "$DEST_ROOT/$WANT_TYPE/$d")
+  printf '%s\n' "$line"; logline "$line"
+done
+tally=$(printf '  total %d files, %s  (%d new, %d already identical, %d collisions)' \
+  "$total_files" "$(human "$total_bytes")" "$n_new" "$n_same" "$conflicts")
+printf '\n%s\n' "$tally"; logline ""; logline "$tally"
+
+# ------------------------------------------------------------- space check --
+sp="$DEST_ROOT"; while [[ ! -d "$sp" ]]; do sp=$(dirname "$sp"); done
+avail=$(/usr/bin/df -B1 --output=avail "$sp" | tail -1 | tr -d ' ')
+logline "space       : need $(human "$need_bytes"), available $(human "$avail") on $sp"
+printf '  space: need %s, %s available\n\n' "$(human "$need_bytes")" "$(human "$avail")"
+(( need_bytes < avail )) || die "not enough free space on $sp"
+
+if ((conflicts)); then
+  die "$conflicts filename collision(s) with different content — refusing to run.
+     Move or rename the existing files, or import into a different date folder.
+     Every collision is listed in the log."
+fi
+
+# ------------------------------------------------------- resolved commands --
+logline "-- resolved rsync commands --"
+while IFS=$'\t' read -r d srcdir; do
+  n=$(awk -F'\t' -v d="$d" -v s="$srcdir" '$1==d && $2==s' "$TMP/plan" | wc -l)
+  logline "  # $n files"
+  logline "  rsync ${RSYNC_OPTS[*]} --files-from=<list> '$srcdir/' '$DEST_ROOT/$WANT_TYPE/$d/'"
+done < <(awk -F'\t' '{print $1"\t"$2}' "$TMP/plan" | sort -u)
+logline ""
+
+if ((DRY_RUN)); then
+  logline "DRY RUN — nothing was written. Finished $(date -Is)."
+  printf '\033[33mdry run — nothing written.\033[0m log: %s\n' "$LOGFILE"
+  exit 0
+fi
+
+# ------------------------------------------------------------------ transfer --
+declare -a WRITTEN_DIRS
+while IFS=$'\t' read -r d srcdir; do
+  destdir="$DEST_ROOT/$WANT_TYPE/$d"
+  mkdir -p "$destdir"
+  [[ " ${WRITTEN_DIRS[*]:-} " == *" $destdir "* ]] || WRITTEN_DIRS+=("$destdir")
+  awk -F'\t' -v d="$d" -v s="$srcdir" '$1==d && $2==s {print $3}' "$TMP/plan" > "$TMP/files"
+  [[ -s "$TMP/files" ]] || continue
+  info "rsync  $srcdir  ->  $destdir  ($(wc -l < "$TMP/files") files)"
+  # Keep the live progress bar on the terminal, but collapse rsync's \r-driven
+  # progress stream to just its final lines in the log.
+  rsync "${RSYNC_OPTS[@]}" --files-from="$TMP/files" "$srcdir/" "$destdir/" 2>&1 | tee "$TMP/rsync.out"
+  tr '\r' '\n' < "$TMP/rsync.out" | grep -v '^[[:space:]]*$' | tail -2 >> "$LOGFILE"
+done < <(awk -F'\t' '{print $1"\t"$2}' "$TMP/plan" | sort -u)
+
+# -------------------------------------------------------------- verification --
+info "verifying$( ((DO_SHA256)) && printf ' (sha256)')"
+logline "-- verification --"
+fail=0; checked=0
+while IFS=$'\t' read -r d srcdir base bytes datesrc; do
+  src="$srcdir/$base"; dst="$DEST_ROOT/$WANT_TYPE/$d/$base"
+  if [[ ! -f "$dst" ]]; then
+    printf '  \033[31mMISSING\033[0m %s\n' "$dst" >&2; logline "MISSING $dst"; ((fail++)) || true; continue
+  fi
+  if [[ "$(stat -c %s "$dst")" != "$bytes" ]]; then
+    printf '  \033[31mSIZE MISMATCH\033[0m %s\n' "$base" >&2; logline "SIZE MISMATCH $dst"; ((fail++)) || true; continue
+  fi
+  if ((DO_SHA256)); then
+    if [[ "$(sha256sum < "$src" | cut -d' ' -f1)" != "$(sha256sum < "$dst" | cut -d' ' -f1)" ]]; then
+      printf '  \033[31mHASH MISMATCH\033[0m %s\n' "$base" >&2; logline "HASH MISMATCH $dst"; ((fail++)) || true; continue
+    fi
+  fi
+  ((checked++)) || true
+done < "$TMP/plan"
+logline "verified    : $checked ok, $fail failed"
+
+((fail == 0)) || die "$fail file(s) failed verification — card left mounted and UNTOUCHED, do not delete"
+
+# ------------------------------------------------------------------- outcome --
+printf '\n\033[32m✓ %d files verified (%s)\033[0m\n' "$checked" "$(human "$total_bytes")"
+for dd in "${WRITTEN_DIRS[@]}"; do printf '    %s\n' "$dd"; done
+
+printf '\n\033[1mCard is still mounted at %s — safe to delete now:\033[0m\n' "$MP"
+logline ""
+logline "-- safe to delete --"
+while IFS= read -r srcdir; do
+  printf '    trm %s/*\n' "$srcdir"; logline "  trm $srcdir/*"
+done < <(cut -f2 "$TMP/plan" | sort -u)
+printf '\n  then:  udum %s\n' "$DEV"
+printf '\n  log: %s\n\n' "$LOGFILE"
+logline "  then: udum $DEV"
+logline "finished    : $(date -Is)"
+
+msg="$checked files verified ($(human "$total_bytes")) — safe to wipe the card"
+if command -v notify-send >/dev/null; then
+  notify-send -a fpv-import "FPV import complete" "$msg" >/dev/null 2>&1 || true
+elif command -v notify >/dev/null; then
+  notify "fpv-import: $msg" >/dev/null 2>&1 || true
+fi

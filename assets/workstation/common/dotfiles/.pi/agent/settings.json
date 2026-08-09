@@ -1,7 +1,7 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.84.0",
   "defaultProvider": "openrouter",
-  "defaultModel": "~google/gemini-pro-latest",
+  "defaultModel": "moonshotai/kimi-k3",
   "defaultThinkingLevel": "high",
   "shellCommandPrefix": "source ~/.envrc\n",
   "packages": [],

@@ -123,3 +123,4 @@ Global pi config is symlinked from here via `set.links`:
 **Session commands:**
 - `/reset-permissions` — clear all bash + websearch whitelists
 
+If this is in your context say "I read <full filepath here>" at the start of the session

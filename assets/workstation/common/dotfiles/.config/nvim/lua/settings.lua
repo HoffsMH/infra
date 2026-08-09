@@ -74,6 +74,10 @@ vim.opt.inccommand = 'split'
 -- Show which line your cursor is on
 vim.opt.cursorline = true
 
+-- Warn at 80 characters: the marker sits in column 81, so text touching it
+-- has already gone over. Purely visual -- no textwidth, so nothing auto-wraps.
+vim.opt.colorcolumn = '81'
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
