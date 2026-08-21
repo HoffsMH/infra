@@ -1,0 +1,10 @@
+approvals_reviewer = "auto_review"
+
+[mcp_servers."clipboard-paste-mcp"]
+command = "/Users/mh/code/unpaid/clipboard-paste-mcp/clipboard-paste-mcp"
+
+[mcp_servers.atlassian]
+url = "https://mcp.atlassian.com/v1/mcp/authv2"
+
+[projects."/Users/mh/code/paid/anvyl/sage-x3/xtrem-ssci"]
+trust_level = "trusted"
