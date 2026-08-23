@@ -24,10 +24,25 @@ modmap:
         alone_timeout_millis: 150
 
   # leftctrl (which on this host = bottom-left ctrl key AND firmware-remapped
-  # caps) becomes Alt -- gives us shell readline M-keys and any other Alt use.
-  - name: leftctrl -> Alt
+  # caps) becomes Alt on hold (shell readline M-keys, Alt+hjkl arrow layer).
+  # On TAP it sends Esc, restoring the long-standing caps-tap-esc muscle
+  # memory. Both physical keys (Caps and bottom-left Ctrl) tap-fire Esc;
+  # accidental brushes of bottom-left Ctrl during typing will also produce
+  # Esc, which has been an accepted trade-off historically.
+  - name: leftctrl tap=esc / hold=Alt
     remap:
-      KEY_LEFTCTRL: KEY_LEFTALT
+      KEY_LEFTCTRL:
+        held: KEY_LEFTALT
+        alone: KEY_ESC
+        alone_timeout_millis: 150
+
+  # Covers keyboards whose firmware leaves Caps Lock unchanged.
+  - name: capslock tap=esc / hold=Alt
+    remap:
+      KEY_CAPSLOCK:
+        held: KEY_LEFTALT
+        alone: KEY_ESC
+        alone_timeout_millis: 150
 
   # Right Alt -> HYPER chord (Ctrl+Alt+Super held simultaneously).
   # Personal layer prefix; bind in Hyprland with `SUPER CTRL ALT, <key>`.
@@ -60,22 +75,20 @@ keymap:
       minus: C-minus
       equal: C-equal
 
-  # NOTE 2026-05-02: the Ctrl+hjkl -> arrows layer was removed on trial.
-  # It conflicted with the Naga thumb-3 -> C-l override (xremap chains
-  # keymap output through subsequent rules, so the synthesized C-l was
-  # being caught here and turned into Right arrow inside WoW). Trying
-  # to live with Alt+hjkl (caps / bottom-left-ctrl) as the only arrow
-  # layer. If muscle memory revolts, restore the block below AND solve
-  # the Naga collision separately (e.g. change '3' to F13 in the Naga
-  # device-scoped keymap and rebind in WoW). See gaming-side
-  # specs/done.md entry for the same date.
+  # HYPER+hjkl passthrough.
   #
-  # - name: Ctrl+hjkl -> arrows
-  #   remap:
-  #     C-h: left
-  #     C-j: down
-  #     C-k: up
-  #     C-l: right
+  # Must come BEFORE the Alt+hjkl arrow rule below: xremap's keymap
+  # subset-matches modifiers, so M-j would otherwise fire on the HYPER
+  # chord (which contains Alt) and turn HYPER+J into Down arrow. By
+  # explicitly remapping HYPER+hjkl to themselves first, the rule
+  # consumes the event and Hyprland sees the chord untransformed -- so
+  # HYPER+J / HYPER+K can drive cyclenext, etc.
+  - name: HYPER+hjkl passthrough (so HYPER cyclenext binds reach Hyprland)
+    remap:
+      C-M-Super-h: C-M-Super-h
+      C-M-Super-j: C-M-Super-j
+      C-M-Super-k: C-M-Super-k
+      C-M-Super-l: C-M-Super-l
 
   # Alt+hjkl -> arrow keys (the Caps / bottom-left-ctrl arrow layer; on
   # this host both physical keys send KEY_LEFTCTRL via NuPhy firmware

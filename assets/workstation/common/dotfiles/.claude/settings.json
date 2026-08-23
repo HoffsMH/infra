@@ -13,5 +13,17 @@
   },
   "effortLevel": "xhigh",
   "skipDangerousModePermissionPrompt": true,
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/home/mh/bin/claude.tmux-pane"
+          }
+        ]
+      }
+    ]
+  },
   "tui": "fullscreen"
 }
