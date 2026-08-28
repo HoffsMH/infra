@@ -1,0 +1,30 @@
+#!/bin/bash
+
+set -euo pipefail
+
+source_dir="${CLAUDE_TRANSCRIPT_SOURCE_DIR:-$HOME/infra/assets/workstation/common/go-utils/claude-transcript}"
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/infra/bin"
+binary="$cache_dir/claude.transcript"
+
+needs_build=false
+if [[ ! -x $binary ]]; then
+  needs_build=true
+else
+  for source in "$source_dir"/*.go "$source_dir"/go.mod "$source_dir"/cmd/claude.transcript/*.go; do
+    if [[ $source -nt $binary ]]; then
+      needs_build=true
+      break
+    fi
+  done
+fi
+
+if [[ $needs_build == true ]]; then
+  mkdir -p "$cache_dir"
+  staged="$binary.$$"
+  trap 'command rm -f "$staged"' EXIT
+  (cd "$source_dir" && GOCACHE="$cache_dir/go-build" go build -buildvcs=false -o "$staged" ./cmd/claude.transcript)
+  mv "$staged" "$binary"
+  trap - EXIT
+fi
+
+exec "$binary" "$@"

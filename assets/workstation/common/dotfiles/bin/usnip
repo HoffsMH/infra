@@ -95,13 +95,12 @@ f={}
 q={q}
 # Draw image file $1 via kitten. One row short so the image never touches the
 # bottom preview row, which makes tmux scroll and blanks it (junegunn/fzf#2544).
-# The seds drop the lone trailing reset (fzf misreads it as a scroll mark) and
-# re-attach it to the previous line.
+# Keep the final kitten placeholder row and attach the reset to it.
 show_img() {
   rows=$((FZF_PREVIEW_LINES - 1))
   kitten icat --clear --transfer-mode=memory --unicode-placeholder \
          --stdin=no --place="${FZF_PREVIEW_COLUMNS}x${rows}@0x0" "$1" \
-    | sed "\$d" | sed "\$s/\$/${esc}[m/"
+    | sed "\$s/\$/${esc}[m/"
 }
 lc=$(printf "%s" "$f" | tr "[:upper:]" "[:lower:]")
 case "$lc" in

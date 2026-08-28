@@ -33,6 +33,21 @@ debugging anything.
    spacebar is a HYPER chord (Ctrl+Alt+Super). When porting Mac
    configs, translate `cmd -> alt` on the source side.
 
+## Reply length
+
+- Abbreviation: ri <time> <prompt>
+  - means keep your answer to this prompt readable in <time> timeframe
+  - so ri 10 seconds summarize this file means give me a summary of this file
+    that is readable in 10 seconds
+  - If I simply say ri 15 seconds It means summarize what you are already trying
+    to tell me in 15 seconds
+
+- In general any reply you give use should not be over a 1 minute read if user 
+  wants more detail they will ask but in general user will prefer not to have
+  keep track of 20 parked questions as they read through your 5 minute read to 
+  to see if they answer any of those questions
+
+
 ## File-edit rules
 
 - `~/.config/**` — runtime config; editing in place is fine.
@@ -100,7 +115,7 @@ My policy for comments, in every repo. Applies to comments you
 - `runlog` (in `~/bin`) pipes a command's stdout+stderr to
   `../<dirname>-<command>.log`, skipping wrapper commands (bundle,
   npx, yarn, etc.) when naming the file.
-- Use it when output will be too large for the context window AND
+- Use it when output will be too large and would pollute the context window AND
   you'll need to grep it repeatedly (test suites, builds, etc.).
 - After running, **grep the log** instead of re-running the command.
 - Don't blanket every command — just the noisy ones.
@@ -115,6 +130,18 @@ My policy for comments, in every repo. Applies to comments you
   (hand-off plan docs) and **`prompt`** (agent launch prompts) -- see
   "Handing off work to another agent" below. Use this to save plans/notes
   for the user without touching their clipboard.
+
+- Often when there are multiple media files I will say look at a collection of
+  recent files and that means you can look at timestamps and the context in
+  general to infer where to stop looking.
+
+- Abbreviation: ss <category> means look at recent screenshots in snip-<category>
+  - so "ss somerepo I think there is something off about this padding"  means
+    look at recent screenshots in snip-somerepo I think there is something off
+    about this padding
+
+- Abbreviation: sf <category> means look at recent file in snip-<category>
+
 
 ## Handing off work to another agent (plan / prompt / command)
 
@@ -152,6 +179,8 @@ timestamped file); hand the user the newest command.
   think makes it pass, then verify it fails for the right reason
   before restoring.
 
+## Coding: New code
+
 ## Shell
 
 - Commands run in `bash`, but the interactive shell is `zsh` where all
@@ -167,33 +196,30 @@ timestamped file); hand the user the newest command.
 reference material that supplement this orientation. If the file
 exists, read it after this one.
 
-## Pi coding agent
+## Agent config, infra, and set.links
 
-Global pi config is symlinked from here via `set.links`:
+Agent config lives in `~/infra/assets/workstation/common/dotfiles/` --
+`.pi/agent/` (settings, extensions, skills), `.agents/skills/`, and this file
+itself. Skills are ours: written or adapted here, edited in one place, never
+pulled from a checkout that can change under us. `set.links` mirrors every
+**file** in that tree as a symlink under `$HOME`, so each skill is one real
+infra copy, edited there, never through a symlink path. Adding a skill on a
+new machine is `set.links -f`, plus a directory symlink for any harness that
+needs one (Claude Code reads `~/.claude/skills`, not `~/.agents/skills`).
 
-```
-~/infra/assets/workstation/common/dotfiles/.pi/agent/
-├── settings.json              # shellCommandPrefix, provider, model
-├── extensions/
-│   ├── bash-permission.ts     # gate every bash command
-│   ├── websearch-permission.ts # gate web search + fetch separately
-│   └── content-sandbox.ts     # prompt-injection defense for web fetches
-└── skills/
-    └── brave-search/
-        ├── search.js          # Brave Search API (needs BRAVE_API_KEY)
-        ├── content.js         # URL → markdown (SSRF-hardened, 5 MB cap)
-        └── package.json       # npm install on new machines
-```
+Not everything under `~/.pi`, `~/.claude`, or `~/.agents` is infra-managed. A
+real file where a symlink should be is unversioned aftermarket; audit before
+trusting it.
 
-**New machine bootstrap:**
-1. `set.links -n` — dry-run first to see what will be linked
-2. `set.links -f` — force-replace all dotfiles with symlinks to infra
-3. `cd ~/infra/assets/workstation/common/dotfiles/.pi/agent/skills/brave-search && npm install` — must be the infra realpath, NOT `~/.pi/...` (see Troubleshooting in that skill's SKILL.md)
-3. Set `BRAVE_API_KEY` in `~/.envrc` (get from https://api-dashboard.search.brave.com/register — free tier, credit card required for verification)
-4. `settings.json` sources `~/.envrc` via `shellCommandPrefix` before every
-   bash command so the key is always available
+**Every skill must carry a boundaries block** repeating the rules above it
+could break: no external posting, no git writes, I own builds and
+verification, generated notes go to the nearest parent `specs/`. Third-party
+skills routinely violate all four -- read before installing, neuter in place.
 
-**Session commands:**
-- `/reset-permissions` — clear all bash + websearch whitelists
+Installed: `research`, `domain-modeling`, `grilling`, `git`, `grill-me`,
+`youtube-summarizer`, `brave-search` (all infra-backed), and `omarchy`
+(Omarchy install, linked outside infra).
+
+================================================================================
 
 If this is in your context say "I read <full filepath here>" at the start of the session

@@ -1,9 +1,11 @@
 {
-  "lastChangelogVersion": "0.84.0",
+  "lastChangelogVersion": "0.84.3",
   "defaultProvider": "openrouter",
   "defaultModel": "moonshotai/kimi-k3",
   "defaultThinkingLevel": "high",
   "shellCommandPrefix": "source ~/.envrc\n",
-  "packages": [],
+  "packages": [
+    "npm:@gotgenes/pi-permission-system"
+  ],
   "theme": "dark"
 }
