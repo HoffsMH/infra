@@ -120,7 +120,7 @@ My policy for comments, in every repo. Applies to comments you
 - After running, **grep the log** instead of re-running the command.
 - Don't blanket every command — just the noisy ones.
 
-## Snip
+## Snips and screenshotting
 
 - `snip [category]` saves the clipboard into
   `~/personal/00-cap-md/snip-<category>` (default `main`) as a
@@ -141,6 +141,8 @@ My policy for comments, in every repo. Applies to comments you
     about this padding
 
 - Abbreviation: sf <category> means look at recent file in snip-<category>
+
+- Abbreviation: ssc means look at screenshot in clipboard
 
 
 ## Handing off work to another agent (plan / prompt / command)
