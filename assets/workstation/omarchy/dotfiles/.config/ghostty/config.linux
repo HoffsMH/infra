@@ -1,0 +1,9 @@
+# Linux-specific Ghostty settings for the Omarchy workstation.
+gtk-toolbar-style = flat
+
+# xremap changes the left-of-spacebar key to Ctrl.
+keybind = alt+shift+enter=csi:13;4u
+keybind = unconsumed:ctrl+v=paste_from_clipboard
+
+# Linux uses epoll for Ghostty's async backend.
+async-backend = epoll
