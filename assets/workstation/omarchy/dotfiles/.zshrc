@@ -12,6 +12,16 @@ command -v atuin    >/dev/null && eval "$(atuin init zsh --disable-up-arrow --di
 [[ -r /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh ]] && \
     source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
+# herdr's server can be started from a tty, so panes it spawns inherit no
+# WAYLAND_DISPLAY and wl-copy (and with it nvim's clipboard) silently no-ops.
+if [[ -z $WAYLAND_DISPLAY && -n $XDG_RUNTIME_DIR ]]; then
+  for _wl in $XDG_RUNTIME_DIR/wayland-*(N=); do
+    export WAYLAND_DISPLAY=${_wl:t}
+    break
+  done
+  unset _wl
+fi
+
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 # PATH
@@ -25,6 +35,7 @@ export PATH=$HOME/go/bin:$PATH
 
 bindkey -e
 bindkey '^e' edit_command
+bindkey '^g' edit_command
 
 command -v fastfetch >/dev/null && fastfetch
 

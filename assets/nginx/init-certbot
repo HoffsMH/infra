@@ -1,5 +1,0 @@
-#!/bin/bash
-
-source /infra/assets/nginx/.env
-
-certbot --agree-tos -m "$CERT_EMAIL" --nginx -d "$CERT_DOMAIN" -n

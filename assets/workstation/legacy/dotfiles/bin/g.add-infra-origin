@@ -1,5 +1,0 @@
-#!/bin/bash
-
-name=$(basename $(pwd))
-
-git remote add infra "git@nas-git:git/$name.git"

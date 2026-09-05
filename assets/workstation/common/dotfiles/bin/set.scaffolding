@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+readonly directories=(
+  code/paid
+  code/fun/other-dots
+  code/fun/inspect-try
+  code/fun/projects
+  personal/00-cap-md
+  personal/01-cap-storage
+  personal/02-cap-storage
+  personal/feeds
+  personal/media/audio/capture/keep
+  personal/media/video/capture/keep
+  personal/media/image/capture/keep
+  personal/media/software/capture/keep
+  personal/media/text/capture/keep
+  personal/jrnl
+)
+
+for directory in "${directories[@]}"; do
+  mkdir -p "$HOME/$directory"
+done
+
+printf 'Scaffolded %d directories under %s\n' "${#directories[@]}" "$HOME"

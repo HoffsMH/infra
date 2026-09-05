@@ -1,4 +1,0 @@
-#!/bin/zsh
-
-foot -c $HOME/.config/foot/menu.ini -a=term-popup zshc "$@ | figlet | less"
-

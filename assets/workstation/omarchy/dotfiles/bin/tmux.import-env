@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ -n ${HYPRLAND_DEBUG_CONF:-} ]]; then
+  exit 0
+fi
+
+readonly variables=(
+  WAYLAND_DISPLAY
+  DISPLAY
+  USERNAME
+  XDG_BACKEND
+  XDG_CURRENT_DESKTOP
+  XDG_SESSION_TYPE
+  XDG_SESSION_ID
+  XDG_SESSION_CLASS
+  XDG_SESSION_DESKTOP
+  XDG_SEAT
+  XDG_VTNR
+  HYPRLAND_CMD
+  HYPRLAND_INSTANCE_SIGNATURE
+  SWAYSOCK
+  XCURSOR_SIZE
+  _JAVA_AWT_WM_NONREPARENTING
+  QT_QPA_PLATFORM
+  QT_WAYLAND_DISABLE_WINDOWDECORATION
+  GRIM_DEFAULT_DIR
+  SSH_AUTH_SOCK
+)
+
+usage() {
+  cat <<'EOF'
+Usage: tmux.import-env <tmux|system|help>
+
+Import the current graphical-session environment into tmux or systemd.
+EOF
+}
+
+case "${1:-}" in
+tmux)
+  for variable in "${variables[@]}"; do
+    if [[ -n ${!variable:-} ]]; then
+      tmux setenv -g "$variable" "${!variable}"
+    fi
+  done
+  ;;
+system)
+  dbus-update-activation-environment --systemd "${variables[@]}"
+  ;;
+help)
+  usage
+  ;;
+*)
+  usage >&2
+  exit 1
+  ;;
+esac

@@ -1,10 +1,6 @@
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-alias bbix="brew update &&\
-    brew bundle install --cleanup --file=~/.config/Brewfile --no-lock &&\
-    brew upgrade"
-
 source "$HOME/.zsh/functions_and_aliases.sh"
 
 # export PATH=""

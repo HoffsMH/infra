@@ -147,7 +147,7 @@ local plugins = {
       -- OPTIONAL:
       --   `nvim-notify` is only needed, if you want to use the notification view.
       --   If not available, we use `mini` as the fallback
-      "rcarriga/nvim-notify",
+      { "rcarriga/nvim-notify", opts = { background_colour = "#000000" } },
       }
   },
 
@@ -215,12 +215,16 @@ local plugins = {
 
       -- Servers we want auto-installed and auto-enabled. mason-lspconfig
       -- translates these names to Mason package names internally.
+      local ensure_installed = {
+        'elixirls', 'ruby_lsp', 'ts_ls', 'pyright',
+        'rust_analyzer', 'bashls', 'yamlls', 'jsonls',
+        'marksman', 'html', 'cssls', 'lua_ls',
+      }
+      if vim.fn.executable('go') == 1 then
+        table.insert(ensure_installed, 'gopls')
+      end
       require('mason-lspconfig').setup {
-        ensure_installed = {
-          'elixir_ls', 'ruby_lsp', 'gopls', 'ts_ls', 'pyright',
-          'rust_analyzer', 'bashls', 'yamlls', 'jsonls',
-          'marksman', 'html', 'cssls', 'lua_ls',
-        },
+        ensure_installed = ensure_installed,
         -- automatic_enable = true (default) -- calls vim.lsp.enable() per server
       }
 
@@ -349,7 +353,7 @@ local plugins = {
         'bash', 'c', 'cpp', 'css', 'diff', 'dockerfile',
         'embedded_template', 'git_config', 'git_rebase', 'gitcommit', 'gitignore',
         'glimmer', 'go', 'gomod', 'gosum',
-        'html', 'javascript', 'jsdoc', 'json', 'jsonc',
+        'html', 'javascript', 'jsdoc', 'json',
         'lua', 'luadoc', 'make', 'markdown', 'markdown_inline',
         'query', 'regex', 'ruby', 'scss', 'sql', 'toml',
         'tsx', 'typescript', 'vim', 'vimdoc', 'yaml',

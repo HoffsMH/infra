@@ -1,0 +1,12 @@
+#!/usr/bin/env zsh
+set -e
+
+queue="${XDG_STATE_HOME:-$HOME/.local/state}/ytgo/queue.zsh"
+
+if [[ ! -s "$queue" ]]; then
+  print 'YouTube queue is empty.'
+  exit 0
+fi
+
+source "$HOME/.zsh/ytdl.sh"
+source "$queue"

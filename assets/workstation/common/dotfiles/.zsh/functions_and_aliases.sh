@@ -4,6 +4,8 @@
 #
 alias zource="source ~/.zshrc"
 
+[[ -r "$HOME/.zsh/ytdl.sh" ]] && source "$HOME/.zsh/ytdl.sh"
+
 mov-to-gif() {
     local out="${1%.*}.gif"
 
@@ -25,7 +27,7 @@ alias e="nvim"
 alias et="nvim -u $HOME/.config/nvim/lua/text-editor.lua"
 alias eb="nvim -u $HOME/.config/nvim/lua/base.lua"
 # #fancy ls command
-alias l="eza -laGghHMS  --git --icons -T -L 1"
+alias l="eza -laghHMS --show-symlinks --git --icons -T -L 1"
 alias cat="bat --theme gruvbox-dark"
 alias dig="dog"
 # alias http="xh"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Idempotent installer for the YubiKey + gpg-agent + SSH stack on this
-# Omarchy host. Replays the nix/legacy setup pattern.
+# Idempotent installer for the YubiKey + gpg-agent + SSH stack on an
+# Omarchy host.
 #
 # What this script does:
 #   1. Installs yubikey-manager, yubikey-personalization, pcsc-tools, libfido2

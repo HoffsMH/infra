@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+queue="${XDG_STATE_HOME:-$HOME/.local/state}/ytgo/queue.zsh"
+mkdir -p "$(dirname "$queue")"
+: > "$queue"
+printf 'YouTube queue cleared.\n'

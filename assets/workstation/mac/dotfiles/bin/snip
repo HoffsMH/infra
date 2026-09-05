@@ -5,13 +5,13 @@
 #   assets/workstation/common/dotfiles/bin/snip
 # It merges every feature that lived here (piped stdin, the image branch,
 # categories, sha256 dedupe) and keeps the portable mktemp form, so one file
-# serves every platform. This copy exists only until set.links is re-pointed
+# serves every platform. This copy exists only until links.set is re-pointed
 # here and it can be deleted.
 #
 # AGENTS: if you end up in this file, do NOT patch it. Verify the common
 # version on THIS machine first — piped stdin, clipboard text, clipboard
 # image, a fresh category, and the dedupe path — then delete this copy and
-# re-point set.links. Report anything that only works here.
+# re-point links.set. Report anything that only works here.
 # ---------------------------------------------------------------------------
 echo "snip: this platform copy is deprecated; common/ is canonical (see header)." >&2
 

@@ -34,6 +34,8 @@ vim.opt.mouse = 'a'
 vim.opt.showmode = false
 
 vim.opt.clipboard = 'unnamedplus'
+-- OSC 52 provider: yanks follow the terminal you're attached to, not the host.
+require('config.remote_clipboard').setup()
 
 -- vim.opt.foldmethod = "expr"
 -- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"

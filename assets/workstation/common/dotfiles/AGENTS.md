@@ -144,6 +144,39 @@ My policy for comments, in every repo. Applies to comments you
 
 - Abbreviation: ssc means look at screenshot in clipboard
 
+### `ssc` clipboard-image workflow
+
+- `ssc` means: inspect the current image in the system clipboard. If it
+  starts a longer prompt, inspect the image before investigating the rest.
+- `ssc` differs from `ss <category>`:
+  - `ss <category>` reads previously saved screenshot files.
+  - `ssc` reads the live system clipboard.
+- Do not ask what `ssc` means.
+- `ssc` does not imply archiving. Prefer direct inspection:
+  1. Use the cross-platform helper:
+     `ext="$(iclip type)" && iclip save "/tmp/omp-clipboard.${ext}"`
+  2. Verify the file is nonempty.
+  3. Use the image-capable `read` tool on the saved path.
+
+- If `iclip type` or `iclip save` fails, stop and report that no clipboard
+  image is available. Do not inspect an existing file at the target path.
+- Chain clipboard capture and validation with `&&`, not `;`, and use a fresh
+  temporary path when possible.
+- Prefer `iclip` because it abstracts Wayland, X11, and macOS clipboard
+  implementations. Use a platform-specific command only if `iclip` is
+  unavailable.
+- Do not use text clipboard APIs or send binary image data through a text
+  pathway.
+- `snip screenshot` is valid for images but archives them; use it only when
+  the image should be retained under `~/personal/00-cap-md/snip-screenshot/`
+  for later `ss screenshot` retrieval.
+- When using `snip screenshot`, invoke it directly with no piped stdin:
+  `snip screenshot`
+- Never pipe binary image output into `snip` or an equivalent text pathway.
+  Piped stdin forces `snip` into its text-input path.
+- Do not substitute a newly captured desktop screenshot for the requested
+  clipboard image.
+
 
 ## Handing off work to another agent (plan / prompt / command)
 
@@ -198,16 +231,34 @@ timestamped file); hand the user the newest command.
 reference material that supplement this orientation. If the file
 exists, read it after this one.
 
-## Agent config, infra, and set.links
+## Agent config, infra, and dotfile lifecycle
 
 Agent config lives in `~/infra/assets/workstation/common/dotfiles/` --
 `.pi/agent/` (settings, extensions, skills), `.agents/skills/`, and this file
 itself. Skills are ours: written or adapted here, edited in one place, never
-pulled from a checkout that can change under us. `set.links` mirrors every
+pulled from a checkout that can change under us. `links.set` mirrors every
 **file** in that tree as a symlink under `$HOME`, so each skill is one real
 infra copy, edited there, never through a symlink path. Adding a skill on a
-new machine is `set.links -f`, plus a directory symlink for any harness that
+new machine is `links.set -f`, plus a directory symlink for any harness that
 needs one (Claude Code reads `~/.claude/skills`, not `~/.agents/skills`).
+
+Use the lifecycle in this order:
+
+1. `links.scan` inspects symlinks and candidates without changing anything.
+2. `links.prune` previews dangling infra links; `--apply` removes only those
+   links and requires an explicit user request.
+3. `links.adopt FILE` adopts one regular home file into the detected platform
+   overlay. Use `--dry-run` when the result has not already been reviewed.
+4. Review the platform copy. Promotion to common is a separate manual decision
+   for each file; agents must not infer or automate it.
+5. `links.set` links common first and the detected platform second. Use `-f`
+   only when replacement of every reported target is intended.
+
+Never overwrite an existing common or platform dotfile during adoption.
+`links.adopt` must no-op on either collision and on directories, special files,
+existing symlinks, outside-home paths, or files already within infra. Do not
+bypass these checks with `cp`, `mv`, or `ln`. Edit an existing infra source in
+place only when the user explicitly asked for that content change.
 
 Not everything under `~/.pi`, `~/.claude`, or `~/.agents` is infra-managed. A
 real file where a symlink should be is unversioned aftermarket; audit before

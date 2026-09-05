@@ -1,37 +1,61 @@
-# Packages explicitly installed via `yay -S` on this Omarchy host.
-# Captured: 2026-04-29 — formalize into a real installer later.
-# (Exclude package names like "discord" if pacman/yay resolved to a -bin variant — see notes.)
+# Bare Omarchy workstation packages.
+# This file is consumed by install-packages.sh and bootstrap-omarchy.sh.
 
-# --- Workstation (work + personal) ---
-asdf-vm
-atuin
-bambustudio-nvidia-bin    # 3D printing slicer (nvidia variant for RTX cards on Wayland)
-brave-bin
-direnv
-discord            # resolved to discord-latest-bin
-dog
-duf
+# Core terminal and editor
+base-devel
+bat
+eza
+fd
+fzf
+git
+git-delta
+github-cli
 ghostty
-google-cloud-cli   # gcloud / GCP SDK
-gopass             # if needed for the `pass="gopass"` alias in functions_and_aliases.sh
-nuphyctl-bin
-ttf-ibm-plex          # Plex Sans / Plex Serif (default sans-serif/serif via fontconfig)
-ttf-ibmplex-mono-nerd # BlexMono Nerd Font (default monospace via fontconfig)
-syncthing
-xremap-hypr-bin
+lazygit
+neovim
+ripgrep
+tmux
 zsh
 zsh-autopair-git
 zsh-fast-syntax-highlighting
+# Shell workflow
+atuin
+direnv
+dog
+dust
+duf
+fastfetch
+jq
+starship
+yazi
+zoxide
 
-# --- YubiKey / GPG agent stack (installed by setup-yubikey.sh) ---
-yubikey-manager
-yubikey-personalization
-pcsc-tools
-libfido2
+# Clipboard, documents, and media
+ffmpeg
+gifsicle
+libnotify
+mpv
+p7zip
+poppler
+unzip
+wl-clipboard
+yt-dlp
 
-# --- Recreational / non-work apps (TODO: split out to gaming repo) ---
-archon-appimage
-curseforge
-lutris
-protonplus
-steam
+# Runtime and services
+curl
+docker
+docker-buildx
+docker-compose
+mise-bin
+syncthing
+tailscale
+
+# Browsers
+brave-bin
+chromium
+
+# Credentials and shell aliases
+gnupg
+gopass
+openssh
+pinentry

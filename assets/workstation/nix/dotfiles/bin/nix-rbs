@@ -1,3 +1,0 @@
-#!/bin/bash
-
-sudo nixos-rebuild switch --flake "/home/hoffs/infra/assets/workstation/nix/nixos#${1:-default}" --show-trace

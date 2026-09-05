@@ -1,8 +1,0 @@
-#!/bin/bash
-
-clip=$(xpaste || echo "")
-url=${1:-$clip}
-
-echo "ytdla \"$url\"" >> ~/bin/ytgo
-echo "ytdla $url"
-notify-send "AUDIO queued: $url"
