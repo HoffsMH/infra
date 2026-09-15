@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+if [[ $# -ne 1 ]]; then
+  printf 'Usage: %s <payload-directory>\n' "$0" >&2
+  exit 1
+fi
+
+readonly ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+readonly OUTPUT="$1"
+
+if [[ -n "$(git -C "$ROOT" status --porcelain)" ]]; then
+  printf 'Refusing to build payload from a dirty worktree. Commit first.\n' >&2
+  exit 1
+fi
+git -C "$ROOT" bundle create "$OUTPUT/infra.bundle" --all
+install -m755 "$ROOT/bootstrap-seed.sh" "$OUTPUT/seed.sh"
+(
+  cd "$OUTPUT"
+  sha256sum infra.bundle > SHA256SUMS
+)
+
+printf 'Payload written to %s\n' "$OUTPUT"
+printf 'Copy its contents into the writable USB payload volume.\n'

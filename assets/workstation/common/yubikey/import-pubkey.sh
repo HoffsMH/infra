@@ -2,9 +2,21 @@
 # Import the personal GPG public key, set ultimate trust, learn the
 # YubiKey-resident secret subkeys, and reload gpg-agent so the SSH side
 # picks up the AUT subkey immediately. Idempotent.
+#
+# Platform-neutral: every command here is gnupg or curl, so this works the
+# same on macOS (brew install gnupg) and on any Linux. That is why it lives
+# in common/ rather than beside the arch-only setup-yubikey.sh, which
+# installs the packages this assumes are already present.
 set -euo pipefail
 
 PUBKEY_URL="https://mhkr.xyz/key.pub"
+
+for cmd in curl gpg gpg-connect-agent gpgconf; do
+  command -v "$cmd" >/dev/null || {
+    echo "$cmd is required. On macOS: brew install gnupg curl" >&2
+    exit 1
+  }
+done
 
 echo "==> importing public key from $PUBKEY_URL"
 curl -fsSL "$PUBKEY_URL" | gpg --import

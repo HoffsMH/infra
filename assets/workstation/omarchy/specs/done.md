@@ -3,6 +3,46 @@
 Most-recent first. Each entry is a short rule + the rationale that's
 useful to remember later.
 
+## 2026-09-15
+
+### Status bar
+
+- **Bar gestures disabled via a patched clone of `omarchy.bar`.** Upstream lets
+  a press-and-hold or 4px slide on the bar move it to another screen edge, a
+  widget drag reorder sections, and a double-click toggle transparency — all
+  written straight into `shell.json`, all triggered by accident on this host's
+  touchscreen. The bar had silently docked to the left edge. Omarchy exposes no
+  flag for any of it, so `setup-bar.sh` clones the bar plugin and sets
+  `enabled: false` on both `CenterGestureArea` instantiations and
+  `canReorder: false` in `ModuleSlot`. Clicks and menus are untouched.
+- **The clone is derived state, never hand-edited.** A `post-update.d` hook
+  re-runs `setup-bar.sh --reclone` so the clone tracks upstream across
+  `omarchy update`. The script preflights the patch against a scratch copy
+  first, so an upstream reshape aborts loudly and leaves the working clone
+  alone instead of half-patching it.
+- **Upstream bug found: a cloned bar never loads on Omarchy 4.0.2.** `Bar.qml`
+  declares three `required` properties; `shell.qml` satisfies them declaratively
+  for the built-in bar but loads a *plugin* bar through `Loader { source: url }`
+  and only assigns them in `onLoaded` — too late for `required`, so the
+  component is never created. Its fallback is broken too (`shell.qml:256` calls
+  `errorString()` out of scope), so the result is no bar and no fallback. This
+  bit us live before it was understood. Worked around by dropping `required` in
+  the clone; worth reporting upstream.
+- **`setup-bar.sh` owns its own safety net** because upstream will not fall
+  back: after activating the clone it restarts the shell, waits for the
+  `omarchy-bar` layer surface, and reverts to the stock bar if it never appears.
+- Bar layout is otherwise stock, with the clock on 12-hour
+  (`dddd h:mm AP`). Spec: `omarchy-shell/bar.md`.
+
+## 2026-09-11
+
+### Dotfile lifecycle
+
+- **Platform-first adoption is handled by `links.adopt`.** New dotfiles land
+  in the detected platform overlay and must be reviewed before manual
+  promotion to common. Existing common or platform targets are never
+  overwritten.
+
 ## 2026-05-02
 
 ### Keyboard
@@ -80,10 +120,10 @@ useful to remember later.
   starts `pcscd.service`; symlinks `~/.gnupg/gpg-agent.conf` and
   `~/.ssh/config` from infra; drops a starter gitignored
   `~/.ssh/config.local`.
-- `yubikey/import-pubkey.sh` curls the pubkey from `mhkr.xyz/key.pub`,
+- `common/yubikey/import-pubkey.sh` curls the pubkey from `mhkr.xyz/key.pub`,
   ultimate-trusts it, runs `scd serialno + learn --force` to register
   YubiKey-resident secret subkeys with the agent, reloads agent.
-- `yubikey/configure-yubikey.sh` (commented as fresh-key-only;
+- `common/yubikey/configure-yubikey.sh` (commented as fresh-key-only;
   the user's primary YubiKey is already provisioned and should not be
   reconfigured).
 - `gpg-agent.conf` uses `pinentry-program /usr/bin/pinentry-gnome3`

@@ -9,7 +9,7 @@
 #   4. Creates a gitignored ~/.ssh/config.local skeleton (if missing)
 #   5. Sets correct permissions on ~/.gnupg and ~/.ssh
 #
-# Run yubikey/configure-yubikey.sh and yubikey/import-pubkey.sh once the
+# Run ../common/yubikey/configure-yubikey.sh and ../common/yubikey/import-pubkey.sh once the
 # YubiKey is plugged in.
 set -euo pipefail
 
@@ -56,9 +56,9 @@ fi
 
 echo
 echo "Done. Next step with YubiKey plugged in:"
-echo "  $HERE/yubikey/import-pubkey.sh        # imports pubkey, learns card, reloads agent"
+echo "  $HERE/../common/yubikey/import-pubkey.sh   # imports pubkey, learns card, reloads agent"
 echo
 echo "Verify with:  ssh -T git@github.com     (should auth as you)"
 echo
-echo "(yubikey/configure-yubikey.sh is for FRESH-key hardware provisioning"
+echo "(../common/yubikey/configure-yubikey.sh is for FRESH-key hardware provisioning"
 echo " only -- skip it unless the YubiKey is unconfigured.)"
