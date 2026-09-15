@@ -19,13 +19,12 @@
         ]
       },
       {
-        "matcher": "startup|resume|clear|compact",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "sh \"$HOME/.agents/skills/i-have-adhd/always-on.sh\"",
-            "timeout": 10,
-            "statusMessage": "Checking i-have-adhd always-on flag..."
+            "command": "bash '/home/mh/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }
@@ -33,7 +32,16 @@
   },
   "enabledPlugins": {
     "clangd-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
+    "ruby-lsp@claude-plugins-official": true,
+    "i-have-adhd@i-have-adhd": true
+  },
+  "extraKnownMarketplaces": {
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      }
+    }
   },
   "effortLevel": "xhigh",
   "modelSettings": {
@@ -42,5 +50,34 @@
     }
   },
   "tui": "fullscreen",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "theme": "auto",
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: Sage-ERP-X3 (GitHub org hosting this repo's remote, github.com-work:Sage-ERP-X3/xtrem-ssci.git)",
+      "**Cloud provider(s)**: Azure (Azure DevOps package registry, xtrem-config-azure-prod-ui.yml config present)",
+      "**Repository visibility**: assume private unless the remote host and repo name indicate otherwise, or a visibility check in the transcript shows public",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: master (default branch; protection status not queryable here)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: The trusted repo (Sage-ERP-X3/xtrem-ssci on github.com-work) and its remote(s) only (no additional orgs configured)",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: pkgs.dev.azure.com (Azure DevOps package registry host referenced in config)",
+      "**Internal package registry**: pkgs.dev.azure.com",
+      "**Sensitive data locations & audiences**: .env, .env.development.local, .env.test.local, .env.production.local, .env.local, .envrc (gitignored local secrets/config files) — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment — includes xtrem-config-azure-prod-ui.yml and documentation/guides/developer-tools/prod-ui-mode.md contexts in this repo",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (xtrem-ssci monorepo — Sage X3 SSCI application development)",
+      "**Trusted repo**: /home/mh/code/paid/anvyl/sage-x3/xtrem-ssci (working directory) and its remote github.com-work:Sage-ERP-X3/xtrem-ssci.git",
+      "**Org-specific CLIs**: None configured — herdr and hostname seen in project transcripts but not corroborated as org-specific tooling"
+    ]
+  }
 }
