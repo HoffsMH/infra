@@ -8,7 +8,6 @@ eza
 fd
 fzf
 git
-git-delta
 github-cli
 ghostty
 lazygit
