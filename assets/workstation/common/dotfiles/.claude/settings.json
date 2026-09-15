@@ -7,12 +7,7 @@
       "mcp__clipboard-paste-mcp__paste_clipboard_screenshot"
     ]
   },
-  "enabledPlugins": {
-    "clangd-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
-  },
-  "effortLevel": "xhigh",
-  "skipDangerousModePermissionPrompt": true,
+  "model": "opus[1m]",
   "hooks": {
     "SessionStart": [
       {
@@ -22,8 +17,30 @@
             "command": "/home/mh/bin/claude.tmux-pane"
           }
         ]
+      },
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$HOME/.agents/skills/i-have-adhd/always-on.sh\"",
+            "timeout": 10,
+            "statusMessage": "Checking i-have-adhd always-on flag..."
+          }
+        ]
       }
     ]
   },
-  "tui": "fullscreen"
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
+  },
+  "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "high"
+    }
+  },
+  "tui": "fullscreen",
+  "skipDangerousModePermissionPrompt": true
 }
