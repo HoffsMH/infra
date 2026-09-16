@@ -131,26 +131,20 @@ My policy for comments, in every repo. Applies to comments you
   "Handing off work to another agent" below. Use this to save plans/notes
   for the user without touching their clipboard.
 
-- Often when there are multiple media files I will say look at a collection of
-  recent files and that means you can look at timestamps and the context in
-  general to infer where to stop looking.
-
-- Abbreviation: ss <category> means look at recent screenshots in snip-<category>
-  - so "ss somerepo I think there is something off about this padding"  means
-    look at recent screenshots in snip-somerepo I think there is something off
-    about this padding
-
-- Abbreviation: sf <category> means look at recent file in snip-<category>
-
-- Abbreviation: ssc means look at screenshot in clipboard
+- `ss` means inspect my recent screenshot run in
+  `~/personal/00-cap-md/snip-screenshot/`. Start with the newest and work
+  backward until timestamps, image content, or this conversation show where
+  the run began. Inspect every relevant image, including saved annotations.
+  State the oldest screenshot included and why you stopped there.
+  `ss <category>` uses `snip-<category>` instead.
+- `sf <category>` means inspect the newest file in `snip-<category>`.
+- `ssc` means inspect the current clipboard image.
 
 ### `ssc` clipboard-image workflow
 
 - `ssc` means: inspect the current image in the system clipboard. If it
   starts a longer prompt, inspect the image before investigating the rest.
-- `ssc` differs from `ss <category>`:
-  - `ss <category>` reads previously saved screenshot files.
-  - `ssc` reads the live system clipboard.
+- `ssc` reads the live system clipboard; `ss` reads saved files.
 - Do not ask what `ssc` means.
 - `ssc` does not imply archiving. Prefer direct inspection:
   1. Use the cross-platform helper:
@@ -167,9 +161,9 @@ My policy for comments, in every repo. Applies to comments you
   unavailable.
 - Do not use text clipboard APIs or send binary image data through a text
   pathway.
-- `snip screenshot` is valid for images but archives them; use it only when
-  the image should be retained under `~/personal/00-cap-md/snip-screenshot/`
-  for later `ss screenshot` retrieval.
+- The screenshot shortcut and notification editor save directly to
+  `snip-screenshot`; do not archive those captures again. Use `snip screenshot`
+  only for a clipboard image that has not already been saved.
 - When using `snip screenshot`, invoke it directly with no piped stdin:
   `snip screenshot`
 - Never pipe binary image output into `snip` or an equivalent text pathway.
