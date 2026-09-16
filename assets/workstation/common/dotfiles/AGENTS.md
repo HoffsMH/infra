@@ -136,6 +136,9 @@ My policy for comments, in every repo. Applies to comments you
   backward until timestamps, image content, or this conversation show where
   the run began. Inspect every relevant image, including saved annotations.
   State the oldest screenshot included and why you stopped there.
+  `ss N` (for example, `ss 1` or `ss 3`) means the run ends at or before
+  the Nth newest screenshot. Inspect at most N screenshots; stop sooner if
+  the run boundary is clear. Never inspect screenshot N+1 to check.
   `ss <category>` uses `snip-<category>` instead.
 - `sf <category>` means inspect the newest file in `snip-<category>`.
 - `ssc` means inspect the current clipboard image.
