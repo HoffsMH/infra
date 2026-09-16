@@ -1,0 +1,15 @@
+# Current mise-managed tools on this workstation.
+# Versions are resolved by mise; this file records the requested tools.
+[tools]
+
+claude = "latest"
+codex = "latest"
+gh = "latest"
+"github:can1357/oh-my-pi" = "latest"
+node = "26.7.0"
+
+# Historical asdf requests that are not active in the current mise config:
+# nodejs latest
+# rust latest
+# python latest
+# python 2.7.13
