@@ -60,7 +60,7 @@ artifact in `~/infra/assets/workstation/omarchy/`. Concrete forms:
 - Config files: live in `dotfiles/` and are symlinked to `~/.config/`.
 - System files (e.g., `/etc/xremap/config.yml`): kept as a copy in the
   repo plus an idempotent `setup-*.sh` that installs them.
-- Package additions: tracked in `packages.txt` (or the per-topic spec).
+- Package additions: tracked in the canonical `packages.txt` manifest.
 - Behavioral decisions: documented in the relevant spec file.
 
 **Implication:** as the artifact set grows, a fresh Omarchy install

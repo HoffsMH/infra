@@ -15,6 +15,7 @@ Scope: workstation for software work.
 | Cross-agent orientation (what trips other agents up) | [agent-orientation.md](agent-orientation.md) |
 | Keyboard remap, modifiers, Mac muscle memory | [keyboard/](keyboard/) |
 | Hyprland (WM): monitors, workspaces, overlay structure, window rules | [hyprland/](hyprland/) |
+| Omarchy shell: status bar, gestures, plugin clones | [omarchy-shell/](omarchy-shell/) |
 | Terminal stack: ghostty, tmux, zsh, neovim | [terminal/](terminal/) |
 | Mouse + other input devices | [input-devices/](input-devices/) |
 | AI tooling, default-app choices | [applications/](applications/) |

@@ -32,16 +32,11 @@ Source of truth in infra (for the functions/aliases file):
   command line in nvim for full editing)
 - `fastfetch` greeting on startup
 
-## Required packages (Arch / yay)
+## Package source
 
-```
-zoxide  fzf  lazygit  atuin  direnv  duf
-zsh-fast-syntax-highlighting  zsh-autopair-git
-fastfetch
-```
-
-(Plus the standard zsh, starship, eza, bat, dust, fd which are usually
-already present on Omarchy.)
+The canonical Omarchy package manifest is `../../packages.txt`, installed by
+`../../install-packages.sh`. Keep package ownership there; this spec documents
+runtime usage, not a second package list.
 
 ## Notes
 

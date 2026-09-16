@@ -28,6 +28,7 @@
 # Usage:
 #   setup-bar.sh             clone if missing, patch, activate, install hook
 #   setup-bar.sh --reclone   rebuild the clone from current upstream, then patch
+#   setup-bar.sh --check     check that the patch applies to current upstream
 #   setup-bar.sh --layout    also reset the layout to Omarchy defaults, bar on
 #                            top, 12-hour clock (the baseline this host wants)
 #   setup-bar.sh --revert    drop the clone, return to the stock bar, drop hook
@@ -98,32 +99,7 @@ apply_edit() {
 patch_bar_qml() {
   local qml=$1
 
-  # (0) Work around an upstream bug, present in Omarchy 4.0.2: a cloned bar
-  # never loads at all.
-  #
-  # shell.qml instantiates the built-in bar declaratively, as
-  # `Bar { omarchyPath: ...; barWidgetRegistry: ...; barConfig: ... }`, which
-  # satisfies Bar.qml's three `required` properties at creation time. A *plugin*
-  # bar goes through `Loader { source: url }` instead and only assigns those
-  # properties afterwards, in onLoaded -> QML refuses to create the component
-  # ("Required property X was not initialized") and the bar is simply absent.
-  # The Loader's own error path is broken too (shell.qml calls errorString()
-  # out of scope, raising a ReferenceError), so it never falls back to the
-  # built-in bar either.
-  #
-  # Dropping `required` lets the component create with empty values; onLoaded
-  # then fills them in microseconds later. Bar.qml already tolerates this --
-  # its config reader falls back to fallbackBarConfig when barConfig is not a
-  # plain object.
-  apply_edit "$qml" "clone-load" 1 \
-    '^[[:space:]]*required property string omarchyPath[[:space:]]*$' \
-    "s|^\\([[:space:]]*\\)required property string omarchyPath[[:space:]]*\$|\\1property string omarchyPath: \"\" // $MARKER: clone-load (host injects in onLoaded)|"
-
-  apply_edit "$qml" "clone-load-var" 2 \
-    '^[[:space:]]*required property var (barWidgetRegistry|barConfig)[[:space:]]*$' \
-    "s@^\\([[:space:]]*\\)required property var \\(barWidgetRegistry\\|barConfig\\)[[:space:]]*\$@\\1property var \\2: null // $MARKER: clone-load-var (host injects in onLoaded)@"
-
-  # (1) bar-move drag and (3) double-click transparency both live in
+  # Bar-move drag and double-click transparency both live in
   # CenterGestureArea, the MouseArea filling the bar background. Disabling the
   # MouseArea drops both; widget clicks are unaffected, they have their own
   # MouseArea stacked above this one.
@@ -131,7 +107,7 @@ patch_bar_qml() {
     'CenterGestureArea \{ anchors\.fill: parent \}' \
     "s|CenterGestureArea { anchors.fill: parent }|CenterGestureArea { anchors.fill: parent; enabled: false } // $MARKER: bar-gestures (no edge drag, no double-click transparency)|g"
 
-  # (2) widget reordering is gated behind one property in ModuleSlot's
+  # Widget reordering is gated behind one property in ModuleSlot's
   # MouseArea. Pinning it false keeps the MouseArea live -- clicks, tooltips and
   # right-click menus all still work -- and only the drag path goes away.
   apply_edit "$qml" "widget-reorder" 1 \
@@ -207,10 +183,8 @@ HOOK_EOF
   chmod 755 -- "$HOOK"
 }
 
-# A bar that does not draw is worse than a bar you can drag. Omarchy's own
-# fallback-to-built-in path is broken (see the clone-load note above), so this
-# script owns the safety net: restart the shell, confirm the bar really mapped
-# its layer surface, and put the stock bar back if it did not.
+# Restart the shell, confirm the patched bar mapped its layer surface, and put
+# the stock bar back if it did not.
 bar_is_mapped() {
   hyprctl layers -j 2>/dev/null |
     jq -e 'any(.. | objects | select(has("namespace")); .namespace == "omarchy-bar")' >/dev/null 2>&1
@@ -262,10 +236,12 @@ revert() {
 do_reclone=0
 do_layout=0
 do_revert=0
+do_check=0
 
 while (( $# > 0 )); do
   case "$1" in
     --reclone) do_reclone=1 ;;
+    --check) do_check=1 ;;
     --layout) do_layout=1 ;;
     --revert) do_revert=1 ;;
     -h|--help) sed -n '2,40p' "$SELF"; exit 0 ;;
@@ -286,6 +262,7 @@ SRC=$(upstream_dir)
 [[ -n $SRC && -f $SRC/Bar.qml ]] || fail "could not locate the built-in $SOURCE_ID plugin"
 
 preflight "$SRC"
+(( do_check )) && { echo "Patch applies to current upstream."; exit 0; }
 (( do_layout )) && reset_layout
 make_clone "$do_reclone"
 echo "==> patching $CLONE_ID"
