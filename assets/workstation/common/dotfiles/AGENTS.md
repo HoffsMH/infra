@@ -80,35 +80,48 @@ My policy for comments, in every repo. Applies to comments you
   ask, or when your change made its claim false. If the repo has a
   real convention that conflicts, follow the repo and tell me.
 
+## Authority switches
+
+All three switches default to off. An explicit instruction from me enables
+only the named switch for the named project and task. Consent does not carry
+to another task. Once enabled, complete the authorized work without asking
+again.
+
+1. **Server and build:** Off means I own the project's server process and run
+   build or rebuild commands. When enabled, you may start, stop, build, and
+   rebuild for the specified project and task. This does not authorize database
+   changes or in-app verification.
+2. **Commit:** Off means I create Git commits. When enabled, you may stage only
+   the files for the specified commit and create it in the specified repo.
+   Use my commit-message guidance if I give it; otherwise inspect recent
+   messages in that repo and follow their style. Amending an existing commit
+   needs separate explicit consent.
+3. **Push:** Off means I push. When enabled, you may push only to the named
+   remote for the specified repo and task. Check the remote URL and target
+   branch before pushing. Consent for one remote does not cover another.
+   Force pushes need separate explicit consent.
+
 ## Git rules
 
-- **Never run `git commit`, `git commit --amend`, `git commit -a`,
-  or any other commit-creating invocation.** No exceptions. The user
-  reviews and commits themselves.
-- Same for `git push`, `git push --force`, `git rebase` (any flavor
-  that rewrites history), and `git reset --hard`.
-- OK to run on your own: `git status`, `git diff`, `git log`,
-  `git fetch`, `git remote -v`, `git show <ref>`, `git ls-files`.
-- OK to run with permission / when explicitly asked: `git add <path>`
-  (staging is fine; user will inspect before committing), `git pull
-  --ff-only` (fast-forward only, no merge commits).
+- `git rebase` and `git reset --hard` need separate explicit instructions.
+- `git add <path>` outside an enabled commit and `git pull --ff-only` need
+  explicit instructions.
+- OK to run on your own: `git status`, `git diff`, `git log`, `git fetch`,
+  `git remote -v`, `git show <ref>`, `git ls-files`.
 
-## GitHub / outward-facing writes
+## External written communication
 
-- **Never post to GitHub on my behalf — sister rule to
-  never-commit/never-push.** No PR or issue comments, no review
-  comments, no review submissions (approve / request-changes /
-  comment), no thread replies, reactions, or edits to PR/issue
-  titles, bodies, labels, or assignees -- via `gh`, the REST/GraphQL
-  API, an MCP server, or any other tool. **Absolute: no exceptions,
-  work repo or personal, and never "ask then do it."** If you have
-  something to say on a PR, write it in chat and I post it.
-- **Read-only GitHub is fine** and encouraged: `gh pr
-  view/list/diff/checks`, `gh run view`, `gh api` GET requests.
-  Anything that writes or mutates (comment, review, merge, close,
-  reopen, label, assign, edit, create) is mine to run.
-- Same spirit for every other outward channel -- Slack, email,
-  Asana/Jira comments, etc.: draft it in chat; I send it.
+- **Never write or send communication to an internet service on my behalf.**
+  Do not create or edit PRs or issues, comments, reviews, thread replies,
+  reactions, titles, bodies, labels, or assignees via `gh`, an API, an MCP
+  server, or any other tool. The same ban covers Slack, email, Asana/Jira,
+  gists, forums, and other outward channels. Do not ask to override it. Draft
+  the text in chat; I send it.
+- The sole exception for written communication is a commit message created
+  under the Commit switch. An authorized Push switch may transfer that commit
+  to its named remote; it does not authorize any other external write.
+- Read-only GitHub access is fine: `gh pr view/list/diff/checks`,
+  `gh run view`, and `gh api` GET requests.
 
 ## Runlog
 
@@ -175,35 +188,6 @@ My policy for comments, in every repo. Applies to comments you
   clipboard image.
 
 
-## Handing off work to another agent (plan / prompt / command)
-
-For substantial multi-step work -- or any work on a branch/repo/tool the
-user drives themselves -- don't just start editing. Package it as a
-hand-off the user can launch in a fresh agent, and let THEM launch it:
-
-1. **Write a plan file** in the project's plans dir (e.g. a repo's
-   `specs/**/plans/<name>.md`): the problem, the concrete steps with
-   `file:line` cites, what's in/out of scope, who runs what, and how to
-   verify. Save a copy: `cat plan.md | snip plans`.
-2. **Write a launch prompt** and save it: `cat prompt.md | snip prompt`.
-   A good hand-off prompt has: `study` lines (which files to read first --
-   a project may ship a template, e.g. a `PROMPT-*-TEMPLATE.md`); a
-   one-line scoped task; an IMPORTANT block of constraints; and a "work one
-   file/step at a time, then STOP for me to inspect" instruction.
-3. **Give the user a launch command**, don't run it yourself:
-   `cd <repo> && cat <snip-prompt-file> | claude`. The user drives
-   launching; do not spawn nested agents unless explicitly asked.
-
-Constraints every hand-off prompt should carry (they mirror my standing
-rules): the USER owns all git (commit/push/rebase) and typically build /
-server / DB -- the agent edits code and asks the user to run those; never
-post to GitHub; never trust a test you haven't seen fail; cite only
-`file:line` actually opened. State the who-runs-what boundary explicitly so
-the sub-agent doesn't run git or a build.
-
-Iterate on a hand-off by editing the plan/prompt and re-snipping (a fresh
-timestamped file); hand the user the newest command.
-
 ## Testing
 
 - **Never trust a test you haven't seen fail.** If you write a test
@@ -262,9 +246,11 @@ real file where a symlink should be is unversioned aftermarket; audit before
 trusting it.
 
 **Every skill must carry a boundaries block** repeating the rules above it
-could break: no external posting, no git writes, I own builds and
-verification, generated notes go to the nearest parent `specs/`. Third-party
-skills routinely violate all four -- read before installing, neuter in place.
+could break: no external communication except authorized commit messages,
+default-off server/build, commit, and push switches, I own databases and
+in-app verification, and generated notes go to the nearest parent `specs/`.
+Third-party skills routinely violate these boundaries -- read before
+installing, neuter in place.
 
 Installed: `research`, `domain-modeling`, `grilling`, `git`, `grill-me`,
 `youtube-summarizer`, `brave-search` (all infra-backed), and `omarchy`

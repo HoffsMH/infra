@@ -97,6 +97,9 @@ Useful references:
   behavior.
 - `assets/workstation/omarchy/xremap/config.yml` - Linux physical-key
   remapping.
+- `assets/workstation/omarchy/setup-bar.sh` - idempotent Omarchy bar setup:
+  clones and patches the bar plugin so it cannot be dragged. See
+  `assets/workstation/omarchy/specs/omarchy-shell/bar.md`.
 
 ## Dependencies
 

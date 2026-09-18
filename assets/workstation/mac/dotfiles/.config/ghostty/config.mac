@@ -1,5 +1,7 @@
 # Mac-specific bindings.
-keybind = cmd+f=text:\x1bf
+# Translate physical left-of-space prefixes to the shared terminal controls.
+keybind = cmd+f=text:\x06
+keybind = cmd+g=text:\x07
 keybind = cmd+d=text:\x1bd
 keybind = cmd+u=text:\x1bu
 keybind = cmd+enter=text:\x1b\r
