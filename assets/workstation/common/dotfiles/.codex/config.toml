@@ -8,3 +8,6 @@ url = "https://mcp.atlassian.com/v1/mcp/authv2"
 
 [projects."/Users/mh/code/paid/anvyl/sage-x3/xtrem-ssci"]
 trust_level = "trusted"
+
+[projects."/home/mh/infra"]
+trust_level = "trusted"
