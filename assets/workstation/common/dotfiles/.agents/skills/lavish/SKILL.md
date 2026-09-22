@@ -39,12 +39,15 @@ Once a review is over, move any artifact worth keeping to the nearest parent
   overrides). This is deliberate: tailnet devices may open review pages.
   Nothing leaves the tailnet; do not use hosted sharing (`share` / ht-ml.app)
   unless the user explicitly asks.
-- Never post to GitHub, an issue tracker, a gist, a forum, or any other
-  external service.
-- Do not run `git commit`, `git push`, `git rebase`, `git reset --hard`, or
-  `git add`. The user runs all git.
-- The user owns builds, servers, and databases. The agent writes the artifact
-  and asks the user to run anything that changes shared state.
+- Never send written communication to any external service. The only
+  exception is a commit message under the `~/AGENTS.md` Commit switch; an
+  authorized push may transfer it. Draft other text for the user to send.
+- The server/build, commit, and push switches in `~/AGENTS.md` default off
+  and require explicit task-scoped consent. Push consent is per remote.
+  `git add` outside an enabled commit and history rewrites need separate
+  explicit instructions.
+- The user owns databases and in-app verification. The user owns builds and
+  servers unless the server/build switch in `~/AGENTS.md` is enabled.
 - Generated notes and finished artifacts that should outlive the session go to
   the nearest parent `specs/` folder, never inside a published repo's tree.
 - Never leave `lavish-axi poll` running as a blocking foreground process the

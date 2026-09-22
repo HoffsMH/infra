@@ -147,3 +147,10 @@ key = "prefix+g"
 type = "shell"
 command = "$HOME/bin/lzg.herdr-wrapper"
 description = "lazygit tab"
+
+# Force every enabled remote machine to disconnect and reconnect.
+[[keys.command]]
+key = "prefix+shift+r"
+type = "shell"
+command = "for id in $(herdr machine list | awk '$NF == \"enabled\" { print $1 }'); do herdr machine disable \"$id\" && herdr machine enable \"$id\"; done"
+description = "reconnect remote machines"

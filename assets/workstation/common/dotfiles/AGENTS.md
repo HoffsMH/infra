@@ -48,6 +48,24 @@ debugging anything.
   to see if they answer any of those questions
 
 
+## Delegation
+
+- Abbreviation: sa <task>
+  - means send a subagent to accomplish the task, rather than doing it
+    inline in this session.
+  - If it fails, or its report does not make the reason crystal clear,
+    send a SECOND subagent to read the first one's transcript -- the
+    newest agent-*.jsonl under ~/.claude/projects/*/*/subagents/ -- and
+    report what blocked it. The .meta.json beside it carries toolUseId,
+    which maps back to the Agent call you made. Do not read that
+    transcript yourself -- the point is keeping it out of this context.
+  - `sa` alone means send a subagent to do what you were already about to do.
+
+- Without `sa`, never delegate silently. If a task looks substantial
+  enough to benefit (broad search, multi-file sweep, anything whose tool
+  output I do not need to see), say so in one line and offer.
+
+
 ## File-edit rules
 
 - `~/.config/**` — runtime config; editing in place is fine.

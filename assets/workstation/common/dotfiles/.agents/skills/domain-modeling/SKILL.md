@@ -81,11 +81,15 @@ decision, the alternatives rejected and why, and the consequences.
 
 - Never write inside a repo that gets published. The glossary and decision
   records belong under the nearest parent `specs/`.
-- Never post anything to GitHub, an issue tracker, or any other external
-  service. Write the text and hand it to the user.
-- Do not run `git commit`, `git push`, `git rebase`, `git reset --hard`, or
-  `git add`. The user runs all git.
-- The user owns builds, servers, databases, and every in-app verification. Where
-  one of those is needed, hand over a precise checklist instead of running it.
+- Never send written communication to any external service. The only
+  exception is a commit message under the `~/AGENTS.md` Commit switch; an
+  authorized push may transfer it. Draft other text for the user to send.
+- The server/build, commit, and push switches in `~/AGENTS.md` default off
+  and require explicit task-scoped consent. Push consent is per remote.
+  `git add` outside an enabled commit and history rewrites need separate
+  explicit instructions.
+- The user owns databases and every in-app verification. The user owns builds
+  and servers unless the server/build switch in `~/AGENTS.md` is enabled.
+  For actions the user owns, hand over a precise checklist.
 
 Adapted from mattpocock/skills (MIT, Copyright (c) 2026 Matt Pocock).

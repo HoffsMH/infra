@@ -1,4 +1,7 @@
 {
+  "env": {
+    "BU_NAME": "ssci-google-chrome"
+  },
   "permissions": {
     "allow": [
       "Read(//var/folders/*/*/T/claude-clipboard-*/**)",
@@ -33,7 +36,8 @@
   "enabledPlugins": {
     "clangd-lsp@claude-plugins-official": true,
     "ruby-lsp@claude-plugins-official": true,
-    "i-have-adhd@i-have-adhd": true
+    "i-have-adhd@i-have-adhd": true,
+    "browser-use@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "i-have-adhd": {

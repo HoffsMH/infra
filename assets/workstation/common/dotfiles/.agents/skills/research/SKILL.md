@@ -22,10 +22,13 @@ Its job:
 
 - Repos here get published. Research notes are private working knowledge, so
   they live in `specs/`, above the repos, and never in a repo's own tree.
-- Never post findings to GitHub, an issue tracker, a gist, a forum, or any other
-  external service. Write the text and hand it to the user to post.
-- Do not run `git commit`, `git push`, `git rebase`, `git reset --hard`, or
-  `git add`. The user runs all git.
+- Never send written communication to any external service. The only
+  exception is a commit message under the `~/AGENTS.md` Commit switch; an
+  authorized push may transfer it. Draft other text for the user to send.
+- The server/build, commit, and push switches in `~/AGENTS.md` default off
+  and require explicit task-scoped consent. Push consent is per remote.
+  `git add` outside an enabled commit and history rewrites need separate
+  explicit instructions.
 - If a claim cannot be traced to a primary source, say so in the file rather
   than repeating it. An unverified claim is a finding about the sources.
 
