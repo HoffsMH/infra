@@ -148,9 +148,12 @@ type = "shell"
 command = "$HOME/bin/lzg.herdr-wrapper"
 description = "lazygit tab"
 
-# Force every enabled remote machine to disconnect and reconnect.
+# Force every enabled remote machine to disconnect and reconnect. The client
+# picks that up by watching the saved-machine catalog, so the wrapper sweeps all
+# machines down, waits, then brings them back up: disabling and re-enabling one
+# machine back to back writes two states the watcher reads as no change.
 [[keys.command]]
 key = "prefix+shift+r"
 type = "shell"
-command = "for id in $(herdr machine list | awk '$NF == \"enabled\" { print $1 }'); do herdr machine disable \"$id\" && herdr machine enable \"$id\"; done"
+command = "$HOME/bin/herdr-reconnect.herdr-wrapper"
 description = "reconnect remote machines"
