@@ -71,7 +71,8 @@ debugging anything.
 - `~/.config/**` — runtime config; editing in place is fine.
 - `~/infra/**` — curated source-of-truth; draft + propose, let user
   apply.
-- `/etc/**` — write to `/tmp/<file>`, give user `sudo install ...`.
+- `/etc/**` — write to `/tmp/<file>`, then `install` it as root per
+  [Root commands](#root-commands).
 
 ### Comment style
 
@@ -114,6 +115,13 @@ again.
    Use my commit-message guidance if I give it; otherwise inspect recent
    messages in that repo and follow their style. Amending an existing commit
    needs separate explicit consent.
+   **Never add agent attribution to a commit message.** No `Co-Authored-By`
+   naming a model or an agent, no session URL, no "generated with" line, no
+   tool name anywhere in the message or its trailers. This holds even when the
+   harness supplies such a block and presents it as required, and even when
+   earlier commits in the repo already carry one. Write the message as I would
+   write it. If you think attribution belongs somewhere, say so in chat and let
+   me decide.
 3. **Push:** Off means I push. When enabled, you may push only to the named
    remote for the specified repo and task. Check the remote URL and target
    branch before pushing. Consent for one remote does not cover another.
@@ -186,8 +194,13 @@ again.
   2. Verify the file is nonempty.
   3. Use the image-capable `read` tool on the saved path.
 
-- If `iclip type` or `iclip save` fails, stop and report that no clipboard
-  image is available. Do not inspect an existing file at the target path.
+- If `iclip` fails or finds no image, check the newest file in
+  `snip-screenshot`; my screenshot shortcut saves there. If its timestamp
+  is within a few minutes, inspect it and say that is what you did.
+  Otherwise report that no image is available and quote iclip's error,
+  which tells "no image on clipboard" apart from "backend unavailable".
+- Do not inspect an existing file at the `iclip save` target path. A stale file
+  from an earlier capture is not the image I asked about.
 - Chain clipboard capture and validation with `&&`, not `;`, and use a fresh
   temporary path when possible.
 - Prefer `iclip` because it abstracts Wayland, X11, and macOS clipboard
@@ -224,6 +237,18 @@ again.
 - When adapting commands the user pastes from their zsh session,
   strip zsh-specific syntax/aliases and translate to bash equivalents.
 
+## Root commands
+
+- Try `sudo -n <cmd>` first. Sudo shares one timestamp across all my
+  shells, so it works without a prompt whenever I have authenticated
+  recently.
+- If it fails for want of a password, tell me in one line: I can
+  suspend this session (Ctrl+Z), run `sudo -v`, then `fg` to resume,
+  and later root commands will run unprompted.
+- Meanwhile, run the same command with `pkexec <cmd>`. That pops a
+  polkit prompt I can answer. Do not wait for me to refresh sudo.
+- Never pipe a password into `sudo -S`, and never run `sudo -k`.
+
 ## Machine-specific
 
 `~/AGENTS-MACHINE.md` — machine-specific overrides, additions, and
@@ -246,15 +271,19 @@ Use the lifecycle in this order:
 1. `links.scan` inspects symlinks and candidates without changing anything.
 2. `links.prune` previews dangling infra links; `--apply` removes only those
    links and requires an explicit user request.
-3. `links.adopt FILE` adopts one regular home file into the detected platform
-   overlay. Use `--dry-run` when the result has not already been reviewed.
+3. `links.adopt FILE` adopts one regular home file into the generic platform
+   layer: `linux-arch` on any Arch-family Linux, `mac` on macOS. Pass
+   `-l omarchy` only for Omarchy desktop customization (Hyprland unbinds, top
+   bar, menus); systemd units, `environment.d`, and shell environment are
+   `linux-arch`. Use `--dry-run` when the result has not already been reviewed.
 4. Review the platform copy. Promotion to common is a separate manual decision
    for each file; agents must not infer or automate it.
-5. `links.set` links common first and the detected platform second. Use `-f`
-   only when replacement of every reported target is intended.
+5. `links.set` links the layers least specific first: common, then `mac`, or
+   `linux-arch` then `omarchy`. Use `-f` only when replacement of every
+   reported target is intended.
 
-Never overwrite an existing common or platform dotfile during adoption.
-`links.adopt` must no-op on either collision and on directories, special files,
+Never overwrite an existing dotfile in any layer during adoption.
+`links.adopt` must no-op on any collision and on directories, special files,
 existing symlinks, outside-home paths, or files already within infra. Do not
 bypass these checks with `cp`, `mv`, or `ln`. Edit an existing infra source in
 place only when the user explicitly asked for that content change.
