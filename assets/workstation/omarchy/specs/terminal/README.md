@@ -6,5 +6,6 @@ The terminal-app -> tmux -> shell stack.
 |---|---|
 | Ghostty configuration and default-terminal selection | [ghostty.md](ghostty.md) |
 | tmux configuration and helper scripts | [tmux.md](tmux.md) |
+| Herdr: pane history in nvim, server environment | [herdr.md](../../../common/specs/terminal/herdr.md) |
 | zsh setup, plugins, .zshrc structure | [shell.md](shell.md) |
 | Neovim (three modes: base / text-editor / ide) | [nvim.md](nvim.md) |

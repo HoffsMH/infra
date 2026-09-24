@@ -1,18 +1,25 @@
 #!/bin/bash
 
 dry_run=false
+layer=""
+usage='Usage: %s [-n|--dry-run] [-l|--layer LAYER] FILE\n'
 
 while [ $# -gt 0 ]; do
   case "$1" in
     -n|--dry-run) dry_run=true; shift ;;
+    -l|--layer)
+      [ $# -ge 2 ] || { printf "$usage" "${0##*/}" >&2; exit 2; }
+      layer="$2"; shift 2
+      ;;
     -h|--help)
-      printf 'Usage: %s [-n|--dry-run] FILE\n\n' "${0##*/}"
-      printf 'Adopt one HOME file into the active platform dotfiles.\n'
+      printf "$usage\n" "${0##*/}"
+      printf 'Adopt one HOME file into a platform layer of the infra dotfiles.\n'
+      printf 'LAYER defaults to the least specific platform layer (linux-arch, mac).\n'
       exit 0
       ;;
     --) shift; break ;;
     -*)
-      printf 'Usage: %s [-n|--dry-run] FILE\n' "${0##*/}" >&2
+      printf "$usage" "${0##*/}" >&2
       exit 2
       ;;
     *) break ;;
@@ -20,7 +27,7 @@ while [ $# -gt 0 ]; do
 done
 
 if [ $# -ne 1 ]; then
-  printf 'Usage: %s [-n|--dry-run] FILE\n' "${0##*/}" >&2
+  printf "$usage" "${0##*/}" >&2
   exit 2
 fi
 
@@ -33,25 +40,36 @@ else
   exit 1
 fi
 
-is_omarchy() (
-  ID=
+# Dotfile layers under assets/workstation/, least specific first. Arch-family
+# Linux gets linux-arch; Omarchy adds its own layer on top of that.
+read -r os_id os_like < <(
+  ID= ID_LIKE=
   if [ -f /etc/os-release ]; then
     . /etc/os-release
   elif [ -f /usr/lib/os-release ]; then
     . /usr/lib/os-release
   fi
-  [ "$ID" = omarchy ]
+  printf '%s %s\n' "$ID" "$ID_LIKE"
 )
 
+layers=(common)
 if [ "$(uname)" = "Darwin" ]; then
-  platform="macOS"
-  platform_dir="$infradir/assets/workstation/mac/dotfiles"
-elif [ "$(uname)" = "Linux" ] && is_omarchy; then
-  platform="Omarchy"
-  platform_dir="$infradir/assets/workstation/omarchy/dotfiles"
+  layers+=(mac)
+elif [ "$(uname)" = "Linux" ] && [[ " $os_id $os_like " = *" arch "* ]]; then
+  layers+=(linux-arch)
+  [ "$os_id" = omarchy ] && layers+=(omarchy)
 else
-  printf 'Unsupported platform: %s\n' "$(uname)" >&2
+  printf 'Unsupported platform: %s %s\n' "$(uname)" "$os_id" >&2
   exit 1
+fi
+
+# Promotion to common is a manual decision, so common is never a target. The
+# default is the least specific platform layer: desktop-specific files (omarchy)
+# have to be asked for.
+[ -n "$layer" ] || layer="${layers[1]}"
+if [ "$layer" = common ] || [[ " ${layers[*]} " != *" $layer "* ]]; then
+  printf 'Error: layer must be one of: %s\n' "${layers[*]:1}" >&2
+  exit 2
 fi
 
 if [ -t 1 ] && [ -z "${NO_COLOR:-}" ]; then
@@ -106,36 +124,34 @@ case "$source" in
 esac
 
 relative=${source#"$home_root"}
-common_target="$infradir/assets/workstation/common/dotfiles$relative"
-platform_target="$platform_dir$relative"
+layer_target="$infradir/assets/workstation/$layer/dotfiles$relative"
 
-if [ -e "$common_target" ] || [ -L "$common_target" ]; then
-  warn "common dotfile already exists: $common_target"
-fi
+for active in "${layers[@]}"; do
+  existing="$infradir/assets/workstation/$active/dotfiles$relative"
+  if [ -e "$existing" ] || [ -L "$existing" ]; then
+    warn "$active dotfile already exists: $existing"
+  fi
+done
 
-if [ -e "$platform_target" ] || [ -L "$platform_target" ]; then
-  warn "$platform dotfile already exists: $platform_target"
-fi
-
-printf '%slinks.adopt%s  %s%s%s\n' "$bold" "$reset" "$dim" "$platform" "$reset"
+printf '%slinks.adopt%s  %s%s%s\n' "$bold" "$reset" "$dim" "$layer" "$reset"
 printf '  source: %s\n' "$source"
-printf '  target: %s\n' "$platform_target"
+printf '  target: %s\n' "$layer_target"
 
 if [ "$dry_run" = true ]; then
   printf '  %s[?] would copy and link%s\n' "$cyan" "$reset"
   exit 0
 fi
 
-target_dir=$(dirname "$platform_target")
+target_dir=$(dirname "$layer_target")
 temporary_link="$source.links-adopt.$$"
 if [ -e "$temporary_link" ] || [ -L "$temporary_link" ]; then
   warn "temporary path already exists: $temporary_link"
 fi
 
 mkdir -p "$target_dir" || warn "cannot create target directory: $target_dir"
-cp -p "$source" "$platform_target" || warn "copy failed: $platform_target"
+cp -p "$source" "$layer_target" || warn "copy failed: $layer_target"
 
-if ! ln -s "$platform_target" "$temporary_link"; then
+if ! ln -s "$layer_target" "$temporary_link"; then
   warn "could not create replacement symlink: $temporary_link"
 fi
 
@@ -144,5 +160,5 @@ if ! mv -f "$temporary_link" "$source"; then
   warn "could not replace source with symlink: $source"
 fi
 
-printf '  %s[+] adopted into %s%s\n' "$green" "$platform" "$reset"
+printf '  %s[+] adopted into %s%s\n' "$green" "$layer" "$reset"
 printf '  %sReview the infra copy before promoting it to common.%s\n' "$dim" "$reset"

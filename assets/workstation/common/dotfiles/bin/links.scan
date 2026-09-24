@@ -91,24 +91,26 @@ print_row() {
   printf '\n'
 }
 
-is_omarchy() (
-  ID=
+# Dotfile layers under assets/workstation/, least specific first. Arch-family
+# Linux gets linux-arch; Omarchy adds its own layer on top of that.
+read -r os_id os_like < <(
+  ID= ID_LIKE=
   if [ -f /etc/os-release ]; then
     . /etc/os-release
   elif [ -f /usr/lib/os-release ]; then
     . /usr/lib/os-release
   fi
-  [ "$ID" = omarchy ]
+  printf '%s %s\n' "$ID" "$ID_LIKE"
 )
 
+layers=(common)
 if [ "$(uname)" = "Darwin" ]; then
-  platform="macOS"
-  platform_dir="$infradir/assets/workstation/mac/dotfiles"
-elif [ "$(uname)" = "Linux" ] && is_omarchy; then
-  platform="Omarchy"
-  platform_dir="$infradir/assets/workstation/omarchy/dotfiles"
+  layers+=(mac)
+elif [ "$(uname)" = "Linux" ] && [[ " $os_id $os_like " = *" arch "* ]]; then
+  layers+=(linux-arch)
+  [ "$os_id" = omarchy ] && layers+=(omarchy)
 else
-  printf 'Unsupported platform: %s\n' "$(uname)" >&2
+  printf 'Unsupported platform: %s %s\n' "$(uname)" "$os_id" >&2
   exit 1
 fi
 
@@ -214,8 +216,10 @@ scan_dotfiles() {
   done < <(find "$source_dir" -type f -print0)
 }
 
-scan_dotfiles "$infradir/assets/workstation/common/dotfiles" "Common"
-scan_dotfiles "$platform_dir" "$platform"
+for layer in "${layers[@]}"; do
+  layer_dir="$infradir/assets/workstation/$layer/dotfiles"
+  [ -d "$layer_dir" ] && scan_dotfiles "$layer_dir" "$layer"
+done
 
 scan_errors=0
 if [ -s "$find_errors" ]; then
