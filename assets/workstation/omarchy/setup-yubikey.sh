@@ -5,7 +5,7 @@
 # What this script does:
 #   1. Installs yubikey-manager, yubikey-personalization, pcsc-tools, libfido2
 #   2. Enables and starts pcscd.service (smartcard daemon)
-#   3. Symlinks ~/.gnupg/gpg-agent.conf and ~/.ssh/config from infra
+#   3. Symlinks ~/.gnupg/{gpg-agent,scdaemon}.conf and ~/.ssh/config from infra
 #   4. Creates a gitignored ~/.ssh/config.local skeleton (if missing)
 #   5. Sets correct permissions on ~/.gnupg and ~/.ssh
 #
@@ -29,8 +29,9 @@ echo "==> ~/.gnupg with correct permissions"
 mkdir -p "$HOME/.gnupg"
 chmod 700 "$HOME/.gnupg"
 
-echo "==> symlinking gpg-agent.conf"
+echo "==> symlinking gpg-agent.conf and scdaemon.conf"
 ln -sf "$HERE/dotfiles/.gnupg/gpg-agent.conf" "$HOME/.gnupg/gpg-agent.conf"
+ln -sf "$HERE/dotfiles/.gnupg/scdaemon.conf" "$HOME/.gnupg/scdaemon.conf"
 
 echo "==> ~/.ssh with correct permissions"
 mkdir -p "$HOME/.ssh"
