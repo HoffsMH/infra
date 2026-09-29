@@ -11,9 +11,9 @@ keep its rationale.
 - **Symlink remaining configs into infra**:
   - `~/.config/tmux/tmux.conf` (currently in-place)
   - `~/.zshrc` (currently in-place)
-  - `~/.config/hypr/{monitors,input,looknfeel,autostart}.conf` (in-place)
+  - `~/.config/hypr/{monitors,input,looknfeel,autostart}.lua` (in-place)
   - Each move: write infra source-of-truth file, back up current,
-    symlink. Same pattern as ghostty + personal.conf / omarchy-unbinds.conf.
+    symlink. Same pattern as ghostty + hypr/bindings.lua.
 - **Bootstrap automation**: build a small set of idempotent shell
   setup scripts for a fresh Omarchy install. Keep package installation,
   linking, and post-auth handoff separate enough to resume safely.
@@ -33,8 +33,8 @@ keep its rationale.
   unbound (Omarchy SUPER+TAB family was opted out and not replaced).
   Add HYPER+Tab if an "alt-tab" feel is missed.
 - **Watch `omarchy-update` audits**: each time it runs, review newly-
-  added bindings in `~/.local/share/omarchy/default/hypr/bindings/*.conf`
-  against `omarchy-unbinds.conf`. Add unbinds where new defaults
+  added bindings in Omarchy's `default/hypr/bindings/*.lua`
+  against the opt-outs in `bindings.lua`. Add unbinds where new defaults
   conflict.
 - **Review common and Omarchy helpers**: decide which shared helpers
   belong in `common/dotfiles/bin` and which Linux mechanics belong in

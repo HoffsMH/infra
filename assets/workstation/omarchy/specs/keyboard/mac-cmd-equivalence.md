@@ -34,7 +34,7 @@ the moment the keyboard remap is in place.
 | App launcher | Cmd+Space | `CTRL, SPACE -> omarchy-launch-walker` |
 | Omarchy menu (system-y omnibox) | n/a | `SUPER CTRL, SPACE -> omarchy-menu` |
 
-These live in `personal.conf`.
+These live in `bindings.lua`.
 
 ## Gotchas
 

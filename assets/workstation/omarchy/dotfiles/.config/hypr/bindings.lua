@@ -1,6 +1,4 @@
--- Personal keybinding layer. Ported from
--- ~/infra/assets/workstation/omarchy/dotfiles/.config/hypr/{omarchy-unbinds,personal}.conf
--- (conf form, older Omarchy) to the Omarchy 4.0.2 lua API.
+-- Personal keybinding layer.
 --
 -- Modifier vocabulary (via xremap, /etc/xremap/config.yml):
 --   left-of-spacebar  -> Ctrl (Mac Cmd-equivalent; tap = Esc)
@@ -74,7 +72,7 @@ for key, ws in pairs(hyper_workspaces) do
 end
 
 
--- ===== Window rules (from personal.conf; inert where the apps are absent) =====
+-- ===== Window rules (inert where the apps are absent) =====
 
 -- WoW (Battle.net via Lutris/umu/Proton; Hyprland sees class=steam_app_default)
 o.window({ class = "^(steam_app_default)$", title = "^(World of Warcraft)$" }, {

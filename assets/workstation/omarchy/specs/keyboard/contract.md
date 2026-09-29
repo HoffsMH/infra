@@ -4,8 +4,7 @@ A checklist of key combos that should produce specific behaviors on this
 host. Walk through it after any change to:
 
 - `~/infra/assets/workstation/omarchy/xremap/config.yml`
-- `~/infra/assets/workstation/omarchy/dotfiles/.config/hypr/personal.conf`
-- `~/infra/assets/workstation/omarchy/dotfiles/.config/hypr/omarchy-unbinds.conf`
+- `~/infra/assets/workstation/omarchy/dotfiles/.config/hypr/bindings.lua`
 - The NuPhy firmware (rare, but if caps remap changes everything downstream
   has to be rechecked)
 

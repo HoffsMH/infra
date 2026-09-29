@@ -1,7 +1,7 @@
 # Window rules
 
 Generic patterns for `windowrule { ... }` blocks live here. Specific
-rules for individual applications are in `personal.conf` next to the
+rules for individual applications are in `bindings.lua` next to the
 keybindings.
 
 ## Hyprland 0.54 syntax

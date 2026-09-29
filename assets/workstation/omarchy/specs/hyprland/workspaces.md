@@ -19,7 +19,7 @@ workspace is current on the focused monitor.
 
 All workspace switching and "move active window to workspace" lives on
 HYPER (right-of-spacebar). Omarchy's `SUPER+1..0` workspace bindings are
-opted out via `omarchy-unbinds.conf` so SUPER stays unencumbered.
+opted out in `bindings.lua` so SUPER stays unencumbered.
 
 | Combo | Action |
 |---|---|

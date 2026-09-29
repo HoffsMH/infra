@@ -18,7 +18,7 @@ or while reading something on a different monitor.
 
 ## SUPER+drag mouse
 
-Omarchy default. Kept intentionally; not unbound by `omarchy-unbinds`.
+Omarchy default. Kept intentionally; not unbound in `bindings.lua`.
 Right-hand-on-mouse muscle memory for moving and resizing tiled or
 floating windows. Specifically:
 

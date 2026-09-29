@@ -25,7 +25,7 @@ to fall back to a more vanilla Omarchy.
 
 **Implication:** new Omarchy defaults arriving via `omarchy-update` are
 audited against the personal layer and either inherited (silent fall-
-through) or explicitly opted out of via `omarchy-unbinds.conf`.
+through) or explicitly opted out of in `bindings.lua`.
 
 ## 3. Declarative over imperative
 
