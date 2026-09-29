@@ -78,7 +78,9 @@ useful to remember later.
   - `LeftCtrl` -> Alt
   - `RightAlt` -> tap=RightAlt / hold=HYPER chord (Ctrl+Alt+Super)
 - Auxiliary thumb-pad input device rewritten to `Ctrl+<key>` via a
-  device-scoped xremap `keymap` block.
+  device-scoped xremap `keymap` block, except thumb 2, which a `modmap`
+  entry sends as `KP2`: a keymap remap re-fires its chord at the
+  autorepeat rate, so a held button never reads as one sustained press.
 - `Ctrl+H/J/K/L` -> arrow keys via xremap (left-of-spacebar arrow
   layer; `Ctrl` is what `LeftAlt` produces when held).
 - `Alt+H/J/K/L` -> arrow keys also via xremap. Reason: Caps and

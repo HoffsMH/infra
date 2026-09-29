@@ -50,6 +50,10 @@ hurts, restore the block in `xremap/config.yml` and solve the Naga
 collision a different way (e.g. switch '3' to F13 in the Naga keymap and
 rebind in WoW). Mirrored in `~/personal/omarchy-gaming/specs/done.md`.
 
+Thumb 2 is the exception to `Ctrl+<key>`: a device-scoped `modmap` sends
+it as `KP2`, so holding it reaches the game as one sustained press (a
+keymap chord re-fires at the autorepeat rate). WoW binds `NUMPAD2`.
+
 ## Tmux prefix
 
 | Press | Should produce |

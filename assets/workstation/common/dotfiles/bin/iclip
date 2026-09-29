@@ -39,6 +39,16 @@ backend_unavailable() {
     die "$backend clipboard backend unavailable"
 }
 
+# Print the offered MIME types; print nothing for an empty clipboard.
+wayland_types() {
+    local out
+    if ! out=$(wayland_clipboard_command wl-paste --list-types 2>&1); then
+        [[ "$out" == *"Nothing is copied"* ]] && return 0
+        backend_unavailable
+    fi
+    printf '%s\n' "$out"
+}
+
 no_backend() {
     clipboard_detection_report >&2
     die "no clipboard backend available"
@@ -49,7 +59,7 @@ img_type() {
     if [[ "$backend" == "wayland" ]]; then
         local types
         command -v wl-paste >/dev/null 2>&1 || backend_unavailable
-        types=$(wayland_clipboard_command wl-paste --list-types 2>/dev/null) || backend_unavailable
+        types=$(wayland_types) || exit 1
         case "$types" in
             *image/png*)  echo png ;;
             *image/jpeg*) echo jpg ;;
@@ -89,7 +99,7 @@ img_save() {
     if [[ "$backend" == "wayland" ]]; then
         command -v wl-paste >/dev/null 2>&1 || backend_unavailable
         local types t
-        types=$(wayland_clipboard_command wl-paste --list-types 2>/dev/null) || backend_unavailable
+        types=$(wayland_types) || exit 1
         t=$(grep -m1 '^image/' <<< "$types" || true)
         [[ -n "$t" ]] || die "no image on clipboard"
         wayland_clipboard_command wl-paste --type "$t" > "$out" || backend_unavailable
