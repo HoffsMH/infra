@@ -1,0 +1,1 @@
+OPTS="-config.path=/etc/process-exporter/local.yaml -web.listen-address=127.0.0.1:9256 -threads=false -gather-smaps=false"
