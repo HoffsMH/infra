@@ -66,8 +66,8 @@ focus_pane_right = "prefix+l"
 rename_pane = "prefix+shift+o"
 
 # Windows -> tabs
-# Tabs are created by splitting a pane, then promoting it with prefix+p below.
-new_tab = ""
+# Left-of-space + t, which xremap sends as ctrl+t.
+new_tab = "ctrl+t"
 # tmux default for rename-window is prefix+, ; prefix+r is reload above
 rename_tab = "prefix+comma"
 # tmux: prefix & = kill-window; prefix+k is select-pane -U above
