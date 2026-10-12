@@ -143,6 +143,10 @@ again.
   server, or any other tool. The same ban covers Slack, email, Asana/Jira,
   gists, forums, and other outward channels. Do not ask to override it. Draft
   the text in chat; I send it.
+- **Never change the state of anything on an internet service either.** No
+  resolving or unresolving review threads, approving, requesting changes,
+  dismissing reviews, merging, closing, reopening, or marking ready for
+  review, even when I ask in the moment. Tell me what to click; I do it.
 - The sole exception for written communication is a commit message created
   under the Commit switch. An authorized Push switch may transfer that commit
   to its named remote; it does not authorize any other external write.
