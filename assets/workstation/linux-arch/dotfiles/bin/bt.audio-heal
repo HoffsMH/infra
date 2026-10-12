@@ -1,0 +1,31 @@
+#!/bin/bash
+# Reconnect a Bluetooth headset when its A2DP stream fails to start.
+# Multipoint headsets (Bose QC Ultra) can refuse the stream after being
+# taken off and put back on; only a full reconnect clears it.
+#
+# Usage: bt.audio-heal          follow the wireplumber journal
+#        bt.audio-heal --stdin  read log lines from stdin (testing)
+
+cooldown=60
+declare -A last
+
+if [ "$1" = "--stdin" ]; then
+  src=(cat)
+else
+  src=(journalctl --user -u wireplumber -f -n 0 -o cat)
+fi
+
+"${src[@]}" | while read -r line; do
+  [[ $line =~ Failure\ in\ Bluetooth\ audio\ transport\ /org/bluez/hci[0-9]+/dev_([0-9A-F_]{17}) ]] || continue
+  mac=${BASH_REMATCH[1]//_/:}
+  now=$(date +%s)
+  (( now - ${last[$mac]:-0} < cooldown )) && continue
+  last[$mac]=$now
+
+  echo "transport failure on $mac, reconnecting"
+  [ -n "$BT_HEAL_DRY_RUN" ] && continue
+  bluetoothctl disconnect "$mac" >/dev/null
+  sleep 3
+  bluetoothctl connect "$mac" >/dev/null
+  notify-send -t 4000 "Bluetooth audio" "Reconnected $(bluetoothctl info "$mac" | sed -n 's/^\tName: //p')"
+done

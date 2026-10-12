@@ -18,6 +18,7 @@ Scope: workstation for software work.
 | Omarchy shell: status bar, gestures, plugin clones | [omarchy-shell/](omarchy-shell/) |
 | Terminal stack: ghostty, tmux, zsh, neovim | [terminal/](terminal/) |
 | Mouse + other input devices | [input-devices/](input-devices/) |
+| Bluetooth audio: headset reconnect | [bluetooth/](bluetooth/) |
 | AI tooling, default-app choices | [applications/](applications/) |
 | Recovering from forked/abandoned conversation transcripts | [transcript-recovery.md](transcript-recovery.md) |
 | What's still open | [todo.md](todo.md) |

@@ -81,4 +81,5 @@ run_phase scaffolding "$INFRA_DIR/assets/workstation/common/dotfiles/bin/set.sca
 run_phase yubikey "$OMARCHY_DIR/setup-yubikey.sh"
 run_phase xremap "$OMARCHY_DIR/setup-xremap.sh"
 run_phase syncthing systemctl --user enable --now syncthing.service
+run_phase bt-audio-heal systemctl --user enable --now bt-audio-heal.service
 write_handoff
